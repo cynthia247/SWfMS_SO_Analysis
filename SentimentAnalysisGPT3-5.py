@@ -4,7 +4,7 @@ import pause
 import csv
 
 df = pd.read_csv("SO_Workflow_Data.csv")
-openai.api_key = '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'
+openai.api_key = '<Your_API>'
 
 df = df.iloc[7048:]
 print(df[['Body']].head(5))

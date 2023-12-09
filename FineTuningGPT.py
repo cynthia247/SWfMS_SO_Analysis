@@ -1,6 +1,6 @@
 import os
 import openai
-openai.api_key = "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"
+openai.api_key = "<your_API>"
 
 ### Upload the file
 

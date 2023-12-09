@@ -4,7 +4,7 @@ import pause
 import csv
 
 df = pd.read_csv("../dataset/StackOverflow_test_dataset.csv")
-openai.api_key = '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'
+openai.api_key = '<Your_Api>'
 
 df = df.iloc[382:]
 print(df[['comments']].head(5))
