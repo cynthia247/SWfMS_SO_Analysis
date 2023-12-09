@@ -1,0 +1,1376 @@
+,Id,Title,Body,RatingsSentiCR,RatingsGPT35,RatingsGPTFineTuned,merged,topic
+0,45015116,Apache Airflow Continous Integration Workflow and Dependency management,"I'm thinking of starting to use Apache Airflow for a project and am wondering how people manage continuous integration and dependencies with airflow. More specifically
+Say I have the following set up
+
+3 Airflow servers: dev staging and production.
+
+I have two python DAG'S whose source code I want to keep in seperate repos.
+The DAG's themselves are simple, basically just use a Python operator to call main(*args, **kwargs). However the actually code that's run by main is very large and stretches several files/modules.
+Each python code base has different dependencies
+for example,
+
+Dag1 uses Python2.7 pandas==0.18.1, requests=2.13.0
+
+Dag2 uses Python3.6 pandas==0.20.0 and Numba==0.27 as well as some cythonized code that needs to be compiled
+
+How do I manage Airflow running these two Dag's with completely different dependencies?
+Also, how do I manage the continuous integration of the code for both these Dags into each different Airflow enivornment (dev, staging, Prod)(do I just get jenkins or something to ssh to the airflow server and do something like git pull origin BRANCH)
+
+Hopefully this question isn't too vague and people see the problems i'm having.
+",1,1,-1.0,"Apache Airflow Continous Integration Workflow and Dependency management-I'm thinking of starting to use Apache Airflow for a project and am wondering how people manage continuous integration and dependencies with airflow. More specifically
+Say I have the following set up
+
+3 Airflow servers: dev staging and production.
+
+I have two python DAG'S whose source code I want to keep in seperate repos.
+The DAG's themselves are simple, basically just use a Python operator to call main(*args, **kwargs). However the actually code that's run by main is very large and stretches several files/modules.
+Each python code base has different dependencies
+for example,
+
+Dag1 uses Python2.7 pandas==0.18.1, requests=2.13.0
+
+Dag2 uses Python3.6 pandas==0.20.0 and Numba==0.27 as well as some cythonized code that needs to be compiled
+
+How do I manage Airflow running these two Dag's with completely different dependencies?
+Also, how do I manage the continuous integration of the code for both these Dags into each different Airflow enivornment (dev, staging, Prod)(do I just get jenkins or something to ssh to the airflow server and do something like git pull origin BRANCH)
+
+Hopefully this question isn't too vague and people see the problems i'm having.
+",1
+1,45450618,Connect to Teradata Using Airflow JDBC Connection,"I'm trying to execute a SqlSensor task in Airflow using a connection to Teradata database. The connection is configured as follow:
+
+
+
+I have provide in particular 2 driver paths separated by "", "" but I am not sure if it's the proper way to do it?
+
+
+/home/airflow/java_sample/tdgssconfig.jar
+/home/airflow/java_sample/terajdbc4.jar
+
+
+When the DAG executes, it triggers the error message
+
+[2017-08-02 02:32:45,162] {models.py:1342} INFO - Executing &lt;Task(SqlSensor): check_running_batch&gt; on 2017-08-02 02:32:12
+[2017-08-02 02:32:45,179] {base_hook.py:67} INFO - Using connection to: jdbc:teradata://myservername.mycompanyname.org/database=MYDBNAME,TMODE=ANSI,CHARSET=UTF8
+[2017-08-02 02:32:45,313] {sensors.py:109} INFO - Poking: SELECT BATCH_KEY FROM MYDBNAME.AUDIT_BATCH WHERE BATCH_OWNER='ARO_TEST' AND AUDIT_STATUS_KEY=1;
+[2017-08-02 02:32:45,316] {base_hook.py:67} INFO - Using connection to: jdbc:teradata://myservername.mycompanyname.org/database=MYDBNAME,TMODE=ANSI,CHARSET=UTF8
+[2017-08-02 02:32:45,497] {models.py:1417} ERROR - java.lang.RuntimeException: Class com.teradata.jdbc.TeraDriver not found
+
+
+What am I doing wrong?
+",-1,-1,-1.0,"Connect to Teradata Using Airflow JDBC Connection-I'm trying to execute a SqlSensor task in Airflow using a connection to Teradata database. The connection is configured as follow:
+
+
+
+I have provide in particular 2 driver paths separated by "", "" but I am not sure if it's the proper way to do it?
+
+
+/home/airflow/java_sample/tdgssconfig.jar
+/home/airflow/java_sample/terajdbc4.jar
+
+
+When the DAG executes, it triggers the error message
+
+[2017-08-02 02:32:45,162] {models.py:1342} INFO - Executing &lt;Task(SqlSensor): check_running_batch&gt; on 2017-08-02 02:32:12
+[2017-08-02 02:32:45,179] {base_hook.py:67} INFO - Using connection to: jdbc:teradata://myservername.mycompanyname.org/database=MYDBNAME,TMODE=ANSI,CHARSET=UTF8
+[2017-08-02 02:32:45,313] {sensors.py:109} INFO - Poking: SELECT BATCH_KEY FROM MYDBNAME.AUDIT_BATCH WHERE BATCH_OWNER='ARO_TEST' AND AUDIT_STATUS_KEY=1;
+[2017-08-02 02:32:45,316] {base_hook.py:67} INFO - Using connection to: jdbc:teradata://myservername.mycompanyname.org/database=MYDBNAME,TMODE=ANSI,CHARSET=UTF8
+[2017-08-02 02:32:45,497] {models.py:1417} ERROR - java.lang.RuntimeException: Class com.teradata.jdbc.TeraDriver not found
+
+
+What am I doing wrong?
+",1
+2,48164745,AWS EC2 + Apache Airflow. How to connect to admin panel in browser?,"I installed airflow and started it on EC2 Ubuntu:
+
+airflow webserver
+
+
+But I cannot get access to admin panel in the browser. I tried:
+
+ec2-XX-XXX-XXX-XX.eu-west-2.compute.amazonaws.com:8080
+
+
+But I got message:
+
+This site can’t be reached
+
+",-1,-1,-1.0,"AWS EC2 + Apache Airflow. How to connect to admin panel in browser?-I installed airflow and started it on EC2 Ubuntu:
+
+airflow webserver
+
+
+But I cannot get access to admin panel in the browser. I tried:
+
+ec2-XX-XXX-XXX-XX.eu-west-2.compute.amazonaws.com:8080
+
+
+But I got message:
+
+This site can’t be reached
+
+",0
+3,48986732,Airflow: Creating a DAG in airflow via UI,"Airflow veterans please help,
+
+I was looking for a cron replacement and came across apache airflow.
+
+We have a setup where multiple users should be able to create their own DAGs and schedule their jobs. 
+
+Our users are a mix of people who may not know how to write the DAG python file. Also, they may not have access to the server where airflow is running.
+
+Is it possible to create an airflow DAG via UI. I could not find any reference to the same. All examples speak about creating a python file and uploading it to the $AIRFLOW_HOME/dag/ directory. Users will not have access to this directory.
+
+Rundeck for example allows user to add workflows and task dependencies via UI. Is there a plugin/functionality similar to this in airflow.
+
+PS: I really like the way airflow shows the dependency graphs and want to try it out. But If creating a DAG is so complicated, then it will be a major problem for lots of my end users. 
+",-1,-1,-1.0,"Airflow: Creating a DAG in airflow via UI-Airflow veterans please help,
+
+I was looking for a cron replacement and came across apache airflow.
+
+We have a setup where multiple users should be able to create their own DAGs and schedule their jobs. 
+
+Our users are a mix of people who may not know how to write the DAG python file. Also, they may not have access to the server where airflow is running.
+
+Is it possible to create an airflow DAG via UI. I could not find any reference to the same. All examples speak about creating a python file and uploading it to the $AIRFLOW_HOME/dag/ directory. Users will not have access to this directory.
+
+Rundeck for example allows user to add workflows and task dependencies via UI. Is there a plugin/functionality similar to this in airflow.
+
+PS: I really like the way airflow shows the dependency graphs and want to try it out. But If creating a DAG is so complicated, then it will be a major problem for lots of my end users. 
+",2
+4,51558313,What is the difference between min_file_process_interval and dag_dir_list_interval in Apache Airflow 1.9.0?,"We are using Airflow v 1.9.0. We have 100+ dags and the instance is really slow. The scheduler is only launching some tasks.
+
+In order to reduce the amount of CPU usage, we want to tweak some configuration parameters, namely: min_file_process_interval and dag_dir_list_interval. The documentation is not really clear about the difference between the two
+",0,-1,-1.0,"What is the difference between min_file_process_interval and dag_dir_list_interval in Apache Airflow 1.9.0?-We are using Airflow v 1.9.0. We have 100+ dags and the instance is really slow. The scheduler is only launching some tasks.
+
+In order to reduce the amount of CPU usage, we want to tweak some configuration parameters, namely: min_file_process_interval and dag_dir_list_interval. The documentation is not really clear about the difference between the two
+",1
+5,52183511,Apache airflow sends sla miss emails only to first person on the list,"I use Apache Airflow and I would like it to send email notifications on sla miss. I store email adresses as airflow variable, and I have a dag which one of its tasks sends Email using EmailOperator. 
+
+And here comes the issue because however It sends emails when my send-mail task is run to all the recipients, It do sends sla miss notifaction only to the first adress on the list which in my example means test1@test.com. 
+
+Is this some bug, or why it's not working ?
+
+Here's my dag and airlfow variable: 
+ 
+
+from airflow import DAG
+from datetime import datetime, timedelta
+from airflow.operators.email_operator import EmailOperator
+from airflow.models import Variable
+from airflow.operators.slack_operator import SlackAPIPostOperator
+
+email = Variable.get(""test_recipients"")
+
+args = {
+    'owner': 'airflow'
+    , 'depends_on_past': False
+    , 'start_date': datetime(2018, 8, 20, 0, 0)
+    , 'retries': 0
+    , 'email': email
+    , 'email_on_failure': True
+    , 'email_on_retry': True
+    , 'sla': timedelta(seconds=1)
+}
+
+dag = DAG('sla-email-test'
+          , default_args=args
+          , max_active_runs=1
+          , schedule_interval=""@daily"")
+
+....
+
+t2 = EmailOperator(
+    dag=dag,
+    task_id=""send-email"",
+    to=email,
+    subject=""Testing"",
+    html_content=""&lt;h3&gt;Welcome to Airflow&lt;/h3&gt;""
+)
+
+",-1,-1,-1.0,"Apache airflow sends sla miss emails only to first person on the list-I use Apache Airflow and I would like it to send email notifications on sla miss. I store email adresses as airflow variable, and I have a dag which one of its tasks sends Email using EmailOperator. 
+
+And here comes the issue because however It sends emails when my send-mail task is run to all the recipients, It do sends sla miss notifaction only to the first adress on the list which in my example means test1@test.com. 
+
+Is this some bug, or why it's not working ?
+
+Here's my dag and airlfow variable: 
+ 
+
+from airflow import DAG
+from datetime import datetime, timedelta
+from airflow.operators.email_operator import EmailOperator
+from airflow.models import Variable
+from airflow.operators.slack_operator import SlackAPIPostOperator
+
+email = Variable.get(""test_recipients"")
+
+args = {
+    'owner': 'airflow'
+    , 'depends_on_past': False
+    , 'start_date': datetime(2018, 8, 20, 0, 0)
+    , 'retries': 0
+    , 'email': email
+    , 'email_on_failure': True
+    , 'email_on_retry': True
+    , 'sla': timedelta(seconds=1)
+}
+
+dag = DAG('sla-email-test'
+          , default_args=args
+          , max_active_runs=1
+          , schedule_interval=""@daily"")
+
+....
+
+t2 = EmailOperator(
+    dag=dag,
+    task_id=""send-email"",
+    to=email,
+    subject=""Testing"",
+    html_content=""&lt;h3&gt;Welcome to Airflow&lt;/h3&gt;""
+)
+
+",0
+6,56707707,How to enable SSL on Airflow Webserver?,"I've been trying to enable HTTPS via SSL on my Apache Airflow frontend but the documentation is quite sparse and there aren't that many good examples on this online.
+
+My instance of Airflow is currently running on a Red Hat Linux VM. I've tried generating a key/certificate, and pointing the configuration file to the respective paths, but it does not seem to work.
+
+From the Airflow documentation, it seems like we are supposed to simply generate a path to the cert and key &amp; add a path to the SSL cert &amp; key in Airflow. I generated a .key and .csr file using Open SSL.
+
+/usr/bin/openssl genrsa -rand /dev/urandom -out /etc/httpd/conf/server.key 2048
+
+/usr/bin/openssl req -new -key /etc/httpd/conf/server.key -out /etc/httpd/conf/server.csr
+
+
+
+I then updated the configuration file...
+
+# Paths to the SSL certificate and key for the web server. When both are
+# provided SSL will be enabled. This does not change the web server port.
+web_server_ssl_cert = /etc/httpd/conf/server.csr
+web_server_ssl_key = /etc/httpd/conf/server.key
+
+
+
+I then reboot the webserver, and get the following error on the web page:
+
+Forbidden
+
+'[SSL] PEM lib (_ssl.c:3337)'
+
+
+If anyone has any experience or pointers as to how they enabled SSL on their Airflow instance, I'd really appreciate it! I'm at a bit of a dead end right now and it doesn't seem like anyone else online has gotten a satisfactory answer.
+",-1,-1,-1.0,"How to enable SSL on Airflow Webserver?-I've been trying to enable HTTPS via SSL on my Apache Airflow frontend but the documentation is quite sparse and there aren't that many good examples on this online.
+
+My instance of Airflow is currently running on a Red Hat Linux VM. I've tried generating a key/certificate, and pointing the configuration file to the respective paths, but it does not seem to work.
+
+From the Airflow documentation, it seems like we are supposed to simply generate a path to the cert and key &amp; add a path to the SSL cert &amp; key in Airflow. I generated a .key and .csr file using Open SSL.
+
+/usr/bin/openssl genrsa -rand /dev/urandom -out /etc/httpd/conf/server.key 2048
+
+/usr/bin/openssl req -new -key /etc/httpd/conf/server.key -out /etc/httpd/conf/server.csr
+
+
+
+I then updated the configuration file...
+
+# Paths to the SSL certificate and key for the web server. When both are
+# provided SSL will be enabled. This does not change the web server port.
+web_server_ssl_cert = /etc/httpd/conf/server.csr
+web_server_ssl_key = /etc/httpd/conf/server.key
+
+
+
+I then reboot the webserver, and get the following error on the web page:
+
+Forbidden
+
+'[SSL] PEM lib (_ssl.c:3337)'
+
+
+If anyone has any experience or pointers as to how they enabled SSL on their Airflow instance, I'd really appreciate it! I'm at a bit of a dead end right now and it doesn't seem like anyone else online has gotten a satisfactory answer.
+",1
+7,57515434,Why do I get no such table error when installing Apache Airflow on Mac?,"It was so hard to put that right title. Ok, here it goes. I was following this tutorial to install Apache Airflow on my Mac (Mojave version) -
+
+https://towardsdatascience.com/getting-started-with-apache-airflow-df1aa77d7b1b
+
+Right at the first step after performing the pip install airflow task, when I run the airflow version command I am getting the following error and then the airflow version appears -
+
+
+  ERROR - Failed on pre-execution callback using  Traceback (most recent call last): 
+  File
+  ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/base.py"",
+  line 1244, in _execute_context
+      cursor, statement, parameters, context   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/default.py"",
+  line 552, in do_execute
+      cursor.execute(statement, parameters) sqlite3.OperationalError: no such table: log
+
+
+The above exception was the direct cause of the following exception:
+
+
+  Traceback (most recent call last):   File
+  ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/airflow/utils/cli_action_loggers.py"",
+  line 68, in on_pre_execution
+      cb(**kwargs)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/airflow/utils/cli_action_loggers.py"",
+  line 99, in default_action_log
+      session.add(log)   File ""/Users/karthikv/anaconda3/lib/python3.7/contextlib.py"", line 119, in
+  exit
+      next(self.gen)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/airflow/utils/db.py"",
+  line 45, in create_session
+      session.commit()   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/session.py"",
+  line 1026, in commit
+      self.transaction.commit()   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/session.py"",
+  line 493, in commit
+      self._prepare_impl()   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/session.py"",
+  line 472, in _prepare_impl
+      self.session.flush()   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/session.py"",
+  line 2451, in flush
+      self._flush(objects)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/session.py"",
+  line 2589, in _flush
+      transaction.rollback(_capture_exception=True)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/util/langhelpers.py"",
+  line 68, in exit
+      compat.reraise(exc_type, exc_value, exc_tb)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/util/compat.py"",
+  line 129, in reraise
+      raise value   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/session.py"",
+  line 2549, in _flush
+      flush_context.execute()   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/unitofwork.py"",
+  line 422, in execute
+      rec.execute(self)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/unitofwork.py"",
+  line 589, in execute
+      uow,   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/persistence.py"",
+  line 245, in save_obj
+      insert,   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/persistence.py"",
+  line 1120, in _emit_insert_statements
+      statement, params   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/base.py"",
+  line 988, in execute
+      return meth(self, multiparams, params)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/sql/elements.py"",
+  line 287, in _execute_on_connection
+      return connection._execute_clauseelement(self, multiparams, params)   File
+  ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/base.py"",
+  line 1107, in _execute_clauseelement
+      distilled_params,   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/base.py"",
+  line 1248, in _execute_context
+      e, statement, parameters, cursor, context   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/base.py"",
+  line 1466, in _handle_dbapi_exception
+      util.raise_from_cause(sqlalchemy_exception, exc_info)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/util/compat.py"",
+  line 383, in raise_from_cause
+      reraise(type(exception), exception, tb=exc_tb, cause=cause)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/util/compat.py"",
+  line 128, in reraise
+      raise value.with_traceback(tb)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/base.py"",
+  line 1244, in _execute_context
+      cursor, statement, parameters, context   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/default.py"",
+  line 552, in do_execute
+      cursor.execute(statement, parameters) sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such
+  table: log [SQL: INSERT INTO log (dttm, dag_id, task_id, event,
+  execution_date, owner, extra) VALUES (?, ?, ?, ?, ?, ?, ?)]
+  [parameters: ('2019-08-12 20:50:24.960006', None, None, 'cli_version',
+  None, 'karthikv', '{""host_name"": ""192-168-1-6.tpgi.com.au"",
+  ""full_command"": ""[\'/Users/karthikv/anaconda3/bin/airflow\',
+  \'version\']""}')] 
+
+
+(Background on this error at: http://sqlalche.me/e/e3q8)
+
+Can someone help me what this error means and how to solve it? I understand from the instructions that by default SQLLite db gets installed and a single DAG restrictions would be in place before we get into setting up backend database say PostgreSQL.
+
+I tried to uninstall using pip uninstall airflow to perform clean installation again. I get the following error -
+
+
+  WARNING: Skipping airflow as it is not installed.
+
+
+Kindly help me in solving the issue (or) pointing me to resources where I can do further reading.
+",-1,-1,-1.0,"Why do I get no such table error when installing Apache Airflow on Mac?-It was so hard to put that right title. Ok, here it goes. I was following this tutorial to install Apache Airflow on my Mac (Mojave version) -
+
+https://towardsdatascience.com/getting-started-with-apache-airflow-df1aa77d7b1b
+
+Right at the first step after performing the pip install airflow task, when I run the airflow version command I am getting the following error and then the airflow version appears -
+
+
+  ERROR - Failed on pre-execution callback using  Traceback (most recent call last): 
+  File
+  ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/base.py"",
+  line 1244, in _execute_context
+      cursor, statement, parameters, context   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/default.py"",
+  line 552, in do_execute
+      cursor.execute(statement, parameters) sqlite3.OperationalError: no such table: log
+
+
+The above exception was the direct cause of the following exception:
+
+
+  Traceback (most recent call last):   File
+  ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/airflow/utils/cli_action_loggers.py"",
+  line 68, in on_pre_execution
+      cb(**kwargs)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/airflow/utils/cli_action_loggers.py"",
+  line 99, in default_action_log
+      session.add(log)   File ""/Users/karthikv/anaconda3/lib/python3.7/contextlib.py"", line 119, in
+  exit
+      next(self.gen)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/airflow/utils/db.py"",
+  line 45, in create_session
+      session.commit()   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/session.py"",
+  line 1026, in commit
+      self.transaction.commit()   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/session.py"",
+  line 493, in commit
+      self._prepare_impl()   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/session.py"",
+  line 472, in _prepare_impl
+      self.session.flush()   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/session.py"",
+  line 2451, in flush
+      self._flush(objects)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/session.py"",
+  line 2589, in _flush
+      transaction.rollback(_capture_exception=True)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/util/langhelpers.py"",
+  line 68, in exit
+      compat.reraise(exc_type, exc_value, exc_tb)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/util/compat.py"",
+  line 129, in reraise
+      raise value   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/session.py"",
+  line 2549, in _flush
+      flush_context.execute()   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/unitofwork.py"",
+  line 422, in execute
+      rec.execute(self)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/unitofwork.py"",
+  line 589, in execute
+      uow,   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/persistence.py"",
+  line 245, in save_obj
+      insert,   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/orm/persistence.py"",
+  line 1120, in _emit_insert_statements
+      statement, params   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/base.py"",
+  line 988, in execute
+      return meth(self, multiparams, params)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/sql/elements.py"",
+  line 287, in _execute_on_connection
+      return connection._execute_clauseelement(self, multiparams, params)   File
+  ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/base.py"",
+  line 1107, in _execute_clauseelement
+      distilled_params,   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/base.py"",
+  line 1248, in _execute_context
+      e, statement, parameters, cursor, context   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/base.py"",
+  line 1466, in _handle_dbapi_exception
+      util.raise_from_cause(sqlalchemy_exception, exc_info)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/util/compat.py"",
+  line 383, in raise_from_cause
+      reraise(type(exception), exception, tb=exc_tb, cause=cause)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/util/compat.py"",
+  line 128, in reraise
+      raise value.with_traceback(tb)   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/base.py"",
+  line 1244, in _execute_context
+      cursor, statement, parameters, context   File ""/Users/karthikv/anaconda3/lib/python3.7/site-packages/sqlalchemy/engine/default.py"",
+  line 552, in do_execute
+      cursor.execute(statement, parameters) sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such
+  table: log [SQL: INSERT INTO log (dttm, dag_id, task_id, event,
+  execution_date, owner, extra) VALUES (?, ?, ?, ?, ?, ?, ?)]
+  [parameters: ('2019-08-12 20:50:24.960006', None, None, 'cli_version',
+  None, 'karthikv', '{""host_name"": ""192-168-1-6.tpgi.com.au"",
+  ""full_command"": ""[\'/Users/karthikv/anaconda3/bin/airflow\',
+  \'version\']""}')] 
+
+
+(Background on this error at: http://sqlalche.me/e/e3q8)
+
+Can someone help me what this error means and how to solve it? I understand from the instructions that by default SQLLite db gets installed and a single DAG restrictions would be in place before we get into setting up backend database say PostgreSQL.
+
+I tried to uninstall using pip uninstall airflow to perform clean installation again. I get the following error -
+
+
+  WARNING: Skipping airflow as it is not installed.
+
+
+Kindly help me in solving the issue (or) pointing me to resources where I can do further reading.
+",0
+8,57583175,Why are my custom operators not being imported into my DAG (Airflow)?,"I am creating an ETL pipeline using Apache Airflow and I am trying to create generalized custom operators. There seems to be no problem with the operators but they are not being imported into my DAG python file.
+
+This is my directory structure.
+
+my_project\
+  .env
+  Pipfile
+  Pipfile.lock
+  .gitignore
+  .venv\
+  airflow\
+    dags\
+    logs\
+    plugins\
+      __init__.py
+      helpers\
+      operators\
+        __init__.py
+        data_quality.py
+        load_fact.py
+        load_dimension.py
+        stage_redshift
+
+
+This is what is present in the __init__.py file under plugins folder.
+
+from __future__ import division, absolute_import, print_function
+
+from airflow.plugins_manager import AirflowPlugin
+
+import airflow.plugins.operators as operators
+import airflow.plugins.helpers as helpers
+
+# Defining the plugin class
+class SparkifyPlugin(AirflowPlugin):
+    name = ""sparkify_plugin""
+    operators = [
+        operators.StageToRedshiftOperator,
+        operators.LoadFactOperator,
+        operators.LoadDimensionOperator,
+        operators.DataQualityOperator
+    ]
+    helpers = [
+        helpers.SqlQueries
+    ]
+
+
+I'm importing these operators into my DAG file as following
+
+from airflow.operators.sparkify_plugin import (StageToRedshiftOperator,
+                               LoadFactOperator,
+                               LoadDimensionOperator,
+                               DataQualityOperator)
+
+
+I am getting an error as follows
+
+ERROR - Failed to import plugin /Users/user_name/Documents/My_Mac/Projects/sparkify_etl_sql_to_sql/airflow/plugins/operators/stage_redshift.py
+
+
+Can you help me understand why this is happening?
+",-1,-1,-1.0,"Why are my custom operators not being imported into my DAG (Airflow)?-I am creating an ETL pipeline using Apache Airflow and I am trying to create generalized custom operators. There seems to be no problem with the operators but they are not being imported into my DAG python file.
+
+This is my directory structure.
+
+my_project\
+  .env
+  Pipfile
+  Pipfile.lock
+  .gitignore
+  .venv\
+  airflow\
+    dags\
+    logs\
+    plugins\
+      __init__.py
+      helpers\
+      operators\
+        __init__.py
+        data_quality.py
+        load_fact.py
+        load_dimension.py
+        stage_redshift
+
+
+This is what is present in the __init__.py file under plugins folder.
+
+from __future__ import division, absolute_import, print_function
+
+from airflow.plugins_manager import AirflowPlugin
+
+import airflow.plugins.operators as operators
+import airflow.plugins.helpers as helpers
+
+# Defining the plugin class
+class SparkifyPlugin(AirflowPlugin):
+    name = ""sparkify_plugin""
+    operators = [
+        operators.StageToRedshiftOperator,
+        operators.LoadFactOperator,
+        operators.LoadDimensionOperator,
+        operators.DataQualityOperator
+    ]
+    helpers = [
+        helpers.SqlQueries
+    ]
+
+
+I'm importing these operators into my DAG file as following
+
+from airflow.operators.sparkify_plugin import (StageToRedshiftOperator,
+                               LoadFactOperator,
+                               LoadDimensionOperator,
+                               DataQualityOperator)
+
+
+I am getting an error as follows
+
+ERROR - Failed to import plugin /Users/user_name/Documents/My_Mac/Projects/sparkify_etl_sql_to_sql/airflow/plugins/operators/stage_redshift.py
+
+
+Can you help me understand why this is happening?
+",3
+9,57930048,Apache Airflow DAG doesn't call on_success_callback and on_failure_callback,"I want to customize my DAGs to send the email when it's failed or succeeded. I'm trying to use on_success_callback and on_failure_callback in DAG constructor, but it doesn't work for DAG. In the same time it works for DummyOperator that I put inside my DAG.
+
+from airflow import DAG
+from airflow.operators.dummy_operator import DummyOperator
+from airflow.operators.python_operator import PythonOperator
+from datetime import datetime
+
+from utils import get_report_operator, DagStatus
+
+
+TEST_DAG_NAME='test_dag'
+TEST_DAG_REPORT_SUBSCRIBERS = ['MY_EMAIL']
+
+def send_success_report(context):
+    subject = 'Airflow report: {0} run success'.format(TEST_DAG_NAME)
+    email_operator = get_report_operator(subject, TEST_DAG_REPORT_SUBSCRIBERS, TEST_DAG_NAME, DagStatus.SUCCESS)
+    email_operator.execute(context)
+
+def send_failed_report(context):
+    subject = 'Airflow report: {0} run failed'.format(TEST_DAG_NAME)
+    email_operator = get_report_operator(subject, TEST_DAG_REPORT_SUBSCRIBERS, TEST_DAG_NAME, DagStatus.FAILED)
+    email_operator.execute(context)
+
+
+dag = DAG(dag_id=TEST_DAG_NAME,
+          schedule_interval=None,
+          start_date=datetime(2019,6,6),
+          on_success_callback=send_success_report,
+          on_failure_callback=send_failed_report)
+
+DummyOperator(task_id='task',
+              on_success_callback=send_success_report,
+              on_failure_callback=send_failed_report,
+              dag = dag)
+
+
+I've also implemented some add-in over the Airflow EmailOperator for send report. I don't thing that error in this part, but still.
+
+class DagStatus(Enum):
+    SUCCESS = 0
+    FAILED = 1
+
+
+def get_report_operator(sbjct, to_lst, dag_id, dag_status):
+    status = 'SUCCESS' if dag_status == DagStatus.SUCCESS else 'FAILED'
+    status_color = '#87C540' if dag_status == DagStatus.SUCCESS else '#FF1717'
+    with open(os.path.join(os.path.dirname(__file__), 'airflow_report.html'), 'r', encoding='utf-8') as report_file:
+        report_mask = report_file.read()
+    report_text = report_mask.format(dag_id, status, status_color)
+    tmp_dag = DAG(dag_id='tmp_dag', start_date=datetime(year=2019, month=9, day=12), schedule_interval=None)
+    return EmailOperator(task_id='send_email',
+                    to=to_lst,
+                    subject=sbjct,
+                    html_content=report_text.encode('utf-8'),
+                    dag = tmp_dag)
+
+
+What I do wrong?
+",-1,-1,-1.0,"Apache Airflow DAG doesn't call on_success_callback and on_failure_callback-I want to customize my DAGs to send the email when it's failed or succeeded. I'm trying to use on_success_callback and on_failure_callback in DAG constructor, but it doesn't work for DAG. In the same time it works for DummyOperator that I put inside my DAG.
+
+from airflow import DAG
+from airflow.operators.dummy_operator import DummyOperator
+from airflow.operators.python_operator import PythonOperator
+from datetime import datetime
+
+from utils import get_report_operator, DagStatus
+
+
+TEST_DAG_NAME='test_dag'
+TEST_DAG_REPORT_SUBSCRIBERS = ['MY_EMAIL']
+
+def send_success_report(context):
+    subject = 'Airflow report: {0} run success'.format(TEST_DAG_NAME)
+    email_operator = get_report_operator(subject, TEST_DAG_REPORT_SUBSCRIBERS, TEST_DAG_NAME, DagStatus.SUCCESS)
+    email_operator.execute(context)
+
+def send_failed_report(context):
+    subject = 'Airflow report: {0} run failed'.format(TEST_DAG_NAME)
+    email_operator = get_report_operator(subject, TEST_DAG_REPORT_SUBSCRIBERS, TEST_DAG_NAME, DagStatus.FAILED)
+    email_operator.execute(context)
+
+
+dag = DAG(dag_id=TEST_DAG_NAME,
+          schedule_interval=None,
+          start_date=datetime(2019,6,6),
+          on_success_callback=send_success_report,
+          on_failure_callback=send_failed_report)
+
+DummyOperator(task_id='task',
+              on_success_callback=send_success_report,
+              on_failure_callback=send_failed_report,
+              dag = dag)
+
+
+I've also implemented some add-in over the Airflow EmailOperator for send report. I don't thing that error in this part, but still.
+
+class DagStatus(Enum):
+    SUCCESS = 0
+    FAILED = 1
+
+
+def get_report_operator(sbjct, to_lst, dag_id, dag_status):
+    status = 'SUCCESS' if dag_status == DagStatus.SUCCESS else 'FAILED'
+    status_color = '#87C540' if dag_status == DagStatus.SUCCESS else '#FF1717'
+    with open(os.path.join(os.path.dirname(__file__), 'airflow_report.html'), 'r', encoding='utf-8') as report_file:
+        report_mask = report_file.read()
+    report_text = report_mask.format(dag_id, status, status_color)
+    tmp_dag = DAG(dag_id='tmp_dag', start_date=datetime(year=2019, month=9, day=12), schedule_interval=None)
+    return EmailOperator(task_id='send_email',
+                    to=to_lst,
+                    subject=sbjct,
+                    html_content=report_text.encode('utf-8'),
+                    dag = tmp_dag)
+
+
+What I do wrong?
+",3
+10,59717352,Google Dataflow: Import custom Python module,"I try to run a Apache Beam pipeline (Python) within Google Cloud Dataflow, triggered by a DAG in Google Cloud Coomposer.
+
+The structure of my dags folder in the respective GCS bucket is as follows:
+
+/dags/
+  dataflow.py &lt;- DAG
+  dataflow/
+    pipeline.py &lt;- pipeline
+    setup.py
+    my_modules/
+      __init__.py
+      commons.py &lt;- the module I want to import in the pipeline
+
+
+The setup.py is very basic, but according to the Apache Beam docs and answers on SO:
+
+import setuptools
+
+setuptools.setup(setuptools.find_packages())
+
+
+In the DAG file (dataflow.py) I set the setup_file option and pass it to Dataflow:
+
+default_dag_args = {
+    ... ,
+    'dataflow_default_options': {
+        ... ,
+        'runner': 'DataflowRunner',
+        'setup_file': os.path.join(configuration.get('core', 'dags_folder'), 'dataflow', 'setup.py')
+    }
+}
+
+
+Within the pipeline file (pipeline.py) I try to use
+
+from my_modules import commons
+
+
+but this fails. The log in Google Cloud Composer (Apache Airflow) says: 
+
+gcp_dataflow_hook.py:132} WARNING - b'  File ""/home/airflow/gcs/dags/dataflow/dataflow.py"", line 11\n    from my_modules import commons\n           ^\nSyntaxError: invalid syntax'
+
+
+The basic idea behind the setup.py file is documented here
+
+Also, there are similar questions on SO which helped me: 
+
+Google Dataflow - Failed to import custom python modules
+
+Dataflow/apache beam: manage custom module dependencies
+
+I'm actually wondering why my pipelines fails with a Syntax Error and not a module not found kind of error...
+",-1,-1,-1.0,"Google Dataflow: Import custom Python module-I try to run a Apache Beam pipeline (Python) within Google Cloud Dataflow, triggered by a DAG in Google Cloud Coomposer.
+
+The structure of my dags folder in the respective GCS bucket is as follows:
+
+/dags/
+  dataflow.py &lt;- DAG
+  dataflow/
+    pipeline.py &lt;- pipeline
+    setup.py
+    my_modules/
+      __init__.py
+      commons.py &lt;- the module I want to import in the pipeline
+
+
+The setup.py is very basic, but according to the Apache Beam docs and answers on SO:
+
+import setuptools
+
+setuptools.setup(setuptools.find_packages())
+
+
+In the DAG file (dataflow.py) I set the setup_file option and pass it to Dataflow:
+
+default_dag_args = {
+    ... ,
+    'dataflow_default_options': {
+        ... ,
+        'runner': 'DataflowRunner',
+        'setup_file': os.path.join(configuration.get('core', 'dags_folder'), 'dataflow', 'setup.py')
+    }
+}
+
+
+Within the pipeline file (pipeline.py) I try to use
+
+from my_modules import commons
+
+
+but this fails. The log in Google Cloud Composer (Apache Airflow) says: 
+
+gcp_dataflow_hook.py:132} WARNING - b'  File ""/home/airflow/gcs/dags/dataflow/dataflow.py"", line 11\n    from my_modules import commons\n           ^\nSyntaxError: invalid syntax'
+
+
+The basic idea behind the setup.py file is documented here
+
+Also, there are similar questions on SO which helped me: 
+
+Google Dataflow - Failed to import custom python modules
+
+Dataflow/apache beam: manage custom module dependencies
+
+I'm actually wondering why my pipelines fails with a Syntax Error and not a module not found kind of error...
+",3
+11,59877917,"Apache Airflow : airflow initdb command throws = (_mysql_exceptions.OperationalError) (1292, ""Incorrect datetime value:)","I was following this article for installing Apache-airflow with mysql DB on Ubuntu.
+Apache Airflow with MYSQL
+
+  File ""/usr/local/bin/airflow"", line 37, in &lt;module&gt;
+    args.func(args)
+  File ""/usr/local/lib/python2.7/dist-packages/airflow/bin/cli.py"", line 1140, in initdb
+    db.initdb(settings.RBAC)
+  File ""/usr/local/lib/python2.7/dist-packages/airflow/utils/db.py"", line 335, in initdb
+    dag.sync_to_db()
+  File ""/usr/local/lib/python2.7/dist-packages/airflow/utils/db.py"", line 74, in wrapper
+    return func(*args, **kwargs)
+  File ""/usr/local/lib/python2.7/dist-packages/airflow/models/dag.py"", line 1391, in sync_to_db
+    session.commit()
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/session.py"", line 1036, in commit
+    self.transaction.commit()
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/session.py"", line 503, in commit
+    self._prepare_impl()
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/session.py"", line 482, in _prepare_impl
+    self.session.flush()
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/session.py"", line 2479, in flush
+    self._flush(objects)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/session.py"", line 2617, in _flush
+    transaction.rollback(_capture_exception=True)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/util/langhelpers.py"", line 68, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/session.py"", line 2577, in _flush
+    flush_context.execute()
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/unitofwork.py"", line 422, in execute
+    rec.execute(self)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/unitofwork.py"", line 589, in execute
+    uow,
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/persistence.py"", line 245, in save_obj
+    insert,
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/persistence.py"", line 1084, in _emit_insert_statements
+    c = cached_connections[connection].execute(statement, multiparams)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/engine/base.py"", line 982, in execute
+    return meth(self, multiparams, params)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/sql/elements.py"", line 287, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/engine/base.py"", line 1101, in _execute_clauseelement
+    distilled_params,
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/engine/base.py"", line 1250, in _execute_context
+    e, statement, parameters, cursor, context
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/engine/base.py"", line 1476, in _handle_dbapi_exception
+    util.raise_from_cause(sqlalchemy_exception, exc_info)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/util/compat.py"", line 398, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/engine/base.py"", line 1246, in _execute_context
+    cursor, statement, parameters, context
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/engine/default.py"", line 581, in do_execute
+    cursor.execute(statement, parameters)
+  File ""/usr/local/lib/python2.7/dist-packages/MySQLdb/cursors.py"", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File ""/usr/local/lib/python2.7/dist-packages/MySQLdb/connections.py"", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1292, ""Incorrect datetime value: '2020-01-23 11:26:36.804914+00:00' for column 'last_scheduler_run' at row 1"")
+[SQL: INSERT INTO dag (dag_id, root_dag_id, is_paused, is_subdag, is_active, last_scheduler_run, last_pickled, last_expired, scheduler_lock, pickle_id, fileloc, owners, description, default_view, schedule_interval) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)]
+[parameters: ('example_skip_dag', None, 1, 0, 1, datetime.datetime(2020, 1, 23, 11, 26, 36, 804914, tzinfo=&lt;Timezone [UTC]&gt;), None, None, None, None, '/usr/local/lib/python2.7/dist-packages/airflow/example_dags/example_skip_dag.py', 'Airflow', '', None, '{""type"": ""timedelta"", ""attrs"": 
+*{""seconds"": 0, ""days"": 1, ""microseconds"": 0}}')]
+
+
+Also I've added below parameters in my.cnf file as well:
+
+[mysqld]
+explicit_defaults_for_timestamp=1
+#**other variables**
+default_time_zone='+00:00'
+explicit_defaults_for_timestamp=1
+
+
+I'm trying to install Apache airflow with celery executor with MySQL
+ DB.While hiing the airflow initdb command i'm getting above mentioned error.
+
+Kindly help me in resolving this issues.
+
+Thanks for the help.
+",-1,-1,-1.0,"Apache Airflow : airflow initdb command throws = (_mysql_exceptions.OperationalError) (1292, ""Incorrect datetime value:)-I was following this article for installing Apache-airflow with mysql DB on Ubuntu.
+Apache Airflow with MYSQL
+
+  File ""/usr/local/bin/airflow"", line 37, in &lt;module&gt;
+    args.func(args)
+  File ""/usr/local/lib/python2.7/dist-packages/airflow/bin/cli.py"", line 1140, in initdb
+    db.initdb(settings.RBAC)
+  File ""/usr/local/lib/python2.7/dist-packages/airflow/utils/db.py"", line 335, in initdb
+    dag.sync_to_db()
+  File ""/usr/local/lib/python2.7/dist-packages/airflow/utils/db.py"", line 74, in wrapper
+    return func(*args, **kwargs)
+  File ""/usr/local/lib/python2.7/dist-packages/airflow/models/dag.py"", line 1391, in sync_to_db
+    session.commit()
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/session.py"", line 1036, in commit
+    self.transaction.commit()
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/session.py"", line 503, in commit
+    self._prepare_impl()
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/session.py"", line 482, in _prepare_impl
+    self.session.flush()
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/session.py"", line 2479, in flush
+    self._flush(objects)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/session.py"", line 2617, in _flush
+    transaction.rollback(_capture_exception=True)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/util/langhelpers.py"", line 68, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/session.py"", line 2577, in _flush
+    flush_context.execute()
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/unitofwork.py"", line 422, in execute
+    rec.execute(self)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/unitofwork.py"", line 589, in execute
+    uow,
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/persistence.py"", line 245, in save_obj
+    insert,
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/orm/persistence.py"", line 1084, in _emit_insert_statements
+    c = cached_connections[connection].execute(statement, multiparams)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/engine/base.py"", line 982, in execute
+    return meth(self, multiparams, params)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/sql/elements.py"", line 287, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/engine/base.py"", line 1101, in _execute_clauseelement
+    distilled_params,
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/engine/base.py"", line 1250, in _execute_context
+    e, statement, parameters, cursor, context
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/engine/base.py"", line 1476, in _handle_dbapi_exception
+    util.raise_from_cause(sqlalchemy_exception, exc_info)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/util/compat.py"", line 398, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/engine/base.py"", line 1246, in _execute_context
+    cursor, statement, parameters, context
+  File ""/usr/local/lib/python2.7/dist-packages/sqlalchemy/engine/default.py"", line 581, in do_execute
+    cursor.execute(statement, parameters)
+  File ""/usr/local/lib/python2.7/dist-packages/MySQLdb/cursors.py"", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File ""/usr/local/lib/python2.7/dist-packages/MySQLdb/connections.py"", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1292, ""Incorrect datetime value: '2020-01-23 11:26:36.804914+00:00' for column 'last_scheduler_run' at row 1"")
+[SQL: INSERT INTO dag (dag_id, root_dag_id, is_paused, is_subdag, is_active, last_scheduler_run, last_pickled, last_expired, scheduler_lock, pickle_id, fileloc, owners, description, default_view, schedule_interval) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)]
+[parameters: ('example_skip_dag', None, 1, 0, 1, datetime.datetime(2020, 1, 23, 11, 26, 36, 804914, tzinfo=&lt;Timezone [UTC]&gt;), None, None, None, None, '/usr/local/lib/python2.7/dist-packages/airflow/example_dags/example_skip_dag.py', 'Airflow', '', None, '{""type"": ""timedelta"", ""attrs"": 
+*{""seconds"": 0, ""days"": 1, ""microseconds"": 0}}')]
+
+
+Also I've added below parameters in my.cnf file as well:
+
+[mysqld]
+explicit_defaults_for_timestamp=1
+#**other variables**
+default_time_zone='+00:00'
+explicit_defaults_for_timestamp=1
+
+
+I'm trying to install Apache airflow with celery executor with MySQL
+ DB.While hiing the airflow initdb command i'm getting above mentioned error.
+
+Kindly help me in resolving this issues.
+
+Thanks for the help.
+",4
+12,57329910,Enable RDS authentication in Airflow,"I have configured Airflow with AWS RDS as backend DB. Now this UI has no authentication. i.e, whenever I hit the URL it shows me the Dags etc. How can I enable RDS authentication in Airflow now? Please suggest.
+
+Airflow Version : 1.10.3
+
+I followed below Link just to make sure I can create some user but I want AirFlow authenticates users using credentials stored in RDS.
+
+https://airflow.apache.org/cli.html#create_user
+
+Error after executing script provided by @Anup:-
+
+[ec2-user@ip-10-123-123-123 airflow]$ python3.7 authenticate.py 
+/usr/local/lib/python3.7/site-packages/airflow/configuration.py:214: FutureWarning: The task_runner setting in [core] has the old default value of 'BashTaskRunner'. This value has been changed to 'StandardTaskRunner' in the running config, but please update your config before Apache Airflow 2.0.
+  FutureWarning,
+/usr/local/lib/python3.7/site-packages/airflow/configuration.py:575: DeprecationWarning: Specifying airflow_home in the config file is deprecated. As you have left it at the default value you should remove the setting from your airflow.cfg and suffer no change in behaviour.
+  category=DeprecationWarning,
+[2019-08-05 09:35:51,140] {settings.py:182} INFO - settings.configure_orm(): Using pool settings. pool_size=5, pool_recycle=2000, pid=5166
+Traceback (most recent call last):
+  File ""authenticate.py"", line 14, in &lt;module&gt;
+    engine = create_engine(""db+mysql://airflow:airflow1234@abc-def-ghi-airflow.abcdefghijkl.eu-central-1.rds.amazonaws.com:3306/airflow"")
+  File ""/usr/local/lib64/python3.7/site-packages/sqlalchemy/engine/__init__.py"", line 443, in create_engine
+    return strategy.create(*args, **kwargs)
+  File ""/usr/local/lib64/python3.7/site-packages/sqlalchemy/engine/strategies.py"", line 61, in create
+    entrypoint = u._get_entrypoint()
+  File ""/usr/local/lib64/python3.7/site-packages/sqlalchemy/engine/url.py"", line 172, in _get_entrypoint
+    cls = registry.load(name)
+  File ""/usr/local/lib64/python3.7/site-packages/sqlalchemy/util/langhelpers.py"", line 232, in load
+    ""Can't load plugin: %s:%s"" % (self.group, name)
+sqlalchemy.exc.NoSuchModuleError: Can't load plugin: sqlalchemy.dialects:db.mysql
+
+",-1,-1,-1.0,"Enable RDS authentication in Airflow-I have configured Airflow with AWS RDS as backend DB. Now this UI has no authentication. i.e, whenever I hit the URL it shows me the Dags etc. How can I enable RDS authentication in Airflow now? Please suggest.
+
+Airflow Version : 1.10.3
+
+I followed below Link just to make sure I can create some user but I want AirFlow authenticates users using credentials stored in RDS.
+
+https://airflow.apache.org/cli.html#create_user
+
+Error after executing script provided by @Anup:-
+
+[ec2-user@ip-10-123-123-123 airflow]$ python3.7 authenticate.py 
+/usr/local/lib/python3.7/site-packages/airflow/configuration.py:214: FutureWarning: The task_runner setting in [core] has the old default value of 'BashTaskRunner'. This value has been changed to 'StandardTaskRunner' in the running config, but please update your config before Apache Airflow 2.0.
+  FutureWarning,
+/usr/local/lib/python3.7/site-packages/airflow/configuration.py:575: DeprecationWarning: Specifying airflow_home in the config file is deprecated. As you have left it at the default value you should remove the setting from your airflow.cfg and suffer no change in behaviour.
+  category=DeprecationWarning,
+[2019-08-05 09:35:51,140] {settings.py:182} INFO - settings.configure_orm(): Using pool settings. pool_size=5, pool_recycle=2000, pid=5166
+Traceback (most recent call last):
+  File ""authenticate.py"", line 14, in &lt;module&gt;
+    engine = create_engine(""db+mysql://airflow:airflow1234@abc-def-ghi-airflow.abcdefghijkl.eu-central-1.rds.amazonaws.com:3306/airflow"")
+  File ""/usr/local/lib64/python3.7/site-packages/sqlalchemy/engine/__init__.py"", line 443, in create_engine
+    return strategy.create(*args, **kwargs)
+  File ""/usr/local/lib64/python3.7/site-packages/sqlalchemy/engine/strategies.py"", line 61, in create
+    entrypoint = u._get_entrypoint()
+  File ""/usr/local/lib64/python3.7/site-packages/sqlalchemy/engine/url.py"", line 172, in _get_entrypoint
+    cls = registry.load(name)
+  File ""/usr/local/lib64/python3.7/site-packages/sqlalchemy/util/langhelpers.py"", line 232, in load
+    ""Can't load plugin: %s:%s"" % (self.group, name)
+sqlalchemy.exc.NoSuchModuleError: Can't load plugin: sqlalchemy.dialects:db.mysql
+
+",2
+13,57057601,"Argument ""sd"" for airflow cli command ""trigger_dag"" seems to be ignored","I'm working with Apache Airflow v1.10.3. When trying to trigger a dag through command line using the command trigger_dag, my argument -sd seems to be ignored and the default value from the configuration file is being used.
+
+I'm using:
+
+airflow trigger_dag -sd ""/home/my/custom/dag/folder/dag/"" my_test_1
+
+
+Where my_test_1 is the name of the dag.
+
+Before returning the error airflow.exceptions.DagNotFound: Dag id my_test_1 not found, it prints:
+
+[2019-07-16 14:40:45,956] {__init__.py:51} INFO - Using executor SequentialExecutor
+[2019-07-16 14:40:46,261] {__init__.py:305} INFO - Filling up the DagBag from /home/tfx/airflow/dags
+Traceback (most recent call last):
+  File ""/home/tfx/.local/bin/airflow"", line 32, in &lt;module&gt;
+    args.func(args)
+  File ""/home/tfx/.local/lib/python3.6/site-packages/airflow/utils/cli.py"", line 74, in wrapper
+    return f(*args, **kwargs)
+  File ""/home/tfx/.local/lib/python3.6/site-packages/airflow/bin/cli.py"", line 233, in trigger_dag
+    execution_date=args.exec_date)
+  File ""/home/tfx/.local/lib/python3.6/site-packages/airflow/api/client/local_client.py"", line 33, in trigger_dag
+    execution_date=execution_date)
+  File ""/home/tfx/.local/lib/python3.6/site-packages/airflow/api/common/experimental/trigger_dag.py"", line 101, in trigger_dag
+    replace_microseconds=replace_microseconds,
+  File ""/home/tfx/.local/lib/python3.6/site-packages/airflow/api/common/experimental/trigger_dag.py"", line 38, in _trigger_dag
+    raise DagNotFound(""Dag id {} not found"".format(dag_id))
+airflow.exceptions.DagNotFound: Dag id my_test_1 not found
+
+
+Note that it says Filling up the DagBag from /home/tfx/airflow/dags, - this is the default dags folder, not the one passed through command line.
+
+Anyone experiencing the same issue?
+
+Cheers
+",-1,-1,-1.0,"Argument ""sd"" for airflow cli command ""trigger_dag"" seems to be ignored-I'm working with Apache Airflow v1.10.3. When trying to trigger a dag through command line using the command trigger_dag, my argument -sd seems to be ignored and the default value from the configuration file is being used.
+
+I'm using:
+
+airflow trigger_dag -sd ""/home/my/custom/dag/folder/dag/"" my_test_1
+
+
+Where my_test_1 is the name of the dag.
+
+Before returning the error airflow.exceptions.DagNotFound: Dag id my_test_1 not found, it prints:
+
+[2019-07-16 14:40:45,956] {__init__.py:51} INFO - Using executor SequentialExecutor
+[2019-07-16 14:40:46,261] {__init__.py:305} INFO - Filling up the DagBag from /home/tfx/airflow/dags
+Traceback (most recent call last):
+  File ""/home/tfx/.local/bin/airflow"", line 32, in &lt;module&gt;
+    args.func(args)
+  File ""/home/tfx/.local/lib/python3.6/site-packages/airflow/utils/cli.py"", line 74, in wrapper
+    return f(*args, **kwargs)
+  File ""/home/tfx/.local/lib/python3.6/site-packages/airflow/bin/cli.py"", line 233, in trigger_dag
+    execution_date=args.exec_date)
+  File ""/home/tfx/.local/lib/python3.6/site-packages/airflow/api/client/local_client.py"", line 33, in trigger_dag
+    execution_date=execution_date)
+  File ""/home/tfx/.local/lib/python3.6/site-packages/airflow/api/common/experimental/trigger_dag.py"", line 101, in trigger_dag
+    replace_microseconds=replace_microseconds,
+  File ""/home/tfx/.local/lib/python3.6/site-packages/airflow/api/common/experimental/trigger_dag.py"", line 38, in _trigger_dag
+    raise DagNotFound(""Dag id {} not found"".format(dag_id))
+airflow.exceptions.DagNotFound: Dag id my_test_1 not found
+
+
+Note that it says Filling up the DagBag from /home/tfx/airflow/dags, - this is the default dags folder, not the one passed through command line.
+
+Anyone experiencing the same issue?
+
+Cheers
+",0
+14,65254287,Airflow: Plugins broken with 1.10.14 & Python 3.8,"Using / installing any Plugins with Apache Airflow 1.10.14 breaks Airflow when using Python 3.8.
+Example: Run
+pip install airflow-exporter==1.3.2
+
+And then try to run Airflow Webserver and Scheduler.
+You will see the following Error:
+[2020-12-11 14:12:29,757] {plugins_manager.py:159} ERROR - Failed to import plugin AirflowPrometheus                                                                            │
+│ Traceback (most recent call last):                                                                                                                                              │
+│   File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/plugins_manager.py&quot;, line 150, in load_entrypoint_plugins                                                      │
+│     plugin_obj.__usable_import_name = entry_point.module                                                                                                                        │
+│ AttributeError: 'EntryPoint' object has no attribute 'module'
+
+",-1,-1,-1.0,"Airflow: Plugins broken with 1.10.14 & Python 3.8-Using / installing any Plugins with Apache Airflow 1.10.14 breaks Airflow when using Python 3.8.
+Example: Run
+pip install airflow-exporter==1.3.2
+
+And then try to run Airflow Webserver and Scheduler.
+You will see the following Error:
+[2020-12-11 14:12:29,757] {plugins_manager.py:159} ERROR - Failed to import plugin AirflowPrometheus                                                                            │
+│ Traceback (most recent call last):                                                                                                                                              │
+│   File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/plugins_manager.py&quot;, line 150, in load_entrypoint_plugins                                                      │
+│     plugin_obj.__usable_import_name = entry_point.module                                                                                                                        │
+│ AttributeError: 'EntryPoint' object has no attribute 'module'
+
+",0
+15,68648569,Apache Airflow scheduler is not running after some time,"I am running a complex flow in apache airflow and using local executor with postgres db. It is running for tasks and scheduler goes down after some time. In airlfow console cant see any logs
+using airflow - puckel/docker-airflow:1.10.9 deployed in openshift environment
+Error in airflow UI:
+The scheduler does not appear to be running. Last heartbeat was received 3 hours ago.
+The DAGs list may not update, and new tasks will not be scheduled.
+",-1,-1,-1.0,"Apache Airflow scheduler is not running after some time-I am running a complex flow in apache airflow and using local executor with postgres db. It is running for tasks and scheduler goes down after some time. In airlfow console cant see any logs
+using airflow - puckel/docker-airflow:1.10.9 deployed in openshift environment
+Error in airflow UI:
+The scheduler does not appear to be running. Last heartbeat was received 3 hours ago.
+The DAGs list may not update, and new tasks will not be scheduled.
+",4
+16,68650493,Cannot init the db for Airflow,"I have some experience starting starting up Apache Airflow but I have now an error when I try to airflow db init command. The error is as below. I am running Airflow on virtual env with Python 3.8. Any help would appreciated. I am not sure to understand this error as I managed to init the db without importing any _cffi_backend module in the past.
+The error:
+airflow) airflow@26c8ed88c008:~/airflow$ airflow db init
+Traceback (most recent call last):
+  File &quot;/home/airflow/.local/bin/airflow&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/__main__.py&quot;, line 40, in main
+    args.func(args)
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/cli/cli_parser.py&quot;, line 47, in command
+    func = import_string(import_path)
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/utils/module_loading.py&quot;, line 32, in import_string
+    module = import_module(module_path)
+  File &quot;/usr/lib/python3.8/importlib/__init__.py&quot;, line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 1014, in _gcd_import
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 991, in _find_and_load
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 975, in _find_and_load_unlocked
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 671, in _load_unlocked
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 783, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/cli/commands/db_command.py&quot;, line 24, in &lt;module&gt;
+    from airflow.utils import cli as cli_utils, db
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/utils/db.py&quot;, line 26, in &lt;module&gt;
+    from airflow.jobs.base_job import BaseJob  # noqa: F401
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/jobs/__init__.py&quot;, line 19, in &lt;module&gt;
+    import airflow.jobs.backfill_job
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/jobs/backfill_job.py&quot;, line 29, in &lt;module&gt;
+    from airflow import models
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/models/__init__.py&quot;, line 20, in &lt;module&gt;
+    from airflow.models.baseoperator import BaseOperator, BaseOperatorLink
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/models/baseoperator.py&quot;, line 59, in &lt;module&gt;
+    from airflow.models.taskinstance import Context, TaskInstance, clear_task_instances
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py&quot;, line 57, in &lt;module&gt;
+    from airflow.models.variable import Variable
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/models/variable.py&quot;, line 24, in &lt;module&gt;
+    from cryptography.fernet import InvalidToken as InvalidFernetToken
+  File &quot;/usr/lib/python3/dist-packages/cryptography/fernet.py&quot;, line 17, in &lt;module&gt;
+    from cryptography.hazmat.primitives import hashes, padding
+  File &quot;/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/padding.py&quot;, line 13, in &lt;module&gt;
+    from cryptography.hazmat.bindings._padding import lib
+ModuleNotFoundError: No module named '_cffi_backend'
+
+",-1,-1,-1.0,"Cannot init the db for Airflow-I have some experience starting starting up Apache Airflow but I have now an error when I try to airflow db init command. The error is as below. I am running Airflow on virtual env with Python 3.8. Any help would appreciated. I am not sure to understand this error as I managed to init the db without importing any _cffi_backend module in the past.
+The error:
+airflow) airflow@26c8ed88c008:~/airflow$ airflow db init
+Traceback (most recent call last):
+  File &quot;/home/airflow/.local/bin/airflow&quot;, line 8, in &lt;module&gt;
+    sys.exit(main())
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/__main__.py&quot;, line 40, in main
+    args.func(args)
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/cli/cli_parser.py&quot;, line 47, in command
+    func = import_string(import_path)
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/utils/module_loading.py&quot;, line 32, in import_string
+    module = import_module(module_path)
+  File &quot;/usr/lib/python3.8/importlib/__init__.py&quot;, line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 1014, in _gcd_import
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 991, in _find_and_load
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 975, in _find_and_load_unlocked
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 671, in _load_unlocked
+  File &quot;&lt;frozen importlib._bootstrap_external&gt;&quot;, line 783, in exec_module
+  File &quot;&lt;frozen importlib._bootstrap&gt;&quot;, line 219, in _call_with_frames_removed
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/cli/commands/db_command.py&quot;, line 24, in &lt;module&gt;
+    from airflow.utils import cli as cli_utils, db
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/utils/db.py&quot;, line 26, in &lt;module&gt;
+    from airflow.jobs.base_job import BaseJob  # noqa: F401
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/jobs/__init__.py&quot;, line 19, in &lt;module&gt;
+    import airflow.jobs.backfill_job
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/jobs/backfill_job.py&quot;, line 29, in &lt;module&gt;
+    from airflow import models
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/models/__init__.py&quot;, line 20, in &lt;module&gt;
+    from airflow.models.baseoperator import BaseOperator, BaseOperatorLink
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/models/baseoperator.py&quot;, line 59, in &lt;module&gt;
+    from airflow.models.taskinstance import Context, TaskInstance, clear_task_instances
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py&quot;, line 57, in &lt;module&gt;
+    from airflow.models.variable import Variable
+  File &quot;/home/airflow/.local/lib/python3.8/site-packages/airflow/models/variable.py&quot;, line 24, in &lt;module&gt;
+    from cryptography.fernet import InvalidToken as InvalidFernetToken
+  File &quot;/usr/lib/python3/dist-packages/cryptography/fernet.py&quot;, line 17, in &lt;module&gt;
+    from cryptography.hazmat.primitives import hashes, padding
+  File &quot;/usr/lib/python3/dist-packages/cryptography/hazmat/primitives/padding.py&quot;, line 13, in &lt;module&gt;
+    from cryptography.hazmat.bindings._padding import lib
+ModuleNotFoundError: No module named '_cffi_backend'
+
+",0
+17,76099211,Copy parquet from S3 to Redshift Fail: Unreachable Invalid type: 4000,"I am now trying to load all tables from my AWS RDS (PostgreSQL) to Amazon Redshift.
+Not so important here though, I use Apache Airflow to do all the operations for me. The jobs detail is like:
+
+Export all the tables in RDS, convert them to parquet files and upload them to S3
+Extract the tables' schema from Pandas Dataframe to Apache Parquet format
+Upload the Parquet files in S3 to Redshift
+
+For many weeks it works just fine with the Redshift COPY command like this:
+TRUNCATE {table};\n\
+COPY {table}\n\
+FROM '{s3_key}'\n\
+IAM_ROLE '{os.getenv('REDSHIFT_IAM_ROLE')}'\n\
+FORMAT AS PARQUET\n\
+FILLRECORD\n\
+;
+
+However, I found the DAG run error this morning and the logs are like this:
+Running statement: 
+                            TRUNCATE users;
+                            COPY users
+                            FROM '&lt;s3-bucket-name&gt;'
+                            IAM_ROLE '&lt;iam-role&gt;'
+                            PARQUET
+                            FILLRECORD
+                            ;
+                        , parameters: None
+
+
+psycopg2.errors.InternalError_: Assert
+DETAIL:  
+  -----------------------------------------------
+  error:  Assert
+  code:      1000
+  context:   Unreachable - Invalid type: 4000
+  query:     3514431
+  location:  dory_util.cpp:528
+  process:   padbmaster [pid=4694]
+  -----------------------------------------------
+
+
+I have tried to find the logs by query id in the above error message in Redshift by running the command:
+SELECT * FROM SVL_S3LOG WHERE query = '3514431';
+
+But even cannot locate the detail of the error anywhere.
+Have searched around and asked ChatGPT but I didn't find any similar issues or directions to even find more about the error logs. Only found some issues saying that this may be kinda Redshift Internal Errors.
+But for the parquet format and data type, conversion was totally fine. Could anyone please point out or give some suggestions for me to fix my data pipeline issue?
+",-1,-1,-1.0,"Copy parquet from S3 to Redshift Fail: Unreachable Invalid type: 4000-I am now trying to load all tables from my AWS RDS (PostgreSQL) to Amazon Redshift.
+Not so important here though, I use Apache Airflow to do all the operations for me. The jobs detail is like:
+
+Export all the tables in RDS, convert them to parquet files and upload them to S3
+Extract the tables' schema from Pandas Dataframe to Apache Parquet format
+Upload the Parquet files in S3 to Redshift
+
+For many weeks it works just fine with the Redshift COPY command like this:
+TRUNCATE {table};\n\
+COPY {table}\n\
+FROM '{s3_key}'\n\
+IAM_ROLE '{os.getenv('REDSHIFT_IAM_ROLE')}'\n\
+FORMAT AS PARQUET\n\
+FILLRECORD\n\
+;
+
+However, I found the DAG run error this morning and the logs are like this:
+Running statement: 
+                            TRUNCATE users;
+                            COPY users
+                            FROM '&lt;s3-bucket-name&gt;'
+                            IAM_ROLE '&lt;iam-role&gt;'
+                            PARQUET
+                            FILLRECORD
+                            ;
+                        , parameters: None
+
+
+psycopg2.errors.InternalError_: Assert
+DETAIL:  
+  -----------------------------------------------
+  error:  Assert
+  code:      1000
+  context:   Unreachable - Invalid type: 4000
+  query:     3514431
+  location:  dory_util.cpp:528
+  process:   padbmaster [pid=4694]
+  -----------------------------------------------
+
+
+I have tried to find the logs by query id in the above error message in Redshift by running the command:
+SELECT * FROM SVL_S3LOG WHERE query = '3514431';
+
+But even cannot locate the detail of the error anywhere.
+Have searched around and asked ChatGPT but I didn't find any similar issues or directions to even find more about the error logs. Only found some issues saying that this may be kinda Redshift Internal Errors.
+But for the parquet format and data type, conversion was totally fine. Could anyone please point out or give some suggestions for me to fix my data pipeline issue?
+",2
+18,76135641,Apache spark integration with Airflow running on K8s,"I am using the helm chart to install Apache Airflow and Spark in the same k8s cluster. However, when I attempt to add spark connection information to the airflow. I am not receiving any spark providers.
+Since I am new to this, I don't know how to integrate both the application.
+Thanks..
+",0,-1,-1.0,"Apache spark integration with Airflow running on K8s-I am using the helm chart to install Apache Airflow and Spark in the same k8s cluster. However, when I attempt to add spark connection information to the airflow. I am not receiving any spark providers.
+Since I am new to this, I don't know how to integrate both the application.
+Thanks..
+",1
+19,76223726,"Error Airflow, DPY-3015: password verifier type 0x939 is not supported by python-oracledb in thin mode","I've already install Oracle Provider package for Apache Airflow
+and triying to connect to Oracle (version 19c) with this package, And I got this error
+DPY-3015: password verifier type 0x939 is not supported by python-oracledb in thin mode
+Error Oracle Connection
+I googled but still not find the solution
+I've tried to use extra parameters but not working.
+Thank you
+",-1,-1,-1.0,"Error Airflow, DPY-3015: password verifier type 0x939 is not supported by python-oracledb in thin mode-I've already install Oracle Provider package for Apache Airflow
+and triying to connect to Oracle (version 19c) with this package, And I got this error
+DPY-3015: password verifier type 0x939 is not supported by python-oracledb in thin mode
+Error Oracle Connection
+I googled but still not find the solution
+I've tried to use extra parameters but not working.
+Thank you
+",1
+20,76286234,Running Apache Airflow locally - debug cryptography.fernet.InvalidToken exception,"I'm running into this exception when testing a DAG on Airflow locally with aws-mwaa-local-runner:
+Logs on Airflow for my task
+[2023-05-18, 20:57:40 UTC] {{emr.py:571}} INFO - Creating job flow using aws_conn_id: aws_default, emr_conn_id: emr_default
+[2023-05-18, 20:57:40 UTC] {{base.py:71}} INFO - Using connection ID 'emr_default' for task execution.
+[2023-05-18, 20:57:40 UTC] {{taskinstance.py:1851}} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File &quot;/usr/local/airflow/dags/emr.py&quot;, line 583, in execute
+    response = self._emr_hook.create_job_flow(job_flow_overrides)
+  File &quot;/usr/local/airflow/.local/lib/python3.10/site-packages/airflow/providers/amazon/aws/hooks/emr.py&quot;, line 129, in create_job_flow
+    config = emr_conn.extra_dejson.copy()
+  File &quot;/usr/local/airflow/.local/lib/python3.10/site-packages/airflow/models/connection.py&quot;, line 400, in extra_dejson
+    if self.extra:
+  File &quot;/usr/local/airflow/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py&quot;, line 573, in __get__
+    retval = self.descriptor.__get__(instance, owner)
+  File &quot;/usr/local/airflow/.local/lib/python3.10/site-packages/airflow/models/connection.py&quot;, line 290, in get_extra
+    extra_val = fernet.decrypt(bytes(self._extra, 'utf-8')).decode()
+  File &quot;/usr/local/airflow/.local/lib/python3.10/site-packages/cryptography/fernet.py&quot;, line 195, in decrypt
+    raise InvalidToken
+
+I updated my AWS token just before testing. Any idea on this error or how to debug it?
+",-1,-1,-1.0,"Running Apache Airflow locally - debug cryptography.fernet.InvalidToken exception-I'm running into this exception when testing a DAG on Airflow locally with aws-mwaa-local-runner:
+Logs on Airflow for my task
+[2023-05-18, 20:57:40 UTC] {{emr.py:571}} INFO - Creating job flow using aws_conn_id: aws_default, emr_conn_id: emr_default
+[2023-05-18, 20:57:40 UTC] {{base.py:71}} INFO - Using connection ID 'emr_default' for task execution.
+[2023-05-18, 20:57:40 UTC] {{taskinstance.py:1851}} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File &quot;/usr/local/airflow/dags/emr.py&quot;, line 583, in execute
+    response = self._emr_hook.create_job_flow(job_flow_overrides)
+  File &quot;/usr/local/airflow/.local/lib/python3.10/site-packages/airflow/providers/amazon/aws/hooks/emr.py&quot;, line 129, in create_job_flow
+    config = emr_conn.extra_dejson.copy()
+  File &quot;/usr/local/airflow/.local/lib/python3.10/site-packages/airflow/models/connection.py&quot;, line 400, in extra_dejson
+    if self.extra:
+  File &quot;/usr/local/airflow/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py&quot;, line 573, in __get__
+    retval = self.descriptor.__get__(instance, owner)
+  File &quot;/usr/local/airflow/.local/lib/python3.10/site-packages/airflow/models/connection.py&quot;, line 290, in get_extra
+    extra_val = fernet.decrypt(bytes(self._extra, 'utf-8')).decode()
+  File &quot;/usr/local/airflow/.local/lib/python3.10/site-packages/cryptography/fernet.py&quot;, line 195, in decrypt
+    raise InvalidToken
+
+I updated my AWS token just before testing. Any idea on this error or how to debug it?
+",0

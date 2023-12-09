@@ -1,0 +1,1592 @@
+Id,Title,Body,RatingsSentiCR,RatingsGPT35,RatingsGPTFineTuned
+9594503,RapidMiner error: Regular Attributes must be of type binomial. Market Basket Analysis,"I am attempting to learn to use RapidMiner, and my boss wants me to perform a market basket analysis on a set of data. But when I use the given template, I get the following error:  
+
+Regular Attributes must be of type binomial.
+This is given withing the FP-Growth operator.  
+
+I have a customerID (only numbers), a productName(Letters) and a Product Quantity (numbers) column.  
+
+As I am a newbie with RM, I have no idea what is wrong.  
+
+Any input would be greatly appreciated.
+Thank you in advance.
+",-1,-1,-1.0
+10416219,rapidminer some concepts,"In rapidminer what is the meaning of:
+
+    - training cycles
+    - learning rate
+    - momentum
+
+
+I'm trying to work with rapidminer but i cant understand this notions. Any help would be apreciated, as newbly as possible.
+",1,-1,-1.0
+10662637,How integrate RapidMiner in a PHP web application?,"I've got an implementation in RapidMiner that classifies questions according to Bloom's taxonomy. I need to consume the data produced by a web application developed in PHP and show the results in the interface of the web application. 
+
+So I'm wondering if it is possible that the application in PHP communicates with RapidMiner to process the data and show the results provided by RapidMiner in the interface.
+
+I know RapidMiner is implemented in Java, and there is the option of using Java bridge to comunicate PHP and JAVA, but I'm not sure if that is a solution to this.
+",1,-1,-1.0
+14058589,Add a constant value to a numerical attribute in Rapid Miner,"I am working with rapidminer , I have a dataset with a numerical field (attribute) , I want to simply add a constant (e.g. 1) to all values of this feature ,
+
+How may I do this? I have not found anything straightforward so far.
+",0,-1,-1.0
+14421563,Read MYSQL db in RapidMiner,"I'm attempting to use the 'Read Database' operator in RapidMiner 5 to read an 'ExampleSet' from a Mysql database. I seem to establish a working connection with my db as I notice the Manage Database Connections window displays a 'Connection ok' message when prompted.
+
+However when I attempt to run the 'Read Database' process I receive the following error
+
+""Process failed:
+Failed to lookup .javax.naming.NoInitialContextException:
+Need to specify class name in environment or system property, or as an applet parameter,
+or in an application resouce file:
+java.naming.factory.initial""
+
+I don't know how to interpret this error. Do I need to set an environmental variable?
+",-1,-1,-1.0
+14819750,Rapidminer Graph view suspected export bug?,"As my question was remained unanswered in Rapidminer forum via this address : 
+
+my original question
+
+I would like to propose it here again, please inform me if by any chance you know the answer.
+
+I have noticed no matter what type of extensions we use for getting  export (i.e. .pdf, .ps .jpg , etc), the export engine do like a screenshot of the current view instead of the whole output space, this has caused lots of issues for me exporting gigantic decision trees of my research.
+
+Please someone advise me on this issue.
+
+Best,
+
+Amir
+",1,-1,-1.0
+15362520,using the stacking module in rapidminer,"iam new to rapidminer and i know how to add neuralnets and aply model and how to use the crossvalidation. but now i want to use the stacking module but i get the error that my neural net can't work with binominal fields but it did before i started using the stack module.
+
+in my stack module in the left part i have 2 adaboosts with in the first a neural net and in de second a naive byas. in the right part i have a singel neural net wich gives the error how can i fix this? i have looked at the questions but i couldn't find any thing about using multiple learners. and google isn't as usefull as it could be.
+",-1,-1,-1.0
+15834182,Integration of RapidMiner in Java application,"I have a text classification process in RapidMiner. It reads the test data from specified excel ssheet and does the classification. I have also a small Java application which is just running this process. Now I want to make the file input part in my aplication, so that everytime I would be able to specify the excel file from my application (not from RapidMiner).
+Any hints?
+
+This is the code:
+
+import com.rapidminer.RapidMiner;
+import com.rapidminer.Process;
+import com.rapidminer.example.Attribute;
+import com.rapidminer.example.Example;
+import com.rapidminer.example.ExampleSet;
+import com.rapidminer.operator.IOContainer;
+import com.rapidminer.operator.Operator;
+import com.rapidminer.operator.OperatorException;
+
+
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+import com.rapidminer.operator.io.ExcelExampleSource; 
+import com.rapidminer.tools.XMLException;
+
+
+public class Classification {
+
+    public static void main(String [] args) throws Exception{
+         ExampleSet resultSet1 = null;
+         IOContainer ioInput = null;
+        IOContainer ioResult;
+        try {
+            RapidMiner.setExecutionMode(RapidMiner.ExecutionMode.COMMAND_LINE);
+            RapidMiner.init();
+            Process pr = new Process(new File(""C:\\Users\\MP-TEST\\Desktop\\Rapid_Test\\Wieder_Model.rmp""));
+            Operator op = pr.getOperator(""Read Excel"");
+            op.setParameter(ExcelExampleSource.PARAMETER_EXCEL_FILE, ""C:\\Users\\MP-TEST\\Desktop\\Rapid_Test\\HaendlerRatings_neu.xls"");
+            ioResult = pr.run(ioInput);
+            if (ioResult.getElementAt(0) instanceof ExampleSet) {
+                resultSet1 = (ExampleSet)ioResult.getElementAt(0);
+
+                for (Example example : resultSet1) {
+                    Iterator&lt;Attribute&gt; allAtts = example.getAttributes().allAttributes();
+                    while(allAtts.hasNext()) {
+                        Attribute a = allAtts.next();
+                                if (a.isNumerical()) {
+                                        double value = example.getValue(a);
+                                        System.out.println(value);
+
+                                } else {
+                                        String value = example.getValueAsString(a);
+                                        System.out.println(value);
+                                }
+                         }
+                }
+                    }
+        } catch (IOException | XMLException | OperatorException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+
+
+          }
+}
+
+
+This is the error:
+
+Apr 09, 2013 9:06:05 AM com.rapidminer.Process run
+INFO: Process C:\Users\MP-TEST\Desktop\Rapid_Test\Wieder_Model.rmp starts
+com.rapidminer.operator.UserError: A value for the parameter 'excel_file' must be specified! 
+    at com.rapidminer.operator.nio.model.ExcelResultSetConfiguration.makeDataResultSet(ExcelResultSetConfiguration.java:316)
+    at com.rapidminer.operator.nio.model.AbstractDataResultSetReader.createExampleSet(AbstractDataResultSetReader.java:127)
+    at com.rapidminer.operator.io.AbstractExampleSource.read(AbstractExampleSource.java:52)
+    at com.rapidminer.operator.io.AbstractExampleSource.read(AbstractExampleSource.java:1)
+    at com.rapidminer.operator.io.AbstractReader.doWork(AbstractReader.java:126)
+    at com.rapidminer.operator.Operator.execute(Operator.java:855)
+    at com.rapidminer.operator.execution.SimpleUnitExecutor.execute(SimpleUnitExecutor.java:51)
+    at com.rapidminer.operator.ExecutionUnit.execute(ExecutionUnit.java:711)
+    at com.rapidminer.operator.OperatorChain.doWork(OperatorChain.java:379)
+    at com.rapidminer.operator.Operator.execute(Operator.java:855)
+    at com.rapidminer.Process.run(Process.java:949)
+    at com.rapidminer.Process.run(Process.java:873)
+    at com.rapidminer.Process.run(Process.java:832)
+    at com.rapidminer.Process.run(Process.java:827)
+    at Classification.main(Classification.java:29)
+
+
+Best regards
+
+Armen
+",-1,-1,-1.0
+17206918,trouble with xpath query in rapid miner,"I'm having trouble using xpath in Rapidminer.  Below is a sample html that I'm trying to pull data from.  I'm having trouble getting the number 7001 and Calfornia.  
+
+I use //h:span[@class='detail-block']//h:/text() and I can get ""Number:""
+Then I try //h:span[@class='detail-block']/span//h:/text() and get nothing.  I tried a bunch of variation of this and still come up with nothing.  I'm able to get things to work on google spreadsheet =importXML, but not rapidminer.
+
+&lt;div class=""information""&gt;
+&lt;h2 class=""underline""&gt;Information&lt;/h2&gt;
+&lt;span class=""detail-block""&gt;&lt;span class=""detail-attribute""&gt;Number:&amp;nbsp;&lt;/span&gt;         
+&lt;span&gt;7001&lt;/span&gt;&lt;/span&gt;
+&lt;span class=""detail-block""&gt;&lt;span class=""detail-attribute""&gt;Location:&amp;nbsp;&lt;/span&gt; &lt;span&gt;California&lt;/span&gt;&lt;/span&gt;
+
+",-1,-1,-1.0
+18957888,Starting a java project that uses Rapid miner,"I was asked to develop a project that will use Rapidminer library from which i will provide a interface to view results in some graphical form,. i am NOT an advanced programmer but can work around with codes.
+
+i have included all packages, libraries and necessary jars in my project, that i am building using eclipse.
+
+referring some sites and codes from internet, i have started integration of Rapidminer in my program, but FAILED to do so.
+
+please guide me to start my project, or any good source from internet where i can learn and be able to develop my project from scratch.
+
+i have seen Rapidminer blogs and web, but i am NOT able to understand thing properly..
+
+Thanx...for your help and precious time!!
+",1,-1,-1.0
+18490616,Rapidminer R-Extension: Cannot load native library jri.dll,"I am not sure, if this is the right forum for my issue. Please let me know if not and will try it in another one.
+
+Since it seems to be amazing extension, I am trying to run Rapid Miner's R-Extension. Without any success for over a day now. I don't know how to help myself anymore, that's why I decided to write this post.
+
+After starting Rapid Miner I get the error message:
+
+Could not load native library.
+R Extension could not be initialized. Error while loading native R library. Please check PATH,R_HOME and JAVA_HOME environment variables settings.
+Reason: 'C:\Program Files\R\R-3.0.1\library\rJava\jri\x64\jri.dll: Can't find dependent libraries'
+
+
+For helping you guys helping me: In the following some info, which might be useful.
+
+System Info
+
+OS:Windows 7 Enterprise SP 1 64 bit
+
+Rapidminer-version: 5.2.008 64 bit
+
+rapidminer.r.native lib: 
+C:\Program Files\R\R-3.0.1\library\rJava\jri\x64\jri.dll 
+
+R-Version: 
+platform       x86_64-w64-mingw32
+arch           x86_64
+os             mingw32
+system         x86_64, mingw32
+[...]
+version.string R version 3.0.1 (2013-05-16)
+nickname       Good Sport  
+
+Java version: 
+java version ""1.7.0_25""
+Java(TM) SE Runtime Environment (build 1.7.0_25-b17)
+Java HotSpot(TM) 64-Bit Server VM (build 23.25-b01, mixed mode) 
+
+JAVA_HOME: C:\Program Files\Java\jdk1.7.0_25 
+
+R_HOME: C:\Program Files\R\R-3.0.1 
+
+PATH (part): 
+C:\Windows\SysWOW64; C:\Windows\System32; 
+C:\Program Files\Internet Explorer; C:\Program Files\Java\jdk1.7.0_25\jre\bin; 
+C:\Program Files\Java\jdk1.7.0_25\jre\bin\server; 
+C:\Program Files\R\R-3.0.1\bin\x64; 
+C:\Program Files\R\R-3.0.1\library\rJava\jri\x64 
+
+
+After starting Rapid Miner (console): Part of console output
+
+java.lang.UnsatisfiedLinkError: C:\Program Files\R\R-3.0.1\library\rJava\jri\x64\jri.dll: Can't find dependent libraries
+28.08.2013 12:34:48 com.rapidminer.PluginInitR initPlugin
+INFO: Trying to load R Library...
+
+28.08.2013 12:34:48 org.rosuda.JRI.Rengine [clinit]
+INFO: Creating Connection to R...
+
+28.08.2013 12:34:48 org.rosuda.JRI.Rengine loadLibrary
+INFO: Trying to loaded R library from C:\Program Files\R\R-3.0.1\library\rJava\jri\x64\jri.dll
+
+28.08.2013 12:34:48 org.rosuda.JRI.Rengine loadLibrary
+INFO: Engine ID: class org.rosuda.JRI.Rengine ClassLoader:PluginClassLoader ([file:/C:/Users/&lt;...&gt;/.RapidMiner5/managed/rmx_r-5.3.0.jar])
+
+28.08.2013 12:34:48 com.rapidminer.tools.I18N getMessage
+WARNING: Missing I18N key: r.could_not_load_native_lib
+
+28.08.2013 12:34:48 com.rapidminer.PluginInitR loadNativeLibrary
+SEVERE: r.could_not_load_native_lib
+java.lang.UnsatisfiedLinkError: C:\Program Files\R\R-3.0.1\library\rJava\jri\x64\jri.dll: Can't find dependent libraries
+*Exception-Stacktrace*
+
+28.08.2013 12:34:48 com.rapidminer.PluginInitR initPlugin
+SEVERE: Failed to load R library! Check your R and rJava installation and PATH,R_HOME and JAVA_HOME environment variables.
+java.lang.UnsatisfiedLinkError: C:\Program Files\R\R-3.0.1\library\rJava\jri\x64\jri.dll: Can't find dependent libraries
+*Exception Stacktrace*
+
+
+Checking Measure for …\x64\jri.dll
+
+Checked dependencies of …\x64\jri.dll using Dependency Walker.
+
+Result: Delay-load module warning for module c:\windows\system32\IEFRAME.DLL.
+
+Message: Warning: At least one module has an unresolved import due to a missing export function in a delay-load dependent module.
+
+! But: It is possible to load rJava (version: rJava_0.9-4) into a R-workspace. Tried out with RStudio. 
+
+
+
+That's it! I don't know, what to do anymore to get out of this situation. As you can see, I read all posts in stackoverflow with the same issue. But nothing helped so far. Is there anything I did not consider?
+
+I appreciate each help very much. If there any things you need to know for further steps please let me know.  
+
+Thanks in advance,
+
+Rudi
+",-1,-1,-1.0
+19208556,Rapidminer : converting unix timestamp,"Does anybody know a way to convert unix timestamp to date_time attribute?
+
+I tried to use R extensions (my operators are mainly written in R) such as as.POSIXct functions to convert timestamps but it seems that rapidminer doesn't like it and keeps ignoring it.
+
+Any help is appreciated 
+
+Thanks
+",-1,-1,-1.0
+20011958,W-apriori in Rapidminer,"I need to create association rules using apriori algorithm in Rapidminer, but I can't seem to make it work. I'm using the 5.3.1 weka extension.
+
+I've already created the association rules using built-in FP-Growth and Create Associations operators, and it worked as expected. This is how the process looks like:
+
+
+
+Because all my attributes are already of binomial type I could use the FP-Growth directly. But if i use the same approach for apriori (confidence=0.1, support=0.1):
+
+
+
+As a result I'm not getting what I was looking for:
+
+Minimum support: 0.1 (26 instances)
+Minimum metric &lt;confidence&gt;: 0.1
+Number of cycles performed: 18
+
+
+(...)
+
+Best rules found:
+  1. A=FALSE 53 ==&gt; E=FALSE 26    conf:(0.49)
+  2. H=FALSE 74 ==&gt; E=FALSE 30    conf:(0.41)
+  3. E=FALSE 75 ==&gt; H=FALSE 30    conf:(0.4)
+  4. C=FALSE 68 ==&gt; E=FALSE 27    conf:(0.4)
+  5. D=FALSE 67 ==&gt; H=FALSE 26    conf:(0.39)
+  6. E=FALSE 75 ==&gt; C=FALSE 27    conf:(0.36)
+  7. H=FALSE 74 ==&gt; D=FALSE 26    conf:(0.35)
+  8. E=FALSE 75 ==&gt; A=FALSE 26    conf:(0.35)
+
+",1,-1,-1.0
+21795708,Why KNN in rapidminer is giving memory problems?,"I am working in text classification on 20NewsGroup dataset with 100 documents in each category. I classify text documents via Naive Bayes using 10-fold cross validation, It runs successfully and give me results at the end.
+
+I tried same with KNN with 10-fold cross validation but it always ends in ""Process Failure"" which shows that it requires more memory than available. I increase heap space for rapidminer from 1GB to 2.5G in build.xml as well as rapidminerGUI.bat but nothing improves(so i assume heap space is not a problem) and it always ends up in demanding more memory.
+
+Kindly help, i am stuck out at it and tried every possible option i could think about
+
+Platform Details:
+
+OS: Windows 7(64 bit)
+Software Version: Rapidminer 5.3 (64 bit)
+Java: Java 1.7 (64 bit)
+",1,-1,-1.0
+22030186,RapidMiner FP-growth operator not returning any results,"i'm running into a problem with the fp-growth operator in rapidminer. i'm processing about 20 text files that are all in all &lt;1MB in size. i used the process documents operator and within that tokenize, filter stop words, transform cases, generate n-grams, and filter tokens. from there i used the numerical to binominal operator. up until this point everything works fine, but when i run the fp-growth operator it just processes indefinitely with no result. i tried tweaking the min support parameter, but to no avail. would you have any suggestions on how to troubleshoot this? i'd really appreciate any guidance.
+",-1,-1,-1.0
+22108228,Text classification using Rapidminer with data stored in Excelsheet,"I am using Rapidminer to do a Naive Bayes text classification.
+My training set in an excel sheet with 2 columns: the first column is the LABEL and the  second is the TEXT.
+
+I used the the ""Read Excel"" operator to read the excel sheet (I use the ""Set Role"" operator to make sure that the LABEL column assumes the role of label and the TEXT column the text). 
+I then used the ""Data to Documents"" operator and the ""Process Documents"" operator (token, stopword, stem, case, etc.) to process the data. However, when I tried to port the data to ""Naive Bayes"" operator, an error msg told me that the data is not labelled and asked me to use ""Set Role"" operator. So I added another ""Set Role"" after the ""Process Documents"" operator, and only ""text"" in the ""attribute name"", the LABEL disappeared.
+I have no idea what went wrong.
+",-1,-1,-1.0
+22436594,Rapidminer Web Crawling doesn't store sites (Kickstarter),"I'm working on a web crawling project to analyse various crowdfunding sites' projects via text mining in Rapidminer 5/6. I have already built a working text analyser, but I'm stuck at the web crawling part. The problem is that the web crawler does crawl through the requested sites, but doesn't store them. I have tried experimenting with page size, depth and the like, but still the program just skips those sites. It is probable that the problem is with my storing rules. They look like the following, when trying to crawl through Kickstarter's sites:
+
+Follow with matching URL:
+
+.+kickstarter.+
+
+Store with matching URL:
+
+https://www\.kickstarter\.com\/projects.+
+
+http://www\.kickstarter\.com\/projects.+
+
+(?i)http.*://www\.kickstarter\.com\/projects.+
+
+
+An example URL that would need to be stored is:
+
+http://www.kickstarter.com/projects/corvuse/bhaloidam-an-indie-tabletop-storytelling-game?ref=spotlight
+
+
+(no advertising intended)
+
+And the log looks like the following:
+
+Mar 12, 2014 11:50:37 AM INFO: Following link http://www.kickstarter.com/projects/corvuse/bhaloidam-an-indie-tabletop-storytelling-game?ref=spotlight
+Mar 12, 2014 11:50:37 AM INFO: Following link http://kickstarter.tumblr.com/post/12036057734/todays-project-of-the-day-is-bhaloidam-an-indie
+Mar 12, 2014 11:50:37 AM INFO: Following link http://kickstarter.tumblr.com/tagged/bhaloidam
+Mar 12, 2014 11:50:38 AM INFO: Discarded page ""http://kickstarter.tumblr.com/post/79165806431/do-you-like-coloring-and-also-have-questions"" because url does not match filter rules.
+
+
+As you can see, it follows through with the process and just skips these links, and it doesn't even say that it doesn't match the filter rules so it's been discarded, so I'm not even sure that in these cases the program compares the links to the rules. I see a lot of links in the log preceded with (""Following link.."") but very few preceded with (""Discarded page...""). Does this mean that it just checks a few pages, or just that it won't notify me for every discarded page? I am able to save these projects' sites manually, but understandibly, I wouldn't like to do this with hundreds of sites.
+
+I've also built a model for Indiegogo, and the same model works if I use only the third storing rule (and remove the first two). So I thought this is also the problem with my Kickstarter model, but no luck this way either.
+
+Thanks in advance!
+
+Cheers
+",-1,-1,-1.0
+22698439,Integrating RapidMiner process with Java,"I need to run a RapidMiner process in Java. Like explained in this link :   Integration of RapidMiner in Java application,
+
+import com.rapidminer.Process;
+import com.rapidminer.RapidMiner;
+import com.rapidminer.operator.Operator;
+import com.rapidminer.operator.OperatorException;
+import com.rapidminer.operator.io.ExcelExampleSource;
+import com.rapidminer.tools.XMLException;
+import java.io.File;
+import java.io.IOException;
+import java.lang.Object;
+
+public class ReadRapidminerProcess {
+  public static void main(String[] args) {
+    try {
+
+      RapidMiner.setExecutionMode(RapidMiner.ExecutionMode.COMMAND_LINE);
+      RapidMiner.init();
+
+      Process process = new Process(new File(""C:\\Users\\Keshav\\.RapidMiner5\\repositories\\Local Repository\\lsvmtest.rmp""));
+      process.run();
+
+    } catch (IOException | XMLException | OperatorException ex) {
+      ex.printStackTrace();
+    }
+  }
+}
+
+
+UPDATE:
+
+After several modifications,I am stuck with the following error:
+
+INFO: Process C:\Users\Keshav\.RapidMiner5\repositories\Local Repository\linsvmtest.rmp starts
+com.rapidminer.operator.UserError: Cannot resolve relative repository location 'lsvmword'. Process is not associated with a repository.
+    at com.rapidminer.Process.resolveRepositoryLocation(Process.java:1248)
+    at com.rapidminer.operator.Operator.getParameterAsRepositoryLocation(Operator.java:1456)
+    at com.rapidminer.operator.io.RepositorySource.getRepositoryEntry(RepositorySource.java:91)
+    at com.rapidminer.operator.io.RepositorySource.read(RepositorySource.java:105)
+    at com.rapidminer.operator.io.AbstractReader.doWork(AbstractReader.java:126)
+    at com.rapidminer.operator.Operator.execute(Operator.java:867)
+    at com.rapidminer.operator.execution.SimpleUnitExecutor.execute(SimpleUnitExecutor.java:51)
+    at com.rapidminer.operator.ExecutionUnit.execute(ExecutionUnit.java:711)
+    at com.rapidminer.operator.OperatorChain.doWork(OperatorChain.java:375)
+    at com.rapidminer.operator.Operator.execute(Operator.java:867)
+    at com.rapidminer.Process.run(Process.java:949)
+    at com.rapidminer.Process.run(Process.java:873)
+    at com.rapidminer.Process.run(Process.java:832)
+    at com.rapidminer.Process.run(Process.java:827)
+    at com.rapidminer.Process.run(Process.java:817)
+    at ReadRapidminerProcess.main(ReadRapidminerProcess.java:21)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+    at java.lang.reflect.Method.invoke(Unknown Source)
+    at edu.rice.cs.drjava.model.compiler.JavacCompiler.runCommand(JavacCompiler.java:272)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+    at java.lang.reflect.Method.invoke(Unknown Source)
+    at edu.rice.cs.dynamicjava.symbol.JavaClass$JavaMethod.evaluate(JavaClass.java:362)
+    at edu.rice.cs.dynamicjava.interpreter.ExpressionEvaluator.handleMethodCall(ExpressionEvaluator.java:92)
+    at edu.rice.cs.dynamicjava.interpreter.ExpressionEvaluator.visit(ExpressionEvaluator.java:84)
+    at koala.dynamicjava.tree.StaticMethodCall.acceptVisitor(StaticMethodCall.java:121)
+    at edu.rice.cs.dynamicjava.interpreter.ExpressionEvaluator.value(ExpressionEvaluator.java:38)
+    at edu.rice.cs.dynamicjava.interpreter.ExpressionEvaluator.value(ExpressionEvaluator.java:37)
+    at edu.rice.cs.dynamicjava.interpreter.StatementEvaluator.visit(StatementEvaluator.java:106)
+    at edu.rice.cs.dynamicjava.interpreter.StatementEvaluator.visit(StatementEvaluator.java:29)
+    at koala.dynamicjava.tree.ExpressionStatement.acceptVisitor(ExpressionStatement.java:101)
+    at edu.rice.cs.dynamicjava.interpreter.StatementEvaluator.evaluateSequence(StatementEvaluator.java:66)
+    at edu.rice.cs.dynamicjava.interpreter.Interpreter.evaluate(Interpreter.java:77)
+    at edu.rice.cs.dynamicjava.interpreter.Interpreter.interpret(Interpreter.java:47)
+    at edu.rice.cs.drjava.model.repl.newjvm.InterpreterJVM.interpret(InterpreterJVM.java:246)
+    at edu.rice.cs.drjava.model.repl.newjvm.InterpreterJVM.interpret(InterpreterJVM.java:220)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+    at java.lang.reflect.Method.invoke(Unknown Source)
+    at sun.rmi.server.UnicastServerRef.dispatch(Unknown Source)
+    at sun.rmi.transport.Transport$1.run(Unknown Source)
+    at sun.rmi.transport.Transport$1.run(Unknown Source)
+    at java.security.AccessController.doPrivileged(Native Method)
+    at sun.rmi.transport.Transport.serviceCall(Unknown Source)
+    at sun.rmi.transport.tcp.TCPTransport.handleMessages(Unknown Source)
+    at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(Unknown Source)
+    at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(Unknown Source)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+    at java.lang.Thread.run(Unknown Source)
+&gt; 
+
+
+Can someone please help out with the code?
+
+Regards,
+
+Keshav
+",-1,-1,-1.0
+23599618,Can't import data to Rapidminer properly,"The data I'm trying to import is here: http://archive.ics.uci.edu/ml/machine-learning-databases/car/
+
+car.data 51 K
+
+
+There are no missing values in this data, yet there are lots of ""?""s in the rapidminer once I imported the data. I looked at to the source and those data, which shown as ""?"", do exist properly in the source. What may be the problem?
+
+by the way, if I download that file it's extension is .data. How should I import that kind of files? I import it as if it is a .csv file and it looks ok at first but there are those ""?""s. 
+",-1,-1,-1.0
+21853989,How to apply InformationGain in rapidminer with seperate test set ?,"I am dealing with text classification in rapidminer. I have seperate test and training splits. I applied Information Gain to a dataset using n-fold cross validation but i am confused on how to apply it on seperate test set ? Below is attached image 
+
+In figure i have connected the word list output from first ""Process Documents From Files"" which is used for training to second ""Processed Documents From Files"" which is used for testing but i want to apply the reduced feature to the second ""Process Documents From Files"" which perhaps should be the one returned from ""Select By Weight"" (reduced dimensions) operator but it returns weights which i cannot provide to second ""Process Documents From Files"". I searched alot but did'nt managed to find anything which can satisfy my need ?
+
+Is it really possible for Rapidminer to have seperate test/train splits and apply feature selection ?
+
+Is there any way to convert these weights into word list ? Please don't say write in repository (i can't do this) ?
+
+In such scenario when i have different test/train splits and needs to apply feature selection, how would i make sure that test/train splits have same dimension vectors ?
+
+I am really trapped out at it, kindly help ...
+",-1,-1,-1.0
+20640963,Error in rapidminer.init(),"I'm new in integrating Rapid miner in Java applications and currently i'm having an exception in the rapidminer.init(). As far as i can understand its because od the repositories. But i don't know what to do. I did some research but i still cant resolve my problem. The exception is:
+
+Dez 17, 2013 5:26:39 PM com.rapidminer.tools.ParameterService init
+INFO: Reading configuration resource com/rapidminer/resources/rapidminerrc.
+Dec 17, 2013 5:26:39 PM com.rapidminer.tools.I18N &lt;clinit&gt;
+INFO: Set locale to en.
+Dec 17, 2013 5:26:39 PM com.rapid_i.Launcher ensureRapidMinerHomeSet
+INFO: Property rapidminer.home is not set. Guessing.
+Dec 17, 2013 5:26:39 PM com.rapid_i.Launcher ensureRapidMinerHomeSet
+INFO: Trying parent directory of 'C:\Documents and Settings\Geral\workspace\LinkMiningModule\Resources\RM5.3\launcher.jar'...gotcha!
+Dec 17, 2013 5:26:39 PM com.rapid_i.Launcher ensureRapidMinerHomeSet
+INFO: Trying parent directory of 'C:\Documents and Settings\Geral\workspace\LinkMiningModule\Resources\RM5.3\rapidminer.jar'...gotcha!
+Dec 17, 2013 5:26:39 PM com.rapidminer.repository.RepositoryManager load
+INFO: Cannot access file system in execution mode UNKNOWN. Not loading repositories.
+Exception in thread ""main"" java.lang.NoClassDefFoundError: com/vlsolutions/swing/docking/ui/DockingUISettings
+    at com.rapidminer.tools.plugin.Plugin.initAll(Plugin.java:945)
+    at com.rapidminer.RapidMiner.init(RapidMiner.java:550)
+    at DataMinning.RapidMinnerInteraction.&lt;init&gt;(RapidMinnerInteraction.java:26)
+    at dataBaseHandling.GatheringInformationFromDB.&lt;init&gt;(GatheringInformationFromDB.java:61)
+    at General.InitializeEverything.&lt;init&gt;(InitializeEverything.java:22)
+    at General.Main.main(Main.java:12)
+Caused by: java.lang.ClassNotFoundException: com.vlsolutions.swing.docking.ui.DockingUISettings
+    at java.net.URLClassLoader$1.run(Unknown Source)
+    at java.net.URLClassLoader$1.run(Unknown Source)
+    at java.security.AccessController.doPrivileged(Native Method)
+    at java.net.URLClassLoader.findClass(Unknown Source)
+    at java.lang.ClassLoader.loadClass(Unknown Source)
+    at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+    at java.lang.ClassLoader.loadClass(Unknown Source)
+    ... 6 more
+
+
+My code is very simple:
+
+public RapidMinnerInteraction()
+    {
+
+             RapidMinerCommandLine.init();
+
+              Process process = null;
+            try {
+                process = new Process(new File(""NeuralNetwork/NeuralNetworkProcess.rmp""));
+                try {
+                    process.run();
+                } catch (OperatorException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            } catch (XMLException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+
+
+
+
+    }
+
+
+Any help would be awesome
+
+Kind regards
+",-1,-1,-1.0
+20594642,Rapidminer/Netbeans Integration Error,"I am trying to load a ready rapidminer model through netbeans...The whole application seems to be running fine except when i get an error at this line of code:
+
+IOContainer ioResult = process.run();
+**ExampleSet resultSet = (ExampleSet) ioResult.getElementAt(0);**
+ExampleTable mytable = resultSet.getExampleTable();
+
+
+The error is this one...
+
+com.rapidminer.Process run
+INFO: Process C:\Users\Antonis\.RapidMiner5\repositories\Local Repository\yo.rmp      finished successfully after 0 s
+**Exception in thread ""AWT-EventQueue-0"" java.lang.ClassCastException:        com.rapidminer.operator.learner.bayes.SimpleDistributionModel cannot be cast to   com.rapidminer.example.ExampleSet**
+
+
+I don't know how to handle this...If you could please help me find a way to make it work...I am trying to fix it and i feel that i am sooo close...!!! thank you in advance for your ideas and time!!!
+",1,-1,-1.0
+23669023,Naive Bayes Results not Generating in RapidMiner,"I'm running a Naive Bayes process in RapidMiner on Fisher's Iris dataset.
+
+My main process is as follows:
+
+
+  Retrieve Iris, Set Role, Validation
+
+
+The Validation subprocess is as follows:
+
+
+  Training Set: Naive Bayes; Test Set: Apply Model, Performance
+
+
+When I run the process, there are no results. I've never had such an issue before with RapidMiner and can't find anything on the issue when I Google it or search Stackoverflow.
+",-1,-1,-1.0
+23884817,how to write output from rapidminer to a txt file?,"i am using rapidminer 5.3.I took a small document which contains around three english sentences , tokenized it and filtered it with respect to the length of words.i want to write the output into a different word document.i tried using Write document utility but it is not working,it is simply writing the same original document into the new one.However when i write the output to the console,it gives me the expected answer.Something wrong with the write document utility.
+Here is my process
+
+
+  
+    READ DOCUMENT --> TOKENIZE  -->  FILTER TOKENS --> WRITE DOCUMENT
+  
+
+",-1,-1,-1.0
+24182402,R extension on RapidMiner,"I have installed rJava in R and the next step is to configure RapidMiner such that it can incorporate the R extension...The variables are set as:
+
+R_HOME=/home/.../R-2.12.2
+JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre
+
+I have exported both of these to PATH as well as $R_HOME/bin in which I also copied the libR.so file which was originally in $R_HOME/lib
+
+However when I try to configure RapidMiner with: java -jar rapidminer.jre
+I am getting the following message in a window:
+
+
+  R extension could not be initialized. Error while loading native R library. Please check PATH, R_HOME and JAVA_HOME environment variable settings.
+  
+  Reason:
+  /home/username/R/x86_64-unknown-linux-gnu-library/2.12/rJava/jri/libjri.so: liR.so: cannot open shared object file: No such file or directory
+
+
+The file /home/username/R/x86_64-unknown-linux-gnu-library/2.12/rJava/jri/libjri.so is definitely there...I have no idea what to do...please help!
+
+I am running a 64-bit Ubuntu.
+
+PS: I read in some posts that I should change my JAVA_HOME to $RAPIDMINER_HOME/jre, but there is no jre directory in my $RAPIDMINER home
+
+
+  UPDATE: I reinstalled R and rJava again and before that I deleted a .RapidMiner5 file from my home and rebuilt the rapidminer directory again...this time when I start rapidminer.jar it doesn't show any error messages, instead it starts as if rJava has not been installed at all and shows no reaction!
+
+",-1,-1,-1.0
+24915011,Rapidminer 6.0.008 not saving web crawl results,"I'm just following tutorials exactly to learn how to use rapidminer and I can't figure out what I'm doing wrong. One tutorial I tried was this: http://auburnbigdata.blogspot.com/2013/04/web-crawling-with-rapidminer.html
+
+I set up the crawl web processes and connected it to the results port. My parameters are as follows:
+
+url: http://auburnbigdata.blogspot.com
+
+crawling rules: store_with_matching_url    .+auburnblogspot.+
+
+follow_link_with_matching_url    .+auburnblogspot.+
+
+write pages into files: checked
+
+add pages as attribute: checked
+
+output_dir: C:\Users\Owen Capobianco\Desktop\Crawldata
+
+extension: txt
+
+max pages: (blank)
+
+max depth: 2
+
+domain: web
+
+delay: 500
+
+max threads: 1
+
+user agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36
+
+obey robot exclusion: checked
+
+My Crawldata folder remains empty and there are no results. I'm sure I'm doing something stupid wrong as this is basically my first time using the software.
+
+Thanks.
+",-1,-1,-1.0
+26235304,Rapidminer - Out of memory when working on large datasets,"In Rapidminer v.5.3013 I want to achieve the following:
+
+
+Read 15 million records from a database table - only one attribute but with up to 4096 characters
+Regex replacements on that data set
+Classification according to Naive Bayes
+Write the result (also 15 million rows) into another table
+
+
+I have the process running on RapidAnalytics with 8GB of RAM dedicated to it, though it always crashes with java.lang.OutOfMemoryError.
+
+Probably I have to iterate over a smaller subset of the records and append each part of the result to the destination table. There is a operator called ""Loop Data Sets"" but I couldn't find appropiate options/parameters for iterating the way I'd need it. 
+
+Has someone maybe an idea how to solve this?
+",-1,-1,-1.0
+26462487,Rapid Miner - Issue with Data set meta data information list in Read CSV operator,"I am using Rapidminer version 6 for data analysis. I am trying to read a csv file with 6000 rows. when i configure the meta data information in the read csv operator, the data is extracted to show only the last entry (column) in the meta data information list. the process xml code is as below
+
+&lt;?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?&gt;
+&lt;process version=""6.1.000""&gt;
+  &lt;context&gt;
+&lt;input/&gt;
+&lt;output/&gt;
+&lt;macros/&gt;
+  &lt;/context&gt;
+  &lt;operator activated=""true"" class=""process"" compatibility=""6.1.000"" expanded=""true""     name=""Process""&gt;
+    &lt;process expanded=""true""&gt;
+      &lt;operator activated=""true"" class=""read_csv"" compatibility=""6.1.000"" expanded=""true""  height=""60"" name=""Read CSV"" width=""90"" x=""45"" y=""30""&gt;
+        &lt;parameter key=""csv_file"" value=""C:\Users\jeganathan.velu\Desktop\Book1.csv""/&gt;
+    &lt;parameter key=""column_separators"" value="",""/&gt;
+    &lt;list key=""annotations""/&gt;
+    &lt;list key=""data_set_meta_data_information""&gt;
+      &lt;parameter key=""1"" value=""interest_rate_bps.true.integer.regular""/&gt;
+      &lt;parameter key=""1"" value=""Deposit.true.integer.regular""/&gt;
+      &lt;parameter key=""2"" value=""Location.true.nominal.regular""/&gt;
+    &lt;/list&gt;
+  &lt;/operator&gt;
+  &lt;connect from_op=""Read CSV"" from_port=""output"" to_port=""result 1""/&gt;
+  &lt;portSpacing port=""source_input 1"" spacing=""0""/&gt;
+  &lt;portSpacing port=""sink_result 1"" spacing=""0""/&gt;
+  &lt;portSpacing port=""sink_result 2"" spacing=""0""/&gt;
+&lt;/process&gt;
+
+
+
+
+
+but the tool outputs only the last column Location instead of all three columns configured in meta information list
+
+If i configure meta data for 10 columns then only the tenth column data is read from the csv
+
+requesting your help to find out if i am doing something wrong or is this a bug? A
+
+Thanks in Advance,
+Jeganathan Velu.
+",-1,-1,-1.0
+27348400,how can i extract rapidminer xpath value from javascript,"I would like to extract rapidminer xpath value for longitude and latitude embedded in javascript.
+
+
+
+    &lt; script type = ""text/javascript"" &gt;
+      $(""document"").ready(function() {
+        MultiMaps.init('{""elementName"":""map"",""latitude"":""55.046253842870506"",""longitude"":""-8.275406306447621"",""zoom"":16,""showMarker"":true,""showArea"":false,""areaSize"":0,""showControls"":1,""draggable"":1,""maxZoom"":18,""minZoom"":7,""hitcode"":""100"",""zoomLocked"":false,""lateLoad"":true,""lateLoadIds"":""#smi-map-link"",""bizmapWaitTime"":""800"",""multipleAreas"":[],""mapButtons"":[""map-button""],""satButtons"":[""sat-button""],""svButtons"":[""sv-button""],""clustering"":true,""isMarkerDraggable"":false,""jumpToGoogleIds"":"""",""key"":""AIzaSyBvf2e2eg1SyR7Lq5INzGDrIInkgKHT1oI"",""onlyGoogle"":true,""lazyLoad"":false}');
+      }); &lt; /script&gt;
+
+
+
+
+
+I tried 
+
+//h:html/head/script[@type='text/javascript']//text() 
+
+
+to at least extract all the text from the javascript but it is not working for me. Any suggestions?
+",-1,-1,-1.0
+27251052,RapidMiner and WEKA : Different clustering result,"I am new in Data Mining analytic and Machine Learning. I have been trying to compare the use of Predictive analysis and Clustering analysis using RapidMiner and Weka for my college assignment.
+
+Just after I study the advantages and disadvantages from both tools and starting to do the analyzing process I found some problems. I tried doing Clustering using K-means and simpleKmeans for Weka and Regression analysis using LinearRegression and I am not quite satisfied with the result, since they contain result that significantly different. all of that I used a same datasets. numerical datasets.
+
+I have been spending a lot of my time trying to figure something out by studying the initialization for each algorithm each tools since the interface is different and there are some parameter that is on RapidMiner but not in Weka or otherwise, so I am a bit confused. (is it the problem?)
+
+Despite that what do you think is wrong? is there some initialization  process that I missed? or is it because the code is different in each tools even they use the same algorithm?
+
+Thank you for your answer!
+",-1,-1,-1.0
+25347624,RapidMiner: How can I efficiently generate n-grams?,"For my thesis, I'm trying to perform sentiment analysis on larger (up to 2GB) files of text documents (product reviews) using RapidMiner Community Edition with the Text Mining extension.
+
+I'd like to generate bigrams for that. But for a small 70MB csv file with not even 100.000 documents the generation of bigrams already takes 12 hours on an eight-core 32GB RAM machine (with RapidMiner configured to use 28GB and all cores). 
+
+I've been able to reduce it to 3 hours using filters with the downside of having bigrams, which do not exist in the original documents. I'm not sure, if this is as far as I can get. 
+
+My current process looks like this:
+
+Read CSV -> Process documents (Tokenize -> Stem -> Filter stop words -> Filter length &lt; 2 -> Generate n-grams ) -> Split Validation
+
+Removing the n-gram operator drops precision and recall down to ~60%, which is far from being acceptable. Thanks for any ideas, how to speed this up.
+",-1,-1,-1.0
+29005338,Extending RapidMiner using eclipse,"Using the How to extend rapidminer guide, I am trying to make an extension to rapidminer 5.3.
+
+
+I downloaded the rapidminer source code from https://github.com/rapidminer/rapidminer into a zip file in my local drive.
+I exported it into eclipse as a git project.
+
+
+Issue: I am seeing errors in the rapidminer Project indicated with a red cross. But I cannot see any errors in the folders. 
+
+
+Downloaded rapidminer extension template and tutorial from these locations. Extension tutorial and Extension Template.
+Imported them into Eclipse. (Tutorial suggests importing as Gradle projects. But, I am getting errors while doing this.
+Added RapidMiner project into the Build path of other projects. Now, all projects show a red cross mark.
+
+
+What is going wrong?
+",-1,-1,-1.0
+29592590,in RapidMiner how do I run the same read database query while looping through supplied values,"Given a database table how do I use macros to change the ""where"" value of a select query to incorporate the distinct values from a column in that table using rapidminer?
+
+For example if the column was ""city"" and the distinct values were {London, NewYork,Paris} how do I use macros and loops so a subprocess will run the following statement?
+
+Select * from Table where city = SuppliedValue
+
+
+My problem is really down to reading the distinct values into a variable and looping for each value found but I can't get my head around if I should use optimize parameter grid, loop operator (and which 1) or a macro operator 
+",-1,-1,-1.0
+30070652,Rapidminer studio and java 8,"I have this simple code, which works in RapidMiner 5 with Java 6, and also works with RapidMiner Studio with Java 7. The problem is with Java 8, it displays an error that the requested repository doesn't exist!
+
+public void LoadDataProcess(String Data, ArrayList &lt;Data&gt; DataArray, ArrayList&lt;String&gt; Labels, ArrayList&lt;String&gt; AttributIndex)throws MalformedRepositoryLocationException{
+    try {
+    // loads the process from the repository
+    RepositoryLocation loc = new RepositoryLocation(""//Repository/MyData/""+ Data);
+    IOObjectEntry entry = (IOObjectEntry) loc.locateEntry();
+    IOObject myIOObject= entry.retrieveData(null);
+    IOContainer ioInput = new IOContainer(new IOObject[] {myIOObject});
+    ExampleSet resultSet = ioInput.get(ExampleSet.class);
+    //Recuperatr attributs
+}
+
+
+The error is:
+
+com.rapidminer.repository.RepositoryException: Requested repository Repository does not exist.
+at com.rapidminer.repository.RepositoryManager.getRepository(RepositoryManager.java:192)
+at com.rapidminer.repository.RepositoryLocation.getRepository(RepositoryLocation.java:161)
+at com.rapidminer.repository.RepositoryLocation.locateEntry(RepositoryLocation.java:187)
+
+
+What is the problem with Java 8?  I must work with Java 8 and RapidMiner.
+",-1,-1,-1.0
+31855657,Rapidminer: Mapping to boolean column in data base,"I need to convert one text column inside my Rapidminer process pipeline to the boolean data type in order to insert data in a postgres column with a boolean data type. I only can convert text to Nominal, but that doesn't work. I always get a mapping error:""boolean = character varying Hint""
+
+I tried it with ""true, false"" and ""0, 1"", but without success.
+
+Any idea?
+
+Thanks
+",-1,-1,-1.0
+33266127,Fp growth using rapidminer,"Fp growth operator is returning ""no rules found "". I used nominal to binary , Fp growth and create association rule operators to apply fp growth algorithm on iris.csv file using RapidMiner.I didn't understood why it is returning ""no rules found"". I need your help .
+",1,-1,-1.0
+33086405,ConcurrentModificationException error in Rapidminer Studio?,"So there is a lab in which I work. We have got Windows server 2012 installed. There are 2 users who connect to the windows server using remote desktop. Rapidminer studio has been installed on windows server so that both users can access it. Both the users are using the same license for rapidminer studio (professional deployment). Now when we both try to run the market basket analysis template on the rapidminer studio at the same time we both get the following error :-
+
+Exception: java.util.ConcurrentModificationException
+Message: null
+Stack trace:
+
+  java.util.ArrayList$Itr.checkForComodification(ArrayList.java:901)
+  java.util.ArrayList$Itr.next(ArrayList.java:851)
+  com.rapidminer.operator.learner.associations.AssociationRules.getAllConclusionItems(AssociationRules.java:100)
+  com.rapidminer.gui.viewer.AssociationRuleFilter.&lt;init&gt;(AssociationRuleFilter.java:86)
+  com.rapidminer.gui.viewer.AssociationRuleTableViewer.&lt;init&gt;(AssociationRuleTableViewer.java:61)
+  com.rapidminer.gui.renderer.itemsets.AssociationRulesTableRenderer.getVisualizationComponent(AssociationRulesTableRenderer.java:50)
+  com.rapidminer.gui.processeditor.results.ResultDisplayTools$1.run(ResultDisplayTools.java:134)
+  com.rapidminer.gui.tools.ProgressThread$3.run(ProgressThread.java:552)
+  java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+  java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+  java.lang.Thread.run(Thread.java:745)
+
+
+Could anyone help me figure out as to why this problem is occuring and how to solve it?
+",1,-1,-1.0
+30686189,Polynominal error in Rapidminer when doing n-gram classification,"I am trying to classify different concepts in a text using n-gram. My data tyically exists of six columns:
+
+
+The word that needs classification
+The classification
+First word on the left of 1)
+Second word on the left of 1)
+First word on the right of 1)
+Second word on the right of 1)
+
+
+When I try to use a SVM in Rapidminer, I get the error that it can not handle polynominal values. I know that this can be done because I have read it in different papers. I set the second column to 'label' and have tried to set the rest to 'text' or 'real', but it seems to have no effect. What am I doing wrong?
+",-1,-1,-1.0
+33841397,One-Class SVM using Rapidminer,"I am trying on the one-class libsvm on rapidminer. However, I received a problem states that ""binominal label not supported"". My label dataset has one type of label only. If I change the svm type to ""C-SVC"", it will pop a problem saying ""SVM does not have sufficient capabilities for handling an example set with only one label"". I've tried several data type and I saw this thread http://rapid-i.com/rapidforum/index.php/topic,1596.0.html but it does not help much in my case. I checked out the svm operator information. It shows that the operator only accept one class label. But, the set role operator only have a general label. It can't set the role to one-class. 
+
+I am quite new in using rapidminer.
+
+Please help :((
+
+Thank you.
+",-1,-1,-1.0
+33988217,Rapidminer Studio: how to export ROC curve,"Using RapidMiner Studio 6.5, the X-Validation operator is a part of my process. The operator automatically produces ROC curves as a part of validation results. 
+
+
+  How can I export the picture of ROC curves?
+
+
+Windows' Print Screen command seems a bit too stone-aged.
+",0,-1,-1.0
+35263158,How to run a java jar from Hadoop that needs some rapid miner jars,"I am running this command from hadoop directory which includes  lib/ , project dependencies and everything it needs.
+
+hadoop jar myjar.jar
+
+
+My code runs a rapid miner process with hadoop mapper, its library jars is also includes in lib directory.
+
+But it does not get rapidminer jars , except these hadoop get all the other jars.
+I  am using rapidminer free version.
+
+What might be the problem?
+",-1,-1,-1.0
+35472446,Import csv in Rapidminer is not loading data properly,"Importing csv in Rapidminer is not loading data properly in the attributes/ columns and returns errors. 
+
+I have set the parameter values correctly in the 'Data Import Wizard'. 
+
+Column Separation is set to comma and when I check the ""Use Quotes"" parameter I see that there are too many ""?"" appear in the columns even though there is data in the actual csv file. 
+
+And when I do not check the “Use Quotes” option then I notice that the content of the columns are distributed across different columns, i.e., data does not appear in the correct column. It also gives error for the date column. 
+
+How to resolve this? Any suggestions please? I saw a lot of Rapidminer videos and read about it but did not help. 
+
+I am trying to import twitter conversations data which I exported from a 3rd party SaaS tool which extracts Twitter data for us. 
+
+Could someone help me soon please? Thanks, Geeta
+",-1,-1,-1.0
+35504458,Rapidminer Numerical to Binominal - RAM Issue,"In realtion to Rapidminer, I Have a dataset with 3 columns (Transaction ID, Product Description, Value) and approx 1 million rows.
+
+I am trying to apply FP-Growth and Create Association but this keeps failing due to memory at the ""Numerical to Binomial"" stage of my process . I have allocated 56GB of RAM.
+
+""This process would need more than the maximum amount of available memory. You can either leave......""
+attached example
+
+Am I doing something wrong here? I would have thought 56GB of RAM would be more than enough to cope with this.
+
+Any help will be much appreciated
+
+Thanks.
+",1,-1,-1.0
+36131896,Loop create Models for ensemble classifier in Rapidminer,"I have the following situation:
+
+I have collected data of users clicking on many different buttons. I then want to classify users not used in the training set. A scaled down example:
+
+
+There are 20 buttons in an application
+For each of these buttons, I want to train a classifier
+A new user clicks on 5 buttons
+Based on these 5 clicks, I want to use 5/20 models to vote on the class of the user
+
+
+I know how to loop to create the different models for the different buttons, but I am at a loss as to how to use only the models that I need in later steps. Is this feasible in Rapidminer?
+",-1,1,-1.0
+36405601,Split Data operator in RapidMiner generates always the same splits,"I am using RapidMiner Studio 7.0.001 on Mac OSX platform.
+While using Split Data operator, I recognized that it always generates the same splits for my data. I didn't use local random seed and all the sampling types have the same problem.
+Any help is appreciated.
+",1,-1,-1.0
+36938553,how to connect rapidminer to mongodb,"I converted a xml document to json and store it in mongodb (in java),there are ceveral Document nested in the json,then I connected rapidminer to the collection  but when i visualise the content of the collection I one row and multiple columns.
+for example, i have this json : 
+
+{
+     ' lat ' : 48.8566667,
+     ' lng ' : 2.3509871  ,
+     ' i '   : {
+          ' id '       : ' id_element ' ,
+          ' ville '    : ' Paris ',
+          ' pays '     : ' France ',
+          ' nbResult ' :  5
+     }
+ }
+
+
+and when I visualte it with rapidminer (json to data) I get 
+a table with one row and multiple columns, each column contains for example : 
+lat or i.id, i.ville... i don't get the correct format.
+",-1,-1,-1.0
+36990651,RapidMiner and Davies-Bouldin Index,"Can anyone give me an explanation about the reason why Davies-Bouldin Index is negative in RapidMiner?
+
+I searched but found almost nothing.
+",0,-1,-1.0
+38323984,How to export association rules into excel file in rapidminer,"I am using RapidMiner to extract association rules. I connect 'write excel' operator after 'create association rule' operator but I get an error. It said that it need example set as input. Any suggestions to solve this?
+Thanks
+",-1,-1,-1.0
+38382281,What method does rapidminer use to calculate correlation matrix and why am I getting negative correlations for two categorical/nominal attributes?,"I am hoping someone can answer this for me as I am stuck.  
+
+What methodology does rapidminer use in it's correlation matrix? For all data combinations would be nice, but most importantly for nominal/categorical data sets?
+
+I am using rapidminer to build a correlation matrix and have been careful to properly label all attributes as numbers, binominal, polynominal, etc.  I am finding that my matrix shows negative correlations for some of the nominal/nominal combinations of attributes, which doesn't make since based on the methods that I would normally think would be chosen (Phi, Cramer's V, Contingency Coefficient) to calculate this.  I thought the correlation had to be positive for these tests, and it doesn't make sense to have a ""negative"" correlation between categories like gender and city as that would suggest an order in the data.
+
+Is there another test used, or dummy coding or something?  And if dummy coding is used how reliable is the value obtained?  
+
+Thank you in advance to anyone who can help me.  Hate to admit when I am lost, but here I am needing a map :)
+",1,-1,-1.0
+41269333,Read Wordlist into Rapidminer Execute R,"I'm using Rapidminer, and after a Wordlist to Data operator, I want to create a word cloud with Execute R using the script below.  I get the R execution failure: ""no applicable method for 'TermDoumentMatrix' applied to an object of class \""c('data.table', data.frame')\"".
+
+The datatable has a column of words, a column of document occurrences, and a column of word occurrences.
+
+Can anyone advise please how I resolve the error?
+
+rm_main = function(data)
+{
+    wordcloud::wordcloud(data, scale=c(5,0.5), max.words=100, random.order=FALSE,
+    rot.per=0.35, use.r.layout=FALSE, colors=""Dark2"")
+}
+
+",-1,-1,-1.0
+40889493,"Number of repeating (similar) text units (sentences, paragraphs) in Python or Rapidminer","How can I find the number of repeating or very similar sentences or paragraphs in the text document? 
+I tried to calculate cosine similarity between the sentences in Rapidminer but with 3000 sentences in each document it is not the best idea.
+",-1,-1,-1.0
+43193755,Filtering out 'most recent' example record in Rapidminer,"I'm trying to filter an example set of commercial properties in rapidminer. Many of the properties are duplicated because the property transaction history is included in the data table, and many of the properties been sold more than once over the period of the data table. What I want to do is to filter out all but the most recent transaction for each property. 
+
+I can't figure out how to filter all but the record with the most recent transaction date. Any help would be appreciated. 
+",-1,-1,-1.0
+43678786,extend internal precision in rapidminer 5.3,"im currently troubled with the float precision in rapidminer 5.3. I'm loading some float from a csv which look like this: 1.234567E10. my problem is any number with an exponent smaller than -9 is just imported as 0, numbers with greater exponents are correctly imported as e.g. 8.000562E-3 -> 0.008000562. [Edit: i'm using the ""Read CSV"" function]
+do i need to increase the internal precision of rapidminer and how do i do this?
+I already increased the display of rapidminer.general.fractiondigits.numbers which gives me a lot if trailing zeros e.g. 8.000562E-3 -> 0.008000562000000000 but still if the exponent is -9 or smaller it will only show 8.000562E-9 -> 0.
+thanks for any help =).
+EDIT: i checked ""read CSV"", the numbers should be imported as ""double_array"". the machiene epsilon for double is about 1E-16. the behaviour i encounter looks like its treated as a single precision, which has an eps about 1E-9.Am i missing something?
+",1,-1,-1.0
+44784726,How can I use RapidMiner 5 to connect to an Oracle 12.2 database?,"I'm trying to connect to an Oracle 12.2 database using RapidMiner 5.3.15 (the last free, purely open-source version). I'm using ojdbc8.jar as my driver and Java 8 is installed on my PC. When I test the connection I get the following error:
+
+Io exception: Invalid connection string format, a valid format is: ""host:port:sid""
+
+This is strange, because I don't receive this error connecting with other software using the service_name rather than SID. The URL that normally works is this:
+
+jdbc:oracle:thin:[host]:1521/[service_name]
+
+Below are the driver details from the jdbc_properties.xml file in my user/.RapidMiner5 folder. Any idea on what could be causing the error?
+
+&lt;driver urlprefix=""jdbc:oracle:thin:@"" name=""Oracle12.2"" drivers=""oracle.jdbc.driver.OracleDriver"" driver_jar=""C:\Program Files (x86)\Rapid-I\RapidMiner5\lib\jdbc\ojdbc8.jar"" defaultport=""1521"" dbnameseparator=""/""/&gt;
+
+
+Thanks in advance for any suggestions/advice-
+
+Tim
+",-1,-1,-1.0
+46107472,Rapidminer process failed message,"I use Rapidminer in text mining process 
+it work with naive well but with decision tree it give error message
+the dataset contains about 50000 word,I use stem and stopword filtering 
+
+error message
+",1,-1,-1.0
+46410375,Apply kNN model to whole dataset in RapidMiner,"beginner RapidMiner question here. Say I am done developing a predictive kNN model through e.g. cross validation and I now want to do predictions on the whole dataset that I have worked on (train and test set) with this model, how is this done? I've tried the following:
+
+
+
+but then each object's 'label' is included in its own Nearest Neighborhood so if k = 1 the prediction error = 0, which obviously shouldn't happen. 
+",0,-1,-1.0
+47823058,Syntax for scraping double quotes in rapidminer (XPATH),"I'm having trouble using xpath in Rapidminer when trying to retrieve reviews form the google play store. The problem seems to be that these reviews are in double quotes and I can't get rapidminer to spit out the text...only blanks. I have a number of other xpath queries that are working fine for other commands where i use divs and span etc.  I'm able to get things to work on google spreadsheet for this query through =importXML, but not in rapidminer.
+This is what I have in XPATH:
+
+//*[@class='review-text']"")
+
+
+So I added a /text() to the end and still nothing. I have played around with adding //div instead of //* and have used h:/span also. I'm kind of hoping there's a special syntax for retrieving quotes that i'm unaware of? 
+
+Here is the HTML i'm looking to scrape in the image below:
+https://i.stack.imgur.com/dl6I8.png
+
+Please see my comment below on further failed tests. Thanks.
+",-1,-1,-1.0
+50077237,Rapidminer - Spliting rows that has values in wrong type,"I had a data set of 8 millon rows in a txt file with tab delimited format without quotes.
+I had 5 of the 14 columns with date values in dd.MM.yyyy format.
+
+Problem 1
+I am trying to import the file. In ""Format your colums"" step, if I choose the type of that colums as ""date"", it gives errors and all cells in columns turns ""?""
+
+So I selected ""polynomial"" and planed to convert attribute type to date later.
+
+Problem 2 (the real one)
+I imported the data and put ""nominal to date"" operator. When I run I got error in line 14.899:
+
+Cannot parse date: Unparseable date: ""0""
+
+
+I find the line and I see that columns separated wrong. There was a tab character in a string in the a prior cell. So values moved one cell right. And this row was not the only one that moved.
+
+I want to split the rows that has the values in wrong data type for spesified attributes. So I cant correct them manually.
+
+How can I do that in Rapidminer?
+
+Or any other ideas to figure theese problems out?
+",-1,-1,-1.0
+50433033,Attributes do not match in rapidminer,"I successfully apply a neural net operator in rapidminer on a data set in which I have 3 columns and the 4th one the labelled one
+
+column1|column2|column3|column4(labelled)
+data   |data   |data   |data  
+
+
+, now I have a testing data in order to predict the value of labelled column based upon the column1, column2, column3, testing data looks like:
+
+column1|column2|column3
+data   |data   |data   
+
+
+Question: is this correct?
+
+Using this approach, I created a model so that the process can predict value of unlabelled column:
+
+  
+
+Then, using the solution in the below reference :
+
+Split data solution
+
+I again created a model using split data, for this I combined my data set for training and testing (now the combined data has some values for labelled column and some does not have this column value as this is the part of testing data).
+
+
+
+But still I am getting this error.
+",1,-1,-1.0
+51802045,Rapidminer more than one query text analysis,"I am using rapidminer because I want to perform a sentiment analysis. 
+The things are, I have 7 queries that I need to analyze together (companies' names that I need to analyze to obtain insights about the customer).
+So my idea was then to extract the data with twitter app developer and then put in rapidminer to analyze.
+
+
+When I open this data in rapidminer it shows that
+there are some problems with the dataset with the following:
+
+Error: file syntax error
+Message: Value quotes not closed at position 346.
+Last characters read: ght.
+Help enter code here
+
+
+-How do I fix this?
+Once enter my spreadsheet data (.csv file). It shows me the error""
+Cause: Unparseable number: ""FALSE""
+I've searched here already for answers but none helped me to solve this error.
+Is it possible to analyze this data altogether or do I
+have to do it separately?
+I'm not sure if this is feasible, I
+suppose it would interfere in the overall analysis?
+
+
+I'm quite new at rapidminer, so I appreciate you all's help.
+Thanks in advance.
+",1,-1,-1.0
+51811399,Parameter String in Filter Examples Rapidminer,"I have a dataset from twitter. I need to remove tweets related to an specific word.
+I used 'Filter Examples' operator and selected for 'Condition class' -> 'attribute_value'. I followed the Rapidminer guide but it's not working.
+It  says:
+
+""This parameter is available when the parameter 'attribute_value_filter' is selected as condition class. The condition format is an Attribute name, followed by a comparison function and a value to match. 
+Nominal Attributes can be compared by = and != with an arbitrary string, which can also include a regular expression.""
+
+Hence, I typed:
+text{=strike!=}
+also tried:
+text=strike!=
+
+'text' is the name of my attribute
+'strike' is the word I want to remove.
+
+However, I'm getting this error:
+
+
+
+Can someone please point out what I am doing wrong? I've tried several variations, but for some idiot reason it's not working.
+
+Please be kind I'm quite new at this and I really need it for my thesis. Thank you so much!!!
+",-1,-1,-1.0
+53186971,Cannot run spark decision tree on rapidminer process,"I'm working on windows 8.1, Hadoop 2.6, spark 1.6, hive and rapidminer 9.0 version.
+I have a process composed by these operators: retrieve data from hive, set role, spark decision tree.
+radoop is configured and i can access to hive data.
+when I run the process the spark decision tree operator last much time to run without no result.
+on yarn namenode ui web show that the spark job is failed and in rapidminer I have this error : 
+
+Please verify your Spark Resource Allocation settings on the Advanced Connection Properties window. You can check the logs of the Spark job on the ResourceManager web interface  at http://${yarn.resourcemanager.hostname}:8088.
+
+
+in yarn ressource manager logs i have these notifications:
+
+Container exited with a non-zero exit code 1
+Failing this attempt. Failing the application.
+18/11/07 10:43:50 INFO scheduler.AppSchedulingInfo: Application application_1541
+582549574_0006 requests cleared
+18/11/07 10:43:50 INFO rmapp.RMAppImpl: application_1541582549574_0006 State cha
+nge from FINAL_SAVING to FAILED
+18/11/07 10:43:50 INFO capacity.LeafQueue: Application removed - appId: applicat
+ion_1541582549574_0006 user: user queue: default #user-pending-applications: 0 #
+user-active-applications: 0 #queue-pending-applications: 0 #queue-active-applica
+tions: 0
+18/11/07 10:43:50 WARN resourcemanager.RMAuditLogger: USER=user OPERATION=Applic
+ation Finished - Failed TARGET=RMAppManager     RESULT=FAILURE  DESCRIPTION=App
+failed with state: FAILED       PERMISSIONS=Application application_154158254957
+4_0006 failed 1 times due to AM Container for appattempt_1541582549574_0006_0000
+01 exited with  exitCode: 1
+For more detailed output, check application tracking page:http://asus:8088/proxy
+/application_1541582549574_0006/Then, click on links to logs of each attempt.
+Diagnostics: Exception from container-launch.
+Container id: container_1541582549574_0006_01_000001
+Exit code: 1
+Stack trace: ExitCodeException exitCode=1:
+        at org.apache.hadoop.util.Shell.runCommand(Shell.java:538)
+        at org.apache.hadoop.util.Shell.run(Shell.java:455)
+        at org.apache.hadoop.util.Shell$ShellCommandExecutor.execute(Shell.java:
+715)
+        at org.apache.hadoop.yarn.server.nodemanager.DefaultContainerExecutor.la
+unchContainer(DefaultContainerExecutor.java:211)
+        at org.apache.hadoop.yarn.server.nodemanager.containermanager.launcher.C
+ontainerLaunch.call(ContainerLaunch.java:302)
+        at org.apache.hadoop.yarn.server.nodemanager.containermanager.launcher.C
+ontainerLaunch.call(ContainerLaunch.java:82)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.
+java:1149)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor
+.java:624)
+        at java.lang.Thread.run(Thread.java:748)
+
+Shell output:         1 fichier(s) déplacé(s).
+
+
+Container exited with a non-zero exit code 1
+Failing this attempt. Failing the application.  APPID=application_1541582549574_
+0006
+18/11/07 10:43:50 INFO capacity.ParentQueue: Application removed - appId: applic
+ation_1541582549574_0006 user: user leaf-queue of parent: root #applications: 0
+18/11/07 10:43:50 INFO resourcemanager.RMAppManager$ApplicationSummary: appId=ap
+plication_1541582549574_0006,name=Decision Tree,user=user,queue=default,state=FA
+ILED,trackingUrl=http://asus:8088/cluster/app/application_1541582549574_0006,app
+MasterHost=N/A,startTime=1541583816334,finishTime=1541583830966,finalStatus=FAIL
+ED 
+
+
+This is the XML process description
+
+ &lt;?xml version=""1.0"" encoding=""UTF-8""?&gt;&lt;process version=""9.0.003""&gt;
+  &lt;context&gt;
+    &lt;input/&gt;
+    &lt;output/&gt;
+    &lt;macros/&gt;
+  &lt;/context&gt;
+  &lt;operator activated=""true"" class=""process"" compatibility=""9.0.003"" expanded=""true"" name=""Process""&gt;
+    &lt;process expanded=""true""&gt;
+      &lt;operator activated=""true"" class=""radoop:radoop_nest"" compatibility=""9.0.002"" expanded=""true"" height=""103"" name=""Radoop Nest"" width=""90"" x=""179"" y=""85""&gt;
+        &lt;parameter key=""connection"" value=""hadoop""/&gt;
+        &lt;parameter key=""change_sample_size"" value=""true""/&gt;
+        &lt;enumeration key=""tables_to_reload""/&gt;
+        &lt;process expanded=""true""&gt;
+          &lt;operator activated=""true"" class=""radoop:retrieve"" compatibility=""9.0.002"" expanded=""true"" height=""68"" name=""Retrieve (2)"" width=""90"" x=""45"" y=""340""&gt;
+            &lt;parameter key=""table"" value=""forum""/&gt;
+          &lt;/operator&gt;
+          &lt;operator activated=""true"" class=""radoop:set_role"" compatibility=""9.0.002"" expanded=""true"" height=""82"" name=""Set Role"" width=""90"" x=""179"" y=""340""&gt;
+            &lt;parameter key=""name"" value=""categforum""/&gt;
+            &lt;parameter key=""target_role"" value=""label""/&gt;
+            &lt;list key=""set_additional_roles""/&gt;
+          &lt;/operator&gt;
+          &lt;operator activated=""true"" class=""radoop:decision_tree_ml"" compatibility=""9.0.002"" expanded=""true"" height=""82"" name=""Decision Tree"" width=""90"" x=""313"" y=""340""&gt;
+            &lt;parameter key=""file_format"" value=""PARQUET""/&gt;
+          &lt;/operator&gt;
+          &lt;operator activated=""true"" class=""radoop:apply_prediction"" compatibility=""9.0.002"" expanded=""true"" height=""82"" name=""Apply Model"" width=""90"" x=""447"" y=""340""&gt;
+            &lt;list key=""application_parameters""/&gt;
+          &lt;/operator&gt;
+          &lt;connect from_op=""Retrieve (2)"" from_port=""output"" to_op=""Set Role"" to_port=""example set input""/&gt;
+          &lt;connect from_op=""Set Role"" from_port=""example set output"" to_op=""Decision Tree"" to_port=""training set""/&gt;
+          &lt;connect from_op=""Decision Tree"" from_port=""model"" to_op=""Apply Model"" to_port=""model""/&gt;
+          &lt;connect from_op=""Decision Tree"" from_port=""exampleSet"" to_op=""Apply Model"" to_port=""unlabelled data""/&gt;
+          &lt;connect from_op=""Apply Model"" from_port=""labelled data"" to_port=""output 1""/&gt;
+          &lt;connect from_op=""Apply Model"" from_port=""model"" to_port=""output 2""/&gt;
+          &lt;portSpacing port=""source_input 1"" spacing=""0""/&gt;
+          &lt;portSpacing port=""sink_output 1"" spacing=""0""/&gt;
+          &lt;portSpacing port=""sink_output 2"" spacing=""0""/&gt;
+          &lt;portSpacing port=""sink_output 3"" spacing=""0""/&gt;
+        &lt;/process&gt;
+      &lt;/operator&gt;
+      &lt;connect from_op=""Radoop Nest"" from_port=""output 1"" to_port=""result 1""/&gt;
+      &lt;portSpacing port=""source_input 1"" spacing=""0""/&gt;
+      &lt;portSpacing port=""sink_result 1"" spacing=""0""/&gt;
+      &lt;portSpacing port=""sink_result 2"" spacing=""0""/&gt;
+    &lt;/process&gt;
+  &lt;/operator&gt;
+&lt;/process&gt;
+
+
+when I try to test only spark on rapidminer I have this error results:
+
+SEVERE: java.util.concurrent.TimeoutException
+SEVERE: Timeout on the Spark test job. Please verify your Spark Resource Allocation settings on the Advanced Connection Properties window. You can check the logs of the Spark job on the ResourceManager web interface at http://localhost:8088.
+SEVERE: Test failed: Spark job
+SEVERE: Integration test for 'hadoop' failed.
+
+",1,-1,-1.0
+53814223,Runing sparkRM on rapidminer : error occurred during submitting or starting the spark job,"I'm working with rapidminer to extract rules from a big dataset.
+Radoop the extension to hadoop ecosystem and the sparkRM operator allow proceeding the fp-growth from retrieving data from hive to exploring the analysis.
+I'm working on: 
+-windows 8.1
+-hadoop 6.2
+-spark 1.5
+-hive 2.1
+I have configured the spark-default-conf as follow: 
+
+# spark.master                     yarn
+# spark.eventLog.enabled           true
+# spark.eventLog.dir               hdfs://namenode:8021/directory
+# spark.serializer                 org.apache.spark.serializer.KryoSerializer
+# spark.driver.memory              2G
+# spark.driver.cores                    1
+# spark.yarn.driver.memoryOverhead  384MB
+# spark.yarn.am.memory             1G
+# spark.yarn.am.cores               1
+# spark.yarn.am.memoryOverhead      384MB
+# spark.executor.memory            1G
+# spark.executor.instances          1
+# spark.executor.cores              1
+# spark.yarn.executor.memoryOverhead    384MB
+# spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers=""one two three""
+
+
+The yarn-site Xml file i have :
+
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.schedular.address&lt;/name&gt;
+    &lt;value&gt;localhost:8030&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;
+    &lt;value&gt;localhost:8033&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;
+    &lt;value&gt;localhost:8031&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.resource.cpu-vcores&lt;/name&gt;
+    &lt;value&gt;2&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.resource.memory-mb&lt;/name&gt;
+    &lt;value&gt;2048&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+    &lt;value&gt;localhost&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;
+    &lt;value&gt;localhost:8032&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;
+    &lt;value&gt;localhost:8088&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+    &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.aux-services.mapreduce.shuffle.class&lt;/name&gt;
+    &lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.log-dirs&lt;/name&gt;
+    &lt;value&gt;/E:/tweets/hadoopConf/userlog&lt;/value&gt;
+    &lt;final&gt;true&lt;/final&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.local-dirs&lt;/name&gt;
+    &lt;value&gt;/E:/tweets/hadoopConf/temp/nm-localdir&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.delete.debug-delay-sec&lt;/name&gt;
+    &lt;value&gt;600&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.resource.memory-mb&lt;/name&gt;
+    &lt;value&gt;2048&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.scheduler.minimum-allocation-mb&lt;/name&gt;
+    &lt;value&gt;512&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.scheduler.maximum-allocation-mb&lt;/name&gt;
+    &lt;value&gt;2048&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.resource.cpu-vcores&lt;/name&gt;
+    &lt;value&gt;1&lt;/value&gt;
+&lt;/property&gt;     
+
+&lt;property&gt;
+    &lt;name&gt;yarn.scheduler.minimum-allocation-vcores&lt;/name&gt;
+    &lt;value&gt;1&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.scheduler.maximum-allocation-vcores&lt;/name&gt;
+    &lt;value&gt;3&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+&lt;name&gt;yarn.application.classpath&lt;/name&gt;
+&lt;value&gt;
+/tweets/hadoop/,
+/tweets/hadoop/share/hadoop/common/*,
+/tweets/hadoop/share/hadoop/common/lib/*,
+/tweets/hadoop/share/hadoop/hdfs/*,
+/tweets/hadoop/share/hadoop/hdfs/lib/*,
+/tweets/hadoop/share/hadoop/mapreduce/*,
+/tweets/hadoop/share/hadoop/mapreduce/lib/*,
+/tweets/hadoop/share/hadoop/yarn/*,
+/tweets/hadoop/share/hadoop/yarn/lib/*
+/C:/spark/lib/spark-assembly-1.5.0-hadoop2.6.0.jar
+&lt;/value&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;
+
+
+The quick connection test to the Hadoop is completed successfully.
+when I run the rapidminer process, it's finished by an error: 
+
+Process failed before getting into running state. this indicates that an error occurred during submitting or starting the spark job or writing the process output or the exception to the disc. Please check the logs of the spark job on the YARN Resource Manager interface for more information about the error.
+
+
+in localhost:8088 I have this diagnostics informations enter image description here 
+
+this is the scheduler of the job enter image description here
+
+I'm new with Hadoop and spark and I can't configure the memory in an efficient manner.
+",-1,-1,-1.0
+59376928,is there a specific way to write xpaths into rapidminer for web crawling,"I have tried so many options, over many days to try and extract data. I don't know where I am going wrong.
+for example, I am on the website reviewcentre.com and am looking at car selling site reviews.
+I am struggling badly to retrieve information, most of my xpaths appear incorrect.
+Where can I best learn how to do this properly, I have spent days at this.
+
+https://www.reviewcentre.com/car_dealers/we_buy_any_car_-_wwwwebuyanycarcom-review_14068020
+
+I know how to copy xpaths, but when it comes to rapidminer, I can't extract the data.
+I know I am doing it wrong, but I don't know what's right unfortunately.
+
+examples include
+
+//*[@id=""ReviewTitle-14068020""]
+h:html/h:head/h:title/text() 
+this one works!
+//*[@id=""ReviewBox-14068020""]/div[1]/div[2]/p[2]/span
+
+
+I have no problem it appears retrieving the xpath from the website, but using it for extracting data on rapidminer is not working at all..Would really appreciate if anyone can point me in the right direction.
+",-1,-1,-1.0
+59847830,ValueError when returning pandas DataFrame from Execute Python processor in RapidMiner Studio,"In RapidMiner Studio 9.5.1, after my python script completes, I can print the resulting dataframe and see that it is produced as expected with the proper columns. The rapidminer processor yet fails with the message:
+
+Exception: com.rapidminer.operator.OperatorException
+Message: Script terminated abnormally: ValueError: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+Stack trace:
+  com.rapidminer.extension.pythonscripting.operator.scripting.AbstractScriptRunner.run(AbstractScriptRunner.java:137)
+  com.rapidminer.extension.pythonscripting.operator.scripting.AbstractScriptingLanguageOperator.doWork(AbstractScriptingLanguageOperator.java:210)
+  com.rapidminer.extension.pythonscripting.operator.scripting.python.PythonScriptingOperator.doWork(PythonScriptingOperator.java:434)
+  com.rapidminer.operator.Operator.execute(Operator.java:1032)
+  com.rapidminer.operator.execution.SimpleUnitExecutor.execute(SimpleUnitExecutor.java:77)
+  com.rapidminer.operator.ExecutionUnit$2.run(ExecutionUnit.java:812)
+  com.rapidminer.operator.ExecutionUnit$2.run(ExecutionUnit.java:807)
+  java.security.AccessController.doPrivileged(Native Method)
+  com.rapidminer.operator.ExecutionUnit.execute(ExecutionUnit.java:807)
+  com.rapidminer.operator.OperatorChain.doWork(OperatorChain.java:423)
+  com.rapidminer.operator.Operator.execute(Operator.java:1032)
+  com.rapidminer.Process.executeRoot(Process.java:1378)
+  com.rapidminer.Process.lambda$executeRootInPool$5(Process.java:1357)
+  com.rapidminer.studio.concurrency.internal.AbstractConcurrencyContext$AdaptedCallable.exec(AbstractConcurrencyContext.java:328)
+  java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+  java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+  java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+  java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+
+
+without providing any other insight nor referencing a line within my code in the script. I have updated the numpy library in case it was a compatibility problem with older versions but still no solution.
+
+numpy                     1.14.5                   pypi_0    pypi
+numpy-base                1.16.4           py36hc3f5095_0    defaults
+numpydoc                  0.9.1                      py_0    defaults
+pandas                    0.25.3           py36ha925a31_0    defaults
+
+
+Also, when checking if the python environment is ok (Anaconda env), from the Settings>Preferences>Python Scripting in RapidMiner, all tests pass with success.
+
+The processor xml from the .rmp file is:
+
+  &lt;operator activated=""true"" class=""python_scripting:execute_python"" compatibility=""9.5.000"" expanded=""true"" height=""103"" name=""Execute Python"" width=""90"" x=""313"" y=""34""&gt;
+    &lt;parameter key=""script"" value=""import pandas&amp;#10;&amp;#10;# rm_main is a mandatory function, &amp;#10;# the number of arguments has to be the number of input ports (can be none)&amp;#10;def rm_main(data):&amp;#10;    print('Hello, world!')&amp;#10;    # output can be found in Log View&amp;#10;    print(type(data))&amp;#10;&amp;#10;    #your code goes here&amp;#10;&amp;#10;    #for example:&amp;#10;    data2 = pandas.DataFrame([3,5,77,8])&amp;#10;&amp;#10;    # connect 2 output ports to see the results&amp;#10;    return data, data2""/&gt;
+    &lt;parameter key=""script_file"" value=""%{ResourcePath}\detect_aggressive_language.py""/&gt;
+    &lt;parameter key=""notebook_cell_tag_filter"" value=""""/&gt;
+    &lt;parameter key=""use_default_python"" value=""true""/&gt;
+    &lt;parameter key=""package_manager"" value=""conda (anaconda)""/&gt;
+    &lt;description align=""center"" color=""transparent"" colored=""false"" width=""126""&gt;Detect Script&lt;/description&gt;
+  &lt;/operator&gt;
+
+
+Up to now, I have tried:
+1. Update the initial DataFrame (data) with my computed columns and return it.
+2. Create a new DataFrame with my columns and return that either alone or as second argument after data.
+3. Create a method (within the script) that accepts the initial DataFrame data as argument, modified it, and then return it.
+4. Pickle the new DataFrame, save it, load it and return it.
+All these tries resulted in the same error presented above.
+
+My guessing is that RapidMiner makes some kind of check upon the processor's completion that uses the code which produces the error above, so it fails and the processor terminates.
+
+Is there a special proper way to handle and return DataFrames in RapidMiner to bypass the error, or is there anything else I could examine for finding out where the problem lies?
+",-1,-1,-1.0
+57455044,How K-NN Algorithms work with same distance in rapidminer?,"Actually I already asked in rapidminer forum, but no one has given an answer yet..
+https://community.rapidminer.com/discussion/55963/how-k-nn-algorithms-work-with-same-distance-in-rapidminer#latest
+
+I can't find a satisfying answer for KNN-algorithm with same euclidean distance in rapidminer..
+
+I found a similar question, but it's not in rapidminer
+K Nearest-Neighbor Algorithm
+
+say k=5. Now I try to classify an unknown object by getting its 5 nearest neighbours.
+What to do, if distance is a lot of the same distance..
+if after determining the 4 nearest neighbors, the next 2 (or more) nearest objects have the same distance and diferent label? Which object of these 2 or more rapidminer chosen as the 5th nearest neighbor?
+
+I confused.. I try in excel, and the result is diferent with rapidminer for some data.
+in excel the result label is ""LU"":
+https://i.ibb.co/RSYnTWg/Capturess.jpg
+
+but the result in rapidminer is ""LT"" :
+https://i.ibb.co/NKv0bmp/4.jpg
+
+result rapidminer weighted vote is checked is ""LU"" :
+https://i.ibb.co/r68y05v/5.jpg
+
+How rapidminer work with case like that...
+how rapidminer sorting the distance ?...
+something wrong with my data ?, or rapidminer sorting random if distance is same ?
+",-1,-1,-1.0
+60654194,Trying Post CSV to Rapidminer WebServices,"I'm stuck with a JS code since a few days, to send a CSV to my Rapidminer Webservice and get back the answer with the results.
+
+I have the code hosted in a Firebase function to POST CSV to my WebService URL:
+
+source code
+
+For the web service I use a Read CSV to read the file that the user passes me in the POST.
+
+The web service is configured to receive a UTF-8 text/xml
+and published in /api/rest/public/anonymous as a route to not need authentication.
+
+I tried to invoke it from cmd with Curl by upload-files and it correctly returned the result in XML format.
+
+So when I make the call with JS from my firebase I try to send a CSV but always without response from the server.
+rapidminer webservice
+
+Error Firebase timeout function:
+firebase error
+
+UPDATE:
+
+The code is working locally but not on firebase server.
+
+ERROR:
+ERROR FIREBASE
+",-1,-1,-1.0
+61711012,Problems with instalation of Rapidminer Studio (version 9.6) due to Java,"I'm trying to install RapidMiner Studio and I'm having problems related with Java, running the installation file RapidMiner-Studio.sh in my terminal (OS Ubuntu 18.04). I think I have all the requirements to install RapidMiner. I found out I had to have Java 8 or OpenJDK 8, so I installed and configured as explained here. Also, from the same source's suggestions, I added this in the .sh file: --add-modules=java.xml.bind (after eval \""$JAVA\""). Like this:
+
+if [ $# -gt 0 ]; then
+eval \""$JAVA\"" --add-modules=java.xml.bind $JVM_OPTIONS -cp \""${rmClasspath}\"" com.rapidminer.launcher.GUILauncher \""$@\""
+else
+eval \""$JAVA\"" --add-modules=java.xml.bind $JVM_OPTIONS -cp \""${rmClasspath}\"" com.rapidminer.launcher.GUILauncher
+fi
+
+
+My OpenJDK version is this:
+
+openjdk version ""1.8.0_252""
+OpenJDK Runtime Environment (build 1.8.0_252-8u252-b09-1~18.04-b09)
+OpenJDK 64-Bit Server VM (build 25.252-b09, mixed mode)
+
+
+So, the errors I got from the installation file (after doing chmod +x RapidMiner-Studio.sh and ./RapidMiner-Studio.sh) are the following:
+
+Error: Could not find or load main class com.rapidminer.launcher.JVMOptionBuilder
+Unrecognized option: --add-modules=java.xml.bind
+Error: Could not create the Java Virtual Machine.
+Error: A fatal exception has occurred. Program will exit.
+
+
+It's clear it doesn't recognize the added module java.xml.bind.
+
+So without that added module in the .sh file, I removed it. And running, I got the following errors:
+
+Error: Could not find or load main class com.rapidminer.launcher.JVMOptionBuilder
+Error: Could not find or load main class com.rapidminer.launcher.GUILauncher
+
+
+How can I solve this Java problem?
+
+Thank you for your attention.
+",-1,-1,-1.0
+62413530,I have a problem with filter stopword operator in rapidminer,"I am working on a sentiment analysis project in Persian language and I use rapidminer to this purpose.. 
+
+I installed the rosette extension for some text preproccesing purpose in this language such as tokenization.
+I have a problem with filter stop word (dictionary) operator... when I apply this operator to my data set (after tokenization) I receive only tokenized data set without filtering stop words... 
+
+Do you know what is the cause of this problem?
+
+
+",-1,-1,-1.0
+68878154,"RapidMiner replace zero number with a ""missing value""","I have a dataset that has lots of zeros, but I want to remove the zeros and instead replace them with a missing value or a NaN value. I've tried using RapidMiner operators:
+
+Map
+Replace Replace missing values
+Replace all missings
+
+and none of them are working the way I expected to.
+",1,-1,-1.0
+70402065,Running Rapidminer in Node.js or MSSQL Stored Procedure,"I'm new to rapidminer and would like to ask if there's any way to run rapidminer using node.js or MSSQL stored procedures?
+Supposedly, I should run the rapidminer processes for data analytics using my node.js hosted web application, however, I was not able to search/find for a way to do/code this.
+Any help will be greatly appreciated.
+Thank you!
+",1,-1,-1.0

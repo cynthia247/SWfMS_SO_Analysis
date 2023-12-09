@@ -1,0 +1,1473 @@
+Id,Title,Body,RatingsSentiCR,RatingsGPT35,RatingsGPTFineTuned
+4083920,"SQL/Knime - Transpose Table with ""Group By""","The title is horrible but that's the best I could do.  What I have is something like this:
+
+Country  Tag    Weight
+-----------------------
+1        1      20
+1        2      30
+1        3      77
+2        1      10
+2        2      11
+2        3      100
+
+
+Or, in a human readable form:
+
+Country  Tag    Weight
+-----------------------
+USA      Rock   20
+USA      Pop    30
+USA      Metal  77
+Spain    Rock   10
+Spain    Pop    11
+Spain    Metal  100
+
+
+Using either SQL (to create a view) or Data Manipulation Tools in Knime, I need to manipulate the data into this form:
+
+Country  Rock   Pop   Metal
+----------------------------
+USA      20     30    77
+Spain    10     11    100
+
+
+Essentially, Tag entries (unique ones) become the columns and countries (unique ones) become the row id's with the weight values sticking with their country/tag.
+
+I've tried everything I can think of in Knime and no raw SQL query springs to mind.  In Knime, I successfully created the structure of the matrix I want (Country x Tag), but I have no idea how to populate the actual Weight values, they're all question marks.  My working solution is to simply output the data into a CSV file in the form I want instead of into the database.  But that's klunky and annoying to keep in sync.  Any ideas?
+",1,1,-1.0
+9566615,Java 1.6.0_26 on Mac OS X Lion,"A third party application I'm using (Knime) hangs when using Java for Mac 1.6.0_29 (Java for OS X Lion Update 1). In the user forums of that app, it is recommended to use version 1.6.0_26. 
+
+Sadly, I got a fresh install, so there are no previous Java versions installed in my computer to downgrade to.
+
+I've been looking for a while and still cannot find out how to install a previous version of Java for Mac OS X Lion.
+
+Any ideas?
+",-1,-1,-1.0
+15362404,Suppressing Applet Alert in a eclipse extension plugin that uses jersey,"I have written a REST client plugin for KNIME (a software that is based on eclipse). I have used jersey as library.
+
+Everything works fine. However, if I send an client request a APPLET ALERT dialog pops up asking me whether I want to allow, disallow or stop the applet. This dialog get quite annoying, especially if you want to submit multiple requests. 
+How do I get rid of it?
+
+All I have found so far, referred to anti-virus software adding stuff to .jar file during download, adjusting the arguments of a maven server and ant builds. However, I have created this plugin on my machine and I am running the target REST server locally (it is based on python).
+
+Ideally I would like to know how to suppress this plugin in my code or plugin settings or via the preferences. If thats not possible I would need a workaround that can also be explained to user outside of our company, since the plugin is going to be published. 
+
+The dialog is created by the code line
+
+
+  client.handle(request)
+
+
+with client being a jersey Client and request being a jersey ClientRequest.
+
+The console output is 
+
+   -- PolicyProps uninitialized on access of 'jscan.session.policyname
+   -- PolicyProps uninitialized on access of 'jscan.session.origin_uri'
+   -- PolicyProps uninitialized on access of 'misc.no_user_interaction'
+   -- PolicyProps uninitialized on access of 'misc.prompt_user'
+   -- PolicyProps uninitialized on access of 'misc.notify_user'
+   -- PolicyProps uninitialized on access of 'misc.max_offense_cnt'
+   -- PolicyProps uninitialized on access of 'misc.strict_enforcement'
+   -- PolicyProps uninitialized on access of 'jscan.session.origin_uri'
+   -- PolicyProps uninitialized on access of 'net.bind_enable'
+   -- PolicyProps uninitialized on access of 'net.connect_src'
+   -- PolicyProps uninitialized on access of 'net.connect_other'
+   -- PolicyProps uninitialized on access of 'net.connect_in_dom_list'
+   Msgs: Failed to find localized message for key ""instr.action.connect"" - using default English form
+   Msgs: Failed to find localized message for key ""instr.msg.dialog.action_warning_start"" - using default English form
+   --&gt;&gt; returning Frame NULL
+   Msgs: Failed to find localized message for key ""instr.dialog.title.applet_alert"" - using default English form
+   Msgs: Failed to find localized message for key ""instr.button.allow"" - using default English form
+   Msgs: Failed to find localized message for key ""instr.button.disallow"" - using default English form
+   Msgs: Failed to find localized message for key ""instr.button.stop_applet"" - using default English form
+   BaseDialog: owner frame is a java.awt.Frame
+
+",-1,-1,-1.0
+22165016,NULLPointerException while using KNIME,"I am trying to perform some simple text analysis using KNIME. My process begins by using a normal 'XLS reader' or a 'text reader', followed by 'row filter' which executes fine. This step is followed by 'Strings to document' to convert every string into a document. Following this step, no steps execute. I have tried using 'POS Tagger', 'BoW Creator', 'Row Filter', 'Number Filter' etc, but each one of these gives me a 'NULLPointerException'. Why is this the case? 
+My input document is a text file with about 300,000 rows coming from the database. I have checked that none of the rows in the file is NULL. 
+How can I get rid of this error? 
+Any help would be highly appreciated. 
+",-1,-1,-1.0
+22018638,Creating a boxplot from two tables in KNIME,"I am trying to plot two data columns coming from different tables using KNIME. I want to plot them in a single plot in order to be easier to compare them. In R this effect can be achieved by the following:
+
+boxplot(df$Delay, df2$Delay,names=c(""Column from Table1"",""Column from Table2""), outline=FALSE)
+
+
+However, by using KNIME, I cannot think of a way that you can use data coming from two different tables. Have you ever faced this issue in KNIME?
+",-1,-1,-1.0
+20241859,Knime too slow - performance,"I just started to use KNIME and it suppose managed a huge mount of data, but isn't, it's slow and often not response. I'll manage more data than that I'm using now, What am I doing wrong?.
+I set in my configuration file ""knime.ini"":
+
+-XX:MaxPermSize=1024m
+-Xmx2048m
+
+
+I also read data from a database node (millions of rows) but I can't limit it by SQL (I don't really mind, I need this data).
+
+SELECT * FROM foo LIMIT 1000
+
+
+error:
+
+WARN     Database Reader     com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'LIMIT 0' at line 1
+
+",-1,-1,-1.0
+23680003,KNIME manually modify node settings,"I have a wide table filled with ID numbers (starting with a variable number of zeros) and I want to import it into KNIME but the columns are automatically detected as Integer. I tried to manually modify the settings.xml file corresponding to the import node in order to enforce a String type import without spending my afternoon clicking on each column, every time I get a new file. The entry is now:
+
+&lt;entry key=""cell_class"" type=""xstring"" value=""org.knime.core.data.def.StringCell""/&gt;
+
+
+I get an error when re-opening the workflow. So I also modified the MissValuePattern entry to:
+
+&lt;entry key=""MissValuePattern"" type=""xstring"" value=""?""/&gt;
+
+
+Still getting an error when re-opening the workflow. I don't see any difference between a string and an integer column so I'm a bit stuck.
+",-1,-1,-1.0
+24117876,Connecting to HBase in KNIME,"I am using KNIME 2.9.4 and I have HBase installed (version - 0.94.8) in a remote Linux server. With the host IP, I am trying to connect to HBase.
+
+Here is what I did.
+
+Added the ""hbase-0.94.8.jar"" in the preferences page and the Database driver org.apache.hadoop.hbase.jdbc.Driver is loaded properly.
+
+Now, the question is what to keep in the database URL. I kept 10.207.5.21:2181 as 10.207.5.21 is my remote ip and 2181 is the zookeeper port.
+
+I am getting the below error:
+
+Error during fetching metadata from database, reason: org.knime.core.node.InvalidSettingsException: Driver org.apache.hadoop.hbase.jdbc.Driver does not accept URL: 10.207.5.21:2181
+
+Can someone please let me know, what would have gone wrong here.
+
+Thanks in advance
+",-1,-1,-1.0
+24179285,How to use linked resources / path variables in KNIME,"When working with KNIME for testing and learning, we generally use a folder structure like
+
+MyProject/
+    MyKNIMEWorkspace/
+    MyKNIMEDataFolder/
+
+
+on each computer. Everyone is free to write their own workflows, don't have to share them, etc. But we want to be able to send each other workflows where we don't need to change the paths to the data folder manually, if everyone follows the given structure, i.e. always looking one level higher and find the folder MyKNIMEDataFolder and take file xyz.table.
+
+I have played with path variables (basically fixed for each installation), with workflow variables and with flow variables (being sent around when sending the workflows), tried to connect both with the syntax from the help documentation on path variables (i.e. ${VAR}) but I cannot find the proper way to fully disconnect my workflow from my local path.
+
+
+Do you see anything wrong with our structure?
+How would you deal with the problem of sending workflows around?
+
+",1,0,-1.0
+25198157,KNIME R integration - Package installation,"I am a relatively new user to KNIME. I have been trying to install the 'gWidgetsRGtk2' package through the R snippet, but it keeps throwing me an error when i try to load it. 
+
+if(require(""gWidgetsRGtk2"")){
+  print(""gWidgetsRGtk2 is loaded correctly"")
+}else{
+  print(""Trying to install gWidgetsRGtk2"")
+  install.packages(""gWidgets"",dependencies=TRUE)
+
+options(""guiToolkit""=""RGtk2"")
+
+
+I have tried changing the R path in the global preferences, and also tried adding this package directly into the KNIME-R folder.
+
+None of these methods seem to work. Can anyone suggest a way out?
+",-1,-1,-1.0
+26589118,Generating PMML in Knime module,"I'm currently attempting to build module for the Knime analytics platform. This is going to be a module that generates and passes on a PMML model as its output.
+
+So far I've only been able to accomplish this by manually creating a PMMLDocument and then creating a new PMMLPortObject((PMMLPortObjectSpec)out_spec, pmmlDoc) to return.
+
+My question is whether creating the pmml doc itself manually is the right approach here, or is there any other more streamlined method to do this, maybe via templating or something similar ?
+
+Currently, generating a pmml model manually like so:
+
+    PMMLDocument resDoc = PMMLDocument.Factory.newInstance();
+    PMML pmml = PMML.Factory.newInstance();
+    pmml.setVersion(""4.2"");
+
+    Header header = pmml.addNewHeader();
+    header.setCopyright(""some custom made copyright"");
+    Application application = header.addNewApplication();
+    application.setName(""KNIME"");
+    application.setVersion(""2.10.3"");
+    ...
+
+
+Can get quite tedious and it makes me wonder where this is actually a best practice or not
+",-1,1,-1.0
+30170569,Using external java library in KNIME. Why initialization of one class fails while it succeeds for another class?,"I have a problem integrating Java code into KNIME. Similar posts on Knime forum (http://tech.knime.org/forum/knime-general/using-external-jar-in-java-snippet-node-workflow-not-able-to-initialize-class-of) were of little help and I also posted a question there but have not got answer so far, so I'm trying my luck here.
+
+I am trying to integrate my code into KNIME workflow using JavaSnippet. I have exported the code into a jar and put it into the KNIME jre/lib/endorsed folder. The code references CDK 1.4.19 and I have also placed the corresponding jar file into the same directory. I do not have CDK node extensions installed in KNIME and using them is also not an option in my case.
+
+The code starts with:
+
+IChemObjectBuilder builder = SilentChemObjectBuilder.getInstance();
+
+SmilesParser sp= new SmilesParser(builder);
+
+
+When I try to execute JavaSnippet I get the following exception message:
+
+Evaluation of java snippet failed for row ""Row0"". Exception message: Could not initialize class org.openscience.cdk.smiles.SmilesParser
+
+
+When I just try
+
+IChemObjectBuilder builder = SilentChemObjectBuilder.getInstance();
+
+
+It works and I get no exception message. I have checked, the builder is not a null. However, when I try to initialize SmilesParser, it fails. This class is public. It has no default constructor and has one public constructor that takes IChemObjectBuilder as a parameter.
+
+I have tried to use class loader:
+
+URL[] classLoaderUrls = new URL[]{new URL(""file:///path on my computer/knime_2.9.4/jre/lib/endorsed/cdk-1.4.19.jar"")};
+
+URLClassLoader urlClassLoader = new URLClassLoader(classLoaderUrls);
+
+Class&lt;?&gt; parserClass = urlClassLoader.loadClass(""org.openscience.cdk.smiles.SmilesParser"");
+
+Class[] classParameters = new Class[] {IChemObjectBuilder.class};
+
+Constructor&lt;?&gt; constructor = parserClass.getConstructor(classParameters); //until this line there are no problems
+
+Object parser = constructor.newInstance(builder);   //fails here with the same exception message: Could not initialize class org.openscience.cdk.smiles.SmilesParser
+
+
+I am sure that this is not a CDK error because I can execute the code in Eclipse.
+
+Why can a constructor of one class be called from KNIME without any problems and a constructor of another class can not??
+
+I would be very grateful if you could suggest a solution or a probable reason why this happens.
+
+Thank you!
+",-1,-1,-1.0
+30242647,"KNIME node extension fails to execute: ""Support code location could not be determined""","I'm creating a node extension for KNIME with the KNIME SDK (which is just an adapted Eclipse). I'm done with my code, I tested it in Eclipse, it worked perfectly. So I exported it, copied the .jar to the subfolder dropins in my KNIME installation, and started KNIME. Made a new workflow, added my node, tried to execute it and then the following error appeared:
+
+Execute failed: Support code location could not be determined. Could not convert from URL to URI location. 
+URL Location: file:/C:/Program Files/KNIME_2.11.2/configuration/org.eclipse.osgi/bundles/528/1/.cp/matlabcontrol-4.1.0.jar
+Code Source: (file:/C:/Program Files/KNIME_2.11.2/configuration/org.eclipse.osgi/bundles/528/1/.cp/matlabcontrol-4.1.0.jar &lt;no signer certificates&gt;)
+Protection Domain: ProtectionDomain  (file:/C:/Program Files/KNIME_2.11.2/configuration/org.eclipse.osgi/bundles/528/1/.cp/matlabcontrol-4.1.0.jar &lt;no signer certificates&gt;)
+ null 
+ &lt;no principals&gt;  
+ java.security.AllPermissionCollection@6ac1c077 (  
+ (""java.security.AllPermission"" ""&lt;all permissions&gt;"" ""&lt;all actions&gt;"") 
+)   
+
+
+Class Loader: org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader@b836456
+Class Loader Class: class org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader
+
+
+According to a thread on the KNIME forums, a similar problem also occurs with the community extension ""Matlab Snippet"", which builds on the same matlabcontrol framework I use (which is also the one mentioned in the error).
+
+I tried evading the problem by including the matlabcontrol as a package in my project (it's open source, so I could just import the sources), then the same error appeared and mentioned the package .jar created by the OSGI system (in my case, matlab.jar, which is the name I chose in my build.properties), so I assume it was just the first one alphabetically and all of the files in the OSGI bundle folder are affected by this problem.
+
+What confuses me is that the problem only occurs once I try to execute the node and connect to MATLAB. Unfortunately, the problem doesn't seem to have been resolved in the KNIME forum thread linked above, apparently an older version of that extension didn't have the issue and users just installed the old version.
+
+So, can I somehow make the URL correctly convert to URI? Is the Protection Domain the cause and can I change it? Does it have anything to do with the default Class Loader?
+
+
+
+I have now installed the plugin via a feature in a folder (see comments). The error persists, but the path changed:
+
+Execute failed: Support code location could not be determined. Could not convert from URL to URI location.
+URL Location: file:/C:/Program Files/KNIME_2.11.2/plugins/org.knime.ext.matlab_1.0.0/matlab.jar
+Code Source: (file:/C:/Program Files/KNIME_2.11.2/plugins/org.knime.ext.matlab_1.0.0/matlab.jar &lt;no signer certificates&gt;)
+Protection Domain: ProtectionDomain  (file:/C:/Program Files/KNIME_2.11.2/plugins/org.knime.ext.matlab_1.0.0/matlab.jar &lt;no signer certificates&gt;)
+ null
+ &lt;no principals&gt;
+ java.security.AllPermissionCollection@2da869b5 (
+ (""java.security.AllPermission"" ""&lt;all permissions&gt;"" ""&lt;all actions&gt;"")
+)
+
+
+Class Loader: org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader@372bf03c
+Class Loader Class: class org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader
+
+",-1,-1,-1.0
+34142095,Troubleshooting Reoccurring OutOfMemory PermGen Space Error,"I have been helping a friend develop nodes in Knime. For those who don't know Knime is essentially a framework in Java that creates nodes that automate some ""thing"" you program them to do. Each node has 4-5 classes, and the workflows we are creating have sometimes 50-60 nodes. 
+
+I have been researching about PermGen and to my knowledge it is essentially a copy of the compiled form of each class/function for the program to use on runtime. If you have a large number of classes (which we do) then PermGen will run out of memory. Each time I set up a flow my Eclipse crashes, so I thought by decreasing the number of classes I could get it to run again, but now the same flows that were running a week ago are still getting PermGen Errors. I have looked into how to handle the problem but I am not sure which avenue to take and why. 
+
+All changes are for eclipse.ini
+
+Adding PermGenSpace:
+
+-XX:MaxPermSize=1024m
+
+
+CMSClassUnloadingEnabled:
+
+-XX:+UseConcMarkSweepGC
+-XX:+CMSClassUnloadingEnabled
+
+
+CMSPermGenSweepingEnabled:
+
+-XX:MaxPermSize=128m 
+-XX:+UseConcMarkSweepGC 
+-XX:+CMSClassUnloadingEnabled
+
+
+I understand the change of setting MaxPermSize and how it solves the problem and I can't see any negative effects, but I don't understand if the two other changes could effect my setup negatively. 
+
+How should I be approaching this problem? 
+
+Resource link: 
+
+http://www.javacodegeeks.com/2013/12/decoding-java-lang-outofmemoryerror-permgen-space.html
+",1,-1,-1.0
+34883356,JDT's JavaCore class not seeing JavaModelManager in OSGi environment,"I'm implementing plugin for Knime (eclipse-based analitics platform). 
+My plugin used library (let say lib A.jar), which normally is a eclipse plugin (however there are also classes for normal, standalone use). This lib A uses JDT Core classes.
+When I'm executing my plugin's logic in IntelliJ IDEA (JDT is manually added to build path), everything is ok.
+
+I have strange error while executing plugin in Knime environment. Library A see JDT JavaCore and JavaModelManager classes, however it seems that... JavaCore class is not seeing JavaModelManager class. Here is an exception which is raised:
+
+java.lang.NoClassDefFoundError: Could not initialize class org.eclipse.jdt.internal.core.JavaModelManager
+    at org.eclipse.jdt.core.JavaCore.getOptions(JavaCore.java:3927)
+    at org.eclipse.jdt.core.dom.ASTParser.initializeDefaults(ASTParser.java:284)
+    at org.eclipse.jdt.core.dom.ASTParser.&lt;init&gt;(ASTParser.java:234)
+    at org.eclipse.jdt.core.dom.ASTParser.newParser(ASTParser.java:129)
+    at co.edu.unal.colswe.changescribe.core.ast.JParser.&lt;init&gt;(JParser.java:56){
+
+
+I have tries various changes to fix this issue, however I'm new in OSGi, maybe I don't know about something.
+My MANIFEST.MF:
+
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ic-depress-mg-rclinker
+Bundle-SymbolicName: org.impressivecode.depress.mg.rclinker;singleton:=true
+Bundle-Version: 2.0.0.qualifier
+Bundle-Vendor: ImpressiveCode
+Require-Bundle: org.knime.base;bundle-version=""2.8.0"",
+ org.knime.workbench;bundle-version=""2.8.0"",
+ org.impressivecode.depress.base;bundle-version=""1.0.0"",
+ org.impressivecode.depress.support.matcher;bundle-version=""1.0.0""
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ClassPath: plugin.jar,
+ (other libs),
+ lib/eclipse/org.eclipse.core.resources_3.10.1.v20150725-1910.jar,
+ lib/eclipse/org.eclipse.jdt.core_3.11.1.cs.jar,
+ lib/eclipse/org.eclipse.core.runtime_3.11.1.v20150903-1804.jar
+Eclipse-BuddyPolicy: registered
+
+
+It seems that JavaCore class doesn't see JavaModelManager class. 
+
+Project is build with Maven Tycho plugin. Every other dependency is working ok, however they're normal jars.
+
+Could you please help me?
+",-1,-1,-1.0
+35344070,Java SIGSEGV in KNIME running on cluster (SGE),"I am trying to run KNIME 2.11.3 software on Scientific Linux cluster (with Sun Grid Engine) using qsub, asking for 4GB of ram.
+
+Java used:
+
+java version ""1.8.0_73""
+Java(TM) SE Runtime Environment (build 1.8.0_73-b02)
+Java HotSpot(TM) 64-Bit Server VM (build 25.73-b02, mixed mode)
+
+
+The problem:
+The KNIME software starts up the workflow properly, but (probably) during loading up of Weka machine learning nodes the software crashes. The error information I get is as follows:
+
+    #
+    # A fatal error has been detected by the Java Runtime Environment:
+    #
+    #  SIGSEGV (0xb) at pc=0x00002b2774bf2c4c, pid=115080, tid=47451179185920
+    #
+    # JRE version: Java(TM) SE Runtime Environment (7.0_60-b19) (build 1.7.0_60-b19)
+    # Java VM: Java HotSpot(TM) 64-Bit Server VM (24.60-b09 mixed mode linux-amd64 compressed oops)
+    # Problematic frame:
+    # C  [libc.so.6+0x7fc4c]  cfree+0x1c
+
+
+What could be happening ? (Here is from the log)
+
+#  SIGSEGV (0xb) at pc=0x00002b2774bf2c4c, pid=115080, tid=47451179185920
+#
+# JRE version: Java(TM) SE Runtime Environment (7.0_60-b19) (build 1.7.0_60-b19)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (24.60-b09 mixed mode linux-amd64 compressed oops)
+# Problematic frame:
+# C  [libc.so.6+0x7fc4c]  cfree+0x1c
+#
+# Core dump written. Default location: /exports/eddie3_homes_local/pgrabows/core or core.115080
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00002b2820007800):  JavaThread ""KNIME-TableIO-1"" daemon [_thread_in_vm, id=115118, stack(0x00002b28169df000,0x00002b2816ae0000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=1 (SEGV_MAPERR), si_addr=0xfffffffffffffff7
+
+Registers:
+RAX=0x0000000000000000, RBX=0x00002b277ff37010, RCX=0x00002b2816adf700, RDX=0x0000000000000001
+RSP=0x00002b2816addd28, RBP=0x00002b2774970130, RSI=0x0000000000000001, RDI=0xffffffffffffffff
+R8 =0x0000000000000020, R9 =0x0101010101010101, R10=0x0000000000000022, R11=0x00002b2774bfbf1e
+R12=0x00002b2816addd50, R13=0x00002b2775d2e860, R14=0x00002b27d40b00e0, R15=0x00002b2816adddd0
+RIP=0x00002b2774bf2c4c, EFLAGS=0x0000000000010286, CSGSFS=0x0000000000000033, ERR=0x0000000000000005
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00002b2816addd28)
+0x00002b2816addd28:   00002b2774970655 00002b277453a000
+0x00002b2816addd38:   0000000000000000 00002b27d40b00e0
+0x00002b2816addd48:   00002b2774970198 00002b2778002470
+0x00002b2816addd58:   00002b27d40b00e0 00002b277574e26d
+0x00002b2816addd68:   00002b2774cea5c0 00002b2816adddd0
+0x00002b2816addd78:   00002b2778002470 00002b2816addda0
+0x00002b2816addd88:   00002b277574e26d 0000000000000006
+0x00002b2816addd98:   0000000000000078 00002b2816adde60
+0x00002b2816addda8:   00002b27757189f8 00002b277c005310
+0x00002b2816adddb8:   00002b27d41387f8 00002b2816addf9f
+0x00002b2816adddc8:   00002b27d41387f8 00002b2775d2fa50
+0x00002b2816adddd8:   0000005000000000 000000000000002e
+0x00002b2816addde8:   0000000000000000 0000000000000000
+0x00002b2816adddf8:   00002b27d40affe0 000000000000002e
+0x00002b2816adde08:   0000000000000100 0000000000000000
+0x00002b2816adde18:   0000000000000000 0000000000000000
+0x00002b2816adde28:   00002b27d40afeb0 000000000000002e
+0x00002b2816adde38:   00002b27d41387f8 0000000000000000
+0x00002b2816adde48:   00002b2820007800 00002b2816addf9f
+0x00002b2816adde58:   0000000000000002 00002b2816addec0
+0x00002b2816adde68:   00002b277571912e 00002b2820007800
+0x00002b2816adde78:   00002b277c01d0bf 00002b27d40affb0
+0x00002b2816adde88:   0000000000000000 00002b2816ade098
+0x00002b2816adde98:   00002b28200156f0 00002b27d41387f8
+0x00002b2816addea8:   00002b2820007800 00002b27d40afea0
+0x00002b2816addeb8:   00002b27d41387f8 00002b2816addf20
+0x00002b2816addec8:   00002b277571968e 00002b2816addf9f
+0x00002b2816added8:   00002b27d40afeb0 00002b27d40b0288
+0x00002b2816addee8:   00000000000003d8 00002b2816ade098
+0x00002b2816addef8:   00002b2816addf9f 00002b27d41387f8
+0x00002b2816addf08:   00002b2820007800 00000000b1e99c80
+0x00002b2816addf18:   00002b2820007800 00002b2816addf80 
+
+Instructions: (pc=0x00002b2774bf2c4c)
+0x00002b2774bf2c2c:   1f 44 00 00 48 8b 05 b1 a2 33 00 48 8b 00 48 85
+0x00002b2774bf2c3c:   c0 0f 85 bf 00 00 00 48 85 ff 0f 84 b4 00 00 00
+0x00002b2774bf2c4c:   48 8b 47 f8 48 8d 4f f0 a8 02 75 28 a8 04 48 8d
+0x00002b2774bf2c5c:   3d ff aa 33 00 74 0c 48 89 c8 48 25 00 00 00 fc 
+
+Register to memory mapping:
+
+RAX=0x0000000000000000 is an unknown value
+RBX=0x00002b277ff37010 is an unknown value
+RCX=0x00002b2816adf700 is pointing into the stack for thread: 0x00002b2820007800
+RDX=0x0000000000000001 is an unknown value
+RSP=0x00002b2816addd28 is pointing into the stack for thread: 0x00002b2820007800
+RBP=0x00002b2774970130: &lt;offset 0x1130&gt; in /lib64/libdl.so.2 at 0x00002b277496f000
+RSI=0x0000000000000001 is an unknown value
+RDI=0xffffffffffffffff is an unknown value
+R8 =0x0000000000000020 is an unknown value
+R9 =0x0101010101010101 is an unknown value
+R10=0x0000000000000022 is an unknown value
+R11=0x00002b2774bfbf1e: &lt;offset 0x88f1e&gt; in /lib64/libc.so.6 at 0x00002b2774b73000
+R12=0x00002b2816addd50 is pointing into the stack for thread: 0x00002b2820007800
+R13=0x00002b2775d2e860: &lt;offset 0xdfa860&gt; in /exports/eddie3_homes_local/pgrabows/usr/bin/knime_2.11.3/jre/lib/amd64/server/libjvm.so at 0x00002b2774f34000
+R14=0x00002b27d40b00e0 is an unknown value
+R15=0x00002b2816adddd0 is pointing into the stack for thread: 0x00002b2820007800
+
+
+Stack: [0x00002b28169df000,0x00002b2816ae0000],  sp=0x00002b2816addd28,  free space=1019k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libc.so.6+0x7fc4c]  cfree+0x1c
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  sun.management.MemoryImpl.getMemoryPools0()[Ljava/lang/management/MemoryPoolMXBean;+0
+j  sun.management.MemoryImpl.getMemoryPools()[Ljava/lang/management/MemoryPoolMXBean;+6
+j  sun.management.ManagementFactoryHelper.getMemoryPoolMXBeans()Ljava/util/List;+0
+j  java.lang.management.ManagementFactory.getMemoryPoolMXBeans()Ljava/util/List;+0
+j  org.knime.core.data.util.memory.MemoryWarningSystem.findTenuredGenPool()Ljava/lang/management/MemoryPoolMXBean;+28
+j  org.knime.core.data.util.memory.MemoryWarningSystem.&lt;init&gt;()V+26
+j  org.knime.core.data.util.memory.MemoryWarningSystem.getInstance()Lorg/knime/core/data/util/memory/MemoryWarningSystem;+10
+j  org.knime.core.data.util.memory.MemoryObjectTracker.&lt;init&gt;()V+23
+j  org.knime.core.data.util.memory.MemoryObjectTracker.getInstance()Lorg/knime/core/data/util/memory/MemoryObjectTracker;+10
+j  org.knime.core.data.container.Buffer.registerMemoryReleasable()V+21
+j  org.knime.core.data.container.Buffer.addRow(Lorg/knime/core/data/DataRow;ZZ)V+104
+j  org.knime.core.data.container.DataContainer.addRowToTableWrite(Lorg/knime/core/data/DataRow;)V+344
+j  org.knime.core.data.container.DataContainer.access$4(Lorg/knime/core/data/container/DataContainer;Lorg/knime/core/data/DataRow;)V+2
+j  org.knime.core.data.container.DataContainer$ASyncWriteCallable.callWithContext()Ljava/lang/Void;+101
+j  org.knime.core.data.container.DataContainer$ASyncWriteCallable.call()Ljava/lang/Void;+8
+j  org.knime.core.data.container.DataContainer$ASyncWriteCallable.call()Ljava/lang/Object;+1
+j  java.util.concurrent.FutureTask.run()V+42
+j  java.util.concurrent.ThreadPoolExecutor.runWorker(Ljava/util/concurrent/ThreadPoolExecutor$Worker;)V+95
+j  java.util.concurrent.ThreadPoolExecutor$Worker.run()V+5
+j  java.lang.Thread.run()V+11
+v  ~StubRoutines::call_stub
+
+
+EDIT: adding the whole log: DOWNLOAD LOG FILE (DROPBOX)
+
+EDIT2: adding ulimit and PATH data
+
+The ulimits are different on both. On the slave node: 
+
+core file size          (blocks, -c) unlimited
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 256023
+max locked memory       (kbytes, -l) unlimited
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 1024
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) unlimited
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 4096
+virtual memory          (kbytes, -v) 1048576
+file locks                      (-x) unlimited
+
+
+While on the master node: 
+
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 256023
+max locked memory       (kbytes, -l) unlimited
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 1024
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 524288
+cpu time               (seconds, -t) 600
+max user processes              (-u) 200
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+
+
+There are also differences between them in terms of $LD_LIBRARY_PATH, i.e. the master node has an additional entry here: /exports/applications//gridengine/2011.11p1_155/lib/linux-x64
+
+FINAL EDIT, FOUND ANSWER:
+
+The answer was to ask the cluster for more RAM, I asked for 8GB RAM minimum using ""-l h_vmem=8G"" while doing qsub. It is awkward as the same workflow works properly on my old laptop with 4GB RAM but creates such a nasty error elsewhere. It is also possible this is our local cluster configuration-related error. 
+",1,-1,-1.0
+35991700,Cluster validity using KNIME,"New to using KNIME and wondering what cluster validity measures I can use in it. Any ideas? I was thinking about using the scorer node but not sure how to configure it correctly as when I tried I got an error % of 100
+",-1,-1,-1.0
+36056835,How can I get all the data from separated large files in R Revolution Enterprise?,"I'm using RevoR entreprise to handle impoting large data files. The example given in the documentation states that 10 files (1000000 rows each) will be imported as dataset using an rxImport loop like this : 
+
+setwd(""C:/Users/Fsociety/Bigdatasamples"")
+Data.Directory &lt;- ""C:/Users/Fsociety/Bigdatasamples""
+Data.File &lt;- file.path(Data.Directory,""mortDefault"")
+mortXdfFileName &lt;- ""mortDefault.xdf""
+
+append &lt;- ""none""
+for(i in 2000:2009){
+importFile &lt;- paste(Data.File,i,"".csv"",sep="""")
+mortxdf &lt;- rxImport(importFile, mortXdfFileName, append = append, overwrite = TRUE, maxRowsByCols = NULL)
+append &lt;- ""rows""    
+}
+mortxdfData &lt;- RxXdfData(mortXdfFileName)
+knime.out &lt;- rxXdfToDataFrame(mortxdfData)
+
+
+The issue here is that I only get 500000 rows in the dataset due to the maxRowsByCols argument the default is 1e+06 i changed it to a higher value and then to NULL but it still truncates the data from the file. 
+",-1,-1,-1.0
+36155291,Knime: Invoking Knime workflow from Java application,"I have tried to invoke knime workflow in batchmode 
+
+String btchtrendcheck =""E:\\KNIME\\knime.exe -application org.knime.product.KNIME_BATCH_APPLICATION -consoleLog -reset -workflowFile=\""C:\\Users\\Jana\\Desktop\\KNIMETrend.zip\""""
+
+String trendtest = ""E:\\KNIME\\knime.exe -application org.knime.product.KNIME_APPLICATION"";
+
+
+However I get an error: java was started but returned exit code=3 (attached the error) and even on clicking OK , the workflow was not executed.
+
+
+There is no error in the workflow.
+
+Questions :
+1. What does the exit code=3 mean?
+2. Is there any issue with compatibility with knime? 
+",-1,-1,-1.0
+41749229,optimization of iterative calculation avoiding loops on R,"I have to apply an iterative calculation on rows of a data.frame in R. 
+The problem is that, for each row, the result depends on the results of previous calculation and previous rows.
+
+I have implemented the solution using a loop like the following example:
+
+example &lt;- data.frame(flag_new = c(TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE),
+                      percentage =sample(1:100,22)/100)
+n.Row &lt;- nrow(example)
+
+# initialization
+example$K &lt;-0
+example$R &lt;-0
+example$K[1] &lt;-100
+example$R[1] &lt;-example$K[1]*example$percentage[1]
+
+#loop
+for(i in 2:n.Row){
+  if(example$flag_new[i]){
+    example$K[i] &lt;-100
+
+  } else {
+    example$K[i] &lt;-example$K[i-1]-example$R[i-1]
+  }
+  example$R[i] &lt;- example$K[i]*example$percentage[i]
+}
+
+
+The problem is that the real code is very slow (expecially if I use it in R snippet on KNIME)
+
+Is there any way to optimize the code in a more efficient R-like way? I tried to use the apply family but it doesn't seem to work in my case.
+
+Thank you very much 
+",1,-1,-1.0
+40003509,regexReplace in String Manipulation KNIME,"I'm trying to remove the content of all cells that start with a character that is not a number using KNIME (v3.2.1). I have different ideas but nothing works. 
+
+1) String Manipulation Node: regexReplace(§column§,""^[^0-9].*"","""")
+
+The cells contain multiple lines, however only the first line is removed by this approach. 
+
+2) String Manipulation Node: regexMatcher($casrn_new$,""^[^0-9].*"") followed by Rule Engine Node to remove all columns that are ""TRUE"". 
+
+The regexMatcher gives me ""False"" even for columns that should be ""True"" though. 
+
+3) String Replacer Node: I inserted the expression ^[^0-9].* into the Pattern column and selected ""Replace whole String"" but the regex is not recognised by that node so nothing gets replaced.
+
+Does anyone have a solution for any of those approaches or knows another Node that might do the job? Help is much appreciated!
+",1,-1,-1.0
+39857739,regexMatcher in String Manipulation KNIME,"I'm trying to use regexMatcher from String Manipulation in KNIME but it doesn't work. I'm writing the following:
+regexMatcher($Document$,""/\w"")
+when I want to extract all sentences that have /s or /p or w/p or /200. However even though I have such cases in my table nothing is retrieved. I will appreciate your help.
+",-1,-1,-1.0
+39839885,Data points are in the wrong place on my R plot,"I have two columns of data to plot into a scatter plot, the points don't appear to be in the correct place, as if the axis are shifted and the data points have been reordered.
+The data comes from a larger set and the plan was to use ""lines"" to add furthur lines to the plot. I haven't been using R for long and am following the examples Line charts on the QuickR website.   The data has already been binned and should produce a distribution curve. The plan is to use the R code within knime, if/when it works.
+
+this is my data  and code
+
+1                  |   0.2  |                 ?
+2                  |   0.3  |0.9040357526438414
+3                  |   0.4  |5.411174917770767
+4                  |   0.5  |6.680564306410919
+5                  |   0.6  |6.209330779324634
+6                  |   0.7  |6.064339545114229
+7                  |   0.8  |6.689841006370736
+8                  |   0.9  |8.755978393214562
+9                  |   1.0  |13.11661304772278
+10                 |   1.1  |17.093411510054928
+11                 |   1.2  |15.479560872141883
+12                 |   1.3  |8.420296969382726
+13                 |   1.4  |3.5346457261075566
+14                 |   1.5  |1.6256413200367157
+15                 |   1.6  |2.2848049576096026
+16                 |   1.7  |1.2394427974974978
+17                 |   1.8  |0.28169014084507044
+18                 |   1.9  |                 ?
+19                 |   2.0  |                 ?
+20                 |   2.1  |                 ?
+21                 |   2.2  |                 ?
+22                 |   2.3  |                 ?
+23                 |   2.4  |                 ?
+24                 |   2.5  |                 ?
+25                 |   2.6  |                 ?
+26                 |   2.7  |                 ?
+27                 |   2.8  |                 ?
+28                 |   2.9  |                 ?
+
+nwells=c(2, 6, 10, 14, 18) #to take the columns I want from the larger dataset
+plot(3, 20, type=""n"", xlim=c(0, 3), ylim=c(0, 26), xlab=""Intensity"",
+    ylab=""Proportion"", xaxs=""i"", yaxs=""i"") 
+colors &lt;- rainbow(length(nwells)) 
+linetype &lt;- c(1:length(nwells)) 
+plotchar &lt;- seq(nwells)
+
+# add lines 
+
+      well &lt;- data1[2]
+  bin &lt;-data1[1] 
+  data&lt;-data.frame(bin, well)
+      lines(data, type=""p"", lwd=1.5,
+        lty=1, col=colors[n], pch=plotchar[n], grid()) 
+
+
+this is my plot
+distribution scatter plot 1 sample from R 
+
+note the point at 1.5, 5 - where does that come from in this data set?
+
+anybody any idea what I am doing wrong?
+",0,-1,-1.0
+44003319,Connect BigQuery with Knime,"I'm trying to connect the with Knime the BigQuery API to download or make some querys at the Knime console, and I have some problems with the Driver.
+
+I install de simba googlebigquery driver but don't works because I don't know how to complete this (&lt;protocol&gt;://&lt;host&gt;:&lt;port&gt;/&lt;database_name&gt;). Can anyone help me if knows how to run the driver?
+",-1,-1,-1.0
+44207532,CREATE command denied to user in Knime database writer node,"In a new KNIME workflow. I created a new database connection node and a new Database Writer node that accepts its data from a CSV reader node.
+The execution of the database connection node is successful.
+When I execute the Database writer node, I am getting a CREATE command is denied error.
+
+The configurations of the Database connector node are as follows:
+Database URL : jdbc:mysql://localhost:3306/hello_knime_database  Username : test 
+ Password : test
+
+mysql configurations:
+
+$ mysql -u test -p
+mysql&gt; show databases;
++----------------------+
+| Database             |
++----------------------+
+| information_schema   |
+| hello_knime_database |
++----------------------+
+2 rows in set (0.00 sec)
+mysql&gt; show grants;
++--------------------------------------------------------------------------
+-------------------+
+| Grants for test@localhost                                                                    
+|
++--------------------------------------------------------------------------
+-------------------+
+| GRANT USAGE ON *.* TO 'test'@'localhost'                                                    
+|
+| GRANT ALL PRIVILEGES ON `hello_knime_database`.* TO 'test'@'localhost'                      
+|
+| GRANT ALL PRIVILEGES ON `hello_knime_database`.`hello_knime_database` TO 
+'test'@'localhost' |
++--------------------------------------------------------------------------
+-------------------+
+3 rows in set (0.01 sec)
+
+
+Database Writer configurations: 
+Port 1 input: data table of around 32000 rows and 15 columns. 
+Port 2 input: the database connector 
+Table name: hello
+
+KNIME version : 3.3.2
+
+When I execute the Database Writer node I get:
+
+ERROR Database Writer      0:3        Execute failed: CREATE command denied to user 'test'@'localhost' for table 'hello'
+
+
+Any clues of what is causing this? 
+",-1,-1,-1.0
+44905328,Execute a Workflow KNIME with a Batch file,"I would like to execute a workflow KNIME with a Batch file but i have an error :  
+
+ERROR KNIME-Worker-2 Call Local Workflow  Execute failed : java.lang.NullPointerException 
+
+
+My workflow knime work well on Knime but i don't know why I have this error. 
+
+This is my Batch file : 
+
+""C:\Program Files\KNIME\knime.exe"" -nosave -consoleLog -noexit -nosplash -reset 
+-application org.knime.product.KNIME_BATCH_APPLICATION 
+-preferences=""C:\Users\Admnistrator\Desktop\KNIME_Preferences.epf"" 
+-workflowDir=""C:\Users\Admnistrator\knime-workspace\SPC_SIMTest"" 
+
+
+Knime report Java :
+
+Java was started but returned exit code = 4
+
+
+I'm not find solution. Can you help me ?
+",1,-1,-1.0
+44401251,Increase RAM available for Knime?,"Is there an easy way to increase the RAM available in Knime through a config file or through menu options?
+
+I am constantly running into ""heap-space"" errors during execution and it by default limits the number of categorical variables to 1,000, as well as difficulty displaying charts with more than n values (~10,000).
+
+Example error:
+
+ERROR Decision Tree Learner 0:65       Execute failed: Java heap space
+
+
+Thanks!
+",-1,-1,-1.0
+46216308,"AttributeSelectedClassifier - How to deal with error ""A nominal attribute (likes) cannot have duplicate labels ('(0.045455-0.045455]')""","I am using KNIME in order to activate a WEKA node AttributeSelectedClassifier .
+But i keep getting this exception claiming that my attribute is nominal and has duplicate values. 
+
+But, it is numeric and it is very expected to have duplicate values in the dataset! 
+
+
+  AttributeSelectedClassifier  - How to deal with error ""A nominal attribute (likes) cannot have duplicate labels ('(0.045455-0.045455]')""
+
+
+I found similar topics to this one but none of them is covering how to chose the scalar to scale values with 
+
+1st Question: so i will be happy if someone can explain why is this behavior? I mean why duplicate values is bad?!
+
+Anyway, 
+One of the threads of a similar topic recommended to scale the values by a large enough number (a scalar)! 
+
+Based on that I multiplied values with 10^6 and got error about this value: 27027.027027-27027.027027 
+
+I multiplied by 10^7 and then got an error about this value: 270270.27027-270270.27027 
+
+when i multiplied by 10^8 it succeeded. 
+
+2nd Question: what is the right way to deal with this? and how can i, programatically, chose the scalar to scale with ? 
+
+The full error: 
+
+
+  ERROR AttributeSelectedClassifier - Execute failed: IllegalArgumentException in Weka during training. Please verify your settings. A nominal attribute (Meanlikes) cannot have duplicate labels ('(0.045455-0.045455]'). 
+
+",-1,-1,-1.0
+46602371,Hive connector to HDP 2.6 not working,"I am using KNIME 3.4.1 and trying to connect it to HDP 2.6.1 using this KNIME blog post.
+
+The kerberos ticket is present 
+
+E:\Omkar\Development\Software\Analysis\KNIME&gt;klist
+
+Credentials cache: C:\Users\ojoqcu\krb5cc_ojoqcu
+
+Default principal: ojoqcu@GLOBAL.SCD.COM, 1 entry found.
+
+[1]  Service Principal:  krbtgt/GLOBAL.SCD.COM@GLOBAL.SCD.COM
+     Valid starting:     Oct 06,  2017 10:49:39
+     Expires:            Oct 06,  2017 20:49:39
+
+E:\Omkar\Development\Software\Analysis\KNIME&gt;knime.exe
+
+E:\Omkar\Development\Software\Analysis\KNIME&gt;
+
+
+The krb5.conf file is present under KNIME jre
+
+[libdefaults]
+  renew_lifetime = 7d
+  forwardable = true
+  default_realm = GLOBAL.SCD.COM
+  ticket_lifetime = 10h
+  dns_lookup_realm = false
+  dns_lookup_kdc = true
+  default_ccache_name = /tmp/krb5cc_%{uid}
+  allow_weak_crypto = yes
+
+[logging]
+  default = FILE:/var/log/krb5kdc.log
+  admin_server = FILE:/var/log/kadmind.log
+  kdc = FILE:/var/log/krb5kdc.log
+
+[realms]
+  GLOBAL.SCD.COM = {
+    default_domain = sss.se.com
+  }
+
+  SE = {
+    default_domain = sss.se.com
+  }
+
+
+I have added the Hortonworks Hive JDBC jar, yet, the driver doesn't show up in the config.
+
+
+
+
+The attached screenshot shows the config. of the Hive connector, upon execution, I get the following error :
+
+ERROR Hive Connector       0:1        Exception creating Kerberos based jdbc connection. Error: null
+ERROR Hive Connector       0:1        Execute failed: Could not create connection to database: No valid credentials provided (Mechanism level: Failed to find any Kerberos tgt)
+
+",-1,-1,-1.0
+47560313,Knime List Files node regex filter broken on \+ (plus character),"In the List Files node applying regular expression filter
+
+.*\+.*
+
+
+or
+
+.*[+].*
+
+
+was working perfectly in Knime 3.3.2 (Windows 7, 64 bit). I have right now upgraded to 3.4.2, and it creates empty table on the same directory with files having '+' sign in file name.
+
+I have a workaround: I read the entire directory without any filter, and if I apply Rule-based Row Filter node with
+
+$Column_name$ MATCHES .*\+.*
+
+
+or
+
+$Column_name$ MATCHES .*[+].*
+
+
+it works, so it seems a List Files node specific issue.
+
+Does anybody has any idea why regex filter with '+' sign broken in List Files node?  
+",1,-1,-1.0
+49944456,KNIME mysql table update,"I am just now learning KNIME. I have successfuly set up a MySQL connector and connected a database reader to it. Then I did a database writer that basically aggregates data and pushes it to a new table.
+
+My problem comes when I just need to do a simple update statement on my newly generated table.
+
+I basically need to say update table1 set year = 2017 where ID &lt; 2000;
+
+I have looked and tried for hours but I cannot seem to figure out how to just run a simple update statement on a table from KNIME.
+
+Please let me know if you need anymore information and as always thank you so much in advance for the help!
+",-1,-1,-1.0
+51088984,Knime HDFS connection node not working,"Objective: load csv to a hive/impala/hdfs table 
+Tools: Knime 
+Scenario: 
+I am using table creator ( just 1 row with 1 value), HIve connector( this connects to host without issues), HDFS connection and hive loader. 
+When I configure HDFS connection node with hive loader with host and port info same as hive connector I get an error:
+Execute failed: End of File Exception between local host is: ""Cyuyuyu/xxx.xxx.x.xxx""; destination host is: ""xxxnode04.xx.xx.com"":21050; : java.io.EOFException; For more details see:  http://wiki.apache.org/hadoop/EOFException.
+
+What am I doing wrong? 
+Thanks in advance.
+",-1,-1,-1.0
+50552158,Bad Authentication data. code - 215 using Knime,"I've tried to config a ""Twitter API Connector"" and then exec ""Twitter Search"" but I received below error:
+
+
+  ERROR Twitter Search       2:2        Execute failed: 400:The request
+  was invalid. An accompanying error message will explain why. This is
+  the status code will be returned during version 1.0 rate
+  limiting(https://dev.twitter.com/pages/rate-limiting). In API v1.1, a
+  request without authentication is considered invalid and you will get
+  this response. message - Bad Authentication data. code - 215
+
+
+I'm using Knime 3.5.3 and
+I had ""Regenerate Consumer Key and Secret"" many times but it doesn't work! 
+",-1,-1,-1.0
+52060083,How to connect a Firebird data base with Knime?,"I need connect my Firebird data base (.IDB) in KNIME. I used Database Connector node, but I have this notice: 
+
+
+  ERROR Database Connector   0:1        Execute failed: Could not create
+  connection to database: Invalid connection string
+  C:\Users\miPC\Desktop\DataBase1.IDB, reason: null or empty database
+  name in connection string
+
+",-1,-1,-1.0
+53989942,Integration Authentication Error Microsoft SQL Server 2017 and Knime,"There are a number of older posts on integrating a database with Knime, however I haven’t found any discussions regarding the latest versions of Java, Knime, and SQL. I have spent days looking at forums here and on StackOverflow and elsewhere trying to connect to a database with Knime, however nothing has worked.
+
+My computer configuration is as follows:
+64 bit Operating System
+Microsoft SQL Server 2017 (64 bit version)
+Microsoft SQL Server Management Studio 17
+Microsoft JDBC Driver 7.0 for SQL Server
+KNIME 3.7.0 (64 bit version)
+Java jre1.8.0_191
+
+So far I’ve tried:
+Downloading java versions into both Program Files\Java and Program Files (x86)\Java. Currently I have the java version that is stored in the Program Files directory and not in the (x86) directory.
+
+Downloading and unzipping the ‘sqljdbc_7.0.0.0_enu’ JDBC 7.0 Driver. I also tried the JDBC 6.0 Driver, but that didn’t work.
+
+putting sqljdbc_auth.dll in the C\Program Files\Java\jre1.8.0_191\bin and C\Program Files\Java\jre1.8.0_191\lib directories.
+
+Enabling TCP/IP Port in Microsoft SQL Server Management Studio
+
+configuring Knime’s Database Connector, Database Reader, and Microsoft SQL Server Connector nodes to the following settings:
+Database driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+Database URL: jdbc:sqlserver://(localhost); integratedSecurity=true;
+Authentication: Checked ‘Use credentials’ (for Database Reader this feature is blocked out)
+
+When I execute the Database Connector node I get the following error:
+ERROR Database Connector 0:2 Execute failed: Could not create connection to database: no sqljdbc_auth in java.library.path
+
+When I execute the Database Reader node I get the following error:
+ERROR Database Reader 0:1 Execute failed: This driver is not configured for integrated authentication. ClientConnectionId:4906d2f3-e3df-4016-a383-29840cb4dee2
+
+When I execute the Microsoft SQL Server Connector I get the following error:
+ERROR Microsoft SQL Server Connector 0:5 Execute failed: Could not create connection to database: no sqljdbc_auth in java.library.path
+",-1,-1,-1.0
+55183843,Regex For Multiple Lines in Knime,"I am using Knime to find a pattern like AB1234 anywhere in the data of one of my columns X. X can have multiple lines in each cell but I can't figure out how to search all of the lines. Below is my current regex, can you please help me search all lines
+
+I tried this first to search but it only matched if that pattern appeared in the first line of the cell, did not work for cells with line breaks:
+
+.*?[A-Z]{2}[0-9]{4}.*
+
+
+Then I tried to do this to search all of my lines but it didn't work and only searched the first line again:
+
+(.*|[\r\n])[A-Z]{2}[0-9]{4}(.*|[\r\n])
+
+",1,-1,-1.0
+56048575,Is there a string manipulation to superscript certain values?,"I am using a String Manipulation node in KNIME to join some columns.
+
+join($surname$, "", "", $given-names$, toEmpty($xref$))
+
+Is it possible to have all values within the $xref$ column be superscripted?
+
+I'm not sure if this is even possible. I have read about using ""sup,"" but I don't think that works here, simply returns errors.
+",-1,-1,-1.0
+56474415,Knime Install Extensions fails: HTTP Proxy Authentication Required,"I am using Knime on a remote desktop location and run it there in my local workspace on the other computer, I needed ot change my password and afterwards I cannot install updates again. Now I get the following error:
+Some sites could not be found.  See the error log for more detail.
+HTTP Proxy Authentication Required: http://update.knime.com/community-contributions/trusted/3.7/content.xml
+Proxy Authentication Required
+HTTP Proxy Authentication Required: http://update.knime.com/analytics-platform/3.7/content.xml
+Proxy Authentication Required
+
+I followd this thread here: Eclipse Neon HTTP Proxy Authentication Required Error
+But this does not work out for me, any other ideas?
+",-1,-1,-1.0
+57696359,Converging extracted sentences and counting predicted label for each paragraph,"I'm having a problem with knime. I have some paragraphs in an excel file and I want to find out how many sentences are assertive, declarative in each paragraph. So, I have a dataset with labeled sentences. I have built a model on that dataset. Now, I used that dataset to predict the sentences of the paragraphs by using SentenceExtractor node and applied the model and model gives the prediction. Now, the problem is the prediction is on sentences and I need to know how many sentences are assertive, etc in each paragraph. How should I join the extracted paragraph sentences and count each paragraphs sentence's predict and record them into an excel file?
+
+Any help would be appreciated. 
+
+I have tried rowID and groupBy nodes. But I couldn't make it
+",1,-1,-1.0
+58343813,"I am getting ""TypeError: 'DataFrame' object is not callable"" when I'm trying to iterate over a pandas Dataframe in a Knime python script node","Basically I am tyring to iterate over rows in a pandas data frame.
+This data frame was automatically created in Knime through a python script node.
+
+The name of the data frame is ""input_table"".
+
+The dataframe has three columns: 
+Location, URL and Document.
+
+I am gettin this error: TypeError: 'DataFrame' object is not callable, when I am trying to loop over rows.
+
+I already looked for similiar problems, but none of the solutions worked for me. This is the code I am using, since the data frame was created automatically. 
+
+for index, row in input_table():
+
+   print(row[""Document""])
+
+",-1,-1,-1.0
+59001501,TCP/IP Connection error when connecting to SQL Server database,"When I try and connect to the SQL Server database, I get this error :
+
+
+  The TCP/IP connection to the host P5CPAJJDAD01.CORP.AD.CTC, port 1433 has failed. 
+  
+  Error: Connection refused: connect. Verify the connection properties. Make sure that an instance of SQL Server is running on the host and accepting TCP/IP connections at the port. Make sure that TCP connections to the port are not blocked by a firewall
+
+
+I can access the database using Python and also MS Access database. I'm trying to use KNIME (an analytics tool) to connect with the database but it throws that error. Which is odd considering that I can access the exact same database using Python and MS Access.
+
+Could this be a security issue?
+",-1,-1,-1.0
+59753305,Knime R snippet node Error: subscript out of bounds,"Trying to execute a R snippet node in KNIME, already have R installed with dplyr package.
+
+library(dplyr)
+
+atrinktos &lt;- knime.in
+
+# Firs we filter out the months
+# Here it is done using Lithuanian month names, but it needn't be so and could be
+# used with any other language
+
+sausis &lt;- atrinktos %&gt;% filter(grepl(""Sausis"", month))
+
+vasaris &lt;- atrinktos %&gt;% filter(grepl(""Vasaris"", month))
+
+kovas &lt;- atrinktos %&gt;% filter(grepl(""Kovas"", month))
+
+balandis &lt;- atrinktos %&gt;% filter(grepl(""Balandis"", month))
+
+geguze &lt;- atrinktos %&gt;% filter(grepl(""Gegužė"", month))
+
+birzelis &lt;- atrinktos %&gt;% filter(grepl(""Birželis"", month))
+
+liepa &lt;- atrinktos %&gt;% filter(grepl(""Liepa"", month))
+
+rugpjutis &lt;- atrinktos %&gt;% filter(grepl(""Rugpjūtis"", month))
+
+rugsejis &lt;- atrinktos %&gt;% filter(grepl(""Rugsėjis"", month))
+
+spalis &lt;- atrinktos %&gt;% filter(grepl(""Spalis"", month))
+
+lapkritis &lt;- atrinktos %&gt;% filter(grepl(""Lapkritis"", month))
+
+gruodis &lt;- atrinktos %&gt;% filter(grepl(""Gruodis"", month))
+
+# Then we create a monthly list variable
+men &lt;- list(sausis, vasaris, kovas, balandis, geguze, birzelis, liepa, rugpjutis,
+            rugsejis, spalis, lapkritis, gruodis)
+
+#############################
+### First period ###
+#############################
+
+# we have to create objects that will be populated by our loop
+
+regre1 &lt;- matrix(nrow = 12, ncol = (dim(atrinktos)[2] - 3))
+pard1 &lt;- matrix(nrow = 1, ncol = (dim(atrinktos)[2] - 3))
+vard1 &lt;- vector()
+pav1 &lt;- vector()
+p1 &lt;- vector()
+
+# we put the data in the loop and create models in every loop step. From those
+# models we get the regressor effects if p &lt; 0.05
+# Effects coefficients are calculated according to the following formula: if
+# p &lt; 0.05 then coefficient = (beta0 + beta1) / beta0
+# If p &gt; 0.05, then regressor coefficient is 1, i.e. the month in question does
+# not differ from other months
+for (j in 1:12) {
+  varlist &lt;- names(sausis)[4:dim(atrinktos)[2]]
+  models &lt;- lapply(varlist,
+                   function(x) {
+                     lm(substitute(i ~ month, list(i = as.name(x))),
+                        data = men[[j]])
+                   }
+            )
+  for (i in 1:(dim(atrinktos)[2] - 3)) {
+    a &lt;- models[[i]]   
+    p1[i] &lt;- summary(a)$coefficients[2, 4]
+    if (p1[i] &lt; 0.05) {
+      p1[i] &lt;- p1[i]
+      pard1[,i] &lt;- (a$coefficients[1] + a$coefficients[2]) / a$coefficients[1] 
+    } else {
+      #p[i] &lt;- 1
+      pard1[, i] &lt;- 1
+    }
+    pav1[i] &lt;- cbind(substring(a$terms[[2]], 1, 4))
+  }
+  rownames(pard1) &lt;- names(a$coefficients[2])
+  vard1[j] &lt;- cbind(names(a$coefficients[2]))
+  regre1[j, ] &lt;- cbind(pard1)
+}
+
+# We name the columns and rows of our matrix objects
+
+vard1 &lt;- substring(vard1, 6, ) # We strip the long name of the store and leave
+                               # the code only
+rownames(regre1) &lt;- vard1
+colnames(regre1) &lt;- pav1
+
+##############################
+### ANTRAS ###
+##############################
+
+# we have to create objects that will be populated by our loop
+
+regre2 &lt;- matrix(nrow=12, ncol=(dim(atrinktos)[2] - 3))
+pard2 &lt;- matrix(nrow=1, ncol=(dim(atrinktos)[2] - 3))
+vard2 &lt;- vector()
+pav2 &lt;- vector()
+p2 &lt;- vector()
+# we put the data in the loop and create models in every loop step. From those
+# models we get the regressor effects if p &lt; 0.05
+# Effects coefficients are calculated according to the following formula: if
+# p &lt; 0.05 then coefficient = (beta0 + beta1)/beta0
+# If p &gt; 0.05, then regressor coefficient is 1, i.e. the month in question does
+# not differ from other months
+for (j in 1:12) {
+  varlist &lt;- names(sausis)[4:dim(atrinktos)[2]]
+  models &lt;- lapply(varlist,
+                   function(x) {
+                     lm(substitute(i ~ month, list(i = as.name(x))),
+                        data = men[[j]])
+                   }
+            )
+  for (i in 1:(dim(atrinktos)[2] - 3)) {
+    a &lt;- models[[i]]
+    p2[i] &lt;- summary(a)$coefficients[3, 4]
+    if (p2[i] &lt; 0.05) {
+      p2[i] &lt;- p2[i]
+      pard2[,i] &lt;- (a$coefficients[1] + a$coefficients[3]) / a$coefficients[1] 
+    } else {
+      #p[i] &lt;- 1
+      pard2[,i] &lt;- 1
+    }
+    pav2[i] &lt;- cbind(substring(a$terms[[2]], 1, 4))
+  }
+  rownames(pard2) &lt;- names(a$coefficients[3])
+  vard2[j] &lt;- cbind(names(a$coefficients[3]))
+  regre2[j,] &lt;- cbind(pard2)
+}
+
+# We name the columns and rows of our matrix objects
+
+vard2 &lt;- substring(vard2,6,) # We strip the long name of the store and leave
+                             # the code only
+rownames(regre2) &lt;- vard2
+colnames(regre2) &lt;- pav2
+
+##############################
+### TRECIAS ###
+##############################
+
+# we have to create objects that will be populated by our loop
+
+regre3 &lt;- matrix(nrow=12, ncol=(dim(atrinktos)[2] - 3))
+pard3 &lt;- matrix(nrow=1, ncol=(dim(atrinktos)[2] - 3))
+vard3 &lt;- vector()
+pav3 &lt;- vector()
+p3 &lt;- vector()
+# we put the data in the loop and create models in every loop step. From those
+# models we get the regressor effects if p &lt; 0.05
+# Effects coefficients are calculated according to the following formula: if
+# p &lt; 0.05 then coefficient = (beta0 + beta1)/beta0
+# If p &gt; 0.05, then regressor coefficient is 1, i.e. the month in question does
+# not differ from other months
+for (j in 1:12) {
+  varlist &lt;- names(sausis)[4:dim(atrinktos)[2]]
+  models &lt;- lapply(varlist,
+              function(x) {
+                lm(substitute(i ~ month, list(i = as.name(x))),
+                   data = men[[j]])
+              }
+            )
+  for (i in 1:(dim(atrinktos)[2] - 3)) {
+    a &lt;- models[[i]]    
+    p3[i] &lt;- summary(a)$coefficients[4, 4]
+    if (p3[i] &lt; 0.05) {
+      p3[i] &lt;- p3[i]
+      pard3[, i] &lt;- (a$coefficients[1] + a$coefficients[4]) / a$coefficients[1] 
+    } else {
+      #p[i] &lt;- 1
+      pard3[, i] &lt;- 1
+    }
+    pav3[i] &lt;- cbind(substring(a$terms[[2]], 1, 4))
+  }
+  rownames(pard3) &lt;- names(a$coefficients[4])
+  vard3[j] &lt;- cbind(names(a$coefficients[4]))
+  regre3[j,] &lt;- cbind(pard3)
+}
+
+# We name the columns and rows of our matrix objects
+
+vard3 &lt;- substring(vard3, 6, ) #  We strip the long name of the store and leave the code only
+rownames(regre3) &lt;- vard3
+colnames(regre3) &lt;- pav3
+
+#############################
+### Combining the matrices###
+#############################
+
+regre &lt;- rbind(regre1, regre2, regre3)
+
+# Output
+knime.out &lt;- regre
+
+
+I get error:
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error: subscript out of bounds
+
+
+I understand the first lines are just a warning? and it shouldn't be the cause of this error, maybe I'm wrong. What comes before the R snippet node is basic Database connection with a few Database SQL Executors and data manipulation nodes. Perhaps the error is within the code I provided or maybe I should look into earlier nodes?
+
+Since I'm very new to R language I couldnt find a solution on web anywhere.
+
+EDIT: Found where the 'out of bounds' error comes from.
+
+p3[i] &lt;- summary(a)$coefficients[4,4]
+if (p3[i] &lt; 0.05) {
+  p3[i] &lt;- p3[i] pard3[,i] &lt;- (a$coefficients[1] + a$coefficients[4]) / a$coefficients[1]
+} else {
+  #p[i] &lt;- 1
+  pard3[,i] &lt;- 1
+}
+
+
+The #4 is out of binds, if I change it to 3 for ex it works but that's not how programming works, just replacing randomly a number.
+
+Any ideas what that #4 is for and how to fix the code?
+",1,-1,-1.0
+59074686,Cross referencing in knime,"I'm using Knime and I need to be able to cross reference a value within a csv file against a value I get from an Oracle DB.
+
+Specifically, I need to match a ZIP code I get from the DB to a CSV file I have that contains zip codes and their corresponding counties.
+
+I'm not really sure how to approach it. I've tried Joins and Cross joins but the data ends up looking garbled and I'm unable to make any sense of it. Worst case scenario I end up manually looking things up.
+",-1,-1,-1.0
+58832202,How can I save intermediate results from a KNIME loop?,"I am running a KNIME workflow:
+
+
+It is running over every row of my data. The problem is, I planned to run 7000 iterations and at 6800 it gets stuck. Is there a way to save the csv file? There is a problem with one row, and I want to save the result at this point in time.
+",-1,-1,-1.0
+58698209,How to import jar to java snippet node in Knime,"I want to import a jar file into a java snippet in Knime. I added dist.jar to the additional libraries section in the java snippet node. However, when I try import dist in the java snippet, it doesn't work and the error ""The import dist cannot be resolved"" occurs. Any suggestions? Thanks in advance!
+
+I have already tried import dist and import dist.* and import dist.jar.
+
+My dist.jar looks like this:
+
+public class Dist {
+
+  public double dist(double c_LON, double c_LAT) {
+    // some code...
+    return dist
+  }
+}
+
+",-1,-1,-1.0
+57173430,KNIME regex expression to return 6th line,"I have a column with string values present in several lines. I would like to only have the values in the 6th line, all the lines have varying lengths, but all the cells in the column have the information I need in the 6th line.
+
+I am honestly absolutely new and have no background in Java nor KNIME - I have scoured this forum and other internet sources, and none seem to tackle what I need in KNIME specifically - I found something similar but it doesn't work in KNIME:
+
+Regex for nth line in a text file
+",-1,-1,-1.0
+60409112,Database SQL Executor (legacy) 0:2211 Execute failed: Violation of PRIMARY KEY constraint,"Node DB SQL Executor (legacy) gives for one worker this error. I can not reproduce this error in any way. We have the exact same workflow, we have the same access to the same DB and we are on the same connection. I'm sorry I'm not providing a lot of information here but asking maybe perhaps there could be an obvious thing that I'm missing. Since I don't have this error it means the code is working fine, something is wrong on his side, could it be knime extensions or user rights? For example he is missing some extensions that I have but I can't imagine why an extension would be the problem, he should, not sure but should have same rights as well.
+
+
+  ERROR Database SQL Executor (legacy) 0:2211     Execute failed: Violation of PRIMARY KEY constraint 'PK_01_articles_c'. Cannot insert duplicate key in object 'DB.01_articles_c'. The duplicate key value is (c, 1142192).
+
+",-1,-1,-1.0
+60998750,"Java Class ""BCRSAPublicKey"" Intermittently Not Found","Context
+
+
+Using KNIME 4.1.2, Windows 10, x64, JDK 1.8, Java Edit Snippet
+I am attempting to use the Java Snippet to read a CSV file, pgp encrypt it using a public key, and save the resulting file to a temporary folder
+I have been attempting to use BounceCastle Library v1.65
+
+
+        try {
+        encryptFile(    
+                  ""encryptedfile.csv.pgp"",
+                  ""original.csv"",
+                  ""/key/pub.asc"",
+                  false,
+                  false);
+       } catch(Exception e) {
+        out_result = ""fail"";
+       }
+
+
+The challenge is, I get the following error in the console INTERMITTENTLY and I am unclear what I am incorrectly providing to the library / not including. The confounding is because it is intermittent and sometimes yields the properly encrypted file.
+
+Caused by: java.lang.NoClassDefFoundError: org/bouncycastle/jcajce/provider/asymmetric/rsa/BCRSAPublicKey
+    at org.bouncycastle.jcajce.provider.asymmetric.rsa.KeyFactorySpi.engineGeneratePublic(Unknown Source)
+    at java.security.KeyFactory.generatePublic(KeyFactory.java:328)
+    at org.bouncycastle.openpgp.operator.jcajce.JcaPGPKeyConverter.implGeneratePublic(Unknown Source)
+    at org.bouncycastle.openpgp.operator.jcajce.JcaPGPKeyConverter.getPublicKey(Unknown Source)
+    at org.bouncycastle.openpgp.operator.jcajce.JcePublicKeyKeyEncryptionMethodGenerator.encryptSessionInfo(Unknown Source)
+    at org.bouncycastle.openpgp.operator.PublicKeyKeyEncryptionMethodGenerator.generate(Unknown Source)
+    at org.bouncycastle.openpgp.PGPEncryptedDataGenerator.open(Unknown Source)
+    at org.bouncycastle.openpgp.PGPEncryptedDataGenerator.open(Unknown Source)
+    at JSnippet.encryptFile(JSnippet.java:144)
+    at JSnippet.encryptFile(JSnippet.java:107)
+    at JSnippet.snippet(JSnippet.java:174)
+    at org.knime.base.node.jsnippet.JavaSnippetCellFactory.getCells(JavaSnippetCellFactory.java:300)
+
+",-1,-1,-1.0
+61703189,"Bridging Knime, Keras and DL4J – Exceptions when loading h5 model","I’m working on a project which needs to train a DNN and then run the trained model in a Java environment. As the training data requires a lot of manipulation I’ve used Knime and its Keras libraries to do most of the work, and I’m exported the trained model to a Keras h5 file which can be loaded into DL4J (I’m using Knime Keras Integration 4.1.0v201911171432 and DL4J 1.0.0-beta6).
+
+The modelling is ongoing, but for a POC I’ve created a network by chaining the following nodes:
+
+
+Keras Input Layer (shape 144)
+Keras Dense Layer (units 500)
+Keras Dense Layer (units 500)
+Keras Dense Layer (units 1)
+Keras Set Output Layers (single output shape [1] pointing to the last layer)
+
+
+This then gets trained and outputted with a “Keras Network Writer” node which writes a .h5 file.
+
+In Java I have includes the following dependencies:
+
+ &lt;dependency&gt;
+      &lt;groupId&gt;org.deeplearning4j&lt;/groupId&gt;
+      &lt;artifactId&gt;deeplearning4j-core&lt;/artifactId&gt;
+      &lt;version&gt;1.0.0-beta6&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.nd4j&lt;/groupId&gt;
+      &lt;artifactId&gt;nd4j-native-platform&lt;/artifactId&gt;
+      &lt;version&gt;1.0.0-beta6&lt;/version&gt;
+    &lt;/dependency&gt;
+
+
+And run the following code:
+
+import org.deeplearning4j.nn.modelimport.keras.KerasModelImport;
+…
+ComputationGraph model = KerasModelImport.importKerasModelAndWeights(""2x2x2keras.h5"");
+
+
+Which returns the following exception
+
+java.lang.IllegalStateException: Invalid configuration: network has no outputs. Use .setOutput(String...) to specify (and give an ordering to) the output vertices, or use allowNoOutputs(true) to disable this check
+    at org.deeplearning4j.nn.conf.ComputationGraphConfiguration.validate(ComputationGraphConfiguration.java:375) ~[deeplearning4j-nn-1.0.0-beta6.jar:na]
+    at org.deeplearning4j.nn.conf.ComputationGraphConfiguration$GraphBuilder.build(ComputationGraphConfiguration.java:1197) ~[deeplearning4j-nn-1.0.0-beta6.jar:na]
+    at org.deeplearning4j.nn.modelimport.keras.KerasModel.getComputationGraphConfiguration(KerasModel.java:394) ~[deeplearning4j-modelimport-1.0.0-beta6.jar:na]
+    at org.deeplearning4j.nn.modelimport.keras.KerasModel.getComputationGraph(KerasModel.java:415) ~[deeplearning4j-modelimport-1.0.0-beta6.jar:na]
+    at org.deeplearning4j.nn.modelimport.keras.KerasModel.getComputationGraph(KerasModel.java:404) ~[deeplearning4j-modelimport-1.0.0-beta6.jar:na]
+    at org.deeplearning4j.nn.modelimport.keras.KerasModelImport.importKerasModelAndWeights(KerasModelImport.java:173) ~[deeplearning4j-modelimport-1.0.0-beta6.jar:na]
+    at dev.aisandbox.tftest.TFRunner.run(TFRunner.java:18) ~[classes/:na]
+
+
+As this is the first time I’ve tried using Knime to manage my dataflow, I can’t be certain if the issues is with the file (being created in Knime) or the code loading it (into DL4J+Java). I’m assuming the comment about setOutput is intended for when you are creating the network with a python script, but can’t see anyway to set allowNoOutputs when KerasModelImport only has static methods.
+",-1,-1,-1.0
+71734949,"matching two column by numbers, in Knime","I want to “match” two column based on numbers, create new column with those matching True and those not matching is False for example, two column are “Node id” and “IDs”
+
+
+
+
+Node id
+IDs
+Matching
+
+
+
+
+
+
+
+
+
+DB Query:0:0:188
+[(#0), (#188)]
+for eg, here 0 0 188 are matched so its True
+
+
+DB Query:197:0:122
+[(#197), (#0), (#135)]
+here 197 0 135 not matched so its False
+
+
+
+
+I want to write query in Column Expression or Rule Engine in Knime, can anybody help ? :slight_smile:
+I tried doing it in Column Expression with this query but cant figure it, how to write it further
+if (column(&quot;IDs&quot;).=== 0:0:188 ){
+&quot;True&quot;
+}
+else &quot;False&quot;
+",-1,1,-1.0
+71941558,Remove part of a string in each row of a large column of data in KNIME,"I am stumbed.
+I have a column with some thousand rows of unique adresses regarding universities, pharmacompanies etc. in a KNIME workflow
+Example:
+55 Shattuck Street Boston Massachusetts 02115 US [NAT: US RES: US] for all designated states
+What I need is to clean the data, so each row look like nice and computable like this:
+55 Shattuck Street Boston Massachusetts 02115 US.
+My problem Is I can't seem to get the system to remove everything after US. Does anyone know a suitable approach in KNIME?
+",-1,-1,-1.0
+72331138,Execute failed error from twitter search on KNIME,"I have an error on KNIME. I am trying to scrape the tweets from twitter but I have this error:
+
+&lt;&lt; ERROR Twitter Search       0:2        Execute failed: 400:The
+request was invalid. An accompanying error message will explain why.
+This is the status code will be returned during version 1.0 rate
+limiting (https://dev.twitter.com/pages/rate-limiting). In API v1.1, a
+request without authentication is considered invalid and you will get
+this response. message - Bad Authentication data. code - 215&gt;&gt;
+
+",-1,-1,-1.0
+72691259,Memory footprint of KNIME is growing until the machine freezes,"Love KNIME and what it can do to standardise/simplify ML, but I’ve a new set of problems that are driving me crazy. I’m running ML analysis of tables of data with ~400 columns/400 rows. Non-trivial certainly, but not huge. I’ve a simple workflow that currently just evaluates each column, one at a time, as a feature, so no combinatorics.
+I’m using a respectable linux machine with 16GB RAM. KNIME starts the analysis taking 10% of the RAM (according to Htop) and just grows and grows 0.1% at a time until eventually KNIME has consumed 78% of RAM and the whole of the RAM is full between KNIME and OS. Then the swap memory starts filling up. Once that reaches 100%,the machine then freezes.
+I’ve tried adjusting Xmx in knime.ini and it has no effect whatsoever and I’ve added the heavy garbage collector node to my loop also to no effect.
+Can anyone offer any help? Getting a bit desperate here! I’m running knime v4.6.
+Thanks
+Steve.
+",1,-1,-1.0
+74056718,"Knime, python interface, returning an empty table","I am creating my python node using knext API. My node has two output tables, one for successfully calculated results and another one for failed rows. I use knext.Table.from_pandas to convert them from pandas and return these tables. The problem is that if there are records in both tables everything is ok. But if the &quot;failed&quot; table is empty (which is normal, if all records were processed correctly), I have:
+ERROR KNIME-Worker-3-Off-target 3:12 Node Execute failed: The first column must contain unique row identifiers of type ‘string’ org.knime.python3.nodes.PythonNodeRuntimeException: The first column must contain unique row identifiers of type ‘string’
+at org.knime.python3.nodes.CloseablePythonNodeProxy$FailureState.throwIfFailure(CloseablePythonNodeProxy.java:436)
+at org.knime.python3.nodes.CloseablePythonNodeProxy.execute(CloseablePythonNodeProxy.java:286)
+at org.knime.python3.nodes.DelegatingNodeModel.lambda$4(DelegatingNodeModel.java:139)
+at org.knime.python3.nodes.DelegatingNodeModel.runWithProxy(DelegatingNodeModel.java:185)
+at org.knime.python3.nodes.DelegatingNodeModel.execute(DelegatingNodeModel.java:137)
+at org.knime.core.node.NodeModel.executeModel(NodeModel.java:549)
+at org.knime.core.node.Node.invokeFullyNodeModelExecute(Node.java:1267)
+at org.knime.core.node.Node.execute(Node.java:1041)
+
+",-1,-1,-1.0
+74994051,Using Mac Automator to run a Knime Workflow,"I couldn't find a solution to automate a Knime workflow with MacOS. What kind of options does it have out there?
+I've tried using Mac Automator, but it didn't worked out.
+",-1,-1,-1.0
+76018197,KNMI DB query to Oracle table,"I can share any screenshot because of restriction but I am trying to find a way how to avoid row by row inserting in KNIME. for example I have Table Creator with one column Val. where I have 10 values. DB Writer but will always issues 10 inserts behind the scenes I think. At least if I have 1000 values then I can see how it slowly reads row by row and it takes too much time.
+it is like
+insert into table value (val1);
+insert into table value (val2);
+which is very slow in Oracle either. is not like insert into select or forall
+",-1,-1,-1.0

@@ -1,0 +1,3374 @@
+Id,Title,Body,RatingsSentiCR,RatingsGPT35,RatingsGPTFineTuned
+47401518,Nextflow: Is an input file empty?,"This is really a Nextflow question. I have a process that produces a number of files, some will be empty. I need to detect which ones and the next process should skip processing them. Looked straightforward, but the code:
+
+process demuxByPrimers {
+    publishDir params.outdir
+
+    input:
+    file productFile from products
+
+    output:
+    file 'ITS*.fastq' into primers mode flatten
+
+    when: 
+    productFile.size() &gt; 0
+
+    script:
+    println ""Processing ${productFile}""
+}
+
+
+does not work well. Input files in the work directory are symbolic links and thus they are not empty... Any ideas on how to skip processing empty files?
+",-1,-1,-1.0
+50443545,Conditional Pipeline in Nextflow,"I have trying to create a conditional pipeline NextFlow. For example, 
+
+Process A outputs a value to a channel. If the value is 1, then run X, otherwise run Y. 
+
+Here's what I am trying to do:
+
+initialData = 2
+receiver1 = ""EMPTY""
+receiver2 = ""EMPTY""
+receiver3 = """"
+
+
+process A {
+    input:
+    val initialData
+
+    output:
+    val initialData into trigger
+    '''
+    echo 10
+    '''
+}
+
+process foo {
+    input:
+    val trigger
+
+    output:
+    val ""I ran from FOO"" into receiver2
+
+
+    when:
+    trigger == 2
+
+    '''
+    echo I ran from FOO
+    '''
+}
+
+
+process bar {
+    input:
+    val trigger
+
+    output:
+    val ""I ran from BAR"" into receiver1
+
+
+    when:
+    trigger == 1
+
+    '''
+    echo I ran from BAR
+    '''
+}
+
+
+Assume foo and bar are equivalent but different implementations (e.g. one converts a movie from AVI to h.264, and the other converts from MOV to h.264). I'd like to have another process, say C, that can read either from Bar or Foo without knowing anything about trigger. But, nextflow complains if I use the same output channel name in both Foo and Bar.
+",-1,1,-1.0
+53277369,splitCsv then map a list of URLs in Nextflow,"I am trying to take the GIAB data index files (which are CSVs), and download each file in Nextflow. I think I have the general structure right, but when I run nextflow run file.nf nothing happens.
+
+Channel.fromPath(file('https://raw.githubusercontent.com/genome-in-a-bottle/giab_data_indexes/master/NA12878/sequence.index.NA12878_Illumina_HiSeq_Exome_Garvan_trimmed_fastq_09252015'))
+    .splitCsv(header: true)
+    .map { it.FASTQ }
+    .set { giab_urls }
+
+
+process download_giab {
+    storeDir 'giab'
+
+    input:
+        file giab_url from giab_urls
+
+    output:
+        file '*.fastq' into giab_fastqs
+
+    script:
+        """"""
+        lftp -c 'get $giab_url'
+        """"""
+}
+
+
+The log file produced is as follows:
+
+Nov-13 18:18:43.537 [main] DEBUG nextflow.cli.Launcher - $&gt; /opt/miniconda3/bin/nextflow run main.nf
+Nov-13 18:18:43.653 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 18.10.1
+Nov-13 18:18:43.661 [main] INFO  nextflow.cli.CmdRun - Launching `main.nf` [agitated_cori] - revision: 5cf3310536
+Nov-13 18:18:43.757 [main] DEBUG nextflow.Session - Session uuid: c19f86b4-0eff-43de-8ad4-cb7936701490
+Nov-13 18:18:43.758 [main] DEBUG nextflow.Session - Run name: agitated_cori
+Nov-13 18:18:43.759 [main] DEBUG nextflow.Session - Executor pool size: 4
+Nov-13 18:18:43.769 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 18.10.1 build 5003
+  Modified: 24-10-2018 14:03 UTC (25-10-2018 01:03 AEDT)
+  System: Linux 4.15.0-38-generic
+  Runtime: Groovy 2.5.3 on OpenJDK 64-Bit Server VM 1.8.0_181-8u181-b13-1ubuntu0.18.04.1-b13
+  Encoding: UTF-8 (UTF-8)
+  Process: 8747@michael-Latitude-7480 [127.0.1.1]
+  CPUs: 4 - Mem: 23.4 GB (1.9 GB) - Swap: 2 GB (2 GB)
+Nov-13 18:18:43.832 [main] DEBUG nextflow.Session - Work-dir: /home/michael/Programming/CromwellValidation/work [ext2/ext3]
+Nov-13 18:18:43.832 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/michael/Programming/CromwellValidation/bin
+Nov-13 18:18:43.904 [main] DEBUG nextflow.Session - Session start invoked
+Nov-13 18:18:43.911 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher &gt; start
+Nov-13 18:18:43.911 [main] DEBUG nextflow.script.ScriptRunner - &gt; Script parsing
+Nov-13 18:18:44.244 [main] DEBUG nextflow.script.ScriptRunner - &gt; Launching execution
+Nov-13 18:18:44.586 [main] DEBUG nextflow.processor.ProcessFactory - &lt;&lt; taskConfig executor: null
+Nov-13 18:18:44.586 [main] DEBUG nextflow.processor.ProcessFactory - &gt;&gt; processorType: 'local'
+Nov-13 18:18:44.593 [main] DEBUG nextflow.executor.Executor - Initializing executor: local
+Nov-13 18:18:44.596 [main] INFO  nextflow.executor.Executor - [warm up] executor &gt; local
+Nov-13 18:18:44.600 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' &gt; cpus=4; memory=23.4 GB; capacity=4; pollInterval=100ms; dumpInterval=5m
+Nov-13 18:18:44.604 [main] DEBUG nextflow.processor.TaskDispatcher - Starting monitor: LocalPollingMonitor
+Nov-13 18:18:44.605 [main] DEBUG n.processor.TaskPollingMonitor - &gt;&gt;&gt; barrier register (monitor: local)
+Nov-13 18:18:44.616 [main] DEBUG nextflow.executor.Executor - Invoke register for executor: local
+Nov-13 18:18:44.672 [main] DEBUG nextflow.Session - &gt;&gt;&gt; barrier register (process: download_giab)
+Nov-13 18:18:44.676 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator &gt; download_giab -- maxForks: 4
+Nov-13 18:18:44.736 [main] DEBUG nextflow.script.ScriptRunner - &gt; Await termination 
+Nov-13 18:18:44.736 [main] DEBUG nextflow.Session - Session await
+Nov-13 18:18:44.758 [Actor Thread 3] DEBUG nextflow.Session - &lt;&lt;&lt; barrier arrive (process: download_giab)
+Nov-13 18:18:44.759 [main] DEBUG nextflow.Session - Session await &gt; all process finished
+Nov-13 18:18:44.813 [Task monitor] DEBUG n.processor.TaskPollingMonitor - &lt;&lt;&lt; barrier arrives (monitor: local)
+Nov-13 18:18:44.813 [main] DEBUG nextflow.Session - Session await &gt; all barriers passed
+Nov-13 18:18:44.818 [main] DEBUG nextflow.trace.StatsObserver - Workflow completed &gt; WorkflowStats[succeedCount=0; failedCount=0; ignoredCount=0; cachedCount=0; succeedDuration=0ms; failedDuration=0ms; cachedDuration=0ms]
+Nov-13 18:18:44.826 [main] DEBUG nextflow.CacheDB - Closing CacheDB done
+Nov-13 18:18:44.842 [main] DEBUG nextflow.script.ScriptRunner - &gt; Execution complete -- Goodbye
+
+
+Any ideas what I'm doing wrong here? None of the nextflow output is very enlightening.
+",-1,-1,-1.0
+53290181,"In Nextflow, Does a process with a channel.fromPath is parallelized?","I have a process in Nextflow with multiple input file from a Channel.FromPath(). 
+
+Here my script: 
+
+params.queries = """"
+queries = Channel.fromPath(params.queries) #path to multiple .fasta files
+
+process PsiBlast {
+
+input:
+file query from queries_psiblast
+
+output:
+file top_hits
+
+""""""
+blastpgp -d $db -i $query -j 2 -C ff.chd.ckp -Q pssm.out &gt;&gt; top_hits
+""""""
+}
+
+#then there are others processes, not needed for my question. 
+
+
+What I want to know is if my process is parallelized? If it run on 2 files at the same time for example? Or do I need to specify it in my script?
+
+I read the doc, but it's not specify. And I don't know how to test that. 
+",-1,-1,-1.0
+57767793,"Nextflow+Singularity: No such file or directory, even though file exists","I am trying to run this pipeline, which is implemented with Nextflow and uses a Docker container. Unfortunately I cannot use Docker, since it is not HPC compatible (no sudo), so I am using Singularity instead of Docker. However, it seems that the paths are not mounted correctly, since I am getting this error:
+
+Error executing process &gt; 'truncate_input_headers'
+
+Caused by:
+  Process `truncate_input_headers` terminated with an error exit status (1)
+
+Command executed:
+
+  truncate_header.lua &lt; phased.1_scaffolds_FINAL.fasta &gt; truncated.fasta
+
+Command exit status:
+  1
+
+Command output:
+  (empty)
+
+Command error:
+  .command.sh: line 2: phased.1_scaffolds_FINAL.fasta: No such file or directory
+
+Work dir:
+  /work/project/ladsie_002/work/77/1854982bdacdd60fbe447554ab153b
+
+Tip: you can replicate the issue by changing to the process work dir and entering the command `bash .command.run`
+
+
+
+
+However, when I look into the path, the file does indeed exist:
+
+$ ll /work/project/ladsie_002/work/77/1854982bdacdd60fbe447554ab153b
+total 1
+lrwxrwxrwx 1 bbrink users 76 30. Aug 13:44 phased.1_scaffolds_FINAL.fasta -&gt; /work/project/ladsie_002/companion/input/pleo/phased.1_scaffolds_FINAL.fasta
+
+
+This is my config:
+
+env {
+    GT_RETAINIDS = ""yes""
+    AUGUSTUS_CONFIG_PATH = ""/opt/data/augustus""
+    FILTER_SHORT_PARTIALS_RULE = ""/opt/data/filters/filter_short_partials.lua""
+    PFAM = ""/opt/pfam/Pfam-A.hmm""
+    PFAM2GO = ""/opt/data/pfam2go/pfam2go.txt""
+    RATT_CONFIG = ""/opt/RATT/RATT.config_euk_NoPseudo_SpliceSite""
+}
+
+params.GO_OBO = ""/opt/go.obo""
+params.NCRNA_MODELS = ""/opt/data/cm/rnas.cm""
+params.CIRCOS_CONFIG_FILE = ""/opt/data/circos/circos.debian.conf""
+params.CIRCOS_BIN_CONFIG_FILE = ""/opt/data/circos/circos.bin.debian.conf""
+params.SPECFILE = ""/opt/data/speck/output_check.lua""
+params.AUGUSTUS_EXTRINSIC_CFG = ""/opt/data/augustus/extrinsic.cfg""
+
+process {
+    container = 'sangerpathogens/companion:latest'
+}
+
+singularity {
+    enabled = true
+//    autoMounts = true
+}
+
+executor {
+    name = 'local'
+    queueSize = 2
+    pollInterval = '3sec'
+}
+
+
+I tried to find a solution for this, the only thing I could find was the autoMounts = true option (commented out above), which causes the pipeline to not even find it's own lua scripts when enabled:
+
+Error executing process &gt; 'truncate_input_headers'
+
+Caused by:
+  Process `truncate_input_headers` terminated with an error exit status (127)
+
+Command executed:
+
+  truncate_header.lua &lt; phased.1_scaffolds_FINAL.fasta &gt; truncated.fasta
+
+Command exit status:
+  127
+
+Command output:
+  (empty)
+
+Command error:
+  .command.sh: line 2: truncate_header.lua: command not found
+
+Work dir:
+  /work/project/ladsie_002/work/95/f03b31ed18a84f331b83cad0232bd5
+
+Tip: you can try to figure out what's wrong by changing to the process work dir and showing the script file named `.command.sh`
+
+
+Edit1:
+I followed the advice of tsnowlan and added --debug to singularity.engineOptions. However, the path in question seems to be mounted:
+
+Error executing process &gt; 'truncate_input_headers'
+
+Caused by:
+  Process `truncate_input_headers` terminated with an error exit status (1)
+
+Command executed:
+
+  truncate_header.lua &lt; phased.1_scaffolds_FINAL.fasta &gt; truncated.fasta
+
+Command exit status:
+  1
+
+Command output:
+  (empty)
+
+Command error:
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting tmpfs to /var/singularity/mnt/session
+  DEBUG   [U=1038,P=29509]   mountImage()                  Mounting loop device /dev/loop0 to /var/singularity/mnt/session/rootfs
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting overlay to /var/singularity/mnt/session/final
+  DEBUG   [U=1038,P=29509]   setPropagationMount()         Set RPC mount propagation flag to SLAVE
+  VERBOSE [U=1038,P=29509]   Passwd()                      Checking for template passwd file: /var/singularity/mnt/session/rootfs/etc/passwd
+  VERBOSE [U=1038,P=29509]   Passwd()                      Creating passwd content
+  VERBOSE [U=1038,P=29509]   Passwd()                      Creating template passwd file and appending user data: /var/singularity/mnt/session/rootfs/etc/passwd
+  DEBUG   [U=1038,P=29509]   addIdentityMount()            Adding /etc/passwd to mount list
+  VERBOSE [U=1038,P=29509]   addIdentityMount()            Default mount: /etc/passwd:/etc/passwd
+  VERBOSE [U=1038,P=29509]   Group()                       Checking for template group file: /var/singularity/mnt/session/rootfs/etc/group
+  VERBOSE [U=1038,P=29509]   Group()                       Creating group content
+  DEBUG   [U=1038,P=29509]   addIdentityMount()            Adding /etc/group to mount list
+  VERBOSE [U=1038,P=29509]   addIdentityMount()            Default mount: /etc/group:/etc/group
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Remounting /var/singularity/mnt/session/final
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting /dev to /var/singularity/mnt/session/final/dev
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting /etc/localtime to /var/singularity/mnt/session/final/usr/share/zoneinfo/UTC
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting /etc/hosts to /var/singularity/mnt/session/final/etc/hosts
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting /etc/singularity/actions to /var/singularity/mnt/session/final/.singularity.d/actions
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Remounting /var/singularity/mnt/session/final/.singularity.d/actions
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting /proc to /var/singularity/mnt/session/final/proc
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Remounting /var/singularity/mnt/session/final/proc
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting sysfs to /var/singularity/mnt/session/final/sys
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting /home/bbrink to /var/singularity/mnt/session/home/bbrink
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Remounting /var/singularity/mnt/session/home/bbrink
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting /var/singularity/mnt/session/home/bbrink to /var/singularity/mnt/session/final/home/bbrink
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Remounting /var/singularity/mnt/session/final/home/bbrink
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting /tmp to /var/singularity/mnt/session/final/tmp
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Remounting /var/singularity/mnt/session/final/tmp
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting /var/tmp to /var/singularity/mnt/session/final/var/tmp
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Remounting /var/singularity/mnt/session/final/var/tmp
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting /work/project/ladsie_002/work/de/74a8bbd8bd11ad1524800fb7e71556 to /var/singularity/mnt/session/final/work/project/ladsie_002/work/de/74a8bbd8bd11ad1524800fb7e71556
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Remounting /var/singularity/mnt/session/final/work/project/ladsie_002/work/de/74a8bbd8bd11ad1524800fb7e71556
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting /var/singularity/mnt/session/etc/resolv.conf to /var/singularity/mnt/session/final/etc/resolv.conf
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting /var/singularity/mnt/session/etc/passwd to /var/singularity/mnt/session/final/etc/passwd
+  DEBUG   [U=1038,P=29509]   mountGeneric()                Mounting /var/singularity/mnt/session/etc/group to /var/singularity/mnt/session/final/etc/group
+  DEBUG   [U=1038,P=29509]   create()                      Chroot into /var/singularity/mnt/session/final
+  DEBUG   [U=0,P=29543]      Chroot()                      Change current directory to /var/singularity/mnt/session/final
+  DEBUG   [U=0,P=29543]      Chroot()                      Hold reference to host / directory
+  DEBUG   [U=0,P=29543]      Chroot()                      Called pivot_root on /var/singularity/mnt/session/final
+  DEBUG   [U=0,P=29543]      Chroot()                      Change current directory to host / directory
+  DEBUG   [U=0,P=29543]      Chroot()                      Apply slave mount propagation for host / directory
+  DEBUG   [U=0,P=29543]      Chroot()                      Called unmount(/, syscall.MNT_DETACH)
+  DEBUG   [U=0,P=29543]      Chroot()                      Changing directory to / to avoid getpwd issues
+  DEBUG   [U=1038,P=29509]   create()                      Chdir into / to avoid errors
+  VERBOSE [U=1038,P=29542]   startup()                     Execute stage 2
+  DEBUG   [U=1038,P=29542]   Stage()                       Entering stage 2
+  DEBUG   [U=1038,P=29509]   PostStartProcess()            Post start process
+  .command.sh: line 2: phased.1_scaffolds_FINAL.fasta: No such file or directory
+  DEBUG   [U=1038,P=29509]   CleanupContainer()            Cleanup container
+  DEBUG   [U=1038,P=29509]   Master()                      Child exited with exit status 1
+
+Work dir:
+  /work/project/ladsie_002/work/de/74a8bbd8bd11ad1524800fb7e71556
+
+
+Edit2:
+I fixed the faulty mount point, which lead to another error:
+
+gt: error: could not execute script ...rk/project/ladsie_002/companion/bin/gff3_to_embl.lua:74: bad argument #1 to 'lines' (/opt/go.obo: Permission denied)
+
+
+I guess the permissions inside the container are not set correctly.
+",-1,-1,-1.0
+58948617,Segmentation fault (core dumped) in simple (but long) bash function,"I am using Nextflow.io to schedule several thousand analysis jobs and then join the outputs.
+
+Nextflow is a DSL that allows me to specify channels and processes and schedule and run those. Under the hood, it creates bash scripts for each process, which is why I'm posting here rather than https://github.com/nextflow-io/nextflow .
+
+I can provide a full version of the script, but this is a cutdown version:
+
+#!/bin/bash
+
+nxf_stage() {
+    true
+    #THIS IS WHERE IT BREAKS
+    ...
+}    
+
+nxf_main() {
+    trap on_exit EXIT
+    trap on_term TERM INT USR1 USR2
+    # some more prep here
+    nxf_stage
+    ...
+    wait $pid || nxf_main_ret=$?
+    ...
+    nxf_unstage
+}
+
+$NXF_ENTRY
+
+
+The purpose of the nxf_stage function is to prepare the files that that process needs. In place of the comment above where I've said it breaks is approximately 76,000 lines like this:
+
+rm -f result_job_073241-D_RGB_3D_3D_side_far_0_2019-03-12_03-25-01.json 
+
+followed by the same number of lines like this:
+
+ln -s /home/ubuntu/plantcv-pipeline/work/8d/ffe3d29ee581c09d3d25706c238d1d/result_job_073241-D_RGB_3D_3D_side_far_0_2019-03-12_03-25-01.json result_job_073241-D_RGB_3D_3D_side_far_0_2019-03-12_03-25-01.json
+
+
+When I try and execute the nextflow script, I get this error:
+
+Segmentation fault (core dumped)
+
+I was able to debug it to that function just with echo statements either side but nothing in that function seems complicated to me. Indeed when I stripped back everything else and just left the script as ~152,000 lines  of rm and ln commands, it just worked.
+
+Is it possible that a function of this size has a memory footprint causing the segfault? It seems that each command itself is small.
+
+Update:
+
+Output of bash -x:
+
++ set -x
++ set -e
++ set -u
++ NXF_DEBUG=0
++ [[ 0 &gt; 1 ]]
++ NXF_ENTRY=nxf_main
++ nxf_main
++ trap on_exit EXIT
++ trap on_term TERM INT USR1 USR2
+++ dd bs=18 count=1 if=/dev/urandom
+++ base64
+++ tr +/ 0A
++ export NXF_BOXID=nxf-1qYK72XftztQW4ocxx3Fs1tC
++ NXF_BOXID=nxf-1qYK72XftztQW4ocxx3Fs1tC
++ NXF_SCRATCH=
++ [[ 0 &gt; 0 ]]
++ touch /home/ubuntu/plantcv-pipeline/work/ec/da7ca4e909b2cc4a74ed8963cc5feb/.command.begin
++ set +u
++ set -u
++ [[ -n '' ]]
++ nxf_stage
+Segmentation fault (core dumped)
+
+",-1,-1,-1.0
+59791866,FileNotFoundException (Permission denied) with Nextflow and Docker,"I am running a Nextflow pipeline that runs each process in a different Docker container. I run this pipeline inside a VM. While some of the processes work fine, in one of them I get an error:
+
+java.io.FileNotFoundException: file_fastqc.zip (Permission denied)
+Approxat java.base/java.io.FileOutputStream.open0(Native Method)
+Approxat java.base/java.io.FileOutputStream.open(FileOutputStream.java:298)
+Approxat java.base/java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:237)
+Failedat java.base/java.io.FileOutputStream.&lt;init&gt;(FileOutputStream.java:187)
+java.iat uk.ac.babraham.FastQC.Report.HTMLReportArchive.&lt;init&gt;(HTMLReportArchive.java:80)
+  at uk.ac.babraham.FastQC.Analysis.OfflineRunner.analysisComplete(OfflineRunner.java:178)
+  at uk.ac.babraham.FastQC.Analysis.AnalysisRunner.run(AnalysisRunner.java:110)
+  at java.base/java.lang.Thread.run(Thread.java:834)
+
+
+The docker container that I am using in this process is biocontainers/fastqc:v0.11.8dfsg-2-deb_cv1
+
+I am Running nextflow as sudo and I have tried to change execution folder permissions, but the error persists.
+
+I have also tried to use the option docker.fixOwnership = true in Nextflow and a similar error appears
+
+cannot touch '.command.trace': Permission denied
+
+
+Running the same pipeline in my personal computer with the same Docker container and Nextflow (19.10) and Java (11) versions and it works perfectly fine.
+
+Any help on how to solve this problem would be really appreciated. 
+",1,-1,-1.0
+57222784,How do I gather ordered outputs of a Nextflow process?,"I want to gather results from a Nextflow process in the same order in which they were input.  
+
+I know that I could simply pass the values from all the channels through all the processes.  This would ensure that pairs get passed to all processes together.  However, that solution doesn't work well when you start adding multiple processes because it destroys the ability of those process to run in parallel.  For example, in the example code provided if you were to add a add_twenty process and then gather the outputs from both add_ten, add_twenty and vals2.  
+
+Another possible solution I have played with was to add a key to each value in the original channels which essentially turns the original channels into a dictionary (i.e. hash).  But I couldn't get that to work.  I can provide an example if necessary.  
+
+I created a toy example where I create two channels, send one to a process, and then send the processed output and one of the original channels to a new process.  
+
+vals1 = Channel.from(1,2,3,4,5)
+vals2 = Channel.from(1,2,3,4,5)
+
+
+process add_ten {
+    input:
+    val(vals1)
+
+    output:
+    val(new_int) into new_vals1
+
+    exec:
+    new_int = vals1 + 10
+}
+
+process pair {
+    echo true
+
+    input:
+    val(new_vals1)
+    val(vals2)
+
+    script:
+    """"""
+    echo ""${new_vals1}, ${vals2}""
+    """"""
+}
+
+
+What I was hoping to see was something like this where the ones digits match:
+
+11, 1
+12, 2
+13, 3
+14, 4
+15, 5
+
+
+Even if those lines were jumbled it would be ok as long as the pairs persist.  For example,
+
+14, 4
+11, 1
+13, 3
+15, 5
+12, 2
+
+
+However, what I see is this:
+
+15, 1
+13, 2
+11, 3
+12, 4
+14, 5
+
+",-1,1,-1.0
+60206497,How to specify AWK actions inside Nextflow pipeline?,"awk '($1&lt;1)|| ($1&gt;22) {print $2}' $input &gt; $output
+
+
+If i put this line into Nextflow (written in groovy(Java)) pipeline script, it will show an error that mentions problem with variable notation (these: $1, $2). It works fine outside Nextflow. How else could i put in the variables here for it to work?
+
+I tried
+
+ awk '(${1}&lt;1)|| (${1}&gt;22) {print ${2}}' $input &gt; $output
+
+
+Which outputs an empty file.
+Desired output would be for it to just work in Nextflow.
+",-1,-1,-1.0
+61142937,Looking for a good output format to use a value extracted from a file in new script/process in Nextflow,"Subject: Looking for a good output format to use a value extracted from a file in new script/process in Nextflow
+
+I can't seem to figure this one out:
+
+I am writing some processes in Nextflow in which I'm extracting a value from a txt.file (PROCESS1) and I want to use it in a second process (PROCESS2). The extraction of the value is no problem but finding the suitable output format is. The problem is that when I save the stdout (OPTION1) to a channel there seems to be some kind of ""/n"" attached which gives problems in my second script.
+
+Alternatively because this was not working I wanted to save the output of PROCESS1 as a file (OPTION2). Also this is no problem but I can't find the correct way to read the content of the file in PROCESS2. I suspect it has something to do with ""getText()"" but I tried several things and they all failed.
+
+Finally I wanted to try to save the output as a variable (OPTION3) but I don't know how to do this.
+
+PROCESS1
+
+process txid {
+    publishDir ""$wanteddir"", mode:'copy', overwrite: true
+
+    input:
+    file(report) from report4txid
+
+    output:
+    stdout into txid4assembly           //OPTION 1
+    file(txid.txt) into txid4assembly   //OPTION 2
+    val(txid) into txid4assembly        //OPTION 3: doesn't work
+
+
+    shell:
+    '''
+    column -s, -t &lt; !{report}| awk '$4 == ""S""'| head -n 1 | cut -f5            //OPTION1
+    column -s, -t &lt; !{report}| awk '$4 == ""S""'| head -n 1 | cut -f5 &gt; txid.txt //OPTION2
+    column -s, -t &lt; !{report}| awk '$4 == ""S""'| head -n 1 | cut -f5 &gt; txid     //OPTION3
+
+    '''
+}
+
+
+PROCESS2
+
+process accessions {
+    publishDir ""$wanteddir"", mode:'copy', overwrite: true
+
+    input:
+    val(txid) from txid4assembly       //OPTION1 &amp; OPTION3
+    file(txid) from txid4assembly      //OPTION2
+
+    output:
+    file(""${txid}accessions.txt"") into accessionlist
+
+    script:
+    """"""
+    esearch -db assembly -query '${txid}[txid] AND ""complete genome""[filter] AND ""latest refseq""[filter]' \
+    | esummary | xtract -pattern DocumentSummary -element AssemblyAccession &gt; ${txid}accessions.txt
+    """"""
+}
+
+
+
+RESULTING SCRIPT OF PROCESS2 AFTER OPTION 1 (remark: output = 573, lay-out unchanged)
+
+esearch -db assembly -query '573
+  [txid] AND ""complete genome""[filter] AND ""latest refseq""[filter]'     | esummary | xtract -pattern DocumentSummary -element AssemblyAccession &gt; 573
+  accessions.txt
+
+
+Thank you for your help!
+",-1,-1,-1.0
+63703644,unable to access jarfile via conda env,"I downloaded a java software called &quot;beagle&quot; via conda (java-jdk and java were already installed). When I run the Nextflow (NF) pipeline (software is used in a process of NF), it says:
+
+unable to access jarfile beagle.24Aug19.3e8.jar
+
+I activated the conda env, checked the location of the software, it is in
+
+&lt;conda_env&gt;/share/beagle-5.1_24Aug19.3e8-0/beagle.jar
+
+and the example usage is like this:
+java -jar beagle.24Aug19.3e8.jar
+
+So, my command is correct.. I tried all the combinations in NF process like:
+
+java -jar /share/beagle-5.1_24Aug19.3e8-0/beagle.jar
+java -jar beagle.24Aug19.3e8.jar
+java -jar beagle.jar
+java -jar /share/beagle-5.1_24Aug19.3e8-0/beagle.24Aug19.3e8.jar
+
+What am I missing? Why it is inaccessible? Thanks!
+Cheers,
+",0,-1,-1.0
+64108284,Nextflow: Script of python don't save output,"I have problem with a script of Python in Nextflow, my aim is write a file in the script of python and take this with nextflow and save the file in the publishdir (and after I use this file in other process).
+My process in nextflow is something like this (the files were defined before):
+process writefile{
+publishDir &quot;${params.output_dir}/formatted&quot;, mode: 'copy'
+input:
+path file from change_file
+output:
+path &quot;formattedfile.txt&quot; into file_changed
+script:
+&quot;&quot;&quot;
+file2formattedfile.py ${file} formattedfile.txt
+&quot;&quot;&quot;
+}
+
+The script of python: (I simplified the real process, but essentiality is something like this), I need obtain in nextflow the file save in output file.
+#!/usr/bin/env python3
+import argparse
+from sys import argv
+def main():
+   input,output = argv[1:3] 
+   out = open(output, &quot;w&quot;) 
+   #My real operations are here
+   out.write(&quot;Operations and text&quot;) 
+   out.close() 
+
+if __name__ == &quot;__main__&quot;:
+   main()
+
+The problem is the file is don't save in the publish dir, but is in the dir work of nextflow, when i run the workflow the process is completed without error but said DataflowQueue(queue=[])
+[e1/74e0ee] process &gt; writefile (DataflowQueue(queue=[])) [100%] 1 of 1 ✔
+
+Thanks!
+------------- Update -------------
+I changed the input file to a file(). The nextflow.config:
+params {
+  input_file = 'data/old_file.txt'
+  output_dir = 'output_new'
+}
+
+The main.nf
+change_file = file(params.input_file)
+process writefile{
+publishDir &quot;${params.output_dir}/formatted&quot;, mode: 'copy'
+input:
+path file from change_file
+output:
+path &quot;formattedfile.txt&quot; into file_changed
+script:
+&quot;&quot;&quot;
+file2formattedfile.py ${file} formattedfile.txt
+&quot;&quot;&quot;
+}
+
+This changed the ouptput of nextflow, but my input file wasn't in the publish dir (but is in the dir work).
+[7d/78559b] process &gt; writefile (/home/myuser/Documentos/dir/pipeline_dir/data/old_file.txt) [100%] 1 of 1 ✔
+
+This path after writefile is the path where is my input file, I don't know why (nothing is change in this dir).
+",-1,-1,-1.0
+64072826,Nextflow doesn't use the right service account to deploy workflows to kubernetes,"We're trying to use nextflow on a k8s namespace other than our default, the namespace we're using is nextflownamespace. We've created our PVC and ensured the default service account has an admin rolebinding. We're getting an error that nextflow can't access the PVC:
+&quot;message&quot;: &quot;persistentvolumeclaims \&quot;my-nextflow-pvc\&quot; is forbidden: 
+User \&quot;system:serviceaccount:mynamespace:default\&quot; cannot get resource 
+\&quot;persistentvolumeclaims\&quot; in API group \&quot;\&quot; in the namespace \&quot;nextflownamespace\&quot;&quot;,
+
+In that error we see that system:serviceaccount:mynamespace:default is incorrectly pointing to our default namespace, mynamespace, not nextflownamespace which we created for nextflow use.
+We tried adding debug.yaml = true to our nextflow.config but couldn't find the YAML it submits to k8s to validate the error. Our config file looks like this:
+profiles {
+  standard { 
+    k8s {
+          executor = &quot;k8s&quot;
+          namespace = &quot;nextflownamespace&quot;
+          cpus = 1
+          memory = 1.GB
+          debug.yaml = true
+        }
+    aws{ 
+          endpoint = &quot;https://s3.nautilus.optiputer.net&quot;
+       }
+  }
+
+We did verify that when we change the namespace to another arbitrary value the error message used the new arbitrary namespace, but the service account name continued to point to the users default namespace erroneously.
+We've tried every variant of profiles.standard.k8s.serviceAccount = &quot;system:serviceaccount:nextflownamespace:default&quot; that we could think of but didn't get any change with those attempts.
+",-1,-1,-1.0
+64500922,Nextflow - Channel.watchPath() method,"I am trying to use nextflow to gain some concurrency from my python scripts so some of my dataflow doesn't use the traditional nextflow ideals.
+In my first process I create files by invoking a python script, in my second process I want to use those files created
+I created a new channel that watches for the path where the files are created but nothing seems to happen. I tested with the .fromPath method and my process is successful, so I am not sure whats going wrong?
+mutFiles = Channel.watchPath(launchDir + '/output/mutFiles/*.mutfile')
+
+
+process structurePrediction{
+
+    input:
+    file mutFiles
+
+    output:
+    stdout results
+
+
+    &quot;&quot;&quot;
+    test.py ${mutFiles}
+    &quot;&quot;&quot;
+
+}
+
+
+",-1,-1,-1.0
+64601107,Nextflow: Getting script variables into R as strings?,"I'm trying to learn Nextflow, and struggling to get this simple script to work in R:
+echo true
+
+col=Channel.from(2,4)
+
+process getCols {
+
+  input:
+   val WD from &quot;data/&quot;
+   val col
+
+  script:
+  &quot;&quot;&quot;
+  #!/usr/bin/env Rscript
+
+  dat=read.csv(list.files(as.character($WD))
+  dat[,$col]
+  &quot;&quot;&quot;
+
+}
+
+This returns the following error:
+Error executing process &gt; 'getCols (1)'
+
+Caused by:
+  Process `getCols (1)` terminated with an error exit status (1)
+
+Command executed:
+
+  #!/usr/bin/env Rscript
+  
+  dat=read.csv(list.files(as.character(data/))
+  dat[,2]
+
+Command exit status:
+  1
+
+Command output:
+  (empty)
+
+Command error:
+  Error: unexpected ')' in &quot;dat=read.csv(list.files(as.character(data/)&quot;
+  Execution halted
+
+
+I think the issue is that $WD is not being interpreted as a string. How can I get around this?
+",-1,-1,-1.0
+66531332,renameing .fromFilePairs with regex capture group in closure,"I'm new to nextflow/groovy/java and i'm running into some difficulty with a simple regular expression task.
+I'm trying to alter the labels of some file pairs.
+It is my understanding that fromFilePairs returns a data structure of the form:
+[
+    [common_prefix, [file1, file2]],
+    [common_prefix, [file3, file4]]
+]
+
+I further thought that:
+
+The .name method when invoked on a item from this list will give the name, what I have labelled above as common_prefix
+The value returned by a closure used with fromFilePairs sets the names of the file pairs.
+The value of it in a closure used with fromFilePairs is a single item from the list of file pairs.
+
+however, I have tried many variants on the following without success:
+params.fastq = &quot;$baseDir/data/fastqs/*_{1,2}_*.fq.gz&quot;
+
+Channel
+    .fromFilePairs(params.fastq, checkIfExists:true) {
+        file -&gt; 
+            // println file.name // returned the common file prefix as I expected
+            mt = file.name =~ /(common)_(prefix)/
+            // println mt 
+            // # java.util.regex.Matcher[pattern=(common)_(prefix) region=0,47 lastmatch=]
+            // match objects appear empty despite testing with regexs I know to work correctly including simple stuff like (.*) to rule out issues with my regex
+            // println mt.group(0) // #No match found
+            mt.group(0) // or a composition like mt.group(0) + &quot;-&quot; + mt.group(1)
+    }
+    .view()
+
+I've also tried some variant on this using the replaceAll method.
+I've consulted documentation for, nextflow, groovy and java and I still can't figure out what I'm missing. I expect it's some stupid syntactic thing or a misunderstanding of the data structure but I'm tired of banging my head against it when it's probably obvious to someone who knows the language better - I'd appreciate anyone who can enlighten me on how this works.
+",1,-1,-1.0
+67069392,Provide NextFlow workflow inputs (not parameters) via the CLI,"I have the following (simplified) nextflow module. It has one process, which runs a multiple sequence alignment on a fasta file, and a workflow that runs this process (eventually it will run other processes too):
+process clustal_omega_msa {
+    input:
+      path fastas
+    output:
+      path 'clustal.sto'
+    script:
+      &quot;&quot;&quot;
+      cat ${fastas} &gt; merged.fa
+      clustalo -infile merged.fa --outfmt=stockholm
+      &quot;&quot;&quot;
+    container &quot;https://depot.galaxyproject.org/singularity/clustalo:1.2.4--h1b792b2_4&quot;
+}
+
+workflow msa {
+  take:
+    path fastas
+  main:
+    clustal_omega_msa(fastas)
+}
+
+I want this workflow to be both importable as a sub-workflow, and also executable directly. For this reason I have specified no parameters, and only used inputs (because I believe parameters can't be specified when calling a subworkflow).
+However, I can see no way to run this subworkflow directly on the command line.
+If I run nextflow run msa.nf -entry msa I get the following error:
+No such variable: fastas
+
+ -- Check script 'msa.nf' at line: 1 or see '.nextflow.log' file for more details
+
+This makes sense - I haven't specified where these files come from. But how can I? If I follow the config part of the docs and create a nextflow.config with the following contents:
+fastas = &quot;/some/path/to/*.fasta&quot;
+
+I still get this error. I am also aware there is a -params-file option, but I believe that only works for parameters, not inputs.
+",-1,-1,-1.0
+67367238,Python script output modification with bash in nextflow,"I have a python script (make_chunk.py) that takes an input file from input channel and print 3 arrays.
+import pandas as pd
+import numpy as np
+import os
+import sys
+
+data=sys.argv[1]
+df=pd.read_csv(data,sep='\t',header=None)
+chnk_ult=df[df.columns[3]].max()
+
+chnk_start=np.arange(0,chnk_ult,3000000)
+chnk_end=chnk_start+3e6
+chnk_arr=np.arange(1,len(chnk_end))
+print(chnk_start, chnk_end, chnk_arr)
+
+I wanted to create 3 different bash array from the above output. In terminal it is doable. I wanted to use the same commands in the nextflow script to create those arrays which will be used later. So far I have tried:
+process imputation {
+publishDir params.out, mode:'copy'
+input:
+tuple val(chrom),path(in_haps),path(input_bed),path(refs),path(maps) from imp_ch
+output:
+tuple(&quot;${chrom}&quot;),path(&quot;${chrom}.*&quot;) into imputed
+script:
+def (haps,sample)=in_haps
+def (bed, bim, fam)=input_bed
+def (haplotype, legend, samples)=refs
+&quot;&quot;&quot;
+x=&quot;\$(make_chunk.py ${bim})&quot;
+eval \$(echo \$x | sed 's|,| |g; s|\\[|list1=(|; s|\\[|list2=(|; s|\\[|list3=(|;s|\\]|)\\n|g;')
+start=&quot;\$(echo \${list1[@]})&quot;
+end=&quot;\$(echo \${list2[@]})&quot;
+chunks=&quot;\$(echo \${list3[@]})&quot;
+impute4 -g &quot;${haps}&quot; -h &quot;${haplotype}&quot; -l &quot;${legend}&quot; -m &quot;${maps}&quot; -o &quot;${chrom}.step10.imputed.chunk\${chunks}&quot; -no_maf_align -o_gz -int \${start[\${chunks}]} \${end[\${chunks}]} -Ne 20000 -buffer 1000 -seed 54321
+&quot;&quot;&quot;
+}
+
+For the above nextflow process, I am getting the following error:
+Command error: .command.sh: line 7: 0 1 2 3 4 5 6: syntax error in expression (error token is &quot;1 2 3 4 5 6&quot;
+
+But in bash terminal, those commands work fine. Any help with this matter?
+",1,-1,-1.0
+67536447,Missing output file(s) expected by nextflow process,"I have a nextflow process that take input multiple files do something and then output some files. In the process I removed empty files in a condition.
+    process imputation {
+    input:
+    set val(chrom),val(chunk_array),val(chunk_start),val(chunk_end),path(in_haps),path(refs),path(maps) from imp_ch
+    output:
+    tuple val(&quot;${chrom}&quot;),path(&quot;${chrom}.*&quot;) into imputed
+    script:
+    def (haps,sample)=in_haps
+    def (haplotype, legend, samples)=refs
+    &quot;&quot;&quot;
+    impute4 -g &quot;${haps}&quot; -h &quot;${haplotype}&quot; -l &quot;${legend}&quot; -m &quot;${maps}&quot; -o &quot;${chrom}.imputed.chunk${chunk_array}&quot; -no_maf_align -o_gz -int &quot;${chunk_start}&quot; &quot;${chunk_end}&quot; -Ne 20000 -buffer 1000 -seed 54321
+    if [[ \$(gunzip -c &quot;${chrom}.imputed.chunk${chunk_array}.gen.gz&quot; | head -c1 | wc -c) == &quot;0&quot;]]
+    then
+     rm &quot;${chrom}.imputed.chunk${chunk_array}.gen.gz&quot;
+    else
+     qctools -g &quot;${chrom}.imputed.chunk${chunk_array}.gen.gz&quot; -snp-stats -osnp &quot;${chrom}.imputed.chunk${chunk_array}.snp.stats&quot;
+    fi
+    &quot;&quot;&quot;
+    }
+
+The process works fine. The impute4 program give outputs of *gen.gz files, some of them might be empty. So, the if statement was added to remove those empty file because qctools can not read empty files and the process crashes. The problem is that, now I am getting error :
+Missing output file(s) `chr16*` expected by process `imputation (165)` (note: input files are not included in the default matching set)
+
+How could I resolve this issue. Any help?
+",-1,-1,-1.0
+68273448,Docker CannotCreateContainerError: Thin Pool has 0 free data blocks,"I am trying to run a Nextflow pipeline using AWS (an EC2 instance) which requires using docker, but the following error appears:
+CannotCreateContainerError: Error response from daemon: devmapper: Thin Pool has 0 free data blocks which is less than minimum required 4449 free data blocks. Create more free space in thin pool or use dm.min_free_space option to change behavior
+
+And after finding this error my pipeline completely dies. The most recurrent answer to this problem that I have found online is to do a docker system prune, so I can free some space, but after doing that the error persists, and free data blocks are still 0.
+My guess is that I am not being able to acces to the data blocks, but as it is my first time working with Docker, I am completely lost.
+In case it is interesting, if I run docker info:
+Client:
+ Debug Mode: false
+
+Server:
+ Containers: 4
+  Running: 0
+  Paused: 0
+  Stopped: 4
+ Images: 22
+ Server Version: 19.03.13-ce
+ Storage Driver: devicemapper
+  Pool Name: docker-docker--pool
+  Pool Blocksize: 524.3kB
+  Base Device Size: 536.9GB
+  Backing Filesystem: ext4
+  Udev Sync Supported: true
+  Data Space Used: 14.55GB
+  Data Space Total: 23.33GB
+DOCKER_STORAGE_OPTIONS=&quot;--storage-driver devicemapper --storage-opt dm.thinpooldev=/dev/mapper/docker-docker--pool --storage-opt dm.use_deferred_removal=true --storage-opt dm.use_deferred_deletion=true   Data Space Available: 8.782GB
+  Metadata Space Used: 4.891MB
+  Metadata Space Total: 25.17MB
+  Metadata Space Available: 20.28MB
+/*
+  Thin Pool Minimum Free Space: 2.333GB
+  Deferred Removal Enabled: true
+  Deferred Deletion Enabled: true
+  Deferred Deleted Device Count: 0
+  Library Version: 1.02.135-RHEL7 (2016-11-16)
+ Logging Driver: json-file
+ Cgroup Driver: cgroupfs
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog
+ Swarm: inactive
+ Runtimes: runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: c623d1b36f09f8ef6536a057bd658b3aa8632828
+ runc version: 12644e614e25b05da6fd08a38ffa0cfe1903fdec
+ init version: de40ad0 (expected: fec3683)
+ Security Options:
+  seccomp
+   Profile: default
+ Kernel Version: 4.14.225-121.362.amzn1.x86_64
+ Operating System: Amazon Linux AMI 2018.03
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 1
+ Total Memory: 985.5MiB
+ Name: ip-172-31-33-79
+ ID: QBVF:B7D5:3KRH:3BYR:UU27:XEUW:RWLE:SLAW:F6AG:LKD2:FD3E:LHLQ
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Registry: https://index.docker.io/v1/
+ Labels:
+ Experimental: false
+ Insecure Registries:
+  127.0.0.0/8
+ Live Restore Enabled: false
+
+Any clue about how to solve this issue?
+",1,-1,-1.0
+68686331,Is there a way to provide a default value for an optional input channel?,"I link to be able to do something like this:
+workflow XXX {
+   take:
+       a
+       b default &quot;&quot;
+   main:
+       if (b == &quot;&quot;) {
+          println &quot;a is ${a} and b is unset&quot;
+       } else {
+          println &quot;a is ${a} and b is ${b}&quot;
+       }
+
+}
+However the code does not compile... what is the closest valid nextflow to that?
+",-1,-1,-1.0
+68710124,Combine outputs of mutually exclusive processes in a Nextflow (DSL2) pipeline,"I have a DSL2 workflow in Nextflow set up like this:
+
+nextflow.enable.dsl=2
+
+// process 1, mutually exclusive with process 2 below
+process bcl {
+
+    tag &quot;bcl2fastq&quot;
+    publishDir params.outdir, mode: 'copy', pattern: 'fastq/**fastq.gz'
+    publishDir params.outdir, mode: 'copy', pattern: 'fastq/Stats/*'
+    publishDir params.outdir, mode: 'copy', pattern: 'InterOp/*'
+    publishDir params.outdir, mode: 'copy', pattern: 'Run*.xml'
+    beforeScript 'export PATH=/opt/tools/bcl2fastq/bin:$PATH'
+
+    input:
+        path runfolder
+        path samplesheet
+
+    output:
+        path 'fastq/Stats/', emit: bcl_ch
+        path 'fastq/**fastq.gz', emit: fastqc_ch
+        path 'InterOp/*', emit: interop_ch
+        path 'Run*.xml'
+    script: 
+        // processing omitted
+    }
+
+// Process 2, note the slightly different outputs
+process bcl_convert {
+tag &quot;bcl-convert&quot;
+    publishDir params.outdir, mode: 'copy', pattern: 'fastq/**fastq.gz'
+    publishDir params.outdir, mode: 'copy', pattern: 'fastq/Reports/*'
+    publishDir params.outdir, mode: 'copy', pattern: 'InterOp/*'
+    publishDir params.outdir, mode: 'copy', pattern: 'Run*.xml'
+    beforeScript 'export PATH=/opt/tools/bcl-convert/:$PATH'
+
+    input:
+        path runfolder
+        path samplesheet
+
+    output:
+        path 'fastq/Reports/', emit: bcl_ch
+        path 'fastq/**fastq.gz', emit: fastqc_ch
+        path 'InterOp/', emit: interop_ch
+        path 'Run*.xml'
+
+    script:
+        // processing omitted
+}
+
+// downstream process that needs either the first or the second to work, agnostic
+process fastqc {
+    cpus 12
+
+    publishDir &quot;${params.outdir}/&quot;, mode: &quot;copy&quot;
+
+    module 'conda//anaconda3'
+    conda '/opt/anaconda3/envs/tools/'
+
+    input:
+        path fastq_input
+    output:
+        path &quot;fastqc&quot;, emit: fastqc_output
+
+    script:
+    &quot;&quot;&quot;
+    mkdir -p fastqc
+    fastqc -t ${task.cpus} $fastq_input -o fastqc
+    &quot;&quot;&quot;
+
+}
+
+
+Now I have a variable, params.bcl_convert which can be used to switch from one process to the other, and I set up the workflow like this:
+workflow {
+    runfolder_repaired = &quot;${params.runfolder}&quot;.replaceFirst(/$/, &quot;/&quot;)
+
+    runfolder = Channel.fromPath(runfolder_repaired, type: 'dir')
+    sample_data = Channel.fromPath(params.samplesheet, type: 'file')
+
+    if (!params.bcl_convert) {
+       bcl(runfolder, sample_data)
+    } else {
+        bcl_convert(runfolder, sample_data)
+    }
+
+    fastqc(bcl.out.mix(bcl_convert.out)) // Problematic line
+}
+
+The problem lies in the problematic line: I'm not sure how (and if it is possible) to have fastqc get the input of bcl2fastq or bcl_convert (but only fastq_ch, not the rest) regardless of the process that generated it.
+Some of the things I've tried include (inspired by https://github.com/nextflow-io/nextflow/issues/1646, but that one uses a the output of a process):
+    if (!params.bcl_convert) {
+       def bcl_out = bcl(runfolder, sample_data).out
+    } else {
+        def bcl_out = bcl_convert(runfolder, sample_data).out
+    }
+
+    fastqc(bcl_out.fastq_ch)
+
+But this then compilation fails with Variable &quot;runfolder&quot; already defined in the process scope, even using the approach in a similar way as the post:
+def result_bcl2fastq = !params.bclconvert ? bcl(runfolder, sample_data): Channel.empty()
+def result_bclconvert = params.bclconvert ? bcl_convert(runfolder, sample_data): Channel.empty()
+
+I thought about using conditionals in a single script, however the outputs from the two processes differ, so it's not really possible.
+The only way I got it to work is by duplicating all outputs, like:
+if (!params.bcl_convert) {
+   bcl(runfolder, sample_data)
+   fastqc(bcl.out.fastqc_ch)
+} else {
+   bcl_convert(runfolder, sample_data)
+   fastqc(bcl_convert.out.fastqc_ch
+}
+
+However this looks to me like unnecessary complication. Is what I want to do actually possible?
+",-1,-1,-1.0
+68935140,Nextflow installation cannot find Java,"I'm currently trying to install nextflow on my computer but I'm struggling with a Java error message I can't manage to solve.
+curl -s https://get.nextflow.io | bash
+
+ERROR: Cannot find Java or it's a wrong version -- please make sure that Java 8 or later is installed
+NOTE: Nextflow is trying to use the Java VM defined by the following environment variables:
+ JAVA_CMD: /Library/Java/JavaVirtualMachines/jdk-16.0.2.jdk/Contents/Home/bin/java
+ JAVA_HOME:
+
+Looking for solution on other posts, I tried to use
+export JAVA_HOME=&quot;$(/usr/libexec/java_home -v 1.7+)&quot;
+
+but now I still have almost same error
+ERROR: Cannot find Java or it's a wrong version -- please make sure that Java 8 or later is installed
+NOTE: Nextflow is trying to use the Java VM defined by the following environment variables:
+ JAVA_CMD: /Library/Java/JavaVirtualMachines/jdk-16.0.2.jdk/Contents/Home/bin/java
+ JAVA_HOME: /Library/Java/JavaVirtualMachines/jdk-16.0.2.jdk/Contents/Home  
+
+My java version :
+ java -version
+ java version &quot;16.0.2&quot; 2021-07-20
+ Java(TM) SE Runtime Environment (build 16.0.2+7-67)
+ Java HotSpot(TM) 64-Bit Server VM (build 16.0.2+7-67, mixed mode, sharing)
+
+I would be grateful if you could give me some tips to overcome this.
+",1,-1,-1.0
+69055557,How to download a list of `FastQ` files in `Nextflow` using `fromSRA` function?,"I have a tsv file with various columns. One of the columns of interest for me is the run_accession column. It contains accession id of various genome data samples. I want to write a pipeline in Nextflow which reads accession ids from this file using the following command:
+cut -f4 datalist.tsv | sed -n 2,11p
+Output:
+ERR2512385  
+ERR2512386  
+ERR2512387  
+ERR2512388  
+ERR2512389  
+ERR2512390  
+ERR2512391  
+ERR2512392  
+ERR2512393  
+ERR2512394
+
+and feed this list of IDs into Channel.fromSRA method. So far, I have tried this:
+#!/home/someuser/bin nextflow
+
+nextflow.enable.dsl=2
+
+params.datalist = &quot;$baseDir/datalist.tsv&quot;
+
+process fetchRunAccession {
+    input:
+    path dlist
+
+    output:
+    file accessions
+
+    &quot;&quot;&quot;
+    cut -f4 $dlist | sed -n 2,11p
+    &quot;&quot;&quot;
+}
+
+process displayResult {
+    input:
+    file accessions
+
+    output:
+    stdout
+
+    &quot;&quot;&quot;
+    echo &quot;$accessions&quot;
+    &quot;&quot;&quot;
+}
+
+workflow {
+    accessions_p = fetchRunAccession(params.datalist)
+    result = displayResult(accessions_p)
+    result.view { it }
+}
+
+And I get this error:
+Error executing process &gt; 'fetchRunAccession'
+
+Caused by:
+  Missing output file(s) `accessions` expected by process `fetchRunAccession
+
+If I run just the first process it works well and prints 10 lines as expected. The second process is just a placeholder for the actual fromSRA implementation but I have not been able to use the output of first process as the input of second. I am very new to Nextflow and my code probably has some silly mistakes. I would appreciate any help in this matter.
+",-1,-1,-1.0
+69586247,nextflow input and output a tuple with keys,"I am processing file using Nextflow, that have a sample Id and would like to carry this sampleID across processes, so im using tuples. The relevant snippet of the code is here:
+process 'rsem_quant' {
+
+  input:
+      val genome from params.genome 
+      tuple val(sampleId), file(read1), file(read2) from samples_ch
+
+  output:
+    tuple sampleId , path &quot;${sampleId}.genes.results&quot; into rsem_ce 
+
+  script:
+    &quot;&quot;&quot;
+    module load RSEM
+    rsem-calculate-expression --star --keep-intermediate-files \
+    --sort-bam-by-coordinate  --star-output-genome-bam --strandedness reverse \
+    --star-gzipped-read-file --paired-end $genome \
+    $read1 $read2 $sampleId
+    &quot;&quot;&quot;
+
+
+The problem is that when using a tuple as an output, I get the following error:
+No such variable: sampleId
+
+If I remove the tuple, and just output either part (sampleId, or the path) it works fine, any help is appreciated
+",1,-1,-1.0
+69732459,Problems getting two output files in Nextflow,"Hello all!
+I´m trying to write a small Nextflow pipeline that runs vcftools comands in 300 vcf´s. The pipe takes four inputs: vcf, pop1, pop2 and a .txt file, and would have to generate two outputs: a .log.weir.fst and a .log.log file. When i run the pipeline, it only gives the .log.weir.fst files but not the .log files.
+Here´s my process definition:
+process fst_calculation {
+
+publishDir &quot;${results_dir}/fst_results_pop1_pop2/&quot;, mode:&quot;copy&quot;
+
+    input:
+    file vcf
+    file pop_1
+    file pop_2
+    file mart
+
+    output:
+    path &quot;*.log.*&quot;
+
+    &quot;&quot;&quot;
+    while read linea
+            do
+                echo &quot;[DEBUG] working in line: \$linea&quot;
+                inicio=\$(echo &quot;\$linea&quot; | cut -f3)
+                final=\$(echo &quot;\$linea&quot; | cut -f4)
+                cromosoma=\$(echo &quot;\$linea&quot; | cut -f1)
+                segmento=\$(echo &quot;\$linea&quot; | cut -f5)
+                vcftools --vcf ${vcf} \
+                     --weir-fst-pop ${pop_1} \
+                     --weir-fst-pop ${pop_2} \
+                     --out \$inicio.log --chr \$cromosoma \
+                     --from-bp \$inicio --to-bp \$final
+            done &lt; ${mart}
+    &quot;&quot;&quot;
+}
+
+
+And here´s the workflow of my process
+/* Load files  into channel*/
+pop_1 = Channel.fromPath(&quot;${params.fst_path}/pop_1&quot;)
+pop_2 = Channel.fromPath(&quot;${params.fst_path}/pop_2&quot;)
+vcf = Channel.fromPath(&quot;${params.fst_path}/*.vcf&quot;)
+mart = Channel.fromPath(&quot;${params.fst_path}/*.txt&quot;)
+
+/* Import modules
+*/
+ include {
+   fst_calculation } from './nf_modules/modules.nf'
+
+ /*
+  * main pipeline logic
+  */
+
+ workflow  {
+     p1 = fst_calculation(vcf, pop_1, pop_2, mart)
+     p1.view()
+ }
+
+
+When i check the work directory of the pipeline, I can see that the pipe only generates the .log.weir.fst. To verify if my code was wrong, i ran &quot;bash .command.sh&quot; in the working directory and this actually generates the two output files. So, is there a reason for not getting the two output files when i run the pipe?
+I appreciate any help.
+",-1,-1,-1.0
+69229722,"Google cloud Error ""The worker was unable to check in, possibly due to a misconfigured network""","I'm trying to run the following nextflow pipeline on google cloud platform:
+./nextflow run nf-core/sarek -profile test,gls -w gs://sustained-drake-299223-life-sciences
+
+With nextflow.config file available at https://github.com/lescai/nf-gscloud/blob/main/sarek_gcp_example.config
+Although nextflow is successfully set up according to an official tutorial, this particular pipeline fails starting with a following warning, followed by an error:
+WARN: Google Pipelines &gt; A resource limit has delayed the operation: generic::resource_exhausted: allocating: selec
+ting resources: selecting region and zone: no available zones: europe-west2: 510 DISKS_TOTAL_GB (16/4096 available)
+ usage too high
+
+ The worker was unable to check in, possibly due to a misconfigured network
+
+What could have gone wrong?
+",-1,-1,-1.0
+69863374,Limit the number of single processes in Nextflow workflows,"I have the following simple workflow:
+workflow {
+
+  Channel.fromPath(params.file_list)
+        .splitText(){it.trim()}
+        .set { file_list }
+
+  data = GetFromHPSS(file_list)
+  data_pairs = CoupleDETXToFile(data, file(params.detx_path))
+  SingleDUTimeResFit(data_pairs)
+
+}
+
+In which file_list is a list of paths on a tape-drive system. The GetFromHPSS is the process which retrieves files from the tape system and I need to limit the parallel processes to a fairly low number.
+Currently, I am using
+executor {
+  queueSize = 100
+}
+
+in the configuration file but there are two problems:
+
+it limits the overall maximum number of parallel jobs, while I could run thousands of SingleDUTimeResFit processes in parallel
+it always first waits until it processed everything from GetFromHPSS instead of continuing with the subsequent processes
+
+Here is an example:
+N E X T F L O W  ~  version 21.04.3
+Launching `workflows/singledu_timeresfit.nf` [wise_galileo] - revision: 8084ac1482
+executor &gt;  sge (502)
+[13/ca3e8a] process &gt; GetFromHPSS (426)  [ 18%] 402 of 22840
+[-        ] process &gt; CoupleDETXToFile   [  0%] 0 of 402
+[-        ] process &gt; SingleDUTimeResFit -
+
+Is there a way to limit GetFromHPSS to a specific number of parallel executions and let the remaining processes run with another queue-limit set?
+EDIT: This is one of my best tries I guess, but it does not accept the configuration:
+
+process {
+  executor {
+    queueSize = 100
+    submitRateLimit = &quot;10sec&quot;
+  }
+
+  withName: GetFromHPSS {
+    executor.queueSize = 10
+  }
+}
+
+With this process top-level configuration, I get:
+N E X T F L O W  ~  version 21.04.3
+Launching `workflows/singledu_timeresfit.nf` [confident_pasteur] - revision: 8084ac1482
+Unknown config attribute `process.withName:GetFromHPSS` -- check config file: /sps/km3net/users/tgal/dev/PhD/workflows/nextflow.config
+
+",-1,-1,-1.0
+70201080,Nextflow dynamic includes and output,"I'm trying to use dynamic includes but I have problem to manage output files:
+/* 
+ * enables modules 
+ */
+nextflow.enable.dsl = 2
+
+include { requestData } from './modules/get_xapi_data'
+include { uniqueActors } from './modules/unique_actors'
+include { compileJson } from './modules/unique_actors'
+
+if (params.user_algo) {
+    include { userAlgo } from params.user_algo
+}
+
+workflow {
+    dataChannel = Channel.from(&quot;xapi_data.json&quot;)
+    requestData(dataChannel)
+    uniqueActors(requestData.out.channel_data)
+
+    if (params.user_algo) {
+        user_algo = userAlgo(requestData.out.channel_data)
+    } else {
+        user_algo = null
+    }
+
+    output_json = [user_algo, uniqueActors.out]
+    // Filter output
+    Channel.fromList(output_json)
+        .filter{ it != null }            &lt;--- problem here
+        .map{ file(it) }
+        .set{jsonFiles}
+
+    compileJson(jsonFiles)
+}
+
+The problem is userAlgo can be dynamically loaded. And I don't know how I can take care of it. With this solution, I got a Unknown method invocation getFileSystem on ChannelOut type error.
+",-1,-1,-1.0
+70622734,Best practice to run nextflow pipeline on a single Node of a Cluster using slurm,"I have a nextflow pipeline that i execute on a slurm based cluster. This works very straightforward using the executor:
+executor {
+$slurm {
+           ....
+}
+
+but the issue is, that i have a lot of very small processes that only run for seconds -&gt; therefore i have lot of scheduling overhead (waiting for nodes to be ready to be used...)
+is there a clever way to use a single node and run the whole pipeline on it?
+My (working) solution is to misuse the local executor and to use a slurm-script to run nextflow... which is not a really satisfying way of doing this.
+Best,
+t.
+",1,-1,-1.0
+70689180,Pass path for `publishDir` to NextFlow Processes,"I'm using NextFlow with DSL2 syntax. I'd like to define the final results path as a command-line argument. As far as I can tell, however, NextFlow processes don't recognize an input variable in the directive scope (see minimal example below).
+Ultimate question: How can I pass a &quot;base directory&quot; to a process that can then append to that path (e.g., publishDir(&quot;${results_dir}/MY_PROC_RESULTS/&quot;, mode = &quot;copy&quot;))? Also open to other suggestions if this isn't the best approach.
+Really appreciate any help!
+Here's a minimal example:
+MY_WORKFLOW.nf
+/*
+ * Make this pipeline a nextflow 2 implementation
+ */
+nextflow.enable.dsl=2
+
+include {SUB_WORKFLOW_WF} from './SUB_WORKFLOW_WF_PROCS.nf'
+
+/*
+ * Define the directory to publish final results in.
+ */
+params.results_dir = &quot;${projectDir}/results&quot;
+
+results_dir = params.results_dir
+
+workflow{
+    SUB_WORKFLOW_WF(results_dir)
+}
+
+SUB_WORKFLOW_WF_PROCS.nf
+workflow SUB_WORKFLOW_WF {
+    take:
+        results_dir
+
+    main:
+        println results_dir // This works
+        MY_PROC(results_dir)
+}
+
+process MY_PROC {
+    /*
+     * Workflow fails with ERROR 1 if the following line is included. Fails
+     * with ERROR 2 if the following line is excluded.
+     */
+    println $results_dir
+    publishDir(&quot;${results_dir}/MY_PROC_RESULTS/&quot;, mode = &quot;copy&quot;)
+
+    input:
+        path(results_dir)
+
+    script:
+        &quot;&quot;&quot;
+        echo &quot;Hello&quot;
+        &quot;&quot;&quot;
+}
+
+Results
+ERROR 1
+No such variable: $results_dir
+
+ -- Check script './SUB_WORKFLOW_WF_PROCS.nf' at line: 11 or see '.nextflow.log' file for more details
+
+ERROR 2
+Error executing process &gt; 'SUB_WORKFLOW_WF:MY_PROC'
+
+Caused by:
+  Not a valid PublishDir entry [org.codehaus.groovy.runtime.GStringImpl] null/MY_PROC_RESULTS
+
+",1,-1,-1.0
+70741168,"Nextflow: publishDir, output channels, and output subdirectories","I've been trying to learn how to use Nextflow and come across an issue with adding output to a channel as I need the processes to run in an order. I want to pass output files from one of the output subdirectories created by the tool (ONT-Guppy) into a channel, but can't seem to figure out how.
+Here is the nextflow process in question:
+process GupcallBases {
+    publishDir &quot;$params.P1_outDir&quot;, mode: 'copy', pattern: &quot;pass/*.bam&quot;
+    
+    executor = 'pbspro'
+    clusterOptions = &quot;-lselect=1:ncpus=${params.P1_threads}:mem=${params.P1_memory}:ngpus=1:gpu_type=${params.P1_GPU} -lwalltime=${params.P1_walltime}:00:00&quot;
+     
+    output:
+    path &quot;*.bam&quot; into bams_ch
+            
+    script:
+    &quot;&quot;&quot;
+    module load cuda/11.4.2
+    singularity exec --nv $params.Gup_container \
+            guppy_basecaller --config $params.P1_gupConf \
+            --device &quot;cuda:0&quot; \
+            --bam_out \
+            --recursive \
+            --compress \
+            --align_ref $params.refGen \
+            -i $params.P1_inDir \
+            -s $params.P1_outDir \
+            --gpu_runners_per_device $params.P1_GPU_runners \
+            --num_callers $params.P1_callers
+    &quot;&quot;&quot;
+}
+
+The output of the process is something like this:
+$params.P1_outDir/pass/(lots of bams and fastqs)
+$params.P1_outDir/fail/(lots of bams and fastqs)
+$params.P1_outDir/(a few txt and log files)
+
+I only want to keep the bam files in $params.P1_outDir/pass/, hence trying to use the pattern = &quot;pass/*.bam, but I've tried a few other patterns to no avail.
+The output syntax was chosen since once this process is done, using the following channel works:
+//    Channel
+//      .fromPath(&quot;${params.P1_outDir}/pass/*.bam&quot;)
+//      .ifEmpty { error &quot;Cannot find any bam files in ${params.P1_outDir}&quot; }
+//      .set { bams_ch }
+
+But the problem is if I don't pass the files into the output channel of the first process, they run in parallel. I could simply be missing something in the extensive documentation in how to order processes, which would be an alternative solution.
+Edit: I forgo to add the error message which is here: Missing output file(s) `*.bam` expected by process `GupcallBases`  and the $params.P1_outDir/ contains the subdirectories and all the log files despite the pattern argument.
+Thanks in advance.
+",-1,-1,-1.0
+70904487,error when pulling a docker container using singularity in nextflow,"I am making a very short workflow in which I use a tool for my analysis called salmon.
+In the hpc that I am working in, I cannot install this tool so I decided to pull the container from biocontainers.
+In the hoc we do not have docker installed (I also do not have permission to do so) but we have singularity instead.
+So I have to pull docker container (from: quay.io/biocontainers/salmon:1.2.1--hf69c8f4_0) using singularity.
+The workflow management system that I am working with is nextflow.
+This is the short workflow I made (index.nf):
+#!/usr/bin/env nextflow
+nextflow.preview.dsl=2
+
+container = 'quay.io/biocontainers/salmon:1.2.1--hf69c8f4_0'
+shell = ['/bin/bash', '-euo', 'pipefail']
+
+
+process INDEX {
+
+  script:
+  &quot;&quot;&quot;
+  salmon index \
+  -t /hpc/genome/gencode.v39.transcripts.fa \
+  -i index \
+  &quot;&quot;&quot;
+}
+
+
+workflow {
+  INDEX()
+}
+
+I run it using this command:
+nextflow run index.nf -resume
+
+But got this error:
+salmon: command not found
+
+Do you know how I can fix the issue?
+",-1,-1,-1.0
+70994799,Input param not working as conditional switch in Nextflow processes,"I am trying to pass in a parameter to Nextflow that I can use to turn a process on or off, to no avail.
+Moreover, when I print the parameter in the log file the case always changes, which seems odd to me (i.e., TRUE turns to true). I have tried setting the conditional statement to match &quot;TRUE&quot; or &quot;true&quot;, given this behavior, but neither seems to work.
+Here is some code to illustrate the issue.
+params.force = &quot;FALSE&quot;
+params.in = 1
+
+log.info &quot;&quot;&quot;\
+         Force: $params.force
+         &quot;&quot;&quot;
+         .stripIndent()
+
+process tester {
+  input:
+    val x from params.in
+
+  output:
+      stdout testerOut
+
+  when:
+    params.force == &quot;TRUE&quot;
+
+  script:
+      &quot;&quot;&quot;
+      echo &quot;foo&quot;
+      &quot;&quot;&quot;
+  }
+
+  testerOut.view()
+
+If this file is saved as testnf and is run via &quot;nextflow run testnf --force &quot;TRUE&quot; &quot; the process will not run. The output is:
+N E X T F L O W  ~  version 21.10.0
+Launching testnf [soggy_lorenz] - revision: a7399aad3c
+Force: true
+[-        ] process &gt; tester -
+The goal is for users to pass in parameters that turn off or on certain processes. This seems like a common use case, but I am stuck. Cheers for any help!
+",-1,-1,-1.0
+71032994,if statement to select a channel in input block with nextflow,"I am currently writing my first nextflow pipeline and I need to run different process in function of the parameter.
+In fact, I would like, in one process, to select the channel where the input come from.
+I've tested like that :
+process foo{
+
+  input:
+  if(params.bar &amp;&amp; params.bar2)
+  {
+    file reads from channel1.flatten()
+  }
+  else
+  {
+    file reads from channel_2.flatten()
+  }
+ 
+output:
+  publishDir &quot;$params.output_dir&quot;
+  file &quot;output_file&quot; into channel_3
+
+  &quot;&quot;&quot;
+  my command line
+  &quot;&quot;&quot;
+
+
+I obtain this error and I don't understand why.
+No such variable: reads
+
+Is there a way to do something like that ?
+Thanks !
+",-1,-1,-1.0
+71352719,Nextflow: Not all items in channel used by process,"I've been struggling to identify why a nextflow (v20.10.00) process is not using all the items in a channel. I want the process to run for each sample bam file (10 in total) and for each chromosome (3 in total).
+Here is the creation of the channels and the process:
+ref_genome = file( params.RefGen, checkIfExists: true )
+ref_dir    = ref_genome.getParent()
+ref_name   = ref_genome.getBaseName()
+ref_dict   = file( &quot;${ref_dir}/${ref_name}.dict&quot;, checkIfExists: true )
+ref_index  = file( &quot;${ref_dir}/${ref_name}.*.fai&quot;, checkIfExists: true )
+
+// Handles reading in data if the previous step is skipped
+if( params.Skip_BP ){
+  Channel
+    .fromFilePairs(&quot;${params.ProcBamDir}/*{bam,bai}&quot;) { file -&gt; file.name.replaceAll(/.bam|.bai$/,'') }
+    .ifEmpty { error &quot;No bams found in ${params.ProcBamDir}&quot; }
+    .map { ID, files -&gt; tuple(ID, files[0], files[1]) }
+    .set { processed_bams }
+}
+// Setting up the chromosome channel
+if( params.Chroms == &quot;&quot; ){
+  // Defaulting to using all chromosomes
+  chromosomes_ch = Channel
+                      .from(&quot;AgamP4_2L&quot;, &quot;AgamP4_2R&quot;, &quot;AgamP4_3L&quot;, &quot;AgamP4_3R&quot;, &quot;AgamP4_X&quot;, &quot;AgamP4_Y_unplaced&quot;, &quot;AgamP4_UNKN&quot;)
+  println &quot;No chromosomes specified, using all major chromosomes: AgamP4_2L, AgamP4_2R, AgamP4_3L, AgamP4_3R, AgamP4_X, AgamP4_Y_unplaced, AgamP4_UNKN&quot;
+} else {
+  // User option to choose which chromosome will be used
+  // This worked with the following syntax nextflow run testing.nf --profile imperial --Chroms &quot;AgamP4_3R,AgamP4_2L&quot;
+  chrs = params.Chroms.split(&quot;,&quot;)
+  chromosomes_ch = Channel
+                    .from( chrs )
+  println &quot;User defined chromosomes set: ${params.Chroms}&quot;
+}
+
+
+process DNA_HCG {
+  errorStrategy { sleep(Math.pow(2, task.attempt) * 600 as long); return 'retry' }
+  maxRetries 3
+  maxForks params.HCG_Forks
+
+  tag { SampleID+&quot;-&quot;+chrom }
+
+  executor = 'pbspro'
+  clusterOptions = &quot;-lselect=1:ncpus=${params.HCG_threads}:mem=${params.HCG_memory}gb:mpiprocs=1:ompthreads=${params.HCG_threads} -lwalltime=${params.HCG_walltime}:00:00&quot;
+
+  publishDir(
+    path: &quot;${params.HCDir}&quot;,
+    mode: 'copy',
+  )
+
+  input:
+  each chrom from chromosomes_ch
+  set SampleID, path(bam), path(bai) from processed_bams
+  path ref_genome
+  path ref_dict
+  path ref_index
+
+  output:
+  tuple chrom, path(&quot;${SampleID}-${chrom}.vcf&quot;) into HCG_ch
+  path(&quot;${SampleID}-${chrom}.vcf.idx&quot;) into idx_ch
+  
+  beforeScript 'module load anaconda3/personal; source activate NF_GATK'
+
+  script:
+  &quot;&quot;&quot;
+  if [ ! -d tmp ]; then mkdir tmp; fi
+  taskset -c 0-${params.HCG_threads} gatk --java-options \&quot;-Xmx${params.HCG_memory}G -XX:+UseParallelGC -XX:ParallelGCThreads=${params.HCG_threads}\&quot; HaplotypeCaller \\
+    --tmp-dir tmp/ \\
+    --pair-hmm-implementation AVX_LOGLESS_CACHING_OMP \\
+    --native-pair-hmm-threads ${params.HCG_threads} \\
+    -ERC GVCF \\
+    -L ${chrom} \\
+    -R ${ref_genome} \\
+    -I ${bam} \\
+    -O ${SampleID}-${chrom}.vcf ${params.GVCF_args}
+  &quot;&quot;&quot;
+}
+
+But for reasons I cannot figure out, nextflow only creates 3 jobs: [d8/45499b] process &gt; DNA_HCG (0_wt5_BP-CM029350.1) [  0%] 0 of 3
+I thought maybe it was because it only took the first sample and then one process for each chromosome. Though I doubted this since the code works for a different reference genome correctly. Regardless, I adjusted the input channels:
+processed_bams
+  .combine(chromosomes_ch)
+  .set { HCG_in }
+
+and
+input:
+set SampleID, path(bam), path(bai), chrom from HCG_in
+
+But this resulted in only a single job being created: [6e/78b070] process &gt; DNA_HCG (0_wt10_BP-CM029350.1) [  0%] 0 of 1
+Confusingly, when i use HCG_in.view() there are 30 items. And to further confuse me the correct number of jobs comes from the following code:
+chrs = params.Chroms.split(&quot;,&quot;)
+      chromosomes_ch = Channel
+                         .from(chrs)
+
+Channel
+  .fromFilePairs(&quot;${params.ProcBamDir}/*{bam,bai}&quot;) { file -&gt; file.name.replaceAll(/.bam|.bai$/,'') }
+  .ifEmpty { error &quot;No bams found in ${params.ProcBamDir}&quot; }
+  .map { ID, files -&gt; tuple(ID, files[0], files[1]) }
+  .set { processed_bams }
+
+process HCG {
+  executor 'local'
+
+  input:
+  each chrom from chromosomes_ch
+  set SampleID, path(bam), path(bai) from processed_bams
+  //set SampleID, path(bam), path(bai), chrom from HCG_in
+
+  script:
+  &quot;&quot;&quot;
+  echo &quot;${SampleID} - ${chrom}&quot;
+  &quot;&quot;&quot;
+}
+
+Output: [75/c1c25a] process &gt; HCG (27) [100%] 30 of 30 ✔
+I'm hoping I've just missed something obvious, but I cannot see it at the moment. Thanks in advance for the help.
+",-1,-1,-1.0
+71210622,Problems with partitions [slurm + Nextflow],"I've tested the Nextflow's sarek pipeline in a slurm-based cluster. I'm having an error I cannot fix...
+Error executing process &gt; 'get_software_versions'
+Caused by:
+  Failed to submit process to grid scheduler for execution
+Command executed:
+  sbatch .command.run
+Command exit status:
+  1
+Command output:
+  sbatch: error: Batch job submission failed: No partition specified or system default partition
+
+...and this is my nextflow.config file:
+executor {
+    name = 'slurm'
+    cpus = 10
+    memory = '10 GB'
+    queue = 'short'
+}
+
+I guess is something related with partition assignation. I also tried change queue = 'short' by clusterOptions = '-p short', just in case, but it keeps failing.
+Any idea about what I'm miss-considering, please?
+",-1,-1,-1.0
+71661423,"nextflow's process don't chain, stops after first success","I'm working on a colleague's pipeline Nextflow 19.04 and i have a weird behavior.
+in every case i used it, it was working like intended but recently we changed the technology of input data without modifying anything of the format or anything else.
+The first process called &quot;init&quot; runs, succeed and nextflow doesn't chain with the next one
+process init {
+    output:
+        stdout into init_ch
+    script:
+    &quot;&quot;&quot;
+    head -n 1 ${params.config} | awk '{print \$1}' |  tr -d &quot;\n&quot;
+    &quot;&quot;&quot;
+}
+
+bampbi_ch=bamtuple_ch.join(pbituple_ch).combine(init_ch)
+
+process rename {
+    publishDir path: &quot;${params.publishdirResults}/Correction_Stats&quot;, mode: 'copy' , pattern : '*.stats'
+    input:
+        set ID, file(bam), file(pbi), val(espece) from bampbi_ch
+    output:
+        set val(&quot;${name}&quot;), file(&quot;${name}.bam&quot;), file (&quot;${name}.bam.pbi&quot;) into bampbi2_ch, bampbi3_ch, bampbi4_ch, bampbi_forbf_ch
+        file &quot;*.stats&quot; into correctionstats_ch
+    script:
+        name=espece+&quot;_&quot;+params.target
+        &quot;&quot;&quot;
+        cp $bam ${name}.bam
+        cp $pbi ${name}.bam.pbi
+        size=`ls -sh | grep &quot;$name&quot; | grep &quot;.bam\$&quot; | awk '{print \$1}'`
+        echo -e &quot;${name}.bam\t\${size}&quot; &gt;&gt; bamSize.stats
+        &quot;&quot;&quot;
+}
+
+the .nextflow.log speaks about other process but it dont quite understand what it means
+Mar-29 13:34:28.749 [main] DEBUG nextflow.cli.Launcher - $&gt; nextflow -c CATCH.confi run CATCH.nf --bamData '/somepath*.bam' --bamDatapbi '/somepath*.bam.pbi' --barcodes /somepath/barcodes.fasta --minScoreDemux 80 --config /somepath/config.txt --target blabal --primers primers.fasta --canuSpec /somepath/Canu.spec --tailleCanuDeNovo 3G --seqInterne /somepath/merge_2_DSI_regions.fasta --publishdirResults /somepath/Results
+Mar-29 13:34:28.971 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 19.04.0
+Mar-29 13:34:28.997 [main] INFO  nextflow.cli.CmdRun - Launching `CATCH.nf` [berserk_sax] - revision: c4df35f250
+Mar-29 13:34:29.045 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /somepath/CATCH.confi
+Mar-29 13:34:29.045 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /somepath/CATCH.confi
+Mar-29 13:34:29.114 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Mar-29 13:34:30.341 [main] DEBUG nextflow.Session - Session uuid: 25da2eab-481e-42c1-babf-bfb3bf3dd89a
+Mar-29 13:34:30.341 [main] DEBUG nextflow.Session - Run name: berserk_sax
+Mar-29 13:34:30.342 [main] DEBUG nextflow.Session - Executor pool size: 2
+Mar-29 13:34:30.370 [main] DEBUG nextflow.cli.CmdRun -
+  Version: 19.04.0 build 5069
+  Modified: 17-04-2019 06:25 UTC (08:25 CEST)
+  System: Linux 3.10.0-1160.el7.x86_64
+  Runtime: Groovy 2.5.6 on OpenJDK 64-Bit Server VM 1.8.0_262-b10
+  Encoding: UTF-8 (UTF-8)
+  Process: 36284@node120 [192.168.1.120]
+  CPUs: 1 - Mem: 251.6 GB (82 GB) - Swap: 0 (0)
+Mar-29 13:34:30.455 [main] DEBUG nextflow.Session - Work-dir: /somepath/work [gpfs]
+Mar-29 13:34:30.456 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /somepath/bin
+Mar-29 13:34:30.704 [main] DEBUG nextflow.Session - Session start invoked
+Mar-29 13:34:30.708 [main] DEBUG nextflow.processor.TaskDispatcher - Dispatcher &gt; start
+Mar-29 13:34:30.722 [main] DEBUG nextflow.script.ScriptRunner - &gt; Script parsing
+Mar-29 13:34:31.534 [main] DEBUG nextflow.script.ScriptRunner - &gt; Launching execution
+Mar-29 13:34:31.596 [PathVisitor-1] DEBUG nextflow.file.PathVisitor - files for syntax: glob; folder: /somepath/; pattern: pattern*.bam; options: [:]
+Mar-29 13:34:31.747 [PathVisitor-1] DEBUG nextflow.file.PathVisitor - files for syntax: glob; folder: /somepath/; pattern: pattern*.bam.pbi; options: [:]
+Mar-29 13:34:32.015 [main] DEBUG nextflow.processor.ProcessFactory - &lt;&lt; taskConfig executor: slurm
+Mar-29 13:34:32.016 [main] DEBUG nextflow.processor.ProcessFactory - &gt;&gt; processorType: 'slurm'
+Mar-29 13:34:32.044 [main] DEBUG nextflow.executor.Executor - Initializing executor: slurm
+Mar-29 13:34:32.046 [main] INFO  nextflow.executor.Executor - [warm up] executor &gt; slurm
+Mar-29 13:34:32.067 [main] DEBUG n.processor.TaskPollingMonitor - Creating task monitor for executor 'slurm' &gt; capacity: 100; pollInterval: 5s; dumpInterval: 5m
+Mar-29 13:34:32.070 [main] DEBUG nextflow.processor.TaskDispatcher - Starting monitor: TaskPollingMonitor
+Mar-29 13:34:32.070 [main] DEBUG n.processor.TaskPollingMonitor - &gt;&gt;&gt; barrier register (monitor: slurm)
+Mar-29 13:34:32.085 [main] DEBUG nextflow.executor.Executor - Invoke register for executor: slurm
+Mar-29 13:34:32.085 [main] DEBUG n.executor.AbstractGridExecutor - Creating executor 'slurm' &gt; queue-stat-interval: 1m
+Mar-29 13:34:32.134 [main] DEBUG nextflow.Session - &gt;&gt;&gt; barrier register (process: init)
+Mar-29 13:34:32.136 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator &gt; init -- maxForks: 2
+Mar-29 13:34:32.322 [main] DEBUG nextflow.processor.ProcessFactory - &lt;&lt; taskConfig executor: slurm
+Mar-29 13:34:32.322 [main] DEBUG nextflow.processor.ProcessFactory - &gt;&gt; processorType: 'slurm'
+Mar-29 13:34:32.323 [main] DEBUG nextflow.executor.Executor - Initializing executor: slurm
+Mar-29 13:34:32.324 [main] DEBUG n.executor.AbstractGridExecutor - Creating executor 'slurm' &gt; queue-stat-interval: 1m
+Mar-29 13:39:37.544 [main] DEBUG nextflow.Session - &gt;&gt;&gt; barrier register (process: rename)
+Mar-29 13:39:37.545 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator &gt; rename -- maxForks: 2
+Mar-29 13:39:37.569 [main] DEBUG nextflow.processor.ProcessFactory - &lt;&lt; taskConfig executor: slurm
+Mar-29 13:39:37.569 [main] DEBUG nextflow.processor.ProcessFactory - &gt;&gt; processorType: 'slurm'
+Mar-29 13:39:37.569 [main] DEBUG nextflow.executor.Executor - Initializing executor: slurm
+Mar-29 13:39:37.570 [main] DEBUG n.executor.AbstractGridExecutor - Creating executor 'slurm' &gt; queue-stat-interval: 1m
+Mar-29 13:39:37.570 [main] DEBUG nextflow.Session - &gt;&gt;&gt; barrier register (process: bam2fastaCorrection)
+Mar-29 13:39:37.571 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator &gt; bam2fastaCorrection -- maxForks: 2
+Mar-29 13:39:37.595 [main] DEBUG nextflow.processor.ProcessFactory - &lt;&lt; taskConfig executor: slurm
+Mar-29 13:39:37.595 [main] DEBUG nextflow.processor.ProcessFactory - &gt;&gt; processorType: 'slurm'
+Mar-29 13:39:37.595 [main] DEBUG nextflow.executor.Executor - Initializing executor: slurm
+Mar-29 13:39:37.595 [main] DEBUG n.executor.AbstractGridExecutor - Creating executor 'slurm' &gt; queue-stat-interval: 1m
+Mar-29 13:39:37.596 [main] DEBUG nextflow.Session - &gt;&gt;&gt; barrier register (process: statsCorrection)
+Mar-29 13:39:37.596 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator &gt; statsCorrection -- maxForks: 2
+Mar-29 13:39:37.607 [main] DEBUG nextflow.processor.ProcessFactory - &lt;&lt; taskConfig executor: slurm
+Mar-29 13:39:37.607 [main] DEBUG nextflow.processor.ProcessFactory - &gt;&gt; processorType: 'slurm'
+Mar-29 13:39:37.608 [main] DEBUG nextflow.executor.Executor - Initializing executor: slurm
+Mar-29 13:39:37.608 [main] DEBUG n.executor.AbstractGridExecutor - Creating executor 'slurm' &gt; queue-stat-interval: 1m
+Mar-29 13:39:37.609 [main] DEBUG nextflow.Session - &gt;&gt;&gt; barrier register (process: demultiplexage)
+Mar-29 13:39:37.609 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator &gt; demultiplexage -- maxForks: 2
+Mar-29 13:39:37.895 [main] DEBUG nextflow.processor.ProcessFactory - &lt;&lt; taskConfig executor: slurm
+Mar-29 13:39:37.895 [main] DEBUG nextflow.processor.ProcessFactory - &gt;&gt; processorType: 'slurm'
+Mar-29 13:39:37.895 [main] DEBUG nextflow.executor.Executor - Initializing executor: slurm
+Mar-29 13:39:37.895 [main] DEBUG n.executor.AbstractGridExecutor - Creating executor 'slurm' &gt; queue-stat-interval: 1m
+Mar-29 13:39:37.896 [main] DEBUG nextflow.Session - &gt;&gt;&gt; barrier register (process: nomenclature)
+Mar-29 13:39:37.896 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator &gt; nomenclature -- maxForks: 2
+Mar-29 13:39:37.904 [main] DEBUG nextflow.processor.ProcessFactory - &lt;&lt; taskConfig executor: slurm
+Mar-29 13:39:37.912 [main] DEBUG nextflow.processor.ProcessFactory - &gt;&gt; processorType: 'slurm'
+Mar-29 13:39:37.913 [main] DEBUG nextflow.executor.Executor - Initializing executor: slurm
+Mar-29 13:39:37.913 [main] DEBUG n.executor.AbstractGridExecutor - Creating executor 'slurm' &gt; queue-stat-interval: 1m
+Mar-29 13:39:37.913 [main] DEBUG nextflow.Session - &gt;&gt;&gt; barrier register (process: bam2fastaDemultiplexage)
+Mar-29 13:39:37.913 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator &gt; bam2fastaDemultiplexage -- maxForks: 2
+Mar-29 13:39:37.942 [main] DEBUG nextflow.processor.ProcessFactory - &lt;&lt; taskConfig executor: slurm
+Mar-29 13:39:37.942 [main] DEBUG nextflow.processor.ProcessFactory - &gt;&gt; processorType: 'slurm'
+Mar-29 13:39:37.943 [main] DEBUG nextflow.executor.Executor - Initializing executor: slurm
+Mar-29 13:39:37.943 [main] DEBUG n.executor.AbstractGridExecutor - Creating executor 'slurm' &gt; queue-stat-interval: 1m
+Mar-29 13:39:37.943 [main] DEBUG nextflow.Session - &gt;&gt;&gt; barrier register (process: statsDemultiplexage)
+Mar-29 13:39:37.943 [main] DEBUG nextflow.processor.TaskProcessor - Creating operator &gt; statsDemultiplexage -- maxForks: 2
+Mar-29 13:39:37.953 [main] DEBUG nextflow.script.ScriptRunner - &gt; Await termination
+Mar-29 13:39:37.953 [main] DEBUG nextflow.Session - Session await
+Mar-29 13:39:37.998 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process init &gt; jobId: 33152594; workDir: /somepath/work/23/c994dde9ed99a00f4e190239f07998
+Mar-29 13:39:38.002 [Task submitter] INFO  nextflow.Session - [23/c994dd] Submitted process &gt; init
+Mar-29 13:39:42.347 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed &gt; TaskHandler[jobId: 33152594; id: 1; name: init; status: COMPLETED; exit: 0; error: -; workDir: /somepath/work/23/c994dde9ed99a00f4e190239f07998 started: 1648553982321; exited: 2022-03-29T11:39:40.340241Z; ]
+Mar-29 13:39:42.364 [Actor Thread 3] DEBUG nextflow.Session - &lt;&lt;&lt; barrier arrive (process: rename)
+Mar-29 13:39:42.391 [Actor Thread 3] DEBUG nextflow.Session - &lt;&lt;&lt; barrier arrive (process: bam2fastaCorrection)
+Mar-29 13:39:42.392 [Actor Thread 3] DEBUG nextflow.Session - &lt;&lt;&lt; barrier arrive (process: statsCorrection)
+Mar-29 13:39:42.393 [Actor Thread 3] DEBUG nextflow.Session - &lt;&lt;&lt; barrier arrive (process: init)
+Mar-29 13:39:42.400 [Actor Thread 8] DEBUG nextflow.Session - &lt;&lt;&lt; barrier arrive (process: demultiplexage)
+Mar-29 13:39:42.421 [Actor Thread 8] DEBUG nextflow.Session - &lt;&lt;&lt; barrier arrive (process: bam2fastaDemultiplexage)
+Mar-29 13:39:42.424 [Actor Thread 9] DEBUG nextflow.Session - &lt;&lt;&lt; barrier arrive (process: nomenclature)
+Mar-29 13:39:42.456 [Actor Thread 10] DEBUG nextflow.Session - &lt;&lt;&lt; barrier arrive (process: statsDemultiplexage)
+Mar-29 13:39:42.456 [main] DEBUG nextflow.Session - Session await &gt; all process finished
+Mar-29 13:39:47.290 [Task monitor] DEBUG n.processor.TaskPollingMonitor - &lt;&lt;&lt; barrier arrives (monitor: slurm)
+Mar-29 13:39:47.292 [main] DEBUG nextflow.Session - Session await &gt; all barriers passed
+Mar-29 13:39:47.300 [main] DEBUG nextflow.trace.StatsObserver - Workflow completed &gt; WorkflowStats[succeedCount=1; failedCount=0; ignoredCount=0; cachedCount=0; succeedDuration=19ms; failedDuration=0ms; cachedDuration=0ms]
+Mar-29 13:39:47.544 [main] DEBUG nextflow.CacheDB - Closing CacheDB done
+Mar-29 13:39:47.569 [main] DEBUG nextflow.script.ScriptRunner - &gt; Execution complete -- Goodbye
+
+N E X T F L O W  ~  version 19.04.0
+Launching `CATCH.nf` [mighty_joliot] - revision: 79006232db
+debut Script
+Donnees = /work/project/gaia/Samplix_test*.bam
+executor &gt;  slurm (1)
+[23/c994dd] process &gt; init [100%] 1 of 1 ✔
+Completed at: 29-Mar-2022 13:39:47
+Duration    : 11.4s
+CPU hours   : (a few seconds)
+Succeeded   : 1
+
+all this while when it runs normally (the exact same way to run etc.) there are many process.
+What could have gone wrong ? what could be the reason for nextflow not to chain with next process ?
+Nicolas
+",-1,-1,-1.0
+71727833,Passing files to a Nextflow process based on a group ID,"I am struggling with an issue that, probably, has a very basic solution.
+In my (dsl2) nextflow workflow, I have a number of processes that output a tuple of a file and a value, which indicates the group of the input element.
+Then, I have a last process that, for each group, collects all the files generated and works on them.
+For example:
+workflow {
+generatePDF(input_channel)
+generateCSV(input_channel)
+generateTXT(input_channel)
+mergeprocess( /*grouped input files from previous 3 processes */ ) 
+}
+
+And, as I mentioned the output for each generate* process is
+tuple file(output_${samplename}.${extension}) val(${group})
+
+For example, if I have the samples 1, 2 and 3 belonging to group A, 4 to group B and 5 and 6 to group C, I would like to pass as an input for the last process
+output_sample1.pdf output_sample2.pdf output_sample3.pdf output_sample1.csv output_sample2.csv output_sample3.csv output_sample1.txt output_sample2.txt output_sample3.txt
+output_sample4.pdf output_sample4.csv output_sample4.txt
+output_sample5.pdf output_sample6.pdf output_sample5.csv output_sample6.csv output_sample5.txt output_sample6.txt
+I have tested a combination of collect(), groupTuple and even join(), but nothing gave me the channel I need.
+Thanks for your time.
+",1,-1,-1.0
+71939685,"Nextflow tutorial getting error ""no such variable""","I'm trying to learn nextflow but it's not going very well. I started with the tutorial of this site: https://www.nextflow.io/docs/latest/getstarted.html (I'm the one who installed nextflow).
+I copied this script :
+#!/usr/bin/env nextflow
+
+params.str = 'Hello world!'
+
+process splitLetters {
+
+    output:
+    file 'chunk_*' into letters
+
+    &quot;&quot;&quot;
+    printf '${params.str}' | split -b 6 - chunk_
+    &quot;&quot;&quot;
+}
+
+
+process convertToUpper {
+
+    input:
+    file x from letters.flatten()
+
+    output:
+    stdout result
+
+    &quot;&quot;&quot;
+    cat $x | tr '[a-z]' '[A-Z]'
+    &quot;&quot;&quot;
+}
+
+result.view { it.trim() }
+
+But when I run it (nextflow run tutorial.nf), in the terminal I have this :
+N E X T F L O W  ~  version 22.03.1-edge
+Launching `tutorial.nf` [intergalactic_waddington] DSL2 - revision: be42f295f4
+No such variable: result
+
+ -- Check script 'tutorial.nf' at line: 29 or see '.nextflow.log' file for more details
+
+And in the log file I have this :
+avr.-20 14:14:12.319 [main] DEBUG nextflow.cli.Launcher - $&gt; nextflow run tutorial.nf
+avr.-20 14:14:12.375 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.03.1-edge
+avr.-20 14:14:12.466 [main] INFO  nextflow.cli.CmdRun - Launching `tutorial.nf` [intergalactic_waddington] DSL2 - revision: be42f295f4
+avr.-20 14:14:12.481 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager &gt; mode=prod; plugins-dir=/home/user/.nextflow/plugins; core-plugins: nf-amazon@1.6.0,nf-azure@0.13.0,nf-console@1.0.3,nf-ga4gh@1.0.3,nf-google@1.1.4,nf-sqldb@0.3.0,nf-tower@1.4.0
+avr.-20 14:14:12.483 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+avr.-20 14:14:12.494 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+avr.-20 14:14:12.495 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+avr.-20 14:14:12.501 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+avr.-20 14:14:12.515 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+avr.-20 14:14:12.571 [main] DEBUG nextflow.Session - Session uuid: 67344021-bff5-4131-9c07-e101756fb5ea
+avr.-20 14:14:12.571 [main] DEBUG nextflow.Session - Run name: intergalactic_waddington
+avr.-20 14:14:12.573 [main] DEBUG nextflow.Session - Executor pool size: 8
+avr.-20 14:14:12.604 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 22.03.1-edge build 5695
+avr.-20 14:14:12.629 [main] DEBUG nextflow.Session - Work-dir: /home/user/Documents/formations/nextflow/testScript/work [ext2/ext3]
+avr.-20 14:14:12.629 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/user/Documents/formations/nextflow/testScript/bin
+avr.-20 14:14:12.637 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+avr.-20 14:14:12.648 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+avr.-20 14:14:12.669 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+avr.-20 14:14:12.678 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool &gt; poolSize: 9; maxThreads: 1000
+avr.-20 14:14:12.741 [main] DEBUG nextflow.Session - Session start invoked
+avr.-20 14:14:13.423 [main] DEBUG nextflow.script.ScriptRunner - &gt; Launching execution
+avr.-20 14:14:13.446 [main] DEBUG nextflow.Session - Session aborted -- Cause: No such property: result for class: Script_6634cd79
+avr.-20 14:14:13.463 [main] ERROR nextflow.cli.Launcher - @unknown
+groovy.lang.MissingPropertyException: No such property: result for class: Script_6634cd79
+        at org.codehaus.groovy.runtime.ScriptBytecodeAdapter.unwrap(ScriptBytecodeAdapter.java:65)
+        at org.codehaus.groovy.runtime.callsite.PogoGetPropertySite.getProperty(PogoGetPropertySite.java:51)
+        at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callGroovyObjectGetProperty(AbstractCallSite.java:341)
+        at Script_6634cd79.runScript(Script_6634cd79:29)
+        at nextflow.script.BaseScript.runDsl2(BaseScript.groovy:170)
+        at nextflow.script.BaseScript.run(BaseScript.groovy:203)
+        at nextflow.script.ScriptParser.runScript(ScriptParser.groovy:220)
+        at nextflow.script.ScriptRunner.run(ScriptRunner.groovy:212)
+        at nextflow.script.ScriptRunner.execute(ScriptRunner.groovy:120)
+        at nextflow.cli.CmdRun.run(CmdRun.groovy:334)
+        at nextflow.cli.Launcher.run(Launcher.groovy:480)
+        at nextflow.cli.Launcher.main(Launcher.groovy:639)
+
+What should I do ?
+Thanks a lot for your help.
+",-1,-1,-1.0
+72249970,getting weird error while running a nextflow pipeline,"For my data analysis pipeline I am using nextflow as the workflow management system to run a tool called rmats.
+In the script section I gave all the required arguments but when I run the pipeline using this command:
+nextflow run -ansi-log false main.nf
+
+I will get this error:
+Command error:
+  ERROR: output folder and temporary folder required. Please check --od and --tmp.
+
+Here is the rmats.nf module:
+process RMATS {
+    tag &quot;paired_rmats: ${sample1Name}_${sample2Name}&quot;
+    label 'rmats_4.1.2'
+    label 'rmats_4.1.2_RMATS'
+    container = 'quay.io/biocontainers/rmats:4.1.2--py37haf75f70_1'
+    shell = ['/bin/bash', '-euo', 'pipefail']
+
+    input:
+    path(STAR_genome_index)
+    path(genome_gtf)
+    path(s1)
+    path(s2)
+
+    output:
+    path(&quot;*.txt&quot;, emit: final_results_rmats)
+
+
+    script:
+    &quot;&quot;&quot;
+    rmats.py \
+    --s1 ${s1} \
+        --s2 ${s2} \
+        --gtf ${genome_gtf} \
+        --readLength 150 \
+        --nthread 10
+        --novelSS
+        --mil 50
+        --mel 500
+        --bi ${STAR_genome_index} \
+        --keepTemp \
+        --od final_results_rmats \
+        --tmp final_results_rmats
+    &quot;&quot;&quot;
+ }
+
+here is the main.nf:
+#!/usr/bin/env nextflow
+nextflow.preview.dsl=2
+
+include RMATS from './modules/rmats.nf'
+gtf_ch = Channel.fromPath(params.gtf)
+s1_ch = Channel.fromPath(params.s1)
+s2_ch = Channel.fromPath(params.s2)
+STAR_genome_index_ch = Channel.fromPath(params.STAR_genome_index)
+
+workflow {
+    rmats_AS_calling_ch=RMATS(s1_ch, s2_ch, gtf_ch, STAR_genome_index_ch)
+
+}
+
+in the script section the arguments that are in {} are given in the config file.
+Do you know what could be the problem?
+",-1,-1,-1.0
+72349184,Error caused by missing output files while running Nextflow,"I have an error when i run nextflow consist of the following sentence
+Error executing process &gt; 'BWA_INDEX (Homo_sapiens_assembly38_chr1.fasta)'
+Caused by:
+Missing output file(s) FASTA.* expected by process 'BWA_INDEX(Homo_sapiens_assembly38_chr1.fasta)'
+I use the following script.
+#!/usr/bin/env nextflow
+
+params.PublishDir = &quot;/home/nextflow_test/genesFilter&quot;
+params.pathFasta = &quot;/home/nf-core/references/Homo_sapiens/GATK/GRCh38/Sequence/WholeGenomeFasta/Homo_sapiens_assembly38_chr1.fasta&quot;
+
+InputFasta = file(params.pathFasta)
+
+process BWA_INDEX {
+
+tag {InputFasta.name}
+
+publishDir (
+path: &quot;${params.PublishDir}&quot;,
+    mode: 'copy',
+    overwrite: 'true',
+    saveAs: &quot;${params.PublishDir}/${it}&quot;
+)
+
+input:
+path InputFasta
+
+output:
+file(&quot;FASTA.*&quot;) into bwa_indexes
+
+script:
+&quot;&quot;&quot;
+bwa-mem2 index &quot;${InputFasta}&quot;
+&quot;&quot;&quot;
+}
+
+ch_bwa = bwa_indexes
+
+Nevertheless into the work directory (specified after the error sentence) the process does work correctly and the output files are generated but not on my desire output directory. I tried to replace the &quot;file&quot; by the &quot;path&quot; on the script in the line:
+output:
+file(&quot;FASTA.*&quot;)
+
+As well as replace &quot;FASTA.* &quot; for &quot;${params.PublishDir}/FASTA.*&quot;
+but the error still appears. I don't know exactly why it happens. ¿Maybe could be due to the use of params to specify the inputs and outputs?
+Thanks in advance!
+",-1,-1,-1.0
+72444598,Execute a nextflow process for each CSV record (line),"I'm trying to read each line from a CSV file and then execute a Nextflow process for each line of it. However I don't know exactly why when I run the Nextflow script I get the following error:
+Argument of file function cannot be null
+params.index_fasta = &quot;/home/test_1000Genomes.csv&quot;
+
+Channel
+  .fromPath(params.index_fasta)
+  .splitCsv(header:true)
+  .map { row-&gt; set(row.sampleId, file(row.read1), file(row.read2)) }
+  .set { sample_run_ch }
+
+process FastQCFQ {
+
+  tag &quot;QC of fasta&quot;
+
+  publishDir (
+    path: &quot;${params.PublishDir}/Reports/${sampleId}/FastQC&quot;,
+    mode: 'copy',
+    overwrite: 'true'
+  )
+    
+  input:
+  set sampleId, file(&quot;${read1}&quot;), file(&quot;${read2}&quot;) from sample_run_ch
+
+  output:
+  file(&quot;*.{html,zip}&quot;) into QC_Report
+
+  script:
+  &quot;&quot;&quot;
+  fastqc -t 2 -q $read1 $read2
+  &quot;&quot;&quot;
+}
+    
+ch_qc = QC_Report
+
+The CSV file consist of a tab file with a header of same names sampleId, read1, read2 where read1 and read2 are the paths of the fasta files. I'm try to change some parameters inside the Nextflow process but without get a correct process.
+",-1,-1,-1.0
+72571105,Nextflow - No such variable: prefix,"I tried to run my nextflow script and the first two precess worded fine, but the third process Conbinevcf reported an error, showing that the variable prefix was not found.
+process Annovar_genebased {
+
+publishDir &quot;${params.output}/annovar&quot;, mode: 'copy'
+
+    input:
+    path 'snp_anatation' from anatation1.flatMap()
+    val humandb
+    val refgene
+
+    output:
+    path &quot;*.exonic_variant_function&quot; into end
+
+   &quot;&quot;&quot;
+   prefix=\$(basename \$(readlink snp_anatation) .avinput)
+
+   perl $refgene -geneanno -dbtype refGene -out \${prefix}.anatation -buildver hg19 $snp_anatation $humandb -hgvs
+
+   rm *.log
+   rm *.variant_function
+   &quot;&quot;&quot;
+}
+
+
+process Annovar {
+
+publishDir &quot;${params.output}/annovar&quot;, mode: 'copy'
+
+    input:
+    path 'snp_anatation' from anatation2.flatMap()
+    val annovar_table
+    val humandb
+
+    output:
+    path &quot;*.csv&quot; into end1
+
+   &quot;&quot;&quot;
+   prefix=\$(basename \$(readlink snp_anatation) .avinput)
+
+   perl $annovar_table $snp_anatation $humandb -buildver hg19 -out \${prefix}.anatation -remove -protocol refGene,cytoBand,exac03,clinvar_20200316,gnomad211_exome -operation g,r,f,f,f -nastring . -csvout  -polish
+   &quot;&quot;&quot;
+}
+
+I got stuck on this process
+process Combinevcf {
+
+publishDir &quot;${params.output}/combinevcf&quot;, mode: 'copy'
+
+    input:
+    path 'genebased' from end.flatMap()
+    path 'allbased' from end1.flatMap()
+
+    output:
+    path &quot;*_3.csv&quot; into end3
+
+    &quot;&quot;&quot;
+    prefix=\$(basename \$(readlink genebased) .exonic_variant_function)
+    prefix1=\$(basename \$(readlink allbased) .csv)
+
+    cat ${prefix}.exonic_variant_function | tr -s ‘[:blank:]’ ‘,’ | awk 'BEGIN{FS=&quot;,&quot;;OFS=&quot;,&quot; }{ print \$3,\$13,\$22}' | awk ' BEGIN { OFS=&quot;, &quot;; print &quot;refGene&quot;, &quot;refGene&quot;, &quot;refGene&quot;, &quot;refGene&quot;, &quot;refGene&quot;, &quot;Zogysity&quot;,&quot;chr&quot;, &quot;filter&quot; } { print \$0, &quot;&quot; } ' &gt; ${prefix}_1.csv
+
+    awk 'BEGIN{FS=&quot;,&quot;;OFS=&quot;,&quot; }{ print \$1,\$2,\$3,\$4,\$5,\$6,\$7,\$8,\$9,\$10,\$15,\$21,\$24,\$25}' ${prefix1}.csv &gt; ${prefix1}_2.csv
+
+    paste ${prefix}_1.csv ${prefix1}_2.csv &gt; ${prefix}_3.csv
+    &quot;&quot;&quot;
+}
+
+I am not sure what went wrong, any help would be appreciated.
+",-1,-1,-1.0
+72621710,"getting weird ""missing output "" error when running a nextflow pipeline","For my data analysis pipeline I am using nextflow (which is a workflow management system) and I gave all the required arguments in the main command but I am getting a weird error. Basically in the output section I introduce the output but the error is missing output. I have made 3 files to run the pipeline including:
+1- the module containing the main code to run the tool (ASEReadCounter) and named ASEReadCounter.nf :
+process ASEReadCounter {
+    input:
+        file vcf_file
+        file bam_file
+        path(genome_fasta)
+
+
+    output:
+
+        file &quot;${vcf_file}.ASE.csv&quot;
+
+    script:
+
+    &quot;&quot;&quot;
+    gatk ASEReadCounter \\
+            -R ${params.genome}  \\
+            -V ${params.vcf_infile}  \\
+            -O ${params.vcf_infile}.txt \\
+            -I ${params.bam_infile}
+        &quot;&quot;&quot;
+}
+
+2- the main file which is used to run the pipeline named main.nf :
+#!/usr/bin/env nextflow
+nextflow.preview.dsl=2
+
+include ASEReadCounter from './modules/ASEReadCounter.nf'
+
+genome_ch = Channel.fromPath(params.genome)
+vcf_file_ch=Channel.fromPath(params.vcf_infile)
+bam_infile_ch=Channel.fromPath(params.bam_infile)
+
+workflow {
+    count_ch=ASEReadCounter(genome_ch, vcf_file_ch, bam_infile_ch)
+}
+
+3- config file which is named nextflow.config :
+params {
+    genome = '/hpc/hg38_genome/GRCh38.p13.genome.fa'
+    vcf_infile = '/hpc/test_data/test/test.vcf.gz'
+    bam_infile = ‘/hpc/test_data/test/test.sorted.bam'
+}
+
+process {
+
+    shell = ['/bin/bash', '-euo', 'pipefail']
+    withName: ASEReadCounter {
+        container = 'broadinstitute/gatk:latest'
+    }
+}
+
+singularity {
+           enabled = true
+           runOptions = '-B /hpc:/hpc -B $TMPDIR:$TMPDIR'
+           autoMounts = true
+           cacheDir = '/hpc/diaggen/software/singularity_cache'
+}
+
+here is the command I use to run the whole pipeline:
+nextflow run -ansi-log false main.nf
+
+Here is the error I am getting:
+Error executing process &gt; 'ASEReadCounter (1)'
+
+Caused by:
+  Missing output file(s) `GRCh38.p13.genome.fa.ASE.csv` expected by process `ASEReadCounter (1)`
+
+Command executed:
+
+  gatk ASEReadCounter             -R /hpc/hg38_genome/GRCh38.p13.genome.fa  \
+      -V /hpc/test_data/test/test.vcf.gz  \
+      -O /hpc/test_data/test/test.vcf.gz.txt \
+      -I /hpc/test_data/test/test.sorted.bam
+
+Do you know how I can fix the error?
+",-1,-1,-1.0
+73060671,How to force Nextflow process to recalculate and ignore cache in resumed workflow,"I have a series of processes in nextflow pipeline, employing multiple heavy computing steps and database (SQL) insertion/fetch. I need to insert certain (intermediate) process results to the DB and fetch them later for further processing (within the same pipeline). In the most simplified form it will be something like:
+
+process1 (fetch data from DB)
+process2 (analyze process1.out)
+process3 (inserts process2.out to DB)
+
+The problem is, that when any values are changed in the DB, output from process1 is still cached (when using -resume flag), so changes in DB are not reflected here at all.
+Is there any way to force reprocessing process1 while using -resume and ignore cache?
+So far, I was manually deleting respective work folder, or adding dummy line to process1, but that is extremely ineffective solution.
+Thanks for any help here.
+",-1,-1,-1.0
+73163525,Nextflow: How to deal with out of memory error?,"I wanted to test Nextflow error handling with aws batch executor. I used stress to fill 20GB of memory, while initially allocating only 12GB and applied standard error strategy (as in manual).
+#!/usr/bin/env nextflow
+
+nextflow.enable.dsl=2
+
+process test {
+
+cpus 2
+memory { '12.GB' * task.attempt }
+errorStrategy { task.exitStatus in 137..140 ? 'retry' : 'terminate' }
+maxRetries 3
+
+&quot;&quot;&quot;
+stress -c 2 -t 60 --vm 20 --vm-bytes 1024M 
+&quot;&quot;&quot;
+}
+
+workflow {
+  test()
+}
+
+Although the error message is:
+Caused by:
+  Essential container in task exited - OutOfMemoryError: Container killed due to memory usage
+
+..the exit status is 8 (rather than 137..140, so resources are not adjusted):
+Command exit status:
+  8
+
+What might be the problem here?
+Thanks!
+",-1,-1,-1.0
+73545475,Is there a way to handle a variable number of inputs/outputs in Nextflow?,"Is there a way to handle a varying number of inputs/outputs in Nextflow? Sometimes in the example below process 'foo' will have three inputs (and therefore create three pngs that need stitched together by 'bar') but other times there will be two or four. I'd like process 'bar' to be able to combine all existing files in 'foo.out.files' regardless of number. As it stands this would be able to properly handle everything only if there were exactly three inputs in params.input, but not if there were two or four.
+Thanks!
+#!/usr/bin/env nextflow
+nextflow.enable.dsl=2
+
+process foo {
+   input:
+   path input_file
+
+   output:
+   path '*.png', emit files
+
+   &quot;&quot;&quot;
+   script that creates variable number of png files
+   &quot;&quot;&quot;
+}
+
+process bar {
+   input:
+   tuple path(file_1), path(file_2), path(file_3)
+
+   &quot;&quot;&quot;
+   script that combines png files ${file_1} ${file_2} ${file_3}
+   &quot;&quot;&quot;
+}
+
+workflow {
+
+   foo(params.input)
+   bar(foo.out.files.collect())
+}
+
+UPDATE:
+I'm getting 'Input tuple does not match input set cardinality' errors for this, for example:
+params.num_files = 3
+
+process foo {
+   input:
+   val num_files
+
+   output:
+   path '*.png', emit: files
+
+   &quot;&quot;&quot;
+   touch \$(seq -f &quot;%g.png&quot; 1 ${num_files})
+   &quot;&quot;&quot;
+}
+
+process bar {
+   debug true
+
+   input:
+   tuple val(word), path(png_files)
+
+   &quot;&quot;&quot;
+   echo &quot;${word} ${png_files}&quot;
+   &quot;&quot;&quot;
+}
+
+workflow {
+    foo( params.num_files )
+
+    words = Channel.from('a','b','c')
+
+    words
+        .combine(foo.out.files)
+        .set { combined }
+    
+    bar(combined)
+}
+
+",-1,-1,-1.0
+73660749,Nextflow name collision,"I have files with identical names but in different folders. Nextflow stages these files into the same work directory resulting in name collisions. My question is how to deal with that without renaming the files. Example:
+# Example data
+mkdir folder1 folder2
+echo 1 &gt; folder1/file.txt
+echo 2 &gt; folder2/file.txt
+
+# We read from samplesheet
+$ cat samplesheet.csv
+sample,file
+sample1,/home/atpoint/foo/folder1/file.txt
+sample1,/home/atpoint/foo/folder2/file.txt
+
+# Nextflow main.nf
+#! /usr/bin/env nextflow
+
+nextflow.enable.dsl=2
+
+// Read samplesheet and group files by sample (first column)
+samplesheet = Channel
+    .fromPath(params.samplesheet)
+    .splitCsv(header:true)
+    .map {
+            sample = it['sample']
+            file   = it['file']
+            tuple(sample, file)
+}
+        
+ch_samplesheet = samplesheet.groupTuple(by:0)
+
+// That creates a tuple like:
+// [sample1, [/home/atpoint/foo/folder1/file.txt, /home/atpoint/foo/folder2/file.txt]]
+
+// Dummy process that stages both files into the same work directory folder
+process PRO {
+
+    input:
+    tuple val(samplename), path(files)
+
+    output:
+    path(&quot;out.txt&quot;)
+
+    script:
+    &quot;&quot;&quot;
+    echo $samplename with files $files &gt; out.txt
+    &quot;&quot;&quot;
+
+}
+
+workflow { PRO(ch_samplesheet) }
+
+# Run it
+NXF_VER=21.10.6 nextflow run main.nf --samplesheet $(realpath samplesheet.csv)
+
+
+...obviously resulting in:
+N E X T F L O W  ~  version 21.10.6
+Launching `main.nf` [adoring_jennings] - revision: 87f26fa90b
+[-        ] process &gt; PRO -
+Error executing process &gt; 'PRO (1)'
+
+Caused by:
+  Process `PRO` input file name collision -- There are multiple input files for each of the following file names: file.txt
+
+So, what now? The real world application here is sequencing replicates of the same fastq file, which then have the same name, but are in different folders, and I want to feed them into a process that merges them. I am aware of this section in the docs but cannot say that any of it was helpful or that I understand it properly.
+",-1,-1,-1.0
+73706272,Execute groovy inside nextflow process using process inputs,"I have a nextflow script with a channel for paired file inputs. I am trying to extract a substring from the file inputs to use as part of the shell call. I am trying to use Groovy's regex matching to extract the substring, but since it is based on an input value, I am having trouble executing the matching. An alternative would be to perform the regex in bash as part of the process shell call, but I am interested in figuring out how to manipulate inputs within a process anyways, as I feel it would be useful for other things too. How can I perform intermediate Groovy code with the process inputs prior to the shell call?
+process alignment {
+    input:
+        val files
+    output:
+        stdout
+    def matcher = &quot;${files[1][0]}&quot; =~ /.+\/bcl2fastq_out\/([^\/]+)\/.+/
+    # this is the culprit, as if I hardcode the first string it works
+    def project = matcher.findAll()[0][1]
+    &quot;&quot;&quot;
+    echo ${project}
+    &quot;&quot;&quot;
+}
+
+workflow {
+    files = Channel
+            .fromFilePairs(&quot;${params.out_dir}/**{_R1,_R2}_00?.fastq.gz&quot;, checkIfExists:true, size: 2)
+    alignment(files)
+}
+
+when I execute this, I get the error
+No such variable: files
+an example input string would look like extractions/test/bcl2fastq_out/project1/example_L001_R1_001.fastq.gz where I'm trying to extract the project1 substring
+",-1,-1,-1.0
+73811618,publish two separate result directories from nextflow process,"I have a nextflow process that outputs a result folder and a log as below:
+process test {
+    label &quot;x&quot;
+
+    input:
+    path(somefile)
+
+    output:
+    path &quot;test_results&quot;
+    path &quot;test_log.log&quot;
+    path &quot;something_for_next_process&quot;, emit: f
+
+    shell:
+    '''
+    myshellcommand
+    '''
+}
+
+And a config file to publish the results like below.
+process
+{
+    withLabel : x
+    {
+        publishDir =
+        [
+            path: {&quot;$params.outdir/&quot;},
+            pattern: &quot;*_results&quot;,
+            mode: 'copy',
+            saveAs: {filename -&gt; &quot;${filename.split('_')[0]}/all_results/${filename.split(&quot;_&quot;)[1]}&quot;}
+        ]
+    }
+    withLabel : x
+    {
+        publishDir =
+        [
+            path: {&quot;$params.outdir/&quot;},
+            pattern: &quot;*.log&quot;,
+            mode: 'copy',
+            saveAs: {filename -&gt; &quot;${filename.split('_')[0]}/logs/${filename}&quot;}
+        ]
+    }
+}
+
+I tried multiple combinations however, I can't get a label to publish its desired contents to two different folders. It always takes whichever is the last one in the publish config (in this case the logs). I know I can just put the publishdir options to the process in the workflow and that also works but I would like to do it through the config file. Is there a way I can get this to work?
+",-1,-1,-1.0
+73925605,ERROR nextflow.cli.Launcher - @unknown in Nextflow,"I have just started learning nextflow and I have stumped on a weird error, for which I seek some guidance.
+Here is my code
+#!/usr/bin/env nextflow  
+// Example1 from https://gist.github.com/elowy01/e9995d7ee8d6305930f868a10aeabbe9
+
+
+params.str = 'Hello world!'
+
+process AFcalc {
+
+    &quot;&quot;&quot;
+    echo  '${params.str}'
+    &quot;&quot;&quot;
+}
+
+//this is necessary to print the output
+result.subscribe {
+    println it.trim()
+}
+
+When I run the code with
+nextflow run example1.nf 
+
+I am taking the following ERROR:
+N E X T F L O W  ~  version 22.04.5
+Launching `example1.nf` [nostalgic_brahmagupta] DSL2 - revision: 17976728a8
+No such variable: result
+ -- Check script 'example1.nf' at line: 15 or see '.nextflow.log' file for more details
+
+
+when I look at the
+less .nextflow.log
+
+I am seeing this
+Oct-02 13:51:35.370 [main] DEBUG nextflow.cli.Launcher - $&gt; nextflow run example1.nf
+Oct-02 13:51:35.413 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.04.5
+Oct-02 13:51:35.446 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 by global default
+Oct-02 13:51:35.460 [main] INFO  nextflow.cli.CmdRun - Launching `example1.nf` [nostalgic_brahmagupta] DSL2 - revision: 17976728a8
+Oct-02 13:51:35.468 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager &gt; mode=prod; plugins-dir=/Users/theodosiou/.nextflow/plugins; core-plugins: nf-amazon@1.7.2,nf-azure@0.13.2,nf-console@1.0.3,nf-ga4gh@1.0.3,nf-google@1.1.4,nf-sqldb@0.4.0,nf-tower@1.4.0
+Oct-02 13:51:35.469 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Oct-02 13:51:35.474 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Oct-02 13:51:35.474 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Oct-02 13:51:35.476 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Oct-02 13:51:35.481 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Oct-02 13:51:35.511 [main] DEBUG nextflow.Session - Session uuid: ef770a53-e834-4fcd-8ae5-6216009b4ebc
+Oct-02 13:51:35.511 [main] DEBUG nextflow.Session - Run name: nostalgic_brahmagupta
+Oct-02 13:51:35.512 [main] DEBUG nextflow.Session - Executor pool size: 8
+Oct-02 13:51:35.831 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 22.04.5 build 5708
+  Created: 15-07-2022 16:09 UTC (18:09 CEST)
+  System: Mac OS X 12.6
+  Runtime: Groovy 3.0.10 on Java HotSpot(TM) 64-Bit Server VM 17+35-LTS-2724
+  Encoding: UTF-8 (UTF-8)
+  Process: 50922@LOUKASs-Air [192.168.0.207]
+  CPUs: 8 - Mem: 16 GB (90.5 MB) - Swap: 2 GB (356.6 MB)
+Oct-02 13:51:35.840 [main] DEBUG nextflow.Session - Work-dir: /Users/theodosiou/Documents/Projects/nextflow/nextflow-example/work [Mac OS X]
+Oct-02 13:51:35.840 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /Users/theodosiou/Documents/Projects/nextflow/nextflow-example/bin
+Oct-02 13:51:35.846 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Oct-02 13:51:35.851 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Oct-02 13:51:35.861 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Oct-02 13:51:35.867 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool &gt; poolSize: 9; maxThreads: 1000
+Oct-02 13:51:35.903 [main] DEBUG nextflow.Session - Session start invoked
+Oct-02 13:51:36.227 [main] DEBUG nextflow.script.ScriptRunner - &gt; Launching execution
+Oct-02 13:51:36.235 [main] DEBUG nextflow.Session - Session aborted -- Cause: No such property: result for class: Script_0f3fefb4
+Oct-02 13:51:36.241 [main] ERROR nextflow.cli.Launcher - @unknown
+groovy.lang.MissingPropertyException: No such property: result for class: Script_0f3fefb4
+        at org.codehaus.groovy.runtime.ScriptBytecodeAdapter.unwrap(ScriptBytecodeAdapter.java:65)
+        at org.codehaus.groovy.runtime.callsite.PogoGetPropertySite.getProperty(PogoGetPropertySite.java:51)
+        at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callGroovyObjectGetProperty(AbstractCallSite.java:341)
+        at Script_0f3fefb4.runScript(Script_0f3fefb4:15)
+        at nextflow.script.BaseScript.runDsl2(BaseScript.groovy:170)
+        at nextflow.script.BaseScript.run(BaseScript.groovy:217)
+        at nextflow.script.ScriptParser.runScript(ScriptParser.groovy:220)
+        at nextflow.script.ScriptRunner.run(ScriptRunner.groovy:212)
+        at nextflow.script.ScriptRunner.execute(ScriptRunner.groovy:120)
+        at nextflow.cli.CmdRun.run(CmdRun.groovy:337)
+        at nextflow.cli.Launcher.run(Launcher.groovy:480)
+        at nextflow.cli.Launcher.main(Launcher.groovy:639)
+
+I have checked other posts which suggest changing DSL=1 to DSL=2, but it does not affect my code. I know it's a silly question but some guidance at that level might help me kick start smoothly.
+",-1,-1,-1.0
+73970442,Nextflow input how to declare tuple in tuple,"I am working with a nextflow workflow that, at a certain stage, groups a series of files by their sample id using groupTuple(), and resulting in a channel that looks like this:
+[sample_id, [file_A, file_B, ... , file_N]]
+[sample_id, [file_A, file_B, ... , file_N]]
+...
+[sample_id, [file_A, file_B, ... , file_N]]
+
+Note that this is the same channel structure that you get from .fromFilePairs().
+I want to use these channel items in a process in such a way that, for each item, the process reads the sample_id from the first field and all the files from the inner tuple at once.
+The nextflow documentation is somewhat cryptic about this, and it is hard to find how to declare this type of input in a channel, so I thought I'd create a question on stack overflow and then answer it myself for anyone who will ever be looking for this answer.
+How does one declare the inner tuple in the input section of a nextflow process?
+",1,1,-1.0
+74191478,Nextflow capture output file by partial pattern,"I've got a Nextflow process that looks like:
+process my_app {
+
+    publishDir &quot;${outdir}/my_app&quot;, mode: params.publish_dir_mode
+
+    input:
+        path input_bam
+        path input_bai
+        val output_bam
+        val max_mem
+        val threads
+        val container_home
+        val outdir
+
+    output:
+        tuple env(output_prefix), path(&quot;${output_bam}&quot;), path(&quot;${output_bam}.bai&quot;), emit: tuple_ch
+
+    shell:
+        '''
+        my_script.sh \
+            !{input_bam} \
+            !{output_bam} \
+            !{max_mem} \
+            !{threads}
+
+        output_prefix=$(echo !{output_bam} | sed &quot;s#.bam##&quot;)
+        '''
+}
+
+This process is only creating two .bam .bai files but my_script.sh is also creating other .vcf that are not being published in the output directory.
+I tried it by doing in order to retrieve the files created by the script but without success:
+output:
+    tuple env(output_prefix), path(&quot;${output_bam}&quot;), path(&quot;${output_bam}.bai&quot;), path(&quot;${output_prefix}.*.vcf&quot;), emit: mt_validation_simulation_tuple_ch
+
+but in logs I can see:
+Error executing process caused by:
+  Missing output file(s) `null.*.vcf` expected by process `my_app_wf:my_app`
+
+What I am missing? Could you help me? Thank you in advance!
+",-1,-1,-1.0
+74740668,How do you pass output from one Nextflow Channel to another and run an .Rmd file?,"I have a Nextflow pipeline that has two channels.
+
+The first channel runs and outputs 6 .tsv files to a folder called 'results'.
+The second channel is supposed to use all of these 6 .tsv files and create a .pdf report using knitr in R in a process called 'createReport'.
+
+My workflow code looks like this:
+workflow {
+  inputFileChannel = Channel.fromPath(params.pathOfInputFile, type: 'file') // | collect | createReport // creating channel to pass in input file
+  findNumOfProteins(inputFileChannel)  // passing in the channel to the process
+  findAminoAcidFrequency(inputFileChannel)
+  getProteinDescriptions(inputFileChannel)
+  getNumberOfLines(inputFileChannel)
+  getNumberOfLinesWithoutSpaces(inputFileChannel)
+  getLengthFreq(inputFileChannel)
+
+  outputFileChannel = Channel.fromPath(&quot;$params.outdir.main/*.tsv&quot;, type: 'file').buffer(size:6)
+  createReport(outputFileChannel)
+
+My 'createReport' process currently looks like this:
+process createReport {
+  module 'R/4.2.2'
+
+  publishDir params.outdir.output, mode: 'copy'
+
+
+  output:
+    path 'report.pdf'
+
+  script:
+      &quot;&quot;&quot;
+          R -e &quot;rmarkdown::render('./createReport.Rmd')&quot;
+      &quot;&quot;&quot;
+}
+
+And my 'createReport.Rmd' looks like this (tested in Rstudio and gives the correct .pdf output:
+---
+title: &quot;R Markdown Practice&quot;
+author: &quot;-&quot;
+date: &quot;2022-12-08&quot;
+output: pdf_document
+---
+
+{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(readr)
+dataSet &lt;- list.files(path=&quot;/Users/-/Desktop/code/nextflow_practice/results/&quot;, pattern=&quot;*.tsv&quot;)
+print(dataSet)
+
+for (data in dataSet) {
+  print(paste(&quot;Showing the table for:&quot;, data))
+  targetData &lt;- read.table(file=paste(&quot;/Users/-/Desktop/code/nextflow_practice/results/&quot;, data, sep=&quot;&quot;),
+             head=TRUE,
+             nrows=5,
+             sep=&quot;\t&quot;) 
+  print(targetData)
+  
+  if (data == &quot;length_data.tsv&quot;) {
+    data_to_graph &lt;- read_tsv(paste(&quot;/Users/-/Desktop/code/nextflow_practice/results/&quot;, data, sep=&quot;&quot;), show_col_types = FALSE)
+    plot(x = data_to_graph$LENGTH,y = data_to_graph$FREQ, xlab = &quot;x-axis&quot;, ylab = &quot;y-axis&quot;, main = &quot;P&quot;)
+  }
+
+  writeLines(&quot;-----------------------------------------------------------------&quot;)
+}
+
+What would be the correct way to write the createReport process and the workflow sections so as to be able to pass the 6 .tsv outputs from the first channel into the second channel to create the report?
+Sorry I am very new to Nextflow and the documentation doesn't help me as much as I would like it to!
+",1,1,-1.0
+74789402,"Error: A JNI error has occurred, please check your installation and try again: Java 17.0.5","I am trying to use Nextflow to run a pipeline for RNA sequence; however I keep having issues with Java.
+Currently the error I am receiving is:
+Error: A JNI error has occurred, please check your installation and try again
+Exception in thread &quot;main&quot; java.lang.UnsupportedClassVersionError: org/eclipse/jgit/api/errors/GitAPIException has been compiled by a more recent version of the Java Runtime (class file version 55.0), this version of the Java Runtime only recognizes class file versions up to 52.0
+    at java.lang.ClassLoader.defineClass1(Native Method)
+    at java.lang.ClassLoader.defineClass(ClassLoader.java:757)
+    at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
+    at java.net.URLClassLoader.defineClass(URLClassLoader.java:473)
+    at java.net.URLClassLoader.access$100(URLClassLoader.java:74)
+    at java.net.URLClassLoader$1.run(URLClassLoader.java:369)
+    at java.net.URLClassLoader$1.run(URLClassLoader.java:363)
+    at java.security.AccessController.doPrivileged(Native Method)
+    at java.net.URLClassLoader.findClass(URLClassLoader.java:362)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:419)
+    at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:352)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:352)
+    at java.lang.Class.getDeclaredMethods0(Native Method)
+    at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
+    at java.lang.Class.privateGetMethodRecursive(Class.java:3048)
+    at java.lang.Class.getMethod0(Class.java:3018)
+    at java.lang.Class.getMethod(Class.java:1784)
+    at sun.launcher.LauncherHelper.validateMainClass(LauncherHelper.java:650)
+    at sun.launcher.LauncherHelper.checkAndLoadMain(LauncherHelper.java:632)
+
+
+I have the following Java Versions, but I will be honest, I tried many many routes to get to this newest version of java (the old one was:
+openjdk version &quot;1.8.0_332&quot;
+OpenJDK Runtime Environment (Zulu 8.62.0.19-CA-linux64) (build 1.8.0_332-b09)
+OpenJDK 64-Bit Server VM (Zulu 8.62.0.19-CA-linux64) (build 25.332-b09, mixed mode))
+Now these are the updated versions:
+$ javac -version
+javac 17.0.5
+$ java -version
+openjdk version &quot;17.0.5&quot; 2022-10-18
+OpenJDK Runtime Environment Temurin-17.0.5+8 (build 17.0.5+8)
+OpenJDK 64-Bit Server VM Temurin-17.0.5+8 (build 17.0.5+8, mixed mode, sharing)
+Please help!
+",-1,-1,-1.0
+74534408,baseDir issue with nextflow,"This might be a very basic question for you guys, however, I am have just started with nextflow and I struggling with the simplest example.
+I first explain what I have done and the problem.
+Aim: I aim to make a workflow for my bioinformatics analyses as the one here (https://www.nextflow.io/example4.html)
+Background: I have installed all the packages that were needed and they all work from the console without any error.
+My run: I have used the same script as in example only by replacing the directory names. Here is how I have arranged the directories
+location of script
+
+~/raman/nflow/script.nf
+
+location of Fastq files
+
+~/raman/nflow/Data/T4_1.fq.gz
+~/raman/nflow/Data/T4_2.fq.gz
+
+Location of transcriptomic file
+
+~/raman/nflow/Genome/trans.fa
+
+The script
+#!/usr/bin/env nextflow
+
+/*
+ * The following pipeline parameters specify the refence genomes
+ * and read pairs and can be provided as command line options
+ */
+params.reads = &quot;$baseDir/Data/T4_{1,2}.fq.gz&quot;
+params.transcriptome = &quot;$baseDir/HumanGenome/SalmonIndex/gencode.v42.transcripts.fa&quot;
+params.outdir = &quot;results&quot;
+
+workflow {
+    read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true )
+
+    INDEX(params.transcriptome)
+    FASTQC(read_pairs_ch)
+    QUANT(INDEX.out, read_pairs_ch)
+}
+
+process INDEX {
+    tag &quot;$transcriptome.simpleName&quot;
+
+    input:
+    path transcriptome
+
+    output:
+    path 'index'
+
+    script:
+    &quot;&quot;&quot;
+    salmon index --threads $task.cpus -t $transcriptome -i index
+    &quot;&quot;&quot;
+}
+
+process FASTQC {
+    tag &quot;FASTQC on $sample_id&quot;
+    publishDir params.outdir
+
+    input:
+    tuple val(sample_id), path(reads)
+
+    output:
+    path &quot;fastqc_${sample_id}_logs&quot;
+
+    script:
+    &quot;&quot;&quot;
+    fastqc &quot;$sample_id&quot; &quot;$reads&quot;
+    &quot;&quot;&quot;
+}
+
+process QUANT {
+    tag &quot;$pair_id&quot;
+    publishDir params.outdir
+
+    input:
+    path index
+    tuple val(pair_id), path(reads)
+
+    output:
+    path pair_id
+
+    script:
+    &quot;&quot;&quot;
+    salmon quant --threads $task.cpus --libType=U -i $index -1 ${reads[0]} -2 ${reads[1]} -o $pair_id
+    &quot;&quot;&quot;
+}
+
+Output:
+(base) ntr@ser:~/raman/nflow$ nextflow script.nf
+N E X T F L O W  ~  version 22.10.1
+Launching `script.nf` [modest_meninsky] DSL2 - revision: 032a643b56
+executor &gt;  local (2)
+executor &gt;  local (2)
+[-        ] process &gt; INDEX (gencode)       -
+[28/02cde5] process &gt; FASTQC (FASTQC on T4) [100%] 1 of 1, failed: 1 ✘
+[-        ] process &gt; QUANT                 -
+Error executing process &gt; 'FASTQC (FASTQC on T4)'
+
+Caused by:
+  Missing output file(s) `fastqc_T4_logs` expected by process `FASTQC (FASTQC on T4)`
+
+Command executed:
+
+  fastqc &quot;T4&quot; &quot;T4_1.fq.gz T4_2.fq.gz&quot;
+
+Command exit status:
+  0
+
+Command output:
+  (empty)
+
+Command error:
+  Skipping 'T4' which didn't exist, or couldn't be read
+  Skipping 'T4_1.fq.gz T4_2.fq.gz' which didn't exist, or couldn't be read
+
+Work dir:
+  /home/ruby/raman/nflow/work/28/02cde5184f4accf9a05bc2ded29c50
+
+Tip: view the complete command output by changing to the process work dir and entering the command `cat .command.out`
+
+I believe I have an issue with my baseDir understanding. I am assuming that the baseDir is the one where I have my file script.nf I am not sure what is going wrong and how can I fix it.
+Could anyone please help or guide.
+Thank you
+",-1,-1,-1.0
+74485079,"Syntax conflict for ""{"" using Nextflow","New to nextflow, attempted to run a loop in nextflow chunk to remove extension from sequence file names and am running into a syntax error.
+params.rename = &quot;sequences/*.fastq.gz&quot;
+
+workflow {
+rename_ch = Channel.fromPath(params.rename)
+RENAME(rename_ch)
+RENAME.out.view()
+}
+
+process RENAME {
+input:
+    path read
+output:
+    stdout
+script:
+    &quot;&quot;&quot;
+    for file in $baseDir/sequences/*.fastq.gz; 
+    do
+        mv -- '$file' '${file%%.fastq.gz}'
+    done
+    &quot;&quot;&quot;
+}
+
+Error:
+- cause: Unexpected input: '{' @ line 25, column 16.
+   process RENAME {
+                  ^
+
+Tried to use other methods such as basename, but to no avail.
+",-1,-1,-1.0
+75248138,How to filter list of tuples?,"Hey guys I am kinda new to Nextflow I would like to parse a channel that is a list of tuples that look like that:
+[ID, [[Type1, file, file], [[Type2, file, file],(...)]
+
+I would like to filter it to contain only tuples with Type1 to get:
+[ID, [[Type1, file, file]]
+
+What would be the best approach? I tried .filter() however obviously it returns a full list as soon as it detects Type1 without removing Type2.
+",1,-1,-1.0
+75336017,Output file not created when running a R command in a Nextflow file?,"I am trying to run a nextflow pipeline but the output file is not created.
+The main.nf file looks like this:
+#!/usr/bin/env nextflow
+nextflow.enable.dsl=2 
+
+process my_script {
+
+    &quot;&quot;&quot;
+    Rscript script.R
+    &quot;&quot;&quot;
+}
+
+workflow {
+  my_script 
+}
+
+In my nextflow.config I have:
+
+process {
+   executor = 'k8s'
+   container = 'rocker/r-ver:4.1.3'
+}
+
+The script.R looks like this:
+ FUN &lt;- readRDS(&quot;function.rds&quot;);
+ input = readRDS(&quot;input.rds&quot;);
+ output = FUN(
+singleCell_data_input = input[[1]], savePath = input[[2]], tmpDirGC = input[[3]]
+);
+ saveRDS(output, &quot;output.rds&quot;)
+
+After running nextflow run main.nf  the output.rds is not created
+",-1,-1,-1.0
+75465741,path not being detected by Nextflow,"i'm new to nf-core/nextflow and needless to say the documentation does not reflect what might be actually implemented. But i'm defining the basic pipeline below:
+    nextflow.enable.dsl=2
+
+
+    process RUNBLAST{
+    input:
+    val thr
+    path query
+    path db
+    path output
+
+    output:
+    path output
+
+    script:
+    &quot;&quot;&quot;
+        blastn -query ${query} -db ${db} -out ${output} -num_threads ${thr}
+    &quot;&quot;&quot;
+ 
+  }
+
+   workflow{
+
+    //println &quot;I want to BLAST $params.query to $params.dbDir/$params.dbName using $params.threads CPUs and output it to $params.outdir&quot;
+
+
+
+   RUNBLAST(params.threads,params.query,params.dbDir, params.output)
+
+ }
+
+Then i'm executing the pipeline with
+nextflow run main.nf --query test2.fa --dbDir blast/blastDB
+Then i get the following error:
+N E X T F L O W  ~  version 22.10.6
+Launching `main.nf` [dreamy_hugle] DSL2 - revision: c388cf8f31
+Error executing process &gt; 'RUNBLAST'
+Error executing process &gt; 'RUNBLAST'
+
+Caused by:
+  Not a valid path value: 'test2.fa'
+
+
+Tip: you can replicate the issue by changing to the process work dir and entering the command bash .command.run
+
+I know test2.fa exists in the current directory:
+(nfcore) MN:nf-core-basicblast jraygozagaray$ ls
+CHANGELOG.md        conf            other.nf
+CITATIONS.md        docs            pyproject.toml
+CODE_OF_CONDUCT.md  lib         subworkflows
+LICENSE         main.nf         test.fa
+README.md       modules         test2.fa
+assets          modules.json        work
+bin         nextflow.config     workflows
+blast           nextflow_schema.json
+
+I also tried with &quot;file&quot; instead of path but that is deprecated and raises other kind of errors.
+It'll be helpful to know how to fix this to get myself started with the pipeline building process.
+Shouldn't nextflow copy the file to the execution path?
+Thanks
+",-1,-1,-1.0
+75539112,ERROR when trying to run Nextflow for RNAseq on MacOSX (M2),"The error I am getting is this right when I try to download the pipeline and test it on a minimal dataset with a single command:
+$ nextflow run nf-core/rnaseq -profile test,conda --outdir /Users/aggardik/workflow
+N E X T F L O W  \~  version 0.30.1
+Launching `nf-core/rnaseq` \[jovial_nightingale\] - revision: 6e1e448f53 \[master\]
+ERROR \~ Unknown config attribute `params.genomes.GRCh37.projectDir` -- check config file: /Users/aggardik/anaconda3/envs/RNAseq/share/nextflow/assets/nf-core/rnaseq/nextflow.config
+
+\-- Check '.nextflow.log' file for details
+(RNAseq)
+
+",-1,-1,-1.0
+75561125,next flow error. Unable to Intialize nextflow,"CAPSULE: Downloading dependency com.amazonaws:aws-java-sdk-s3:pom:1.11.25
+CAPSULE EXCEPTION: null while processing attribute Allow-Snapshots: false (for stack trace, run with -Dcapsule.log=verbose)
+Unable to initialize nextflow environment.
+
+This is the error I am getting in my Linux when I run the following code:
+nextflow run /main.nf  
+
+",-1,-1,-1.0
+75866928,Nextflow : process multiple samples,"I'm new to nextflow and I'm having problems.
+I have a workflow with several processes and I would like to run it for different samples. Here is the repository architecture:
+sample :
+- sample1 :
+
+fastq1
+fastq2
+...
+
+- sample2 :
+
+fastq1
+fastq2
+...
+
+- sample3 :
+
+fastq1
+fastq2
+...
+
+- etc...
+I use Nextflow 21.10.6 DSL2.
+I tried to build a channel with Channel.fromPath(path/to/sample/*.fastq.gz) but I don't get what I want. Can anyone help me? Thanks
+",-1,-1,-1.0
+75867959,Nextflow process: how to define an output path that is not explicitly referenced in the script block?,"I want to write a nextflow process that looks something like this:
+process my_process{
+
+    input:
+        path x
+
+    output:
+        path 'a.txt'
+        path 'b.bam'
+        path 'c.fasta'
+
+    script:
+        &quot;&quot;&quot;
+        some-command --in x
+        &quot;&quot;&quot;
+}
+
+where some-command is an external program (not under my control) that creates the files a.txt, b.bam and c.fasta and places in them in the same directory as the input file x.
+I understand that the above process, as written, may not work. I am just not sure what the 'proper way' is to handle this. All examples of nextflow processes that I found online presumed that paths in the output block (e.g. a.txt) are explictly referenced in the script block.
+",-1,-1,-1.0
+75911718,nextflow: channel From Path returns null even though file exists,"I wanted to create a channel with certain files as below:
+nextflow.enable.dsl=1
+channel.FromPath('/cluster/projects/p33/users/gledak/metabolomics/lipids/out/*_permuted*.glm.linear').view()
+
+But it gives me error:
+Cannot invoke method view() on null object
+
+Any help?
+",-1,-1,-1.0
+75970068,Parse a text file line by line and use $line in nextflow bash,"I have a bash script that works fine on terminal. It takes a text file from user, reads it line by line, and does operation by using entry in each line as search query.
+#!/bin/bash
+mkdir &quot;final_loc_tf&quot;
+
+while read BED;
+do
+cat results/intersect/*/$BED | sortBed | bedtools merge -c 4 -o collapse &gt; &quot;final_loc_tf/&quot;$BED&quot;_final.bed&quot;
+
+done &lt; $1
+
+I want to implement this into my nextflow but no success. I have seen couple of examples parsing csv files but couldn't make it work on my text file.
+Here is my nextflow file trying to implement the bash file. But I am not able to parse the text file, as it doesn't give me any output files.
+#!/usr/bin/env nextflow
+nextflow.enable.dsl=2
+
+params.bed = file(&quot;results/all_bed.txt&quot;)
+
+process MERGE {
+
+    publishDir 'results/final', mode: 'copy', overwrite: false
+
+    input:
+    file file_list
+
+    output:
+    path '*'
+
+    script:
+    &quot;&quot;&quot;
+    bash test.sh $file_list
+    &quot;&quot;&quot;
+}
+
+workflow {
+    bed_ch=params.bed
+
+    MERGE(bed_ch)
+}
+
+Thanks for your help.
+",1,-1,-1.0
+76004003,"Nextflow is running executable inside docker container volume, but can't find it","I'm working on a nextflow pipeline, that uses a different docker container in each process.
+It looks something like this:
+params.exeA = &quot;$projectDir/bin/exeA&quot; //is inside docker volume of containerA
+params.exeB = &quot;$projectDir/bin/1.0/exeB&quot; //is docker volume of containerB
+params.inA = &quot;$projectDir/TestData/A/*&quot;
+params.outA = &quot;$projectDir/TestData/A_Out/&quot;
+params.outB = &quot;$projectDir/TestData/B_Out/*&quot;
+
+process A{
+
+  container 'link.to.container.registryA'
+    
+  input:
+     path t_path
+     path out_path_A
+     //some more parameters
+
+
+  output:
+     path &quot;${out_path_A}&quot;
+
+  script:
+  &quot;&quot;&quot;
+  ${params.exeA} --input &quot;${t_path}&quot; --output &quot;${out_path_A}&quot; //some more parameters
+
+  &quot;&quot;&quot;
+ 
+}
+process B{
+
+  container 'link.to.container.registryB'
+    
+  input:
+     path resultOfA
+
+  output:
+     path ...
+
+  script:
+  &quot;&quot;&quot;
+  ${params.exeB} --someVal &quot;${params.someVal}&quot; --pathA  &quot;${resultOfA}&quot;
+
+  &quot;&quot;&quot;
+ 
+}
+workflow {
+
+files_ch = Channel.fromPath(params.input_path, type: 'dir')
+a_ch = A(files_ch, params.outA)
+b_ch = B(a_ch, params.outB)
+}
+
+
+When I try to run it, it throws the error:
+Error executing process &gt; 'A (1)'
+
+Caused by:
+  Process `A (1)` terminated with an error exit status (127)
+
+Command executed:
+
+  /home/projects/myProject/bin/exeA ...(some parameters)
+
+Command exit status:
+  127
+Command output:
+  (empty)
+
+Command error:
+  .command.sh: line 2: /home/projects/myProject/bin/exeA: No such file or directory
+
+
+Confusingly, it still created the output-File of exeA I was expecting inside a workingDir. But the workflow stops at that point and doesn't continue with process B.
+I don't know how this is possible... Nextflow can't find the executable, but was still able to call it???
+I already tested both processes individually and had the same error.
+",-1,-1,-1.0
+76061610,Setting the nextflow saveAs directive to save files in different directories,"I am working on a nextflow pipeline where a program used in a process generates all the results inside a subfolder.
+I save the output files I need within an output tuple for later processes, and I am attempting at saving the output files in different directories depending on their name, changing their name too.
+I am having trouble because the files don't get saved and I can't understand why. The issue must be in the way I use saveAs, but the nextflow documentation on it is very scarce (or I haven't found it).
+I have the feeling that the issue comes from the fact that the $filename contains path information and isn't just a filename. Could anyone tell me what I'm doing wrong?
+Here below, I wrote a mock process that reproduces the error:
+#!/usr/bin/env nextflow 
+
+Channel
+.from(&quot;foo&quot;, &quot;bar&quot;, &quot;faz&quot;)
+.set{ Input }
+
+process mock {
+
+    executor &quot;local&quot;
+    maxForks 48
+    cpus 1
+
+    publishDir &quot;${params.output_dir}&quot;,
+    mode: &quot;copy&quot;,
+    pattern: &quot;*.tab&quot;,
+    saveAs: {
+        filename -&gt; 
+             if (filename.contains(&quot;A.tab&quot;)) {&quot;A/$filename&quot;}
+        else if (filename.contains(&quot;B.tab&quot;)) {&quot;B/$filename&quot;}
+        else if (filename.contains(&quot;C.tab&quot;)) {&quot;C/$filename&quot;}
+        else {&quot;unassigned/$filename&quot;}
+    }
+
+    input:
+    val name from Input
+
+    output:
+    file &quot;test/${name}.A.tab&quot;
+    file &quot;test/${name}.B.tab&quot;
+    file &quot;test/${name}.C.tab&quot;
+    file &quot;test/${name}.D.tab&quot;
+    
+    script:
+    &quot;&quot;&quot;
+    mkdir test &amp;&amp;
+    unset X &amp;&amp;
+    declare -a X=(A.tab B.tab C.tab D.tab) &amp;&amp;
+    for FILENAME in \${X[@]}
+    do
+        if [ ! -f test/${name}.\${FILENAME} ]
+        then
+            touch test/${name}.\${FILENAME}
+        fi
+    done
+    &quot;&quot;&quot;
+}
+
+",-1,-1,-1.0
+76125385,How do you build a string from outputs of a process in Nextflow?,"Let's say I have a process in Nextflow that has two outputs, like this
+process FB_PROCESS {
+    output:
+    path &quot;foo*.txt&quot;, emit: foo_file
+    path &quot;bar*.txt&quot;, emit: bar_file
+
+    &quot;&quot;&quot;
+    echo Hello &gt; foo---Man---.txt
+    echo Hello &gt; bar---355---.txt
+    &quot;&quot;&quot;
+} 
+
+In this case the two outputs will be foo---Man---.txt and bar---355---.txt
+Furthermore, let's say there existed a bunch of files in a folder on my computer called /path/to/Man/bar.
+What I want to do, but do not know how to do, is glob for all those files and submit them to run in parallel to another process.
+If I were to recklessly mix nextflow and python, this how I would build a channel my_channel = Channel.fromPath(f'/path/to/{FB_PROCESS.out.foo_file.split(&quot;---&quot;)[1]}/{FB_PROCESS.out.bar_file.split(&quot;---&quot;)[1]}/*')
+Obviously, that is not the correct syntax to do what I want do do. How do I properly build that glob string in Nextflow?
+",-1,-1,-1.0
+76139015,The nextflow script didn't run exactly what I command,"My main idea is to download 2 files from the internet by their download URLs. My script is as follows.
+#!/usr/bin/env nextflow
+params.link_download = Channel.of(
+    &quot;https://data.qiime2.org/2023.2/tutorials/moving-pictures/sample_metadata.tsv&quot;,
+    &quot;https://data.qiime2.org/2023.2/tutorials/moving-pictures/emp-single-end-sequences/barcodes.fastq.gz&quot;
+)
+
+process DOWNDATA{
+
+    publishDir &quot;$projectDir&quot;, mode: 'copy'
+    
+    input:
+    tuple val(link)
+    
+    output:
+    path &quot;download&quot;
+    
+    &quot;&quot;&quot;
+    mkdir &quot;download&quot;
+    name_file=\$(echo &quot;$link&quot; | grep --perl-regexp '[^\/]+\$' --only-matching)
+    echo &quot;\$name_file&quot;
+    wget \
+      -O &quot;download/\$name_file&quot; \
+      &quot;$link&quot;
+    &quot;&quot;&quot;
+}
+
+
+workflow{
+    DOWNDATA(params.link_download)
+}
+
+But when I run my code, it appears error.
+N E X T F L O W  ~  version 22.10.6
+Launching `tur1.nf` [adoring_heyrovsky] DSL2 - revision: 5d71abc518
+Error executing process &gt; 'DOWNDATA (1)'
+...
+
+Caused by:
+  Process `DOWNDATA (1)` terminated with an error exit status (2)
+
+Command executed:
+
+  mkdir &quot;download&quot;
+  name_file=$(echo &quot;https://data.qiime2.org/2023.2/tutorials/moving-pictures/sample_metadata.tsv/]+$' --only-matching)
+  echo &quot;$name_file&quot;
+  wget    -O &quot;download/$name_file&quot;    &quot;https://data.qiime2.org/2023.2/tutorials/moving-pictures/sample_metadata.tsv&quot;
+
+Command exit status:
+  2
+
+Command output:
+  (empty)
+
+Command error:
+  .command.sh: line 5: unexpected EOF while looking for matching `&quot;'
+
+
+I guess the problem here is in the line name_file=\$(echo &quot;$link&quot; | grep --perl-regexp '[^\/]+\$' --only-matching).
+Why does nextflow run that line as name_file=$(echo &quot;https://data.qiime2.org/2023.2/tutorials/moving-pictures/sample_metadata.tsv/]+$' --only-matching)? It strips the part | grep --perl-regexp '[^\.
+Could someone explain to me Why this error occur? and How to fix it?. Thank you.
+",-1,-1,-1.0
+76214214,Passing Python variables through Nextflow channels,"I have the following simplified task and get some errors when doing it.
+I'm trying to get 4 letters from a string by Python and use that as a name of a new folder. My code is as follows:
+#!/usr/bin/env nextflow
+
+params.string=&quot;abcdefg&quot;
+
+process PYTHON{
+    input:
+    val string
+    
+    output:
+    val substring
+    
+    &quot;&quot;&quot;
+    #!/usr/bin/env python
+    
+    substring=&quot;$string&quot;[0:4]
+    &quot;&quot;&quot;
+}
+
+process CREAT_FOLDER{
+    input:
+    val name
+    
+    &quot;&quot;&quot;
+    mkdir $name
+    &quot;&quot;&quot;
+}
+
+workflow{
+    name = PYTHON(params.string)
+    CREAT_FOLDER(name)
+}
+
+The error shows up.
+N E X T F L O W  ~  version 23.04.1
+Launching `python.nf` [shrivelled_kay] DSL2 - revision: 0e01fd9b95
+executor &gt;  local (1)
+executor &gt;  local (1)
+[33/e827c9] process &gt; PYTHON       [100%] 1 of 1, failed: 1 ✘
+[-        ] process &gt; CREAT_FOLDER -
+ERROR ~ Error executing process &gt; 'PYTHON'
+
+Caused by:
+  Missing value declared as output parameter: substring
+
+
+The variable &quot;substring&quot; clearly couldn't pass through channels. So how can I pass a Python variable into channels?
+",-1,-1,-1.0

@@ -1,0 +1,125 @@
+Scientific Workflow Management System List
+Airflow
+Adage
+AGWL
+AMGA
+Anduril
+Aneuch
+Argo
+Arvados
+Askalon
+Avadis NGS
+BiGCaT
+BioKepler
+Biopet
+BioRange
+Biowep
+BioXM
+BIRN Pipeline
+Bpipe
+Chaste
+Chiron
+CLC Genomics Workbench
+Cloudgene
+COMPS
+Cromwell
+Cyberaide
+CyberMed
+DCP
+EasyBuild
+e-BioFlow
+EDG(EmpowerinthDevelopmenoGenomicExpertise)
+Elyra
+Eoulsan
+ERA
+Ergatis
+e-SciencCentral
+EUPORIAS
+FireWorks
+Galaxy
+Genalice
+Geneious
+GenePattern
+GeneSpring
+Genomatix
+Geoweaver
+GlideinWMS
+GobyWeb
+Golden Helix
+GridSpace
+Grin
+GUSE
+InQuest
+Invenio
+iPlant
+iReport
+Kepler
+Kepler/Ptolemy
+KNIME
+LabKey Server
+LIGER
+LONI Pipeline
+Luigi
+MAGPIE
+MARS
+MetaFlow
+mETL
+Moab Workload Manager
+Mobyle
+MOLGENIS/compute
+MonetDB
+Montage
+MOTEUR
+Mothur
+NEMO
+Nextflow
+Omicsoft
+Omixon Target
+Opal
+OpenMOLE
+OSWorkflow
+Pantheon
+Pegasus
+Pipeliner
+PL-GriWorkfloExecutioServic(WES)
+ProActive
+Pwrake
+PyCOMPSs
+QIIME
+RapidMiner
+ReFlow
+ReproZip
+RTG Core
+Ruffus
+SCuFL
+SEEKScience
+SeqWare
+SHIWA
+Snakemake
+STARLIMS
+STARS
+Strand NGS
+Strudel
+Sumatra
+SWARM
+SWEET
+Swift
+Swift/T
+TANGO
+Tavaxy
+Taverna
+Teradata
+Tiaki
+Toil
+Triana
+TRIANGLE
+Trident
+Triquetrum
+VariantDB
+VisTrails
+ViSUS
+WICUS
+WINGS
+WorkBench
+Workflower
+Yabi

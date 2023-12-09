@@ -1,0 +1,21 @@
+source,target,value
+Error Handling and Resolution,File Handling and Management,9
+Error Handling and Resolution,Workflow Execution and Management,4
+Error Handling and Resolution,Database Operations and Management,3
+Error Handling and Resolution,Data Manipulation and Analysis,2
+File Handling and Management,Error Handling and Resolution,9
+File Handling and Management,Workflow Execution and Management,4
+File Handling and Management,Database Operations and Management,2
+File Handling and Management,Data Manipulation and Analysis,1
+Workflow Execution and Management,Error Handling and Resolution,4
+Workflow Execution and Management,File Handling and Management,4
+Workflow Execution and Management,Database Operations and Management,1
+Workflow Execution and Management,Data Manipulation and Analysis,1
+Database Operations and Management,Error Handling and Resolution,3
+Database Operations and Management,File Handling and Management,2
+Database Operations and Management,Workflow Execution and Management,1
+Database Operations and Management,Data Manipulation and Analysis,0
+Data Manipulation and Analysis,Error Handling and Resolution,2
+Data Manipulation and Analysis,File Handling and Management,1
+Data Manipulation and Analysis,Workflow Execution and Management,1
+Data Manipulation and Analysis,Database Operations and Management,0

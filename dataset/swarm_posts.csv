@@ -1,0 +1,2069 @@
+Id,Title,Body,RatingsSentiCR,RatingsGPT35,RatingsGPTFineTuned
+18556005,testswarm cleanup action doesn't seem to work correctly,"I have around 5 qunit tests which have timed out according to testswarm. I tried to reset those tests using cleanp action.
+     api.php?action=cleanup
+It didn't work. The response from the action is
+{""cleanup"":{""resetTimedoutRuns"":0}}
+
+What can be the issue here ?
+",-1,-1,-1.0
+34111372,"docker swarm creation fails with ""remaining connection slots are reserved...""","Following the beginner's docs for OSX:
+
+# Terminal started via Docker Quickstart Terminal app.
+$ docker-machine create -d virtualbox local
+$ eval ""$(docker-machine env local)""
+$ docker run swarm create
+
+
+Results in pq: remaining connection slots are reserved for non-replication superuser connections.
+
+$ docker --version
+# Docker version 1.9.1, build a34a1d5
+$ docker run swarm --version
+# swarm version 1.0.0 (087e245)
+
+# Virtualbox version 5.0.10 r104061
+# OSX 10.11.1 (15B42)
+
+
+Any ideas what I'm doing wrong or how the docs need to be updated?
+",0,-1,-1.0
+34210848,Docker-compose and Docker-swarm,"I'm using docker-compose and docker swarm. I have created a docker-mgt server from which I did a docker-machine to setup a swarm cluster consisting of a swarm master and two swarm-agents. 
+
+I have created an Express app that gets started in a container and it seems the swarm master decided to have it on agent1. Then I have also a Wordpress site (example from the docker compose site) that I'm running with docker-compose on Docker Swarm.
+
+cloud-user@docker-mgt:~/wordpress$ docker-compose up
+wordpress_db_1 is up-to-date
+Creating wordpress_web_1
+ERROR: Error: image library/wordpress_web:latest not found
+
+
+The following images are available:
+
+cloud-user@docker-mgt:~/wordpress$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+orchardup/php5      latest              c385b8a81cee        18 months ago       330.1 MB
+swarm               latest              a9975e2cc0a3        19 hours ago        17.15 MB
+orchardup/mysql     latest              5a45a5a953bb        16 months ago       292.4 MB
+wordpress_web       latest              e484f88dc8c8        11 minutes ago      350.9 MB
+node-ip             latest              d177af00338b        39 minutes ago      549.5 MB
+centos              centos6             1a895dd3954a        8 weeks ago         190.6 MB
+
+
+So it does have the wordpress_web:latest available and still it complains.
+
+When running this wordpress app on a seperate docker host (not part of the swarm cluster) it runs just fine. To exclude a mistake on the wordpress app, I also tried another complete different app consisting of two containers (with docker-compose) and it is exactly the same issue.
+
+I'm beginning to think that docker compose and swarm can not work together smoothly but that's hard to believe of course.
+",-1,-1,-1.0
+36642617,How to run docker-compose against docker swarm (without docker-machine),"I have managed to manually set up a docker swarm (e.g.: without using docker-machine) following the official tutorial
+
+I am able to run containers on the swarm successfully using docker engine:
+
+docker -H :4000 run redis
+
+
+I would like to use docker-compose to run containers on the swarm, however I cannot seem to get this right. 
+
+The first thing I had to work out was how to get compose to talk on port :4000. I achieved this by specifying: export DOCKER_HOST="":4000"".
+
+However, now, when I run docker-compose I get the following error:
+
+$docker-compose up
+Creating network ""root_default"" with the default driver
+ERROR: Error response from daemon: failed to parse pool request for address space ""GlobalDefault"" pool """" subpool """": cannot find address space GlobalDefault (most likely the backing datastore is not configured)
+
+
+It feels like this issue has to do with either TLS or network, but I'm pretty stumped as to how to fix it, or even how to go about investigating it further. 
+
+I'm using Docker engine: 1.10, Compose 1.6. Swarm:latest
+
+In case it's useful, here is my docker info:
+
+$docker -H :4000 info
+Containers: 7
+ Running: 5
+ Paused: 0
+ Stopped: 2
+Images: 7
+Server Version: swarm/1.2.0
+Role: primary
+Strategy: spread
+Filters: health, port, dependency, affinity, constraint
+Nodes: 2
+ node02: 10.129.5.211:2375
+  └ Status: Healthy
+  └ Containers: 3
+  └ Reserved CPUs: 0 / 2
+  └ Reserved Memory: 0 B / 2.053 GiB
+  └ Labels: executiondriver=, kernelversion=3.13.0-79-generic, operatingsystem=Ubuntu 14.04.4 LTS, storagedriver=aufs
+  └ Error: (none)
+  └ UpdatedAt: 2016-04-15T08:28:20Z
+  └ ServerVersion: 1.11.0
+ node03: 10.129.6.21:2375
+  └ Status: Healthy
+  └ Containers: 4
+  └ Reserved CPUs: 0 / 2
+  └ Reserved Memory: 0 B / 2.053 GiB
+  └ Labels: executiondriver=, kernelversion=3.13.0-79-generic, operatingsystem=Ubuntu 14.04.4 LTS, storagedriver=aufs
+  └ Error: (none)
+  └ UpdatedAt: 2016-04-15T08:28:43Z
+  └ ServerVersion: 1.11.0
+Plugins: 
+ Volume: 
+ Network: 
+Kernel Version: 3.13.0-79-generic
+Operating System: linux
+Architecture: amd64
+CPUs: 4
+Total Memory: 4.105 GiB
+Name: b156985db557
+Docker Root Dir: 
+Debug mode (client): false
+Debug mode (server): false
+WARNING: No kernel memory limit support
+
+",-1,-1,-1.0
+38602903,docker swarm init could not choose an IP address error,"Experimenting with Docker Swarm with Docker Desktop for Mac. I tried this:
+
+docker-machine create -d virtualbox node-1
+docker-machine create -d virtualbox node-2
+docker-machine create -d virtualbox node-3
+
+eval $(docker-machine env node-1)
+
+docker swarm init \
+    --secret my-secret \
+    --auto-accept worker \
+    --listen-addr $(docker-machine ip node-1):2377
+
+
+The last command (docker swarm init) returns this error:
+
+
+  Error response from daemon: could not choose an IP address to
+  advertise since this system has multiple addresses
+
+
+I have no idea what's going on. Anyone have any idea how to debug?
+",-1,-1,-1.0
+38725808,Running custom script after azure container service deployment using swarm,"I want to run a custom script after a swarm cluster is ready. I'm using following template to create azure container service (swarm based). https://github.com/Azure/azure-quickstart-templates/tree/875d139c16c9c023dce519e6dd48c707e3473346/101-acs-swarm
+
+I couldn't find a way to run custom script automatically after the deployment finishes.
+",-1,-1,-1.0
+38882898,docker container vs swarm communication issue,"I have several docker containers that will run together just fine on a single machine.  One binds to port 80, another connects to a neo4j container that is also spun up.  The others are for inter-container work (I didn't build them, but I have to host them).  I have a docker swarm setup with docker engine 1.12 and a progrium/consul cluster across the 3 machines in the swarm.  The consul cluster can see all of the containers, and they work when using just run -d (on each single host as mentioned).  As soon as I put any of them out as a ""service"", they can no longer communicate.  I've tried creating a new overlay network but it had no impact.  
+
+I also tried running the one container that binds to port 80 as an individual container on all of the systems where the others are running as services.  Docker inspect shows them all on the same 172.17.0.0 network.
+
+I could really use some ideas on what to look at.  Thanks.
+
+
+
+First, I load neo4j with:
+
+docker run -d -p 192.168.2.201:7474:7474 \
+  --volume=$HOME/neo4j/data:/data neo4j:3.0
+
+
+Then, the subsequent containers are joining a consul cluster on the docker swarm using:
+
+docker run -d -e ""CONSULJOIN=172.17.0.2"" -e ""NEO4J_HOST=172.17.0.4"" \
+  -e ""NEO4J_PASSWORD=$NEO4J_PASS"" container
+
+
+When instead of docker run -d I use docker create service, the expectation is that if I replace the neo4j IP with 192.168.2.201, it should work.
+
+I also tried using an overlay network:
+
+docker network create -d overlay my-net
+
+
+And included the --net=my-net in the docker service command.  I don't know when I'll have time to debug further, but if this is enough to at least tell me what I did wrong that would be great.  If not, I'll try to get some more info as time permits.
+",-1,-1,-1.0
+40511376,"Python, Seaborn: Logarithmic Swarmplot has unexpected gaps in the swarm","Let's look at a swarmplot, made with Python 3.5 and Seaborn on some data (which is stored in a pandas dataframe df with column lables stored in another class. This does not matter for now, just look at the plot):
+ax = sns.swarmplot(x=self.dte.label_temperature, y=self.dte.label_current, hue=self.dte.label_voltage, data = df)
+
+
+Now the data is more readable if plotted in log scale on the y-axis because it goes over some decades.
+So let's change the scaling to logarithmic:
+ax.set_yscale(&quot;log&quot;)
+ax.set_ylim(bottom = 5*10**-10)
+
+
+Well I have a problem with the gaps in the swarms. I guess they are there because they have been there when the plot is created with a linear axis in mind and the dots should not overlap there. But now they look kind of strange and there is enough space to from 4 equal looking swarms.
+My question is: How can I force seaborn to recalculate the position of the dots to create better looking swarms?
+",-1,-1,-1.0
+41462177,Can't use keystoreRelativeTo path in ManagementFraction of Wildfly swarm,"I have problem with keystoreRelativeTo option in ManagementFraction of Wildfly swarm app.
+
+Here is the code:
+
+public static void main(String[] args) throws Exception {       
+        Swarm swarm = new Swarm(args);
+        Archive&lt;JAXRSArchive&gt; archive = createJaxRsArchive();       
+        swarm
+            .fraction(createManagementFraction())
+            .fraction(createUndertowFraction())
+            .fraction(createSecurityFraction())
+            .start()
+            .deploy(archive);
+    }
+
+
+ManagementFraction managementFraction = new ManagementFraction().securityRealm(""UndertowRealm"", (realm) -&gt; {
+    realm.truststoreAuthentication((authn) -&gt; { authn
+        //.keystoreRelativeTo(""/certs"")
+        .keystorePath(""sometruststore.jks"")             
+        .keystorePassword(""pass"");
+    });
+    realm.sslServerIdentity(new SslServerIdentity&lt;&gt;()
+        //.keystoreRelativeTo(""/certs"")
+        .keystorePath(""somekeystore.jks"")           
+        .keystorePassword(""pass"")
+        .alias(""x"")
+        .keyPassword(""pass"")
+            );
+});     
+return managementFraction;
+
+
+}
+
+Without "".keystoreRelativeTo(""/certs"")"" it works fine as long as *.jks files are in projects root dir. With option "".keystoreRelativeTo(""/certs"")"" I would expect so it checks for jks files inside projectRootDir/certs, but it's not. I've tried also with an absolute path for example C:/certs but doesn't work as well. 
+I've got error:
+
+
+  2017-01-03 21:56:26,638 ERROR [org.jboss.as.controller.management-operation] (Controller Boot Thread) WFLYCTL0013: Operation (""add"") failed - address: ([
+      (""subsystem"" => ""undertow""),
+      (""server"" => ""default-server""),
+      (""https-listener"" => ""https"")
+  ]) - failure description: {
+      ""WFLYCTL0180: Services with missing/unavailable dependencies"" => undefined,
+      ""WFLYCTL0288: One or more services were unable to start due to one or more indirect dependencies not being available."" => {
+          ""Services that were unable to start:"" => [""jboss.undertow.listener.https""],
+          ""Services that may be the cause:"" => [""jboss.server.path./certs/""]
+      }
+  }
+  
+  2017-01-03 21:56:26,639 ERROR [org.jboss.as.controller.management-operation] (Controller Boot Thread) WFLYCTL0013: Operation (""add"") failed - address: ([
+      (""core-service"" => ""management""),
+      (""security-realm"" => ""UndertowRealm"") ]) - failure description: {
+      ""WFLYCTL0412: Required services that are not installed:"" => [""jboss.server.path./certs/""],
+      ""WFLYCTL0180: Services with missing/unavailable dependencies"" => [
+          ""jboss.server.controller.management.security_realm.UndertowRealm.trust-manager is missing [jboss.server.path./certs/]"",
+          ""jboss.server.controller.management.security_realm.UndertowRealm.key-manager is missing [jboss.server.path./certs/]""
+      ] }
+
+
+I dont know what ""jboss.server.path"" is, I thought it is some jboss properties but can't find nor set it. I've tried also with jboss.server.config.dir parameter (setting it before to /certs/ or C:/certs/):
+ .keystoreRelativeTo(""jboss.server.config.dir"")
+
+but error message is the same: (...) ""Services that were unable to start:"" => [""jboss.undertow.listener.https""],
+        ""Services that may be the cause:"" => [""jboss.server.path.\""jboss.server.config.dir\""""] (...)
+
+Is it some bug? Any help would be appreciated.
+",-1,-1,-1.0
+40721242,"Seaborn's boxplot+swarmplot: different color for x, different symbol for hues","I'm trying to generate a boxplot using seaborn with a different x groups, and additional hues. See this code:
+tips = sns.load_dataset(&quot;tips&quot;)
+
+sns.stripplot(x=&quot;day&quot;, y=&quot;total_bill&quot;, hue=&quot;smoker&quot;,
+              data=tips, jitter=True,
+              palette=&quot;Set2&quot;, dodge=True,linewidth=1,edgecolor='gray')
+
+sns.boxplot(x=&quot;day&quot;, y=&quot;total_bill&quot;, hue=&quot;smoker&quot;,
+            data=tips,palette=&quot;Set2&quot;,fliersize=0)
+
+
+I would like to have each x boxplots (in this example, each day) be a different color, while each hue (in this case, smoker/non-smoker) to be represented with a different symbol on the swarmplot.
+I've tried to play with the palette argument, but did not get what I wanted. I also tried to play with the artists directly, but changing the facecolor of the boxplot also changes the edgecolor for some reason, and I don't know how to change the symbols on the swarmplot anyway.
+",-1,1,-1.0
+40510437,Docker swarm mode load balancing not working as described,"Update
+
+I believe the culprit is the master who does not appear to be listening on port 7946. netstat shows that 7946 is listening on the nodes, but not the master. When I check the syslogs for the nodes I see the following error
+
+level=error msg=""Failed to join memberlist [10.0.0.12] on retry: 1 error(s) occurred:\n\n* Failed to join 10.0.0.12: dial tcp 10.0.0.12:7946: getsockopt: connection refused""
+
+
+Original Post
+
+I am running a three node Swarm Mode cluster in AWS; one master and two workers. This is swarm mode not to be confused with docker swarm from pre 1.12. 
+
+I created all of the services with docker-machine. Each machine is running Ubuntu 15.10 with Docker 1.12.3.
+
+Linux swarm-master-01 4.2.0-42-generic #49-Ubuntu SMP Tue Jun 28 21:26:26 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+
+
+Using the master node I have created a service with the following
+
+docker service create --replicas 1 --name myapp -p 3000 myapp
+
+
+When I run docker service ps myapp I get the following output
+
+ID                         NAME     IMAGE         NODE             DESIRED STATE  CURRENT STATE            ERROR
+02awst8p9pezgpkfzqgz8z79t  myapp.1  myapp:latest  swarm-node-01    Running        Running 19 minutes ago
+
+
+The running task is deployed to swarm-node-01.
+
+I checked the auto-selected port which was published publicly
+
+$ docker service inspect myapp | jq .[].Endpoint.Ports[].PublishedPort
+30000
+
+
+According to the documentation:
+
+
+  External components, such as cloud load balancers, can access the service on the PublishedPort of any node in the cluster whether or not the node is currently running the task for the service. All nodes in the swarm route ingress connections to a running task instance.
+
+
+But when I try to curl the nodes who do not have the task running I'm getting connection refused. 
+
+$ curl $(docker-machine ip swarm-node-01):30000/stats
+{""uptime"":""2016-11-09T14:48:35Z"",""requestCount"":7,""statuses"":{""200"":7},""pid"":1,""open_db_conns"":0}
+
+$ curl $(docker-machine ip swarm-node-02):30000/stats
+curl: (7) Failed to connect to [the IP] port 30000: Connection refused
+
+
+note: I scrubbed the IP of node-02
+
+
+
+My Troubleshooting:
+
+
+The nodes are both properly connected to the swarm
+Scaling the service up to 5 (which inherently deploys the task to every node) makes curl work on every node, because the task is deployed to every node. 
+
+
+UPDATE 1
+
+I initialized the swarm with 
+
+docker swarm init --advertise-addr 10.0.0.12:2377 --listen-addr 10.0.0.12:2377
+
+
+I checked the syslogs from the nodes and I'm seeing the following errors
+
+level=error msg=""Failed to join memberlist [10.0.0.12] on retry: 1 error(s) occurred:\n\n* Failed to join 10.0.0.12: dial tcp 10.0.0.12:7946: getsockopt: connection refused""
+
+
+I checked to see if the ingress port was listening and it doesn't seem to be
+
+ubuntu@swarm-master-01:~$ sudo lsof -i :7946
+ubuntu@swarm-master-01:~$ cat &lt; /dev/tcp/10.0.0.12/7946
+-bash: connect: Connection refused
+-bash: /dev/tcp/10.0.0.12/7946: Connection refused
+ubuntu@swarm-master-01:~$ cat &lt; /dev/tcp/0.0.0.0/7946
+-bash: connect: Connection refused
+-bash: /dev/tcp/0.0.0.0/7946: Connection refused
+
+",-1,-1,-1.0
+39581882,Updating docker containers on swarm?,"How does docker swarm (1.12+) works with container updates? Example:
+
+On one node I have 2 containers, both uses 4GB of memory, total is 8 GB, which is equals to node size.
+
+What if I change memory size of one container to e.g. 6 GB? Will swarm :
+
+
+reschedule container to new node that has 6 GB free?
+fail to update?
+keeps working both containers as before?
+
+
+I am failing to figure out by myself.
+",1,-1,-1.0
+38618609,docker swarm 1.12 --name option not recognized,"I'm trying to create the following service in Docker Swarm Mode (1.12 rc5)
+
+docker service create --replicas 1 –-name mongo -p 27017:27017/tcp –-network ugidotnet15 mongo:3.2
+
+
+it's seems to me ok, but i receive the following error message
+
+Error response from daemon: rpc error: code = 3 desc = ContainerSpec: ""–-name"" is not a valid repository/tag
+
+
+i really don't understand what's wrong here
+",-1,-1,-1.0
+50334474,Deploying multiple zookeepers in docker swarm,"I'm attempting to deploy multiple zookeepers (each in their own container) using Docker Swarm. 
+
+Eventually I want to use 3 zookeepers, but for now I'm just trying to get 2 instances to work.
+
+My current docker-compose.yml:
+
+version: '3'
+
+services:
+  zoo1:
+    image: zookeeper
+    restart: unless-stopped
+    hostname: zoo1
+    ports:
+      - 2181:2181
+    environment:
+        ZOO_MY_ID: 1
+        ZOO_SERVERS: server.1=0.0.0.0:2888:3888;server.2=zoo2:2888:3888
+    volumes:
+      - ./full-stack/zoo1/data:/data
+      - ./full-stack/zoo1/datalog:/datalog
+    networks:
+      - kafka_network
+
+  zoo2:
+    image: zookeeper
+    restart: unless-stopped
+    hostname: zoo2
+    ports:
+      - 2182:2181
+    environment:
+        ZOO_MY_ID: 2
+        ZOO_SERVERS: server.1=zoo1:2888:3888;server.2=0.0.0.0:2888:3888
+    volumes:
+      - ./full-stack/zoo2/data:/data
+      - ./full-stack/zoo2/datalog:/datalog
+    networks:
+      - kafka_network
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    volumes:
+      - ""/var/run/docker.sock:/var/run/docker.sock""
+    ports:
+      - ""8080:8080""
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  kafka_network:
+    external:
+      name: kafkaNetwork
+
+
+kafkaNetwork is an overlay network I created using the command
+
+docker network create -d overlay --attachable kafkaNetwork
+
+
+I found the following docker forum post https://forums.docker.com/t/cannot-get-zookeeper-to-work-running-in-docker-using-swarm-mode/27109/3 but wasn't able to successfully get my instances of zookeeper to work.
+",1,-1,-1.0
+50846650,Beeswarm plot with force - add links to nodes,"I've created a Beeswarm plot with d3v4 and d3.forceSimulation, and the points are where I want them to be:
+
+
+
+var data = [
+  { country: ""Algeria"", amount: 22, year: 2000 },
+  { country: ""Argentina"", amount: 49, year: 1990 },
+  { country: ""Armenia"", amount: 3, year: 1990 },
+  { country: ""Australia"", amount: 9, year: 2010 },
+  { country: ""Austria"", amount: 1, year: 2010 },
+  { country: ""Bahamas"", amount: 5, year: 2018 },
+  { country: ""Bahrain"", amount: 22, year: 2018 },
+  { country: ""Belarus"", amount: 9, year: 2010 },
+  { country: ""Belgium"", amount: 46, year: 2018 },
+  { country: ""Brazil"", amount: 79, year: 1990 },
+  { country: ""Canada"", amount: 12, year: 2000 },
+  { country: ""China"", amount: 26, year: 2018 },
+  { country: ""Colombia"", amount: 9, year: 2010 },
+  { country: ""Croatia"", amount: 8, year: 2000 },
+  { country: ""Cuba"", amount: 14, year: 1990 },
+  { country: ""Czech Republic"", amount: 11, year: 2018 },
+  { country: ""Denmark"", amount: 125, year: 2010 },
+  { country: ""Canada"", amount: 124, year: 2018 },
+  { country: ""Bahrain"", amount: 39, year: 2010 },
+  { country: ""Estonia"", amount: 141, year: 2018 },
+  { country: ""Ethiopia"", amount: 38, year: 1990 },
+  { country: ""France"", amount: 4, year: 2018 },
+  { country: ""Germany"", amount: 15, year: 2000 },
+  { country: ""Greece"", amount: 16, year: 2010 },
+  { country: ""Grenada"", amount: 241, year: 2010 },
+  { country: ""Hungary"", amount: 135, year: 1990 },
+  { country: ""India"", amount: 22, year: 1990 },
+  { country: ""Indonesia"", amount: 31, year: 1990 },
+  { country: ""Iran"", amount: 88, year: 2010 },
+  { country: ""Ireland"", amount: 12, year: 2018 },
+  { country: ""Italy"", amount: 128, year: 2000 },
+  { country: ""Jamaica"", amount: 1, year: 2018 },
+  { country: ""Japan"", amount: 41, year: 1990 },
+  { country: ""Jordan"", amount: 137, year: 2010 },
+  { country: ""Iran"", amount: 13, year: 1990 },
+  { country: ""Malaysia"", amount: 25, year: 2018 },
+  { country: ""Mexico"", amount: 59, year: 2010 },
+  { country: ""Moldova"", amount: 71, year: 2000 },
+  { country: ""Mongolia"", amount: 22, year: 2018 },
+  { country: ""Morocco"", amount: 131, year: 1990 },
+  { country: ""Netherlands"", amount: 129, year: 2018 },
+  { country: ""New Zealand"", amount: 148, year: 2018 },
+  { country: ""Niger"", amount: 1, year: 2010 },
+  { country: ""Nigeria"", amount: 41, year: 1990 },
+  { country: ""Norway"", amount: 14, year: 2010 },
+  { country: ""Philippines"", amount: 15, year: 2018 },
+  { country: ""Poland"", amount: 12, year: 2010 },
+  { country: ""Portugal"", amount: 31, year: 2000 },
+  { country: ""Puerto Rico"", amount: 51, year: 2000 },
+  { country: ""Romania"", amount: 15, year: 2000 },
+  { country: ""Serbia"", amount: 18, year: 2000 },
+  { country: ""South Africa"", amount: 14, year: 2010 },
+  { country: ""Sweden"", amount: 11, year: 2018 },
+  { country: ""Switzerland"", amount: 7, year: 2010 },
+  { country: ""Thailand"", amount: 61, year: 2018 },
+  { country: ""Trinidad and Tobago"", amount: 12, year: 2018 },
+  { country: ""Tunisia"", amount: 34, year: 2010 },
+  { country: ""Turkey"", amount: 28, year: 2010 },
+  { country: ""Ukraine"", amount: 11, year: 2010 },
+  { country: ""Uzbekistan"", amount: 123, year: 2018 },
+  { country: ""Venezuela"", amount: 23, year: 2018 },
+  { country: ""Iran"", amount: 13, year: 2018 }
+];
+
+var width = 1000,
+  height = 500;
+
+var svg = d3.select(""#chart"")
+  .append(""svg"")
+  .attr(""width"", width)
+  .attr(""height"", height);
+
+var x = d3.scaleLinear()
+  .range([95, 650]);
+
+var y = d3.scaleLinear()
+  .range([100, 450]);
+
+  data.forEach(d =&gt; {
+    d.amount = +d.amount;
+  });
+
+  var sort = data.sort((a, b) =&gt; d3.descending(a, b));
+
+  y.domain(d3.extent(data, function(d) {
+    return d.amount;
+  }));
+  x.domain(d3.extent(data, function(d) {
+    return d.year;
+  }));
+
+  var simulation = d3.forceSimulation(data)
+    .force(""x"", d3.forceX(function(d) {
+      return x(d.year);
+    }).strength(3))
+    .force(""y"", d3.forceY(function(d) {
+      return y(d.amount)
+    }).strength(2))
+    .force(""collide"", d3.forceCollide(7).strength(7))
+    .stop();
+
+  for (var i = 0; i &lt; data.length * 2; ++i) simulation.tick();
+
+  var circles = svg.selectAll("".circles"")
+    .data(data);
+
+  var circlesEnter = circles.enter()
+    .append(""circle"");
+
+  circlesEnter.attr(""r"", 4)
+    .attr(""cx"", function(d) {
+      return d.x
+    })
+    .attr(""cy"", function(d) {
+      return d.y
+    })
+    .attr(""fill"", function(d) {
+      if (d.country == ""Iran"") {
+        return ""#FF0044""
+      } else if (d.country == ""Canada"") {
+        return ""#00A9E9""
+      } else if (d.country == ""Bahrain"") {
+        return ""#6BF4C6""
+      } else {
+        return '#333'
+      }
+    })
+    .attr('class', function(d) {
+      return d.amount + ' ' + d.year + ' ' + d.country
+    })
+
+  // connector lines
+
+  var byCountry = d3.nest()
+    .key(function(d) {
+      return d.country;
+    })
+    .entries(data);
+
+  var countryNames = d3.values(byCountry).map(function(d) {
+    return d.values.map(function(v) {
+      return v.country;
+    }).join(', ');
+  });
+
+  for (i = 0; i &lt; countryNames.length; i++) {
+    eaco = countryNames[i].split(',')[0]
+
+    const filterByCountry = (country, data) =&gt; item =&gt; item.country === country
+    connectData = data.filter(filterByCountry(eaco))
+
+    var linesGroup = svg.append(""g"")
+      .attr(""class"", ""connectors"");
+
+    var linec = d3.line()
+      .x(function(d) {
+        return x(d.year)
+      })
+      .y(function(d) {
+        return y(d.amount)
+      })
+
+    // using below as the points does not work
+    // .x(function(d) { return x(d.x)})
+    // .y(function(d) { return y(d.y)})
+
+    var lineGraph = linesGroup.selectAll('.connect')
+      .data(connectData)
+      .enter()
+      .append(""path"")
+      .attr('class', function(d) {
+        return d.amount + ' ' + d.year + ' ' + d.country
+      })
+      .attr(""d"", linec(connectData))
+      .attr(""stroke"", function(d) {
+        if (d.country == ""Iran"") {
+          return ""#FF0044""
+        } else if (d.country == ""Canada"") {
+          return ""#00A9E9""
+        } else if (d.country == ""Bahrain"") {
+          return ""#6BF4C6""
+        } else {
+          return '#333'
+        }
+      })
+      .attr(""stroke-width"", 1)
+      .attr(""fill"", ""none"")
+  }
+&lt;script src=""https://d3js.org/d3.v4.min.js""&gt;&lt;/script&gt;
+&lt;body&gt;&lt;div id=""chart""&gt;&lt;/div&gt;&lt;/body&gt;
+
+
+
+
+The x axis shows years.
+The y axis shows amount.
+Each point is a country.
+
+I'd like to add connecting lines between points that are the same country over different years. I've color-coded these to clarify.
+
+
+
+The problem is, I can't get the x/y to match up with the points based on the force. I commented out what I thought would work. Any ideas?
+",-1,-1,-1.0
+50758123,detect service in another host on docker swarm,"There are three linux pc, such as A (with ubutun 16.04), B (centos 7), C (centos 7). And I have installed docker 18.03.1-ce on them. I inited a swarm, and nodes list below:
+
+
+Now, I used a docker-compose.yml as follow:
+
+
+Accoroding to this yml, and a swarm network named 'ishop_default' was created on each node, and services can detect each other in the
+same host, but failed to detect services in other hosts.
+",-1,-1,-1.0
+50757254,Hyperledger composer over docker swarm,"I have deployed hyperledger composer over docker swarm following this article https://medium.com/@drakshayani7/hi-i-have-deployed-hyperledger-composer-application-over-docker-swarm-f54089d2ed7a. Everything is working perfect. 
+Now I'm going one step further by adding rest server with passport-google-strategy in the current docker swarm network. 
+
+But Its giving me error as ""Exception: Error: Error trying to ping. Error: No peers available to query. last error was Error: 14 UNAVAILABLE: Connect Failed Error: Error trying to ping. Error: No peers available to query. last error was Error: 14 UNAVAILABLE: Connect Failed at _checkRuntimeVersions.then.catch (/home/composer/.npm-global/lib/node_modules/composer-rest-server/node_modules/composer-connector-hlfv1/lib/hlfconnection.js:813:34) 
+at  ""
+
+Currently in rest server card's connection.json file I have kept service names. I even tried host name and docker ip address. But still it showing the same error.
+
+Can anyone please guide me on this...
+",-1,1,-1.0
+50743027,docker swarm mongodb task non-zero exit 252,"I'm trying to deploy a Docker Swarm stack from a Docker Compose file and I'm having issues initiating a MongoDB service.
+
+Every time I want to, the following error occurs:
+
+""task: non-zero exit (252)""
+
+
+It's important to note that this error occurs in Docker for Windows. In the Linux version, it deploys fine.
+",-1,-1,-1.0
+50564799,Converting the kong official docker-compose to deploy in docker swarm mode not working?,"I am trying to write the docker-compose file of kong api gateway that I can use to deploy as stack in docker nodes running in docker swarm mode.
+
+
+  The kong has its own official docker-compose file but unfortunately it
+  is using the version-2.1 and thus I have to remove some features like
+  depends on with conditions.
+
+
+Bellow is the docker-compose.yml I have written to make it docker stack compatible. The problem is, migrations service is not working
+
+version: '3.4'
+networks:
+ net-kong:
+services:  consul:
+    image: progrium/consul:latest    networks:
+      - net-kong    command: -server -bootstrap -ui-dir /ui    healthcheck:
+      test: [""CMD-SHELL"", ""curl -I -s -L http://127.0.0.1:8500 || exit 1""]
+      interval: 5s
+      retries: 10
+    ports:
+      - 8500:8500
+    expose:
+      - 53
+      - 8300
+      - 8301
+      - 8302
+      - 8400
+      - 8500
+    dns:
+      - 127.0.0.1
+
+  nginx-lb:
+    image: nginx:kong
+    networks:
+      - net-kong
+    depends_on:
+      - consul
+    ports:
+      - 8000:8000
+      - 8443:8443
+      - 8001:8001
+      - 8444:8444
+    expose:
+      - 8000
+      - 8443
+      - 8001
+      - 8444
+    links:
+      - consul:consul
+    command: &gt;
+        /bin/containerpilot
+        -config file:///etc/containerpilot/containerpilot.json
+        nginx -g ""daemon off;""
+
+  kong-database:
+    image: postgres:9.5
+    networks:
+      - net-kong
+    environment:
+      - POSTGRES_USER=kong
+      - POSTGRES_DB=kong
+    healthcheck:
+      test: [""CMD"", ""pg_isready"", ""-U"", ""postgres""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  kong-migration:
+    image: kong
+    networks:
+      - net-kong
+    depends_on:
+      - kong-database
+    environment:
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+    command: kong migrations up
+
+  kong:
+    image: kong
+    networks:
+      - net-kong
+    depends_on:
+      - kong-database
+      - kong-migration
+    environment:
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+      - KONG_PG_DATABASE=kong
+      - KONG_ADMIN_LISTEN=0.0.0.0:8001
+    expose:
+      - 8000
+      - 8001
+      - 8443
+      - 8444
+    healthcheck:
+      test: [""CMD-SHELL"", ""curl -I -s -L http://127.0.0.1:8000 || exit 1""]
+      interval: 5s
+      retries: 10
+
+
+
+  To my understanding it is not working because the migration is trying
+  to run before the database service is running.Which will lead to
+  error. Please guide me on this.
+
+
+Migrations is not working and even the logs shows nothing when typed.docker service logs service-name
+",-1,-1,-1.0
+51169564,Docker swarm unresponsive after scaling VMSS in Azure,"I've got a web app running on a Docker swarm in Azure that was set up through the Docker EE For Azure (17.06) bootstrapper.  As the website isn't currently processing a large amount of traffic, I scaled the VM size down to the cheapest option (A0).  After scaling these down website was unresponsive.
+
+I SSHed on to a manager node and typing commands was slow.  Figuring that I'd scaled down too much I scaled back up to the previous tier I had been on (D1_v2).  
+
+My website remained unresponsive so I SSHed onto a manager again.  The terminal was responsive, however docker commands such as docker service ls and docker node ls do nothing.  The VM in general seems to be working fine, however.  I can  cat files, run docker version etc.
+
+Does anyone have any ideas why this may have happened?  Is there any way I can fix it, or is my best option to just provision a new environment?  
+
+Thanks 
+",1,-1,-1.0
+51205196,"Docker - Unable to join swarm as manager, able to join as worker","When executing a docker swarm join command (as manager), I face the following error:
+
+Error response from daemon: manager stopped: can't initialize raft node: rpc error: code = Internal desc = connection error: desc = ""transport: x509: certificate is not valid for any names, but wanted to match swarm-manager""
+
+
+Joining the same swarm, but as worker, works flawless.
+
+The logfiles show me the following items:
+
+kmo@GETSTdock-app01 ~ $ sudo tail -f /var/log/upstart/docker.log
+time=""2018-07-06T09:18:17.890620199+02:00"" level=info msg=""Listening for connections"" addr=""[::]:2377"" module=node node.id=7j75bmugpf8k2o0onta1yp4zy proto=tcp
+time=""2018-07-06T09:18:17.892234469+02:00"" level=info msg=""manager selected by agent for new session: { 10.130.223.107:2377}"" module=node/agent node.id=7j75bmugpf8k2o0onta1yp4zy
+time=""2018-07-06T09:18:17.892364019+02:00"" level=info msg=""waiting 0s before registering session"" module=node/agent node.id=7j75bmugpf8k2o0onta1yp4zy
+time=""2018-07-06T09:18:18.161362606+02:00"" level=error msg=""fatal task error"" error=""cannot create a swarm scoped network when swarm is not active"" module=node/agent/taskmanager node.id=7j75bmugpf8k2o0onta1yp4zy service.id=p3ng4om2m8rl7ygoef18ayohp task.id=weaubf3qj5goctlh2039sjvdg
+time=""2018-07-06T09:18:18.162182077+02:00"" level=error msg=""fatal task error"" error=""cannot create a swarm scoped network when swarm is not active"" module=node/agent/taskmanager node.id=7j75bmugpf8k2o0onta1yp4zy service.id=6sl9y5rcov6htwbyvm504ewh2 task.id=j3foc6rjszuqszj41qyqb6mpe
+time=""2018-07-06T09:18:18.184847516+02:00"" level=info msg=""Stopping manager"" module=node node.id=7j75bmugpf8k2o0onta1yp4zy
+time=""2018-07-06T09:18:18.184993569+02:00"" level=info msg=""Manager shut down"" module=node node.id=7j75bmugpf8k2o0onta1yp4zy
+time=""2018-07-06T09:18:18.185020917+02:00"" level=info msg=""shutting down certificate renewal routine"" module=node/tls node.id=7j75bmugpf8k2o0onta1yp4zy node.role=swarm-manager
+time=""2018-07-06T09:18:18.185163663+02:00"" level=error msg=""cluster exited with error: manager stopped: can't initialize raft node: rpc error: code = Internal desc = connection error: desc = \""transport: x509: certificate is not valid for any names, but wanted to match swarm-manager\""""
+time=""2018-07-06T09:18:18.185492995+02:00"" level=error msg=""Handler for POST /v1.37/swarm/join returned error: manager stopped: can't initialize raft node: rpc error: code = Internal desc = connection error: desc = \""transport: x509: certificate is not valid for any names, but wanted to match swarm-manager\""""
+
+
+I face similar problems when I join as worker, and then attempt to promote the node to a manager node.
+
+Docker version = 18.03.1
+
+OS = Ubuntu 14.04 LTS
+
+Anybody an idea how to resolve this?
+",-1,-1,-1.0
+51323876,docker swarm - connections from wildfly to postgres randomly hang,"I'm experiencing a weird problem when deploying a docker stack (compose file).
+
+I have a three node docker swarm - master and two workers.
+All machines are CentOS 7.5 with kernel 3.10.0 and docker 18.03.1-ce.
+
+Most things run on the master, one of which is a wildfly (v9.x) application server.
+On one of the workers is a postgres database. 
+After deploying the stack things work normally, but after a while (or maybe after a specific action in the web app) request start to hang.
+Running netstat -ntp inside the wildfly container shows 52 bytes stuck in the Send-q:
+
+tcp        0     52 10.0.0.72:59338         10.0.0.37:5432          ESTABLISHED -
+
+
+On the postgres side the connection is also in ESTABLISHED state, but the send and receive queues are 0.
+It's always exactly 52 bytes. I read somewhere that ACK packets with timestamps are also 52 bytes. Is there any way I can verify that?
+We have the following sysctl tunables set:
+
+net.ipv4.tcp_keepalive_time = 600
+net.ipv4.tcp_keepalive_intvl = 60
+net.ipv4.tcp_keepalive_probes = 3
+net.ipv4.tcp_timestamps = 0
+
+
+The first three were needed because of this.
+
+All services in the stack are connected to the same default network that docker creates.
+Now if I move the postgres service to be on the same host as the wildfly service the problem doesn't seem to surface or if I declare a separate network for postgres and add it only to the services that need the database (and the database of course) the problem also doesn't seem to show. 
+
+Has anyone come across a similar issue? Can anyone provide any pointers on how I can debug the problem further?
+",-1,-1,-1.0
+56820126,can I deploy local build to docker swarm in virtual machine?,"I am learning Docker and trying to follow the Docker tutorial and am in step 4 here. 
+
+Basically in this step, we are creating 2 VMs for docker swarm: 1 as swarm manager and 1 as swarm worker.
+
+I think it pulls docker-hub pushed image to the virtual machines to get the service working in swarm. Problem is I am not pushing my built image to docker hub.
+
+My question is, can I use local build to deploy to the swarm VM?
+
+I tried to change image line the example docker-compose.yml to build like so:
+
+version: ""3""
+services:
+  web:
+    # replace username/repo:tag with your name and image details
+    # image: friendlyhello
+    build: .
+    deploy:
+      replicas: 5
+      resources:
+        limits:
+          cpus: ""0.1""
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - ""4000:80""
+    networks:
+      - webnet
+networks:
+  webnet:
+
+
+
+it of course does not work, which is why I am asking if there is a way to do this?
+",1,1,-1.0
+56851148,Cassandra replicas on single docker-swarm node,"I've a single docker-swarm manager node (18.09.6) running and I'm playing with spinning up a cassandra cluster. I'm using the following definition and it works in that the seed/master and slave spin up and communicate/replicate their data/schema changes fine:
+
+services:
+  cassandra-masters:
+    image: cassandra:2.2
+    environment:
+      - MAX_HEAP_SIZE=128m
+      - HEAP_NEWSIZE=32m
+      - CASSANDRA_BROADCAST_ADDRESS=cassandra-masters
+    deploy:
+      mode: replicated
+      replicas: 1
+  cassandra-slaves:
+    image: cassandra:2.2
+    environment:
+      - MAX_HEAP_SIZE=128m
+      - HEAP_NEWSIZE=32m
+      - CASSANDRA_SEEDS=cassandra-masters
+      - CASSANDRA_BROADCAST_ADDRESS=cassandra-slaves
+    deploy:
+      mode: replicated
+      replicas: 1
+    depends_on:
+      - cassandra-masters
+
+
+When I change the replica count from 1 to 2, either on deployment of the stack or a post deploy scale, the second task for the cassandra slave is created, but constantly fails with an error indicating it cannot gossip with the seed node:
+
+INFO  10:51:03 Loading persisted ring state
+INFO  10:51:03 Starting Messaging Service on /10.10.0.200:7000 (eth0
+INFO  10:51:03 Handshaking version with cassandra-masters/10.10.0.142
+Exception (java.lang.RuntimeException) encountered during startup: Unable to gossip with any seeds
+java.lang.RuntimeException: Unable to gossip with any seeds
+    at org.apache.cassandra.gms.Gossiper.doShadowRound(Gossiper.java:1360)
+    at org.apache.cassandra.service.StorageService.checkForEndpointCollision(StorageService.java:521)
+    at org.apache.cassandra.service.StorageService.prepareToJoin(StorageService.java:756)
+    at org.apache.cassandra.service.StorageService.initServer(StorageService.java:676)
+    at org.apache.cassandra.service.StorageService.initServer(StorageService.java:562)
+    at org.apache.cassandra.service.CassandraDaemon.setup(CassandraDaemon.java:310)
+    at org.apache.cassandra.service.CassandraDaemon.activate(CassandraDaemon.java:548)
+    at org.apache.cassandra.service.CassandraDaemon.main(CassandraDaemon.java:657)
+ERROR 10:51:34 Exception encountered during startup
+java.lang.RuntimeException: Unable to gossip with any seeds
+    at org.apache.cassandra.gms.Gossiper.doShadowRound(Gossiper.java:1360) ~[apache-cassandra-2.2.14.jar:2.2.14]
+    at org.apache.cassandra.service.StorageService.checkForEndpointCollision(StorageService.java:521) ~[apache-cassandra-2.2.14.jar:2.2.14]
+    at org.apache.cassandra.service.StorageService.prepareToJoin(StorageService.java:756) ~[apache-cassandra-2.2.14.jar:2.2.14]
+    at org.apache.cassandra.service.StorageService.initServer(StorageService.java:676) ~[apache-cassandra-2.2.14.jar:2.2.14]
+    at org.apache.cassandra.service.StorageService.initServer(StorageService.java:562) ~[apache-cassandra-2.2.14.jar:2.2.14]
+    at org.apache.cassandra.service.CassandraDaemon.setup(CassandraDaemon.java:310) [apache-cassandra-2.2.14.jar:2.2.14]
+    at org.apache.cassandra.service.CassandraDaemon.activate(CassandraDaemon.java:548) [apache-cassandra-2.2.14.jar:2.2.14]
+    at org.apache.cassandra.service.CassandraDaemon.main(CassandraDaemon.java:657) [apache-cassandra-2.2.14.jar:2.2.14]
+
+
+I'd like to understand what is causing the issue and whether there is a way to work-around it? I'm just investigating what any roadblocks are to getting to production where we'd obviously be spinning the cassandra tasks/replicas up on different nodes rather than the one node.
+
+EDIT: I've spun the same stack up on a two node swarm and I'm seeing the same behaviour, i.e. when I scale to a second ""slave"" task, it fails with the same error, so it's not an issue particular to trying to run two tasks on the same node.
+",-1,-1,-1.0
+56884375,Deploy ELK on single node docker swarm failed,"I am trying to deploy ELK on my small server 2 Core / 2G RAM. But ELK stack server just keep restarting and cannot work. 
+
+The log printed on those container shows no error and just few warning about deprecated method.
+
+Logstash log:
+OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.headius.backport9.modules.Modules (file:/usr/share/logstash/logstash-core/lib/jars/jruby-complete-9.2.7.0.jar) to field java.io.FileDescriptor.fd
+WARNING: Please consider reporting this to the maintainers of com.headius.backport9.modules.Modules
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+
+
+
+No error prints at Kibana and elasticsearch container
+
+Here is the docker stack composer file: https://github.com/deviantony/docker-elk/blob/master/docker-stack.yml. I didn't not change anything except turn down the heap size.
+
+But if I use docker-compose instead of docker stack deploy in swarm mode, everything goes smoothly. 
+
+Also, my CPU jump up to 100% while Memory usage only 60% when I startup the service. 
+
+How can I debug for this problem? Thanks in advance.
+",-1,-1,-1.0
+57595493,How to disable TLS 1.0 in Wildfly swarm,"Just found out that in Wildfly Swarm 2018.5.0, we can't manage to disable the older TLSv1.0 and TLSv1.1 protocols.
+
+We used to do it like below in 2017.x;
+
+-Dswarm.undertow.servers.default-server.https-listeners.https.enabled-protocols=""TLSv1.2""
+
+
+However, now, this gives me an weird message without much explanation.
+
+INFO  [org.wildfly.security] (ServerService Thread Pool -- 4) ELY00001: WildFly Elytron version 1.1.6.Final
+ERROR [org.jboss.as.controller.management-operation] (ServerService Thread Pool -- 8) WFLYCTL0013: Operation (""add"") failed - address: ([
+(""subsystem"" =&gt; ""undertow""),
+(""server"" =&gt; ""default-server""),
+(""https-listener"" =&gt; ""https"")
+]) - failure description: ""WFLYCTL0155: 'socket-binding' may not be null""
+ERROR [org.jboss.as.controller.management-operation] (Controller Boot Thread) ""WFLYCTL0193: Failed executing subsystem undertow boot operations""
+ERROR [org.jboss.as.controller.management-operation] (Controller Boot Thread) WFLYCTL0013: Operation (""parallel-subsystem-boot"") failed - address: ([]) - failure description: ""\""WFLYCTL0193: Failed executing subsystem undertow boot operations\""""
+FATAL [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0056: Server boot has failed in an unrecoverable manner; exiting. See previous messages for details.
+
+
+Any help would be much appreciated!
+",1,-1,-1.0
+57728783,Flink unable to connect with kafka and hadoop in cluster setup using docker swarm,"Setup Details:
+
+We have Flink which performing real time data analysis with the help of Apache Kafka and for fault tolerance we have hadoop which will take care checkpoint and savepoint.
+
+Kafka-Flink-Hadoop all are clustered.
+
+We are using docker swarm to run all the setup.
+
+Docker swarm yml file for flink cluster:
+
+version: '3.2'
+
+services:
+  jobmanager:
+    image: flink:1.7-hadoop28-alpine
+    hostname: jobmanager
+    ports:
+      - target: 8081
+        published: 8081
+        protocol: tcp
+        mode: host
+    deploy:
+      placement:
+        constraints: [node.ip == host1]
+      endpoint_mode: dnsrr
+    command: jobmanager
+    volumes:
+      - /etc/flink-cep:/etc/flink-cep
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+
+  taskmanager1:
+    image: flink:1.7-hadoop28-alpine
+    hostname: taskmanager1
+    deploy:
+      placement:
+        constraints: [node.ip == host1]
+      endpoint_mode: dnsrr
+    command: taskmanager
+    volumes:
+      - /etc/flink-cep:/etc/flink-cep
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+
+  taskmanager2:
+    image: flink:1.7-hadoop28-alpine
+    hostname: taskmanager2
+    deploy:
+      placement:
+        constraints: [node.ip == host2]
+      endpoint_mode: dnsrr
+    command: taskmanager
+    volumes:
+      - /etc/flink-cep:/etc/flink-cep
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+
+  taskmanager3:
+    image: flink:1.7-hadoop28-alpine
+    hostname: taskmanager3
+    deploy:
+      placement:
+        constraints: [node.ip == host3]
+      endpoint_mode: dnsrr
+    command: taskmanager
+    volumes:
+      - /etc/flink-cep:/etc/flink-cep
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+
+
+Problem statement: 
+
+Frequent timeout is happening after that flink job is getting crashed. 
+
+Is there anything to modify above yml file to handle timout scenario?
+
+Is there any workaround ?
+
+Please do not mark it as duplicate, because i have not got the proper answer.
+
+Reference:
+
+We found this open issue in docker official page.
+
+https://success.docker.com/article/ipvs-connection-timeout-issue
+",-1,-1,-1.0
+57751779,Attempting to Deploy a clickhouse stack to docker swarm and getting error: Service Builder failed to build: COPY failed,"Im the process of learning docker swarm, I have a three node nuc setup running docker swarm at the moment on Ubuntu 16.04. I am looking to build a 2 node clickhouse cluster using the official image from:
+
+https://hub.docker.com/r/yandex/clickhouse-server/dockerfile
+
+I can run this easily as an image on one node but I am trying to deploy the docker image to 2 of the nodes so I can build the cluster from there using this documentation:
+
+https://docs.docker.com/engine/swarm/stack-deploy/ 
+
+But I am getting the following error when I run  docker-compose up -d:
+
+ERROR: Service 'builder' failed to build: COPY failed: stat /var/lib/docker/tmp/docker-builder795701575/docker_related_config.xml: no such file or directory
+
+
+directory map:
+
+my_app
+----docker-compose.yml
+----docker
+-------client
+-------server
+-------builder
+            --Dockerfile
+
+
+Dockerfile:
+https://hub.docker.com/r/yandex/clickhouse-server/dockerfile
+
+FROM ubuntu:18.04
+
+ARG repository=""deb http://repo.yandex.ru/clickhouse/deb/stable/ main/""
+ARG version=19.1.13
+ARG gosu_ver=1.10
+
+RUN apt-get update \
+    &amp;&amp; apt-get install --yes --no-install-recommends \
+        apt-transport-https \
+        dirmngr \
+        gnupg \
+    &amp;&amp; mkdir -p /etc/apt/sources.list.d \
+    &amp;&amp; apt-key adv --keyserver keyserver.ubuntu.com --recv E0C56BD4 \
+    &amp;&amp; echo $repository &gt; /etc/apt/sources.list.d/clickhouse.list \
+    &amp;&amp; apt-get update \
+    &amp;&amp; env DEBIAN_FRONTEND=noninteractive \
+        apt-get install --allow-unauthenticated --yes --no-install-recommends \
+            clickhouse-common-static=$version \
+            clickhouse-client=$version \
+            clickhouse-server=$version \
+            libgcc-7-dev \
+            locales \
+            tzdata \
+            wget \
+    &amp;&amp; rm -rf \
+        /var/lib/apt/lists/* \
+        /var/cache/debconf \
+        /tmp/* \
+    &amp;&amp; apt-get clean
+
+ADD https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64 /bin/gosu
+
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+RUN mkdir /docker-entrypoint-initdb.d
+
+COPY docker_related_config.xml /etc/clickhouse-server/config.d/
+COPY entrypoint.sh /entrypoint.sh
+
+RUN chmod +x \
+    /entrypoint.sh \
+    /bin/gosu
+
+EXPOSE 9000 8123 9009
+VOLUME /var/lib/clickhouse
+
+ENV CLICKHOUSE_CONFIG /etc/clickhouse-server/config.xml
+
+ENTRYPOINT [""/entrypoint.sh""]
+
+
+docker-compose.yml
+https://github.com/yandex/ClickHouse/blob/master/docker-compose.yml
+
+version: ""2""
+
+services:
+  builder:
+    image: yandex/clickhouse-builder
+    build: docker/builder
+  client:
+    image: yandex/clickhouse-client
+    build: docker/client
+    command: ['--host', 'server']
+  server:
+    image: yandex/clickhouse-server
+    build: docker/server
+    ports:
+      - 8123:8123
+
+
+Am I approaching this incorrectly? help is appreciated.
+
+Update:
+
+Attempted comment solution but did not work:
+
+ERROR: Service 'builder' failed to build: COPY failed: stat /var/lib/docker/tmp/docker-builder511288209/docker_related_config.xml: no such file or directory
+
+",1,-1,-1.0
+57776699,Docker swarm containers can't connect out,"I've got a small docker swarm with three nodes.
+
+$ sudo docker node ls
+ID                            HOSTNAME                                     STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
+jmsidw84mom3k9m4yoqc7rkj0     ip-172-31-a-x.region.compute.internal    Ready               Active                                  19.03.1
+qg1njgopzgiainsbl2u9bmux4 *   ip-172-31-b-y.region.compute.internal   Ready               Active              Leader              19.03.1
+yn9sj3sp5b3sr9a36zxpdt3uw     ip-172-31-c-z.region.compute.internal   Ready               Active                                  19.03.1
+
+
+And I'm running three redis containers.
+
+$ sudo docker service ls
+ID                  NAME                MODE                REPLICAS            IMAGE                      PORTS
+6j9mmnpgk5j4        redis              replicated          3/3                 172.31.m.n:5000/redis
+
+
+But I can't get redis sentinel working between them - reading the logs it looks as though there are connection failures.
+
+Just standing them up as three separate redis instances I've been testing connectivity and I can telnet from a shell on any host to the host IP of another node and it connects to the service running on the container. If I do the same from a shell on the container it can't connect out.
+
+i.e.
+
+[centos@172.31.a.x ~]$ telnet 172.31.b.y 6379
+Trying 172.31.b.y...
+Connected to 172.31.b.y.
+Escape character is '^]'.
+^CConnection closed by foreign host.
+[centos@172.31.a.x ~]$ sudo docker exec -it 4d5abad441b8 sh
+/ # telnet 172.31.14.12 6379
+
+
+And then it hangs. Similarly I can't telnet to google.com on 443 from within a container but I can on the host. Curiously though, ping does get out of the container.
+
+Any suggestions?
+",-1,-1,-1.0
+60197158,How to add SSL cert to asp.net core docker swarm + letsencrypt?,"I have an asp.net core app running on Docker Swarm, what is an efficient way to add SSL capabilities to the app and have the cert update itself through letsencrypt and certbot?
+
+I know about Docker Swarm Secrets, but they are immutable so I can't just change the secret when the cert is updated.
+",-1,-1,-1.0
+57754504,Docker swarm container replicas are running but not able to hit the same in browser or with curl,"Am following docker documentation and trying to create replica of nodes using the link --> https://docs.docker.com/get-started/part3/ 
+
+I have followed the steps as mentioned in the document but am not able to get the expected application response on curl or browser.
+
+docker decompose file looks like below :
+
+version: ""3""
+services:
+  web:
+    image: vigneshnithin23/restaurant:latest
+    deploy:
+      replicas: 2
+      placement:
+          constraints: [node.role == manager]
+      resources:
+        limits:
+          cpus: ""0.1""
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - ""8090:8090""
+    networks:
+      - webnet
+networks:
+  webnet:
+
+
+As per the documentation they are able to curl the URL. whereas am not able to do the same. 
+
+I had two IP address and initialised docker swarm with --advertise-addr - First wlan address
+
+if I run the same code on single container am able to get the desired result.
+
+I went through the question in below link, which was asked earlier but that didn't have proper answer 
+
+Website available in standalone container, not in swarm
+
+Any help would be appreciated.
+",1,-1,-1.0
+57530029,Start docker containers with swarm without appending a random slug after the container names,"I searched on stackoverflow and on other websites if I could start my docker containers with swarm and keep the same naming as with compose - service_name_1, service_name_2 ... , service_name_n, however, I found no solution to my problem and docker swarm keeps appending a random slug after the container names - service_name_1.slug.
+
+As I am relatively new to docker swarm, I would like to ask if the naming convection of docker swarm can be altered before the containers start or if it could somehow be made deterministic, as this does not work with my setup and changing my whole setup is something, I would love to avoid.
+",-1,-1,-1.0
+57462847,How to collect all logs from number of servers in docker swarm?,"I have number of Linux server that have docker installed on them, all of the server are in a docker swarm, on each server i have a custom application. I also have ELK setup in AWS.
+
+I want to collect all logs from my custom app to the ELK on AWS, I have successfully done that on one server with filebeat by running the following commands:
+1. docker pull docker.elastic.co/beats/filebeat-oss:7.3.0
+2. created a file in /etc/filebeat/filebeat.yml with the content:  
+
+filebeat.inputs:
+- type: container
+  paths:
+  - '/usr/share/continer_logs/*/*.log'
+  containers.ids:
+  - '111111111111111111111111111111111111111111111111111111111111111111'
+  processors:
+  - add_docker_metadata: ~
+output.elasticsearch:
+  hosts: [""XX.YY.ZZ.TT""]
+
+
+
+chown root:root filebeat.yml
+sudo docker run -u root -v /etc/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml -v /var/lib/docker/containers:/usr/share/continer_logs -v /var/run/docker.sock:/var/run/docker.sock docker.elastic.co/beats/filebeat-oss:7.3.0  
+
+
+And now i want to do the same on all of my docker hosts(And there are a lot of them) in the swarm.
+
+I encounter a number of problems:
+1. How do i copy ""filebeat.yml"" to /etc/filebeat/filebeat.yml on every server?
+2. How do i update the ""containers.ids"" on every server? and how to update it when i upgrade the docker image?  
+",-1,1,-1.0
+60605888,Nginx configuration for connecting to external mongodb from docker swarm,"I have a docker swarm running 2 python flask services, each one running in a different region, say A, and B.
+Region A is also running Nginx, which is the main entrypoint to access the services.
+There is a MongoDB database running in region A, outside of the docker swarm.
+The python service running in region A can connect to the MongoDB running in region A, but service B cannot connect to the MongoDB from region B.
+My question is can I configure the Nginx to proxy service B to connect to the MongoDB?
+
+The Nginx locations config for the services is:
+
+location /a {
+  proxy_pass https://a-service:5000/;  # running in region A
+}
+
+location /b {
+  proxy_pass https://b-service:5001/;  # running in region B
+}
+
+
+Where a-service and b-service are the docker swarm container names.
+
+I saw the posts regarding how to setup MongoDB behind Nginx, but my case is the reverse - to access external MongoDB from inside a docker swarm through an Nginx inside the swarm.
+
+(How to setup MongoDB behind Nginx Reverse Proxy)
+
+I understand that I need to have something like this in the nginx.conf:
+
+stream {
+    server {
+        listen 27020;
+        proxy_connect_timeout 5s;
+        proxy_timeout 20s;
+        proxy_pass    mongodb_host;
+    }
+
+    upstream mongodb_host{
+        server https://5.150.225.25:27017;
+    }
+}
+
+
+However the location of the mongodb host (https://5.150.225.25) is another vm outside of the docker swarm, not a local IP. This results in an error:
+
+nginx: [emerg] invalid host in upstream ""https://5.150.225.25:27017"" in nginx.conf
+
+",-1,-1,-1.0
+66866779,Routing Mesh stop working in docker swarm,"I have problem with my swarm cluster
+I have created plain service which is listening on specific port (ie. 8080)
+from the beginning everything works fine
+but after several days I have problem with connection using routing mesh
+lets say my cluster is
+192.168.1.100 - manager0
+192.168.1.101 - manager1
+192.168.1.102 - manager2
+192.168.1.110 - worker0
+192.168.1.111 - worker1
+192.168.1.112 - worker2
+
+when I connect to node 192.168.1.110 via ssh and then I use curl command not all nodes respond (but they work, and have up status)
+behavior looks like this:
+curl -v 192.168.1.100:8080 - OK 
+curl -v 192.168.1.101:8080 - NOK
+curl -v 192.168.1.102:8080 - NOK 
+curl -v 192.168.1.110:8080 - NOK 
+curl -v 192.168.1.111:8080 - NOK
+curl -v 192.168.1.112:8080 - OK
+
+We can get similar behavior when you disable 4789 udp port
+From docker docs:
+UDP port 4789 for overlay network traffic (container ingress networking).
+but in my cluster I have opened this port and the real problem is bad checksum
+while I perform
+tcpdump host 192.168.1.100 and 'port 4789' -i eth0 -vvvv
+then I recieved the result
+12:11:06.149126 IP (tos 0x0, ttl 64, id 41970, offset 0, flags [none], proto UDP (17), length 110)
+    test1234.39679 &gt; 192.168.1.100.vxlan: [bad udp cksum 0x6eb2 -&gt; 0xceb2!] VXLAN, flags [I] (0x08), vni 4096
+
+bad udp cksum 0x6eb2 -&gt; 0xceb2!
+When I disable checking the checksum the connection back to normal and everything works fine (command below)
+ethtool -K &lt;interface&gt; off
+The re-initialization of docker swarm cluster wont help.
+Any advice how to debug it or resolve it? (without disabling sum check?)
+",1,-1,-1.0
+68141815,Problem exposing port with Docker swarm and windows containers,"I am trying to run a container in docker swarm mode using docker stack deploy. I have read quite a lot of things about exposing ports of deployed services in docker swarm for windows containers, but none of them work for me.
+I am trying to access a container from my local machine and the swarm stack is deployed on the same machine.
+I have tried
+        deploy:
+            mode: global
+        ports:
+            - target: 80
+              published: 8080
+              mode: host
+
+but that does not work. In this case it seems like the container fails to start and new containers are being created immediately. How can I inspect and see what the reason for  the crashing is? When I do docker container ls no results are returned.
+I have also tried to assign an external NAT network but this does not seem to work and I get the following message
+
+network is declared as external, but it is not in the right scope: &quot;local&quot; instead of &quot;swarm&quot;
+
+so I cannot attach to it.
+Using
+        deploy:
+            endpoint_mode: dnsrr
+
+has no results, as well. What I do in this case is to look at the IP when getting into the service, but for an IP address I get 10.0.7.2 which does not allow me to connect to the service from my host.
+I would really appreciate if someone can give me some tips what I am doing wrong and how I can access my own container in a docker swarm service from my machine.
+I have been stuck for quite a while and I am probably missing some important bits.
+",-1,-1,-1.0
+68225850,Running gitlab and jenkins with https in docker swarm,"Context: I want to run gitlab and jenkins in docker swarm with https. I succeeded in making them run on the default port(8080 for jenkins and 80 for gitlab with http).
+My problem: is when I try to run for example gitlab on the port 443, I get nothing even though I published my container on that port and modified the external url on the &quot;gitlab.rb&quot; file(I've been following the official doc).
+And for Jenkins it's even harder to make it run on https, it's either adding a reverse proxy or SSL certificate.
+&gt; sudo docker service create -u 0 --name  jenkins_stack \
+&gt; --network devops-net --replicas 1 --publish 8443:8443 \
+&gt; --publish 50000:50000 --mount src=jenkins-volume,dst=/var/jenkins_home \
+&gt; --hostname jenkins   jenkins/jenkins
+&gt; 
+&gt; 
+&gt; sudo docker service create -u 0 --name  gitlabstack \
+&gt; --network devops-net --replicas 1 --publish 80:80 --publish 443:443  \
+&gt; --mount src=gitlab-data,dst=/var/opt/gitlab \
+&gt; --mount src=gitlab-logs,dst=/var/log/gitlab \
+&gt; --mount src=gitlab-config,dst=/etc/gitlab \
+&gt; --hostname gitlab gitlab/gitlab-ce
+
+Above you will find the docker lines to create the services.
+I'd really appreciate it, if someone can share any video or tutorial on how to run gitlab/jenkins on docker swarm with https.
+I'm sorry if I've been unclear.
+",-1,-1,-1.0
+68257249,Why are shap values changing every time I call shap.plots.beeswarm?,"So here's my code using shap :
+
+Since I just plot three times the same shape values, I'd expect the three plots to be the same. However, it keeps on changing. After some research, it seems that a new value appear at the top at each call, but why ? Is it a bug in shap ?
+Edit 1 : I tried loading the same model between each call of shap.plots.beeswarm, but the results are still different.
+",0,-1,-1.0
+68273448,Docker CannotCreateContainerError: Thin Pool has 0 free data blocks,"I am trying to run a Nextflow pipeline using AWS (an EC2 instance) which requires using docker, but the following error appears:
+CannotCreateContainerError: Error response from daemon: devmapper: Thin Pool has 0 free data blocks which is less than minimum required 4449 free data blocks. Create more free space in thin pool or use dm.min_free_space option to change behavior
+
+And after finding this error my pipeline completely dies. The most recurrent answer to this problem that I have found online is to do a docker system prune, so I can free some space, but after doing that the error persists, and free data blocks are still 0.
+My guess is that I am not being able to acces to the data blocks, but as it is my first time working with Docker, I am completely lost.
+In case it is interesting, if I run docker info:
+Client:
+ Debug Mode: false
+
+Server:
+ Containers: 4
+  Running: 0
+  Paused: 0
+  Stopped: 4
+ Images: 22
+ Server Version: 19.03.13-ce
+ Storage Driver: devicemapper
+  Pool Name: docker-docker--pool
+  Pool Blocksize: 524.3kB
+  Base Device Size: 536.9GB
+  Backing Filesystem: ext4
+  Udev Sync Supported: true
+  Data Space Used: 14.55GB
+  Data Space Total: 23.33GB
+DOCKER_STORAGE_OPTIONS=&quot;--storage-driver devicemapper --storage-opt dm.thinpooldev=/dev/mapper/docker-docker--pool --storage-opt dm.use_deferred_removal=true --storage-opt dm.use_deferred_deletion=true   Data Space Available: 8.782GB
+  Metadata Space Used: 4.891MB
+  Metadata Space Total: 25.17MB
+  Metadata Space Available: 20.28MB
+/*
+  Thin Pool Minimum Free Space: 2.333GB
+  Deferred Removal Enabled: true
+  Deferred Deletion Enabled: true
+  Deferred Deleted Device Count: 0
+  Library Version: 1.02.135-RHEL7 (2016-11-16)
+ Logging Driver: json-file
+ Cgroup Driver: cgroupfs
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog
+ Swarm: inactive
+ Runtimes: runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: c623d1b36f09f8ef6536a057bd658b3aa8632828
+ runc version: 12644e614e25b05da6fd08a38ffa0cfe1903fdec
+ init version: de40ad0 (expected: fec3683)
+ Security Options:
+  seccomp
+   Profile: default
+ Kernel Version: 4.14.225-121.362.amzn1.x86_64
+ Operating System: Amazon Linux AMI 2018.03
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 1
+ Total Memory: 985.5MiB
+ Name: ip-172-31-33-79
+ ID: QBVF:B7D5:3KRH:3BYR:UU27:XEUW:RWLE:SLAW:F6AG:LKD2:FD3E:LHLQ
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Registry: https://index.docker.io/v1/
+ Labels:
+ Experimental: false
+ Insecure Registries:
+  127.0.0.0/8
+ Live Restore Enabled: false
+
+Any clue about how to solve this issue?
+",1,-1,-1.0
+68294390,Beeswarm from Reordering Categorical Variables,"I am trying to make beeswarm and boxplot graphs of my data, but beeswarm is putting the categorical variables in alphabetical order when I would like them in order of treatment.
+iMono &lt;- beeswarm(iMono ~ Treatment, data=MyeloidLiver, ylab = &quot;% Inflammatory&quot;,
+         log = FALSE, pch=16, main = '% Inflammatory Monocytes v Treatment',
+         col = rainbow(4), cex.axis = 1, cex = 1) +
+  bxplot(iMono ~ Treatment, data=MyeloidLiver, add=TRUE)
+
+I have tried using levels = c() and labels = c() but levels is not a graphical parameter for beeswarm and labels changes the labels without reordering the corresponding data.
+",-1,-1,-1.0
+68332554,Overlay driver not being applied when creating docker swarm network,"I'm working with docker swarm and trying to create a network with the overlay driver.
+Whenever I create the network, the driver is not attached.
+
+If I try and attach a service to the network, the process just hangs infinitely.
+If I create a service without attaching it to the network, it works right away.
+
+pi@node3:~ $ docker network ls
+NETWORK ID     NAME              DRIVER    SCOPE
+a1cc2e1f4f2b   bridge            bridge    local
+83597f713bcf   docker_gwbridge   bridge    local
+277f1166485e   host              host      local
+fs2vvjeuejxc   ingress           overlay   swarm
+5d0ce08c744c   none              null      local
+
+pi@node3:~ $ docker network create --driver overlay test
+4bfkahhkhrblod2t79yd83vws
+
+pi@node3:~ $ docker network ls
+NETWORK ID     NAME              DRIVER    SCOPE
+a1cc2e1f4f2b   bridge            bridge    local
+83597f713bcf   docker_gwbridge   bridge    local
+277f1166485e   host              host      local
+fs2vvjeuejxc   ingress           overlay   swarm
+5d0ce08c744c   none              null      local
+4bfkahhkhrbl   test                        swarm
+
+I can't figure out why it's not adding the driver. I have a suspicion it has something to do with the ingress network settings, but I'm stuck as for troubleshooting here.
+Relevant Info
+Swarm:
+pi@node3:~ $ docker node ls
+ID                            HOSTNAME   STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+ygcte2diochpbgu7bqtw41k70     node1      Ready     Active                          20.10.7
+xbllxgfa35937rmvdi8mi8dlb     node2      Ready     Active                          20.10.7
+tvw4b53w6g3qv2k3919dg3a81 *   node3      Ready     Active         Leader           20.10.7
+
+Manager node:
+pi@node3:~ $ docker node inspect node3
+[
+    {
+        &quot;ID&quot;: &quot;tvw4b53w6g3qv2k3919dg3a81&quot;,
+        &quot;Version&quot;: {
+            &quot;Index&quot;: 165
+        },
+        &quot;CreatedAt&quot;: &quot;2021-07-10T16:41:23.043334654Z&quot;,
+        &quot;UpdatedAt&quot;: &quot;2021-07-11T00:27:25.807737662Z&quot;,
+        &quot;Spec&quot;: {
+            &quot;Labels&quot;: {},
+            &quot;Role&quot;: &quot;manager&quot;,
+            &quot;Availability&quot;: &quot;active&quot;
+        },
+        &quot;Description&quot;: {
+            &quot;Hostname&quot;: &quot;node3&quot;,
+            &quot;Platform&quot;: {
+                &quot;Architecture&quot;: &quot;armv7l&quot;,
+                &quot;OS&quot;: &quot;linux&quot;
+            },
+            &quot;Resources&quot;: {
+                &quot;NanoCPUs&quot;: 4000000000,
+                &quot;MemoryBytes&quot;: 969105408
+            },
+            &quot;Engine&quot;: {
+                &quot;EngineVersion&quot;: &quot;20.10.7&quot;,
+                &quot;Plugins&quot;: [
+                    {
+                        &quot;Type&quot;: &quot;Log&quot;,
+                        &quot;Name&quot;: &quot;awslogs&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Log&quot;,
+                        &quot;Name&quot;: &quot;fluentd&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Log&quot;,
+                        &quot;Name&quot;: &quot;gcplogs&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Log&quot;,
+                        &quot;Name&quot;: &quot;gelf&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Log&quot;,
+                        &quot;Name&quot;: &quot;journald&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Log&quot;,
+                        &quot;Name&quot;: &quot;json-file&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Log&quot;,
+                        &quot;Name&quot;: &quot;local&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Log&quot;,
+                        &quot;Name&quot;: &quot;logentries&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Log&quot;,
+                        &quot;Name&quot;: &quot;splunk&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Log&quot;,
+                        &quot;Name&quot;: &quot;syslog&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Network&quot;,
+                        &quot;Name&quot;: &quot;bridge&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Network&quot;,
+                        &quot;Name&quot;: &quot;host&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Network&quot;,
+                        &quot;Name&quot;: &quot;ipvlan&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Network&quot;,
+                        &quot;Name&quot;: &quot;macvlan&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Network&quot;,
+                        &quot;Name&quot;: &quot;null&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Network&quot;,
+                        &quot;Name&quot;: &quot;overlay&quot;
+                    },
+                    {
+                        &quot;Type&quot;: &quot;Volume&quot;,
+                        &quot;Name&quot;: &quot;local&quot;
+                    }
+                ]
+            },
+            &quot;TLSInfo&quot;: {
+                &quot;TrustRoot&quot;: &quot;-----BEGIN CERTIFICATE-----\nMIIBajCCARCgAwIBAgIUFIx3NAw+jgaasNXCoi+QP4GxaOQwCgYIKoZIzj0EAwIw\nEzERMA8GA1UEAxMIc3dhcm0tY2EwHhcNMjEwNzEwMTYyMjAwWhcNNDEwNzA1MTYy\nMjAwWjATMREwDwYDVQQDEwhzd2FybS1jYTBZMBMGByqGSM49AgEGCCqGSM49AwEH\nA0IABKyunnrZtfkOO+Cc/MX/qbyJjG12ee8es0IHB1HXF2MhqSfYOeUuBlTvuHuB\nxl8s8eQ4IMfjP0w5LYJNqypZp0KjQjBAMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMB\nAf8EBTADAQH/MB0GA1UdDgQWBBRq6yBEIFv03tQqBkohCh4A+mIZdTAKBggqhkjO\nPQQDAgNIADBFAiA5kKgC2WxcOMyfrmFr8fU6w1Mo1mq5GMKA4owTB7pcEQIhALZi\n9AH0vVyR+7NmmR7LfPO65CIJ9UVuPZBXRZ6pcmzX\n-----END CERTIFICATE-----\n&quot;,
+                &quot;CertIssuerSubject&quot;: &quot;MBMxETAPBgNVBAMTCHN3YXJtLWNh&quot;,
+                &quot;CertIssuerPublicKey&quot;: &quot;MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAErK6eetm1+Q474Jz8xf+pvImMbXZ57x6zQgcHUdcXYyGpJ9g55S4GVO+4e4HGXyzx5Dggx+M/TDktgk2rKlmnQg==&quot;
+            }
+        },
+        &quot;Status&quot;: {
+            &quot;State&quot;: &quot;ready&quot;,
+            &quot;Addr&quot;: &quot;0.0.0.0&quot;
+        },
+        &quot;ManagerStatus&quot;: {
+            &quot;Leader&quot;: true,
+            &quot;Reachability&quot;: &quot;reachable&quot;,
+            &quot;Addr&quot;: &quot;10.0.0.93:2377&quot;
+        }
+    }
+
+Ingress network:
+pi@node3:~ $ docker network inspect ingress
+[
+    {
+        &quot;Name&quot;: &quot;ingress&quot;,
+        &quot;Id&quot;: &quot;fs2vvjeuejxcjxqivenb76kgj&quot;,
+        &quot;Created&quot;: &quot;2021-07-10T17:24:14.228552858-07:00&quot;,
+        &quot;Scope&quot;: &quot;swarm&quot;,
+        &quot;Driver&quot;: &quot;overlay&quot;,
+        &quot;EnableIPv6&quot;: false,
+        &quot;IPAM&quot;: {
+            &quot;Driver&quot;: &quot;default&quot;,
+            &quot;Options&quot;: null,
+            &quot;Config&quot;: [
+                {
+                    &quot;Subnet&quot;: &quot;10.10.0.0/24&quot;,
+                    &quot;Gateway&quot;: &quot;10.10.0.1&quot;
+                }
+            ]
+        },
+        &quot;Internal&quot;: false,
+        &quot;Attachable&quot;: false,
+        &quot;Ingress&quot;: true,
+        &quot;ConfigFrom&quot;: {
+            &quot;Network&quot;: &quot;&quot;
+        },
+        &quot;ConfigOnly&quot;: false,
+        &quot;Containers&quot;: {
+            &quot;ingress-sbox&quot;: {
+                &quot;Name&quot;: &quot;ingress-endpoint&quot;,
+                &quot;EndpointID&quot;: &quot;34003d042d395b90328ed90c8133505a6bec6df90065c5b47b47ee3853545c91&quot;,
+                &quot;MacAddress&quot;: &quot;02:42:0a:0a:00:02&quot;,
+                &quot;IPv4Address&quot;: &quot;10.10.0.2/24&quot;,
+                &quot;IPv6Address&quot;: &quot;&quot;
+            }
+        },
+        &quot;Options&quot;: {
+            &quot;com.docker.network.driver.overlay.vxlanid_list&quot;: &quot;4096&quot;
+        },
+        &quot;Labels&quot;: {},
+        &quot;Peers&quot;: [
+            {
+                &quot;Name&quot;: &quot;e2f4d4e6ba20&quot;,
+                &quot;IP&quot;: &quot;10.0.0.93&quot;
+            },
+            {
+                &quot;Name&quot;: &quot;de3d98ce0f8d&quot;,
+                &quot;IP&quot;: &quot;10.0.0.25&quot;
+            },
+            {
+                &quot;Name&quot;: &quot;b61722e30756&quot;,
+                &quot;IP&quot;: &quot;10.0.0.12&quot;
+            }
+        ]
+    }
+]
+
+Docker version:
+pi@node3:~ $ docker --version
+Docker version 20.10.7, build f0df350
+
+Docker info:
+pi@node3:~ $ docker info
+Client:
+ Context:    default
+ Debug Mode: false
+ Plugins:
+  app: Docker App (Docker Inc., v0.9.1-beta3)
+  buildx: Build with BuildKit (Docker Inc., v0.5.1-docker)
+
+Server:
+ Containers: 0
+  Running: 0
+  Paused: 0
+  Stopped: 0
+ Images: 5
+ Server Version: 20.10.7
+ Storage Driver: overlay2
+  Backing Filesystem: extfs
+  Supports d_type: true
+  Native Overlay Diff: true
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: cgroupfs
+ Cgroup Version: 1
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog
+ Swarm: active
+  NodeID: tvw4b53w6g3qv2k3919dg3a81
+  Is Manager: true
+  ClusterID: 4vf16jdlegf3ctys5k6wumcfc
+  Managers: 1
+  Nodes: 3
+  Default Address Pool: 10.10.0.0/24  
+  SubnetSize: 24
+  Data Path Port: 4789
+  Orchestration:
+   Task History Retention Limit: 5
+  Raft:
+   Snapshot Interval: 10000
+   Number of Old Snapshots to Retain: 0
+   Heartbeat Tick: 1
+   Election Tick: 10
+  Dispatcher:
+   Heartbeat Period: 5 seconds
+  CA Configuration:
+   Expiry Duration: 3 months
+   Force Rotate: 0
+  Autolock Managers: false
+  Root Rotation In Progress: false
+  Node Address: 10.0.0.93
+  Manager Addresses:
+   10.0.0.93:2377
+ Runtimes: io.containerd.runc.v2 io.containerd.runtime.v1.linux runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: d71fcd7d8303cbf684402823e425e9dd2e99285d
+ runc version: b9ee9c6314599f1b4a7f497e1f1f856fe433d3b7
+ init version: de40ad0
+ Security Options:
+  seccomp
+   Profile: default
+ Kernel Version: 5.10.17-v7+
+ Operating System: Raspbian GNU/Linux 10 (buster)
+ OSType: linux
+ Architecture: armv7l
+ CPUs: 4
+ Total Memory: 924.2MiB
+ Name: node3
+ ID: A67O:SIT4:QOMH:SILY:WHAY:KSGQ:VWMF:QVEJ:VCOZ:KW32:PZRV:ZD4B
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Registry: https://index.docker.io/v1/
+ Labels:
+ Experimental: false
+ Insecure Registries:
+  127.0.0.0/8
+ Live Restore Enabled: false
+
+WARNING: No memory limit support
+WARNING: No swap limit support
+WARNING: No kernel memory TCP limit support
+WARNING: No oom kill disable support
+WARNING: No blkio throttle.read_bps_device support
+WARNING: No blkio throttle.write_bps_device support
+WARNING: No blkio throttle.read_iops_device support
+WARNING: No blkio throttle.write_iops_device support
+
+What I've tried:
+
+Removing all the nodes and creating a new swarm
+Removing the ingress network and creating a new one following the instructions here
+Tried to go through the walkthrough here but can't get past Create the Services 2.
+Rebooted all the nodes
+
+Any advice or pointing in the right direction would be much appreciated! I've been stuck here for 48 hours.
+",1,-1,-1.0
+69573675,Getting error when try to add docker swarm manager into multipass VM,"I have tried to launch two multipass VM. After installing docker in the multipass, I am trying to initialize docker swarm in one of the multipass vm. The command is:
+multipass exec node1 -- /bin/bash -c 'docker swarm init --advertise-addr 10.173.198.201:2377 --listen-addr 10.173.198.201:2377'
+
+But then the error comes up. It says:
+Error response from daemon: advertise address must be a non-zero IP address or network interface (with optional port number)
+
+Now how can I solve the issue? Can I launch multipass without 0 in IP?
+",-1,-1,-1.0
+69474030,Docker swarm stack mysql/mysql-cluster not resolving service names,"I'm trying to setup a mysql-cluster on a docker swarm setup.
+Given we have 3 nodes (1 manager, 2 workers) we are trying to install it on the manager node.
+This is the my.cnf file (correctly read)
+[mysqld]
+ndbcluster
+ndb-connectstring=management1
+user=mysql
+skip_name_resolve
+
+[mysql_cluster]
+ndb-connectstring=management1
+
+This is the mysql-cluster.cnf file (correctly read)
+[ndbd default]
+NoOfReplicas=2
+DataMemory=80M
+
+[ndb_mgmd]
+HostName=management1
+DataDir=/var/lib/mysql-cluster
+
+[ndbd]
+HostName=ndb1
+DataDir=/var/lib/mysql-cluster
+
+[ndbd]
+HostName=ndb2
+DataDir=/var/lib/mysql-cluster
+
+[mysqld]
+HostName=mysql1
+
+Docker compose file (deployed from git repository via portainer)
+executes ex: docker stack deploy --compose-file docker-compose.yml vossibility
+version: '3.3'
+services:
+  management1:
+    image: mysql/mysql-cluster
+    command: ndb_mgmd
+    networks:
+      - &quot;meroex-network&quot;
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+  ndb1:
+    image: mysql/mysql-cluster
+    command: ndbd
+    networks:
+      - &quot;meroex-network&quot;
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+
+  ndb2:
+    image: mysql/mysql-cluster
+    command: ndbd
+    networks:
+      - &quot;meroex-network&quot;    
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager   
+
+  mysql1:
+    image: mysql/mysql-cluster
+    ports:
+      - &quot;3306:3306&quot;
+    restart: always
+    command: mysqld
+    depends_on:
+      - &quot;management1&quot;
+      - &quot;ndb1&quot;
+      - &quot;ndb2&quot;
+    networks:
+      - &quot;meroex-network&quot;
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+
+networks:
+  meroex-network:
+    external: true
+
+
+The network is an overlay network with subnet/24
+[
+    {
+        &quot;Name&quot;: &quot;meroex-network&quot;,
+        &quot;Id&quot;: &quot;vs7lmefftygiqkzfxf9u4dqxi&quot;,
+        &quot;Created&quot;: &quot;2021-10-07T06:29:10.608882532+08:00&quot;,
+        &quot;Scope&quot;: &quot;swarm&quot;,
+        &quot;Driver&quot;: &quot;overlay&quot;,
+        &quot;EnableIPv6&quot;: false,
+        &quot;IPAM&quot;: {
+            &quot;Driver&quot;: &quot;default&quot;,
+            &quot;Options&quot;: null,
+            &quot;Config&quot;: [
+                {
+                    &quot;Subnet&quot;: &quot;10.0.3.0/24&quot;,
+                    &quot;Gateway&quot;: &quot;10.0.3.1&quot;
+                }
+            ]
+        },
+        &quot;Internal&quot;: false,
+        &quot;Attachable&quot;: false,
+        &quot;Ingress&quot;: false,
+        &quot;ConfigFrom&quot;: {
+            &quot;Network&quot;: &quot;&quot;
+        },
+        &quot;ConfigOnly&quot;: false,
+        &quot;Containers&quot;: {
+            ...
+            &quot;lb-meroex-network&quot;: {
+                &quot;Name&quot;: &quot;meroex-network-endpoint&quot;,
+                &quot;EndpointID&quot;: &quot;a82dd38ffeb66e3a365140b51d8614fdf08ca0f0ffb01c8262a16bde49c891ad&quot;,
+                &quot;MacAddress&quot;: &quot;02:42:0a:00:03:34&quot;,
+                &quot;IPv4Address&quot;: &quot;10.0.3.52/24&quot;,
+                &quot;IPv6Address&quot;: &quot;&quot;
+            }
+        },
+        &quot;Options&quot;: {
+            &quot;com.docker.network.driver.overlay.vxlanid_list&quot;: &quot;4099&quot;
+        },
+        &quot;Labels&quot;: {},
+        &quot;Peers&quot;: [
+            ...
+        ]
+    }
+]
+
+When deploying the stack we receive the following error in de management1 service:
+2021-10-07 00:03:34 [MgmtSrvr] ERROR    -- at line 33: Could not resolve hostname [node 1]: management1
+2021-10-07 00:03:34 [MgmtSrvr] ERROR    -- Could not load configuration from '/etc/mysql-cluster.cnf'
+
+I'm stuck on why the service names are not resolved in this case. I have numerous other spring boot apps that can share their service names to communicate.
+",-1,-1,-1.0
+73584561,How to annotate swarmplot points on a categorical axis and labels from a different column,"I’m trying to add labels to a few values in my matplotlib/seaborn plot. Not all, just those above a certain value (below, using iris from sklearn, labels for values greater than 3.6 on the x-axis).
+Here, from @Scinana, last year is a discussion of doing that when both axes are numeric. But while it includes an accepted answer, I’m having trouble adapting it to my situation. The links provided in the accepted answer don't help either.
+The code below works until the last step (the labeling), which throws: 'TypeError: 'FacetGrid' object is not callable'
+Additionally, the outliers need to be annotated with values from dfiris['sepal length (cm)'], not just 'outliers'.
+import sklearn as sklearn 
+from sklearn.datasets import load_iris
+
+dfiris = load_iris()
+dfiris = pd.DataFrame(data=dfiris.data, columns=dfiris.feature_names)
+dfiris['name'] = np.where(dfiris['sepal width (cm)'] &lt; 3, 'Amy', 'Bruce')  # adding a fake categorical variable 
+dfiris['name'] = np.where((dfiris.name != 'Amy') &amp; (dfiris['petal length (cm)'] &gt;= 3.4), 'Charles', dfiris.name) # adding to that fake categorical variable 
+
+a_viz = sns.catplot(x='sepal width (cm)', y= 'name', kind = 'swarm', data=dfiris)
+a_viz.fig.set_size_inches(5, 6)
+a_viz.fig.subplots_adjust(top=0.81, right=0.86)
+
+for x, y in zip(dfiris['sepal width (cm)'], dfiris['name']):
+    if x &gt; 3.6:
+        a_viz.text(x, y, 'outlier', horizontalalignment='left', size='medium', color='black')
+
+The following duplicates didn't completely address the issue with adding annotations from a different column, nor how to prevent the annotations from overlapping.
+
+How to Annotate Bars in a Seaborn Facetgrid (works in Factorplot)
+Different functions return different object types, such as FacetGrid and AxesSubplot. Why and what is the difference?
+displot 'FacetGrid' object is not callable
+
+",-1,-1,-1.0
+76307007,"Jenkins swarm agent unable to build chain to self-signed root for signer ""Apple Development: Local (123456789)""","I am using the Jenkins Swarm Plug-in v.3.24 to run my 2020 M1 mac mini with macOS Ventura 13.3.1 as a Jenkins agent. The goal is to use Jenkins to schedule and execute iOS build scripts on that mac. The scripts work locally and upload to the app center, but when Jenkins executes the builds with the below pipeline script, I get an unable to build chain to self-signed root for signer error.
+node('macos') {
+    stage('run deploy.sh Debug') {
+        sh '''
+        sudo -i -u myuser zsh &lt;&lt; EOF
+        cd /Users/myuser/server/services/iosrepo/
+        ./deploy.sh Debug
+        '''
+    }
+}
+
+Here's my plist file. The connection handshake only goes through if UserName is root or empty.
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
+&lt;plist version=&quot;1.0&quot;&gt;
+  &lt;dict&gt;
+    &lt;key&gt;Label&lt;/key&gt;
+         &lt;string&gt;com.jenkins.ci&lt;/string&gt;
+    &lt;key&gt;SessionCreate&lt;/key&gt;
+         &lt;true/&gt;
+    &lt;key&gt;EnvironmentVariables&lt;/key&gt;
+         &lt;key&gt;JENKINS_HOME&lt;/key&gt;
+         &lt;string&gt;/Users/myuser&lt;/string&gt;
+    &lt;key&gt;ProgramArguments&lt;/key&gt;
+         &lt;array&gt;
+           &lt;string&gt;java&lt;/string&gt;
+           &lt;string&gt;-jar&lt;/string&gt;
+           &lt;string&gt;/Users/myuser/iosbuildagent/swarm-client-3.24.jar&lt;/string&gt;
+           &lt;string&gt;-master&lt;/string&gt;
+           &lt;string&gt;http://jenkins-myaddress.com&lt;/string&gt;
+           &lt;string&gt;-tunnel&lt;/string&gt;
+           &lt;string&gt;123.123.123.123:50000&lt;/string&gt;
+           &lt;string&gt;-username&lt;/string&gt;
+           &lt;string&gt;myuser&lt;/string&gt;
+           &lt;string&gt;-password&lt;/string&gt;
+           &lt;string&gt;mypassword&lt;/string&gt;
+           &lt;string&gt;-executors&lt;/string&gt;
+           &lt;string&gt;1&lt;/string&gt;
+           &lt;string&gt;-mode&lt;/string&gt;
+           &lt;string&gt;exclusive&lt;/string&gt;
+           &lt;string&gt;-workDir&lt;/string&gt;
+           &lt;string&gt;/Users/myuser/&lt;/string&gt;
+           &lt;string&gt;-fsroot&lt;/string&gt;
+           &lt;string&gt;Users/myuser/&lt;/string&gt;
+         &lt;/array&gt;
+    &lt;key&gt;KeepAlive&lt;/key&gt;
+         &lt;true/&gt;
+    &lt;key&gt;StandardOutPath&lt;/key&gt;
+         &lt;string&gt;/Users/myuser/iosbuildagent/stdout.log&lt;/string&gt;
+    &lt;key&gt;StandardErrorPath&lt;/key&gt;
+         &lt;string&gt;/Users/myuser/iosbuildagent/error.log&lt;/string&gt;
+  &lt;/dict&gt;
+&lt;/plist&gt;
+
+This issue is very similar to
+Missing certificates and keys in the keychain while using Jenkins/Hudson as Continuous Integration for iOS and Mac development.
+But when I implement the solution of adding &lt;key&gt;UserName&lt;/key&gt; &lt;string&gt;myuser&lt;/string&gt; to my LaunchDaemon/com.jenkins.ci.plist file, the mac is unable to connect to Jenkins with the following error:
+WARNING: Failed to initial retrieval
+java.nio.file.FileSystemException: /Users/myuser/remoting.jarCache/OE/1234981273409182734.jar: Operation not permitted.
+
+",-1,-1,-1.0

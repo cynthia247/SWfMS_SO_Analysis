@@ -1,0 +1,1284 @@
+,Id,Title,Body,RatingsSentiCR,RatingsGPT35,RatingsGPTFineTuned,merged,topic
+0,65832799,Compilation of Elyra-Pipelines to Tekton based Kubeflow fails,"I've installed a kubernetes cluster running kubeflow pipelines based on tekton on top of KIND using the following instructions
+Now I'm getting the following error message from the Elyra pipelines editor. Running against an argo based kfp cluster works fine.
+Is the kfp compiler somehow not supporting tekton? Can someone please shine some light on this?
+HTTP response body:
+{&quot;error_message&quot;:&quot;Error creating pipeline: Create pipeline failed: 
+Failed to get parameters from the pipelineRun: Invalid input error: 
+Unsupported argo version. 
+Expected: tekton.dev/v1beta1.
+Received: argoproj.io/v1alpha1&quot;,
+&quot;error_details&quot;:&quot;Error creating pipeline: Create pipeline failed: 
+Failed to get parameters from the pipelineRun: Invalid input error: 
+Unsupported argo version. Expected: tekton.dev/v1beta1. 
+Received: argoproj.io/v1alpha1&quot;}
+
+",-1,-1,-1.0,"Compilation of Elyra-Pipelines to Tekton based Kubeflow fails-I've installed a kubernetes cluster running kubeflow pipelines based on tekton on top of KIND using the following instructions
+Now I'm getting the following error message from the Elyra pipelines editor. Running against an argo based kfp cluster works fine.
+Is the kfp compiler somehow not supporting tekton? Can someone please shine some light on this?
+HTTP response body:
+{&quot;error_message&quot;:&quot;Error creating pipeline: Create pipeline failed: 
+Failed to get parameters from the pipelineRun: Invalid input error: 
+Unsupported argo version. 
+Expected: tekton.dev/v1beta1.
+Received: argoproj.io/v1alpha1&quot;,
+&quot;error_details&quot;:&quot;Error creating pipeline: Create pipeline failed: 
+Failed to get parameters from the pipelineRun: Invalid input error: 
+Unsupported argo version. Expected: tekton.dev/v1beta1. 
+Received: argoproj.io/v1alpha1&quot;}
+
+",5
+1,66178222,Accessing argo workflow archive via http leads to permission denied error,"I'm trying to access the Argo workflow archive via the REST API. The documentation states that I need to create a role and a token, so I that's what I did. A role with minimal permissions can be created like so:
+kubectl create role jenkins --verb=list,update --resource=workflows.argoproj.io
+
+And in fact this works, I can now access the argo server with a command like curl http://localhost:2746/api/v1/workflows/argo -H &quot;Authorization: $ARGO_TOKEN&quot;.
+However it seems that more permissions are needed to access endpoints such as /api/v1/archived-workflows, because all I get there is this:
+{
+  &quot;code&quot;: 7,
+  &quot;message&quot;: &quot;permission denied&quot;
+}
+
+Presumably I need to specify other verbs and/or resources in the kubectl create role command, but I don't know which ones, and I can't find the relevant documentation. Any hints?
+",-1,-1,-1.0,"Accessing argo workflow archive via http leads to permission denied error-I'm trying to access the Argo workflow archive via the REST API. The documentation states that I need to create a role and a token, so I that's what I did. A role with minimal permissions can be created like so:
+kubectl create role jenkins --verb=list,update --resource=workflows.argoproj.io
+
+And in fact this works, I can now access the argo server with a command like curl http://localhost:2746/api/v1/workflows/argo -H &quot;Authorization: $ARGO_TOKEN&quot;.
+However it seems that more permissions are needed to access endpoints such as /api/v1/archived-workflows, because all I get there is this:
+{
+  &quot;code&quot;: 7,
+  &quot;message&quot;: &quot;permission denied&quot;
+}
+
+Presumably I need to specify other verbs and/or resources in the kubectl create role command, but I don't know which ones, and I can't find the relevant documentation. Any hints?
+",3
+2,69021388,AMQP - Argo-events: argo-workflow not triggered,"I am trying to run an argo-workflow triggered by event-source that listens to messages published on RabbitMQ.  I followed the exact steps in here: AMQP-Argo Events
+The RabbitMQ controller pod is running:
+eventbus-controller-7b5bd8b7fd-nggrc      1/1     Running   0          4h24m
+events-webhook-6d4dc5b476-fnf6x           1/1     Running   0          4h24m
+eventsource-controller-57b6cff5c8-xhfwd   1/1     Running   0          4h24m
+rabbitmq-controller-949wp                 1/1     Running   0          178m
+sensor-controller-6f5b54468-8ndft         1/1     Running   0          4h24m
+
+When I publish a message on the exchange test using:
+import pika
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+channel = connection.channel()
+channel.basic_publish(exchange='test',
+                      routing_key='hello',
+                      body='{&quot;message&quot;: &quot;hello&quot;}')
+
+and log into the pod using
+kubectl logs pod/&lt;RABBITMQ-CONTROLLER-POD&gt; -n argo-events
+
+I get
+2021-09-01 22:58:56.437190+00:00 [info] &lt;0.3934.0&gt; accepting AMQP connection &lt;0.3934.0&gt; (127.0.0.1:58396 -&gt; 127.0.0.1:5672)
+2021-09-01 22:58:56.442906+00:00 [info] &lt;0.3934.0&gt; connection &lt;0.3934.0&gt; (127.0.0.1:58396 -&gt; 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
+
+Howerver I do not see any workflow listed when I view the workflows using
+argo list -n argo-events
+
+So it seems that the sensor is not triggered.  Can someone suggest what I might be doing wrong?
+Thanks!
+",-1,-1,-1.0,"AMQP - Argo-events: argo-workflow not triggered-I am trying to run an argo-workflow triggered by event-source that listens to messages published on RabbitMQ.  I followed the exact steps in here: AMQP-Argo Events
+The RabbitMQ controller pod is running:
+eventbus-controller-7b5bd8b7fd-nggrc      1/1     Running   0          4h24m
+events-webhook-6d4dc5b476-fnf6x           1/1     Running   0          4h24m
+eventsource-controller-57b6cff5c8-xhfwd   1/1     Running   0          4h24m
+rabbitmq-controller-949wp                 1/1     Running   0          178m
+sensor-controller-6f5b54468-8ndft         1/1     Running   0          4h24m
+
+When I publish a message on the exchange test using:
+import pika
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+channel = connection.channel()
+channel.basic_publish(exchange='test',
+                      routing_key='hello',
+                      body='{&quot;message&quot;: &quot;hello&quot;}')
+
+and log into the pod using
+kubectl logs pod/&lt;RABBITMQ-CONTROLLER-POD&gt; -n argo-events
+
+I get
+2021-09-01 22:58:56.437190+00:00 [info] &lt;0.3934.0&gt; accepting AMQP connection &lt;0.3934.0&gt; (127.0.0.1:58396 -&gt; 127.0.0.1:5672)
+2021-09-01 22:58:56.442906+00:00 [info] &lt;0.3934.0&gt; connection &lt;0.3934.0&gt; (127.0.0.1:58396 -&gt; 127.0.0.1:5672): user 'guest' authenticated and granted access to vhost '/'
+
+Howerver I do not see any workflow listed when I view the workflows using
+argo list -n argo-events
+
+So it seems that the sensor is not triggered.  Can someone suggest what I might be doing wrong?
+Thanks!
+",3
+3,69094527,Why doesn't this argo workflow run?,"I am trying to configure my Argo workflows.
+I know how to correct an error, but how do I debug if they do not run?
+I am running Argo 3.0.10 on Ubuntu 20.04
+argo: v3.0.10
+  BuildDate: 2021-08-18T23:41:44Z
+  GitCommit: 0177e73b962136200517b7f301cd98cfbed02a31
+  GitTreeState: clean
+  GitTag: v3.0.10
+  GoVersion: go1.16.6
+  Compiler: gc
+  Platform: linux/amd64
+
+I apply the below YAML using the following command
+argo submit test.yaml --watch:
+{
+   &quot;apiVersion&quot;: &quot;argoproj.io/v1alpha1&quot;,
+   &quot;kind&quot;: &quot;Workflow&quot;,
+   &quot;metadata&quot;: {
+      &quot;annotations&quot;: {
+         &quot;argo&quot;: &quot;workflows&quot;
+      },
+      &quot;generateName&quot;: &quot;hello-world-&quot;,
+      &quot;labels&quot;: {
+         &quot;workflows.argoproj.io/archive-strategy&quot;: &quot;false&quot;
+      },
+      &quot;namespace&quot;: &quot;argo&quot;
+   },
+   &quot;spec&quot;: {
+      &quot;entrypoint&quot;: &quot;entrypoint&quot;,
+      &quot;parallelism&quot;: 3,
+      &quot;podGC&quot;: {
+         &quot;strategy&quot;: &quot;OnWorkflowSuccess&quot;
+      },
+      &quot;securityContext&quot;: {
+         &quot;fsGroup&quot;: 2000,
+         &quot;runAsGroup&quot;: 3000,
+         &quot;runAsNonRoot&quot;: true,
+         &quot;runAsUser&quot;: 1000
+      },
+      &quot;serviceAccountName&quot;: &quot;argouser&quot;,
+      &quot;templates&quot;: [
+         {
+            &quot;container&quot;: {
+               &quot;args&quot;: [
+                  &quot;hello world&quot;
+               ],
+               &quot;command&quot;: [
+                  &quot;cowsay&quot;
+               ],
+               &quot;image&quot;: &quot;docker/whalesay:latest&quot;,
+               &quot;resources&quot;: {
+                  &quot;limits&quot;: {
+                     &quot;cpu&quot;: &quot;100m&quot;,
+                     &quot;memory&quot;: &quot;32Mi&quot;
+                  }
+               }
+            },
+            &quot;name&quot;: &quot;entrypoint&quot;
+         }
+      ],
+      &quot;ttlStrategy&quot;: {
+         &quot;secondsAfterSuccess&quot;: 5
+      }
+   }
+}
+
+
+As far as I can tell, the pods are never created and there is no record of them, however, the workflow exists. Here is the output of kubectl describe for the workflow:
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  annotations:
+    argo: workflows
+  creationTimestamp: &quot;2021-09-07T20:48:37Z&quot;
+  generateName: hello-world-
+  generation: 1
+  labels:
+    workflows.argoproj.io/archive-strategy: &quot;false&quot;
+  name: hello-world-p6h4k
+  namespace: argo
+  resourceVersion: &quot;14801149&quot;
+  uid: ee28ae8d-970e-47c6-83ee-fcdc6db44c39
+spec:
+  arguments: {}
+  entrypoint: entrypoint
+  parallelism: 3
+  podGC:
+    strategy: OnWorkflowSuccess
+  securityContext:
+    fsGroup: 2000
+    runAsGroup: 3000
+    runAsNonRoot: true
+    runAsUser: 1000
+  serviceAccountName: argouser
+  templates:
+  - container:
+      args:
+      - hello world
+      command:
+      - cowsay
+      image: docker/whalesay:latest
+      name: &quot;&quot;
+      resources:
+        limits:
+          cpu: 100m
+          memory: 32Mi
+    inputs: {}
+    metadata: {}
+    name: entrypoint
+    outputs: {}
+  ttlStrategy:
+    secondsAfterSuccess: 5
+status:
+  finishedAt: null
+  startedAt: null
+
+and the &quot;error&quot; message is:
+Name:                hello-world-p6h4k
+Namespace:           argo
+ServiceAccount:      argouser
+Status:              Pending
+Created:             Tue Sep 07 20:48:37 +0000 (now)
+Progress:
+FATA[2021-09-07T20:48:37.186Z] workflows.argoproj.io &quot;hello-world-p6h4k&quot; not found
+
+",-1,-1,-1.0,"Why doesn't this argo workflow run?-I am trying to configure my Argo workflows.
+I know how to correct an error, but how do I debug if they do not run?
+I am running Argo 3.0.10 on Ubuntu 20.04
+argo: v3.0.10
+  BuildDate: 2021-08-18T23:41:44Z
+  GitCommit: 0177e73b962136200517b7f301cd98cfbed02a31
+  GitTreeState: clean
+  GitTag: v3.0.10
+  GoVersion: go1.16.6
+  Compiler: gc
+  Platform: linux/amd64
+
+I apply the below YAML using the following command
+argo submit test.yaml --watch:
+{
+   &quot;apiVersion&quot;: &quot;argoproj.io/v1alpha1&quot;,
+   &quot;kind&quot;: &quot;Workflow&quot;,
+   &quot;metadata&quot;: {
+      &quot;annotations&quot;: {
+         &quot;argo&quot;: &quot;workflows&quot;
+      },
+      &quot;generateName&quot;: &quot;hello-world-&quot;,
+      &quot;labels&quot;: {
+         &quot;workflows.argoproj.io/archive-strategy&quot;: &quot;false&quot;
+      },
+      &quot;namespace&quot;: &quot;argo&quot;
+   },
+   &quot;spec&quot;: {
+      &quot;entrypoint&quot;: &quot;entrypoint&quot;,
+      &quot;parallelism&quot;: 3,
+      &quot;podGC&quot;: {
+         &quot;strategy&quot;: &quot;OnWorkflowSuccess&quot;
+      },
+      &quot;securityContext&quot;: {
+         &quot;fsGroup&quot;: 2000,
+         &quot;runAsGroup&quot;: 3000,
+         &quot;runAsNonRoot&quot;: true,
+         &quot;runAsUser&quot;: 1000
+      },
+      &quot;serviceAccountName&quot;: &quot;argouser&quot;,
+      &quot;templates&quot;: [
+         {
+            &quot;container&quot;: {
+               &quot;args&quot;: [
+                  &quot;hello world&quot;
+               ],
+               &quot;command&quot;: [
+                  &quot;cowsay&quot;
+               ],
+               &quot;image&quot;: &quot;docker/whalesay:latest&quot;,
+               &quot;resources&quot;: {
+                  &quot;limits&quot;: {
+                     &quot;cpu&quot;: &quot;100m&quot;,
+                     &quot;memory&quot;: &quot;32Mi&quot;
+                  }
+               }
+            },
+            &quot;name&quot;: &quot;entrypoint&quot;
+         }
+      ],
+      &quot;ttlStrategy&quot;: {
+         &quot;secondsAfterSuccess&quot;: 5
+      }
+   }
+}
+
+
+As far as I can tell, the pods are never created and there is no record of them, however, the workflow exists. Here is the output of kubectl describe for the workflow:
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  annotations:
+    argo: workflows
+  creationTimestamp: &quot;2021-09-07T20:48:37Z&quot;
+  generateName: hello-world-
+  generation: 1
+  labels:
+    workflows.argoproj.io/archive-strategy: &quot;false&quot;
+  name: hello-world-p6h4k
+  namespace: argo
+  resourceVersion: &quot;14801149&quot;
+  uid: ee28ae8d-970e-47c6-83ee-fcdc6db44c39
+spec:
+  arguments: {}
+  entrypoint: entrypoint
+  parallelism: 3
+  podGC:
+    strategy: OnWorkflowSuccess
+  securityContext:
+    fsGroup: 2000
+    runAsGroup: 3000
+    runAsNonRoot: true
+    runAsUser: 1000
+  serviceAccountName: argouser
+  templates:
+  - container:
+      args:
+      - hello world
+      command:
+      - cowsay
+      image: docker/whalesay:latest
+      name: &quot;&quot;
+      resources:
+        limits:
+          cpu: 100m
+          memory: 32Mi
+    inputs: {}
+    metadata: {}
+    name: entrypoint
+    outputs: {}
+  ttlStrategy:
+    secondsAfterSuccess: 5
+status:
+  finishedAt: null
+  startedAt: null
+
+and the &quot;error&quot; message is:
+Name:                hello-world-p6h4k
+Namespace:           argo
+ServiceAccount:      argouser
+Status:              Pending
+Created:             Tue Sep 07 20:48:37 +0000 (now)
+Progress:
+FATA[2021-09-07T20:48:37.186Z] workflows.argoproj.io &quot;hello-world-p6h4k&quot; not found
+
+",2
+4,70495730,How to access a content of file which is passed as input artifact to a script template in argo workflows,"I am trying to access the content(json data) of a file which is passed as input artifacts to a script template. It is failing with the following error NameError: name 'inputs' is not defined. Did you mean: 'input'?
+My artifacts are being stored in aws s3 bucket. I've also tried using environment variables instead of directly referring the artifacts directly in script template, but it is also not working.
+Here is my workflow
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: output-artifact-s3-
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      dag:
+        tasks:
+          - name: whalesay-script-template
+            template: whalesay
+
+          - name: retrieve-output-template
+            dependencies: [whalesay-script-template]
+            arguments:
+              artifacts:
+                - name: result
+                  from: &quot;{{tasks.whalesay-script-template.outputs.artifacts.message}}&quot;
+            template: retrieve-output
+
+
+    - name: whalesay
+      script:
+        image: python
+        command: [python]
+        env:
+          - name: OUTDATA
+            value: |
+              {
+              &quot;lb_url&quot; : &quot;&lt;&gt;.us-east-1.elb.amazonaws.com&quot;,
+              &quot;vpc_id&quot; : &quot;&lt;vpc-id&quot;,
+              &quot;web_server_count&quot; : &quot;4&quot;
+              }
+        source: |
+          import json
+          import os
+          OUTDATA = json.loads(os.environ[&quot;OUTDATA&quot;])
+          with open('/tmp/templates_lst.txt', 'w') as outfile:
+            outfile.write(str(json.dumps(OUTDATA)))
+        volumeMounts:
+          - name: out
+            mountPath: /tmp
+      volumes:
+        - name: out
+          emptyDir: { }
+      outputs:
+        artifacts:
+          - name: message
+            path: /tmp
+
+
+    - name: retrieve-output
+      inputs:
+        artifacts:
+          - name: result
+            path: /tmp
+      script:
+        image: python
+        command: [python]
+        source: |
+          import json
+          result = {{inputs.artifacts.result}}
+          with open(result, 'r') as outfile:
+            lines = outfile.read()
+            print(lines)
+          print('Execution completed')
+
+What's wrong in this workflow?
+",-1,-1,-1.0,"How to access a content of file which is passed as input artifact to a script template in argo workflows-I am trying to access the content(json data) of a file which is passed as input artifacts to a script template. It is failing with the following error NameError: name 'inputs' is not defined. Did you mean: 'input'?
+My artifacts are being stored in aws s3 bucket. I've also tried using environment variables instead of directly referring the artifacts directly in script template, but it is also not working.
+Here is my workflow
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: output-artifact-s3-
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      dag:
+        tasks:
+          - name: whalesay-script-template
+            template: whalesay
+
+          - name: retrieve-output-template
+            dependencies: [whalesay-script-template]
+            arguments:
+              artifacts:
+                - name: result
+                  from: &quot;{{tasks.whalesay-script-template.outputs.artifacts.message}}&quot;
+            template: retrieve-output
+
+
+    - name: whalesay
+      script:
+        image: python
+        command: [python]
+        env:
+          - name: OUTDATA
+            value: |
+              {
+              &quot;lb_url&quot; : &quot;&lt;&gt;.us-east-1.elb.amazonaws.com&quot;,
+              &quot;vpc_id&quot; : &quot;&lt;vpc-id&quot;,
+              &quot;web_server_count&quot; : &quot;4&quot;
+              }
+        source: |
+          import json
+          import os
+          OUTDATA = json.loads(os.environ[&quot;OUTDATA&quot;])
+          with open('/tmp/templates_lst.txt', 'w') as outfile:
+            outfile.write(str(json.dumps(OUTDATA)))
+        volumeMounts:
+          - name: out
+            mountPath: /tmp
+      volumes:
+        - name: out
+          emptyDir: { }
+      outputs:
+        artifacts:
+          - name: message
+            path: /tmp
+
+
+    - name: retrieve-output
+      inputs:
+        artifacts:
+          - name: result
+            path: /tmp
+      script:
+        image: python
+        command: [python]
+        source: |
+          import json
+          result = {{inputs.artifacts.result}}
+          with open(result, 'r') as outfile:
+            lines = outfile.read()
+            print(lines)
+          print('Execution completed')
+
+What's wrong in this workflow?
+",0
+5,71109864,How to resume a argo-workflow only if it is already in suspended state?,"I can suspend a workflow using argo suspend (Suspend), and I can resume the workflow again by argo-resume (Resume)
+However, while resuming, argo-workflows makes no checks on whether the workflow is already in a suspended state. How can this be imposed from the client side?
+In summary, I only want to resume a workflow if it has already gone into a suspended state. If it has not gone into suspended state, I will wait for the workflow to get suspended, and resume only thereafter.
+I tried using workflow.Status.Phase (Status) to check the state of workflow before resuming, however, the Phase string only has &quot;Running&quot; field, which does not differentiate between a running workflow and a suspended workflow.(Phase String code)
+",-1,-1,-1.0,"How to resume a argo-workflow only if it is already in suspended state?-I can suspend a workflow using argo suspend (Suspend), and I can resume the workflow again by argo-resume (Resume)
+However, while resuming, argo-workflows makes no checks on whether the workflow is already in a suspended state. How can this be imposed from the client side?
+In summary, I only want to resume a workflow if it has already gone into a suspended state. If it has not gone into suspended state, I will wait for the workflow to get suspended, and resume only thereafter.
+I tried using workflow.Status.Phase (Status) to check the state of workflow before resuming, however, the Phase string only has &quot;Running&quot; field, which does not differentiate between a running workflow and a suspended workflow.(Phase String code)
+",4
+6,71933148,argo workflow submit error - duplicated node name,"I am trying to use argo events + argo workflow . However I am constantly getting this duplicated nodename for ideally not sure why is it saying so . I have a sensor which reacts to events and it has a dag workflow.
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: argocd-dotnet-kafka-subscriber
+spec:
+  template:
+    serviceAccountName: argo-events-sa
+  dependencies:
+    - name: github
+      eventSourceName: github
+      eventName: github-app # argocd-dotnet-kafka-event
+  triggers:
+    - template:
+        name: trigger
+        argoWorkflow:
+          group: argoproj.io
+          version: v1alpha1
+          resource: workflows
+          operation: submit
+          source:
+            resource:
+              apiVersion: argoproj.io/v1alpha1
+              kind: Workflow
+              metadata:
+                generateName: argocd-dotnet-kafka-
+                namespace: workflows
+              spec:
+                entrypoint: build
+                serviceAccountName: workflow
+                volumes:
+                  - name: regcred
+                    secret:
+                      secretName: regcred
+                      items:
+                        - key: .dockerconfigjson
+                          path: config.json
+                  - name: github-access
+                    secret:
+                      secretName: github-access
+                      items:
+                        - key: token
+                          path: token
+                        - key: user
+                          path: user
+                        - key: email
+                          path: email
+                templates:
+                  - name: build
+                    dag:
+                      tasks:
+                        - name: build
+                          templateRef:
+                            name: container-image
+                            template: build-kaniko-git
+                            clusterScope: true
+                          arguments:
+                            parameters:
+                              - name: repo_url
+                                value: &quot;https://github.com/Workquark/argocd-dotnet-kafka-subscriber-deploy&quot;
+                              - name: repo_ref
+                                value: &quot;&quot;
+                              - name: repo_commit_id
+                                value: &quot;&quot;
+                              - name: container_image
+                                value: joydeep1985/argocd-dotnet-kafka-subscriber-deploy
+                              - name: container_tag
+                                value: &quot;latest&quot;
+                  - name: test
+                    script:
+                      image: alpine
+                      command: [sh]
+                      source: |
+                        echo This is a testing simulation...
+                        sleep 5
+                      volumeMounts:
+                        - name: github-access
+                          mountPath: /.github/
+          parameters:
+            - src:
+                dependencyName: github
+                dataKey: body.repository.git_url
+              dest: spec.templates.0.dag.tasks.0.arguments.parameters.0.value
+            - src:
+                dependencyName: github
+                dataKey: body.ref
+              dest: spec.templates.0.dag.tasks.0.arguments.parameters.1.value
+            - src:
+                dependencyName: github
+                dataKey: body.after
+              dest: spec.templates.0.dag.tasks.0.arguments.parameters.2.value
+            - src:
+                dependencyName: github
+                dataKey: body.repository.name
+              dest: spec.templates.0.dag.tasks.0.arguments.parameters.3.value
+              operation: append
+            - src:
+                dependencyName: github
+                dataKey: body.after
+              dest: spec.templates.0.dag.tasks.0.arguments.parameters.4.value
+            - src:
+                dependencyName: github
+                dataKey: body.repository.name
+              dest: spec.templates.0.dag.tasks.1.arguments.parameters.4.value
+            - src:
+                dependencyName: github
+                dataKey: body.after
+              dest: spec.templates.0.dag.tasks.1.arguments.parameters.5.value
+            - src:
+                dependencyName: github
+                dataKey: body.repository.name
+              dest: spec.templates.0.dag.tasks.2.arguments.parameters.4.value
+            - src:
+                dependencyName: github
+                dataKey: body.after
+              dest: spec.templates.0.dag.tasks.2.arguments.parameters.5.value
+
+
+Above is the sensor code for it .
+apiVersion: argoproj.io/v1alpha1
+kind: ClusterWorkflowTemplate
+metadata:
+  name: container-image
+spec:
+  serviceAccountName: workflow
+  templates:
+    - name: build-kaniko-git
+      inputs:
+        parameters:
+          - name: repo_url
+          - name: repo_ref
+            value: refs/heads/master
+          - name: repo_commit_id
+            value: HEAD
+          - name: container_image
+          - name: container_tag
+      container:
+        image: gcr.io/kaniko-project/executor:debug
+        command: [/kaniko/executor]
+        args:
+          - --context={{inputs.parameters.repo_url}}#{{inputs.parameters.repo_ref}}#{{inputs.parameters.repo_commit_id}}
+          - --destination={{inputs.parameters.container_image}}:{{inputs.parameters.container_tag}}
+        volumeMounts:
+          - name: regcred
+            mountPath: /kaniko/.docker/
+
+Above is the templateref for the argo workflow for kaniko . The error I keep getting is -
+time=&quot;2022-04-20T01:25:40.089Z&quot; level=fatal msg=&quot;Failed to submit workflow:
+templates.build sorting failed: duplicated nodeName &quot;
+{&quot;level&quot;:&quot;error&quot;,&quot;ts&quot;:1650417940.0938516,&quot;logger&quot;:&quot;argo-events.sensor&quot;,&quot;caller&quot;:&quot;sensors/listener.go:355&quot;,&quot;msg&quot;:&quot;failed to execute a trigger&quot;,&quot;sensorName&quot;:&quot;argocd-dotnet-kafka-subscriber&quot;,&quot;error&quot;:&quot;failed to execute trigger: timed out waiting for the condition: failed to execute submit command for workflow : exit status 1&quot;,&quot;errorVerbose&quot;:&quot;timed out waiting for the condition: failed to execute submit command for workflow : exit status 1\nfailed to execute trigger\ngithub.com/argoproj/argo-events/sensors.(*SensorContext).triggerOne\n\t/home/runner/work/argo-events/argo-events/sensors/listener.go:408\ngithub.com/argoproj/argo-events/sensors.(*SensorContext).triggerWithRateLimit\n\t/home/runner/work/argo-events/argo-events/sensors/listener.go:353\nruntime.goexit\n\t/opt/hostedtoolcache/go/1.17.1/x64/src/runtime/asm_amd64.s:1581&quot;,&quot;triggerName&quot;:&quot;trigger&quot;,&quot;triggeredBy&quot;:[&quot;github&quot;],&quot;triggeredByEvents&quot;:[&quot;32623564393765662d343331612d346333342d613166352d346230613238613735353163&quot;],&quot;stacktrace&quot;:&quot;github.com/argoproj/argo-events/sensors.(*SensorContext).triggerWithRateLimit\n\t/home/runner/work/argo-events/argo-events/sensors/listener.go:355&quot;}
+
+
+",-1,-1,-1.0,"argo workflow submit error - duplicated node name-I am trying to use argo events + argo workflow . However I am constantly getting this duplicated nodename for ideally not sure why is it saying so . I have a sensor which reacts to events and it has a dag workflow.
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: argocd-dotnet-kafka-subscriber
+spec:
+  template:
+    serviceAccountName: argo-events-sa
+  dependencies:
+    - name: github
+      eventSourceName: github
+      eventName: github-app # argocd-dotnet-kafka-event
+  triggers:
+    - template:
+        name: trigger
+        argoWorkflow:
+          group: argoproj.io
+          version: v1alpha1
+          resource: workflows
+          operation: submit
+          source:
+            resource:
+              apiVersion: argoproj.io/v1alpha1
+              kind: Workflow
+              metadata:
+                generateName: argocd-dotnet-kafka-
+                namespace: workflows
+              spec:
+                entrypoint: build
+                serviceAccountName: workflow
+                volumes:
+                  - name: regcred
+                    secret:
+                      secretName: regcred
+                      items:
+                        - key: .dockerconfigjson
+                          path: config.json
+                  - name: github-access
+                    secret:
+                      secretName: github-access
+                      items:
+                        - key: token
+                          path: token
+                        - key: user
+                          path: user
+                        - key: email
+                          path: email
+                templates:
+                  - name: build
+                    dag:
+                      tasks:
+                        - name: build
+                          templateRef:
+                            name: container-image
+                            template: build-kaniko-git
+                            clusterScope: true
+                          arguments:
+                            parameters:
+                              - name: repo_url
+                                value: &quot;https://github.com/Workquark/argocd-dotnet-kafka-subscriber-deploy&quot;
+                              - name: repo_ref
+                                value: &quot;&quot;
+                              - name: repo_commit_id
+                                value: &quot;&quot;
+                              - name: container_image
+                                value: joydeep1985/argocd-dotnet-kafka-subscriber-deploy
+                              - name: container_tag
+                                value: &quot;latest&quot;
+                  - name: test
+                    script:
+                      image: alpine
+                      command: [sh]
+                      source: |
+                        echo This is a testing simulation...
+                        sleep 5
+                      volumeMounts:
+                        - name: github-access
+                          mountPath: /.github/
+          parameters:
+            - src:
+                dependencyName: github
+                dataKey: body.repository.git_url
+              dest: spec.templates.0.dag.tasks.0.arguments.parameters.0.value
+            - src:
+                dependencyName: github
+                dataKey: body.ref
+              dest: spec.templates.0.dag.tasks.0.arguments.parameters.1.value
+            - src:
+                dependencyName: github
+                dataKey: body.after
+              dest: spec.templates.0.dag.tasks.0.arguments.parameters.2.value
+            - src:
+                dependencyName: github
+                dataKey: body.repository.name
+              dest: spec.templates.0.dag.tasks.0.arguments.parameters.3.value
+              operation: append
+            - src:
+                dependencyName: github
+                dataKey: body.after
+              dest: spec.templates.0.dag.tasks.0.arguments.parameters.4.value
+            - src:
+                dependencyName: github
+                dataKey: body.repository.name
+              dest: spec.templates.0.dag.tasks.1.arguments.parameters.4.value
+            - src:
+                dependencyName: github
+                dataKey: body.after
+              dest: spec.templates.0.dag.tasks.1.arguments.parameters.5.value
+            - src:
+                dependencyName: github
+                dataKey: body.repository.name
+              dest: spec.templates.0.dag.tasks.2.arguments.parameters.4.value
+            - src:
+                dependencyName: github
+                dataKey: body.after
+              dest: spec.templates.0.dag.tasks.2.arguments.parameters.5.value
+
+
+Above is the sensor code for it .
+apiVersion: argoproj.io/v1alpha1
+kind: ClusterWorkflowTemplate
+metadata:
+  name: container-image
+spec:
+  serviceAccountName: workflow
+  templates:
+    - name: build-kaniko-git
+      inputs:
+        parameters:
+          - name: repo_url
+          - name: repo_ref
+            value: refs/heads/master
+          - name: repo_commit_id
+            value: HEAD
+          - name: container_image
+          - name: container_tag
+      container:
+        image: gcr.io/kaniko-project/executor:debug
+        command: [/kaniko/executor]
+        args:
+          - --context={{inputs.parameters.repo_url}}#{{inputs.parameters.repo_ref}}#{{inputs.parameters.repo_commit_id}}
+          - --destination={{inputs.parameters.container_image}}:{{inputs.parameters.container_tag}}
+        volumeMounts:
+          - name: regcred
+            mountPath: /kaniko/.docker/
+
+Above is the templateref for the argo workflow for kaniko . The error I keep getting is -
+time=&quot;2022-04-20T01:25:40.089Z&quot; level=fatal msg=&quot;Failed to submit workflow:
+templates.build sorting failed: duplicated nodeName &quot;
+{&quot;level&quot;:&quot;error&quot;,&quot;ts&quot;:1650417940.0938516,&quot;logger&quot;:&quot;argo-events.sensor&quot;,&quot;caller&quot;:&quot;sensors/listener.go:355&quot;,&quot;msg&quot;:&quot;failed to execute a trigger&quot;,&quot;sensorName&quot;:&quot;argocd-dotnet-kafka-subscriber&quot;,&quot;error&quot;:&quot;failed to execute trigger: timed out waiting for the condition: failed to execute submit command for workflow : exit status 1&quot;,&quot;errorVerbose&quot;:&quot;timed out waiting for the condition: failed to execute submit command for workflow : exit status 1\nfailed to execute trigger\ngithub.com/argoproj/argo-events/sensors.(*SensorContext).triggerOne\n\t/home/runner/work/argo-events/argo-events/sensors/listener.go:408\ngithub.com/argoproj/argo-events/sensors.(*SensorContext).triggerWithRateLimit\n\t/home/runner/work/argo-events/argo-events/sensors/listener.go:353\nruntime.goexit\n\t/opt/hostedtoolcache/go/1.17.1/x64/src/runtime/asm_amd64.s:1581&quot;,&quot;triggerName&quot;:&quot;trigger&quot;,&quot;triggeredBy&quot;:[&quot;github&quot;],&quot;triggeredByEvents&quot;:[&quot;32623564393765662d343331612d346333342d613166352d346230613238613735353163&quot;],&quot;stacktrace&quot;:&quot;github.com/argoproj/argo-events/sensors.(*SensorContext).triggerWithRateLimit\n\t/home/runner/work/argo-events/argo-events/sensors/listener.go:355&quot;}
+
+
+",0
+7,72013109,Can a workflow be submitted using kubectl instead of argo?,"I have the file example-workflow-cowsay.yml:
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: hello-world-
+spec:
+  entrypoint: whalesay
+  templates:
+  - name: whalesay
+    container:
+      image: docker/whalesay
+      command: [cowsay]
+      args: [&quot;hello world&quot;]
+      resources:
+        limits:
+          memory: 32Mi
+          cpu: 100m
+
+I can submit this successfully like this: argo submit -n workflows apps/workflows/example-workflow-cowsay.yml.
+Can I get the same thing done using kubectl directly? I tried the below but it fails:
+$ k apply -n workflows -f apps/workflows/example-workflow-cowsay.yml                                                                       
+error: from hello-world-: cannot use generate name with apply
+
+",-1,-1,-1.0,"Can a workflow be submitted using kubectl instead of argo?-I have the file example-workflow-cowsay.yml:
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: hello-world-
+spec:
+  entrypoint: whalesay
+  templates:
+  - name: whalesay
+    container:
+      image: docker/whalesay
+      command: [cowsay]
+      args: [&quot;hello world&quot;]
+      resources:
+        limits:
+          memory: 32Mi
+          cpu: 100m
+
+I can submit this successfully like this: argo submit -n workflows apps/workflows/example-workflow-cowsay.yml.
+Can I get the same thing done using kubectl directly? I tried the below but it fails:
+$ k apply -n workflows -f apps/workflows/example-workflow-cowsay.yml                                                                       
+error: from hello-world-: cannot use generate name with apply
+
+",3
+8,73320413,Argo HTTP workflow - failed to get token volumes: service account argo/default does not have any secrets,"I am new to Argo and following the Quickstart templates and would like to deploy the HTTP template as a workflow.
+I create my cluster as so:
+minikube start --driver=docker --cpus='2' --memory='8g'
+kubectl create ns argo
+kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo-workflows/master/manifests/quick-start-postgres.yaml
+
+I then apply the HTTP template http_template.yaml from the docs:
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: http-template-
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      steps:
+        - - name: get-google-homepage
+            template: http
+            arguments:
+              parameters: [ { name: url, value: &quot;https://www.google.com&quot; } ]
+    - name: http
+      inputs:
+        parameters:
+          - name: url
+      http:
+        timeoutSeconds: 20 # Default 30
+        url: &quot;{{inputs.parameters.url}}&quot;
+        method: &quot;GET&quot; # Default GET
+        headers:
+          - name: &quot;x-header-name&quot;
+            value: &quot;test-value&quot;
+        # Template will succeed if evaluated to true, otherwise will fail
+        # Available variables:
+        #  request.body: string, the request body
+        #  request.headers: map[string][]string, the request headers
+        #  response.url: string, the request url
+        #  response.method: string, the request method
+        #  response.statusCode: int, the response status code
+        #  response.body: string, the response body
+        #  response.headers: map[string][]string, the response headers
+        successCondition: &quot;response.body contains \&quot;google\&quot;&quot; # available since v3.3
+        body: &quot;test body&quot; # Change request body
+
+argo submit -n argo http_template.yaml --watch
+However I get the the following error:
+Name:                http-template-564qp
+Namespace:           argo
+ServiceAccount:      unset (will run with the default ServiceAccount)
+Status:              Error
+Message:             failed to get token volumes: service account argo/default does not have any secrets
+
+I'm not clear on why this doesn't work given it's straight from the Quickstart documentation. Help would be appreciated.
+",-1,-1,-1.0,"Argo HTTP workflow - failed to get token volumes: service account argo/default does not have any secrets-I am new to Argo and following the Quickstart templates and would like to deploy the HTTP template as a workflow.
+I create my cluster as so:
+minikube start --driver=docker --cpus='2' --memory='8g'
+kubectl create ns argo
+kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo-workflows/master/manifests/quick-start-postgres.yaml
+
+I then apply the HTTP template http_template.yaml from the docs:
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: http-template-
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      steps:
+        - - name: get-google-homepage
+            template: http
+            arguments:
+              parameters: [ { name: url, value: &quot;https://www.google.com&quot; } ]
+    - name: http
+      inputs:
+        parameters:
+          - name: url
+      http:
+        timeoutSeconds: 20 # Default 30
+        url: &quot;{{inputs.parameters.url}}&quot;
+        method: &quot;GET&quot; # Default GET
+        headers:
+          - name: &quot;x-header-name&quot;
+            value: &quot;test-value&quot;
+        # Template will succeed if evaluated to true, otherwise will fail
+        # Available variables:
+        #  request.body: string, the request body
+        #  request.headers: map[string][]string, the request headers
+        #  response.url: string, the request url
+        #  response.method: string, the request method
+        #  response.statusCode: int, the response status code
+        #  response.body: string, the response body
+        #  response.headers: map[string][]string, the response headers
+        successCondition: &quot;response.body contains \&quot;google\&quot;&quot; # available since v3.3
+        body: &quot;test body&quot; # Change request body
+
+argo submit -n argo http_template.yaml --watch
+However I get the the following error:
+Name:                http-template-564qp
+Namespace:           argo
+ServiceAccount:      unset (will run with the default ServiceAccount)
+Status:              Error
+Message:             failed to get token volumes: service account argo/default does not have any secrets
+
+I'm not clear on why this doesn't work given it's straight from the Quickstart documentation. Help would be appreciated.
+",2
+9,74540466,Why argo-workflow report is not called when workflow step has outputs?,"Just wondering, why with argo-workflow, as seen here:
+https://github.com/argoproj/argo-workflows/blob/master/workflow/executor/executor.go#L783
+func (we *WorkflowExecutor) reportResult(ctx context.Context, result wfv1.NodeResult) error {
+    if !result.Outputs.HasOutputs() &amp;&amp; !result.Progress.IsValid() {
+        return nil
+    }
+    ...
+    err := we.upsertTaskResult(ctx, result)
+
+Why when there is output, the upsertTaskResult is not called?
+(took me a while to debug &quot;k8s API denied&quot; error because a wrong serviceAccount, the dirty solution found by developers was to no more use &quot;output&quot; ....)
+",-1,-1,-1.0,"Why argo-workflow report is not called when workflow step has outputs?-Just wondering, why with argo-workflow, as seen here:
+https://github.com/argoproj/argo-workflows/blob/master/workflow/executor/executor.go#L783
+func (we *WorkflowExecutor) reportResult(ctx context.Context, result wfv1.NodeResult) error {
+    if !result.Outputs.HasOutputs() &amp;&amp; !result.Progress.IsValid() {
+        return nil
+    }
+    ...
+    err := we.upsertTaskResult(ctx, result)
+
+Why when there is output, the upsertTaskResult is not called?
+(took me a while to debug &quot;k8s API denied&quot; error because a wrong serviceAccount, the dirty solution found by developers was to no more use &quot;output&quot; ....)
+",0
+10,75071909,How to pass artifacts of one WorkflowTemplate to another WorkflowTemplate from a workflow in argo,"I have a workflow template which outputs an artifact, this artifact has to be passed to another workflow template as an input. how we can do that? I'm following the way below which is not working
+Here is WorflowTemplate1.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: arfile
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      volumes:
+        - name: vol
+          emptyDir: {}
+      inputs:
+        parameters:
+
+      script:
+        image: &quot;ubuntu&quot;
+        volumeMounts:
+          - name: vol
+            mountPath: &quot;{{inputs.parameters.Odir}}&quot;
+        command: [&quot;bash&quot;]
+        source: |
+          #!/usr/bin/env bash
+          echo &quot;This is artifact testing&quot; &gt; /tmp/arfile
+
+      outputs:
+        parameters:
+          - name: arfile
+            path: &quot;{{inputs.parameters.Odir}}/arfile&quot;
+
+Here is the WorkflowTemplate2.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: bfile
+spec:
+  entrypoint: main
+  templates:
+      - name: main
+        volumes:
+          - name: vol
+            emptyDir: {}
+        inputs:
+          parameters:
+            - name: image
+              value: &quot;ubuntu&quot;
+            - name: Odir
+              value: &quot;/tmp&quot;
+          artifacts:
+            - name: arfile
+              path: /tmp/arfile
+        container:
+          image: &quot;ubuntu&quot;
+          command: [&quot;cat&quot;]
+          args:
+           - /tmp/arfile
+
+Here is the workflow which is calling the above two workflow templates.I'm unable to pass artifacts of workflowtemplate1 to workflowtemplate2 from this workflow.
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: apr-
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      outputs:
+        artifacts:
+          - name: arfile
+            from: &quot;tasks['dfile'].outputs.artifacts.arfile&quot;
+
+      dag:
+        tasks:
+          - name: dfile
+            templateRef:
+              name: arfile
+              template: main
+            arguments:
+              parameters:
+                - name: bimg
+                  value: &quot;ubuntu&quot;
+
+          - name: bci
+            depends: dfile
+            templateRef:
+              name: bfile
+              template: main
+            arguments:
+              parameters:
+                - name: img
+                  value: &quot;ubuntu&quot;
+              artifacts:
+                - name: arfile
+                  from: &quot;{{tasks.dfile.outputs.artifacts.arfile}}&quot;
+
+What's wrong I'm doing here?
+",-1,-1,-1.0,"How to pass artifacts of one WorkflowTemplate to another WorkflowTemplate from a workflow in argo-I have a workflow template which outputs an artifact, this artifact has to be passed to another workflow template as an input. how we can do that? I'm following the way below which is not working
+Here is WorflowTemplate1.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: arfile
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      volumes:
+        - name: vol
+          emptyDir: {}
+      inputs:
+        parameters:
+
+      script:
+        image: &quot;ubuntu&quot;
+        volumeMounts:
+          - name: vol
+            mountPath: &quot;{{inputs.parameters.Odir}}&quot;
+        command: [&quot;bash&quot;]
+        source: |
+          #!/usr/bin/env bash
+          echo &quot;This is artifact testing&quot; &gt; /tmp/arfile
+
+      outputs:
+        parameters:
+          - name: arfile
+            path: &quot;{{inputs.parameters.Odir}}/arfile&quot;
+
+Here is the WorkflowTemplate2.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: bfile
+spec:
+  entrypoint: main
+  templates:
+      - name: main
+        volumes:
+          - name: vol
+            emptyDir: {}
+        inputs:
+          parameters:
+            - name: image
+              value: &quot;ubuntu&quot;
+            - name: Odir
+              value: &quot;/tmp&quot;
+          artifacts:
+            - name: arfile
+              path: /tmp/arfile
+        container:
+          image: &quot;ubuntu&quot;
+          command: [&quot;cat&quot;]
+          args:
+           - /tmp/arfile
+
+Here is the workflow which is calling the above two workflow templates.I'm unable to pass artifacts of workflowtemplate1 to workflowtemplate2 from this workflow.
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: apr-
+spec:
+  entrypoint: main
+  templates:
+    - name: main
+      outputs:
+        artifacts:
+          - name: arfile
+            from: &quot;tasks['dfile'].outputs.artifacts.arfile&quot;
+
+      dag:
+        tasks:
+          - name: dfile
+            templateRef:
+              name: arfile
+              template: main
+            arguments:
+              parameters:
+                - name: bimg
+                  value: &quot;ubuntu&quot;
+
+          - name: bci
+            depends: dfile
+            templateRef:
+              name: bfile
+              template: main
+            arguments:
+              parameters:
+                - name: img
+                  value: &quot;ubuntu&quot;
+              artifacts:
+                - name: arfile
+                  from: &quot;{{tasks.dfile.outputs.artifacts.arfile}}&quot;
+
+What's wrong I'm doing here?
+",0
+11,75355866,How do I use templateDefaults with templates in an argo workslows WorkflowTemplate,"I'd like to use the templateDefaults feature to share common environment variables &amp; images between a set of script templates defined in a WorkflowTemplate resource, something like this;
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+spec:
+  templateDefaults:
+      script:
+         image: someimage:v1.2.3
+
+  templates:
+    - name: foo
+      script:
+        name: 'foo'
+      ...
+    - name: bar
+      script:
+        name: 'bar'
+      ...
+
+
+this does not work for me when i reference the template in another workflow - the templateDefaults seem to get ignored &amp; i get an error that the script image is not defined.
+Is there an alternative way to accomplish this?
+",-1,-1,-1.0,"How do I use templateDefaults with templates in an argo workslows WorkflowTemplate-I'd like to use the templateDefaults feature to share common environment variables &amp; images between a set of script templates defined in a WorkflowTemplate resource, something like this;
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+spec:
+  templateDefaults:
+      script:
+         image: someimage:v1.2.3
+
+  templates:
+    - name: foo
+      script:
+        name: 'foo'
+      ...
+    - name: bar
+      script:
+        name: 'bar'
+      ...
+
+
+this does not work for me when i reference the template in another workflow - the templateDefaults seem to get ignored &amp; i get an error that the script image is not defined.
+Is there an alternative way to accomplish this?
+",2
+12,75758176,Argoflow: run trivy docker image inside argoflow,"apiVersion: argoproj.io/v1alpha1
+kind: Workflow                  # new type of k8s spec
+metadata:
+  generateName: trivy-scan    # name of the workflow spec
+spec:
+  entrypoint: trivy-scan          # invoke the whalesay template
+  templates:
+    - name: trivy-scan              # name of the template
+      container:
+        image: aquasec/trivy
+        command: [trivy]
+        args: [ &quot;repo https://github.com/knqyf263/trivy-ci-test&quot; ]
+        resources: # limit the resources
+          limits:
+            memory: 32Mi
+            cpu: 100m
+
+I was trying to scan a git repo using trivy with the help of argoflow. The above code is throwing error with status code 137
+# trivy-scanggwmk: time=&quot;2023-03-15T19:48:56 UTC&quot; level=info msg=&quot;sub-process exited&quot; argo=true error=&quot;&lt;nil&gt;&quot; trivy-scanggwmk: Error: exit status 137
+After spending good amount of time on research, it seemed like a syntax issues on arguments. Tried below ways of passing the arguments but none of these helped.
+        command: [trivy]
+        args: [ &quot;repo&quot;, &quot;https://github.com/knqyf263/trivy-ci-test&quot; ]
+
+        command: [&quot;trivy repo https://github.com/knqyf263/trivy-ci-test&quot;]
+
+",-1,-1,-1.0,"Argoflow: run trivy docker image inside argoflow-apiVersion: argoproj.io/v1alpha1
+kind: Workflow                  # new type of k8s spec
+metadata:
+  generateName: trivy-scan    # name of the workflow spec
+spec:
+  entrypoint: trivy-scan          # invoke the whalesay template
+  templates:
+    - name: trivy-scan              # name of the template
+      container:
+        image: aquasec/trivy
+        command: [trivy]
+        args: [ &quot;repo https://github.com/knqyf263/trivy-ci-test&quot; ]
+        resources: # limit the resources
+          limits:
+            memory: 32Mi
+            cpu: 100m
+
+I was trying to scan a git repo using trivy with the help of argoflow. The above code is throwing error with status code 137
+# trivy-scanggwmk: time=&quot;2023-03-15T19:48:56 UTC&quot; level=info msg=&quot;sub-process exited&quot; argo=true error=&quot;&lt;nil&gt;&quot; trivy-scanggwmk: Error: exit status 137
+After spending good amount of time on research, it seemed like a syntax issues on arguments. Tried below ways of passing the arguments but none of these helped.
+        command: [trivy]
+        args: [ &quot;repo&quot;, &quot;https://github.com/knqyf263/trivy-ci-test&quot; ]
+
+        command: [&quot;trivy repo https://github.com/knqyf263/trivy-ci-test&quot;]
+
+",2

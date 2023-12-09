@@ -1,0 +1,361 @@
+Id,Title,Body,RatingsSentiCR,RatingsGPT35,RatingsGPTFineTuned
+60100900,Metaflow - AWS batch task fails after deleting conda folder from S3,"I am using Metaflow on AWS in batch mode. I deleted the conda folder from s3. Now when I try to run a batch task, it fails in the bootstrapping environment step.
+
+Apparently metaflow.plugins.conda.batch_bootstrap tries to download conda packages using the cache_urls associated with the environment id from the conda.dependencies file. The issue is described in some more detail here.  
+
+How can I fix this problem so that I can run a metaflow batch task again?
+",-1,-1,-1.0
+62851369,get s3 url path of metaflow artifact,"Is there a way to get the full s3 url path of a metaflow artifact, which was stored in a step?
+I looked at Metaflow's DataArtifact class but didn't see an obvious s3 path property.
+",-1,-1,-1.0
+67333103,How to create nested branches in metaflow?,"I am using metaflow to create a text processing pipeline as follows:-
+                                 ___F------
+                     ______ D---|          |  
+                    |           |___G---|  |__&gt;  
+          ____B-----|                   |-----&gt;H
+         |          |______E_________________&gt; ^
+      A -|                                     |
+         |____C________________________________|
+
+As per the documentation, branch allows to compute steps in parallel and it is used to compute (B, C), (D, E) and (F, G) in parallel. Finally all the branches are joined at H. Following is the code to implement this logic:-
+from metaflow import FlowSpec, step
+
+class TextProcessing(FlowSpec):
+
+  @step
+  def a(self):
+    ....
+
+    self.next(self.b, self.c)
+
+  @step
+  def c(self):
+    result1 = {}
+
+    ....
+
+    self.next(self.join)
+
+  @step
+  def b(self):
+    ....
+
+    self.next(self.d, self.e)
+
+  @step
+  def e(self):
+    result2 = []
+    .....
+
+    self.next(self.join)
+
+  @step
+  def d(self):
+    ....
+
+    self.next(self.f, self.g)
+
+  @step
+  def f(self):
+    result3 = []
+    ....
+
+    self.next(self.join)
+
+  @step
+  def g(self):
+    result4 = []
+    .....
+
+    self.next(self.join)
+
+
+  @step
+  def join(self, results):
+    data = [results.c.result, results.e.result2, result.f.result3, result.g.result4]
+    print(data)
+
+    self.next(self.end)
+
+  @step
+  def end(self):
+    pass
+
+etl = TextProcessing()
+
+
+On running python main.py run, I am getting following error:-
+Metaflow 2.2.10 executing TextProcessing for user:ubuntu
+Validating your flow...
+    Validity checker found an issue on line 83:
+    Step join seems like a join step (it takes an extra input argument) but an incorrect number of steps (c, e, f, g) lead to it. This join was expecting 2 incoming paths, starting from splitted step(s) f, g.
+
+
+Can someone point out where I am going wrong?
+",-1,-1,-1.0
+71573620,"Deploying Metaflow on AWS results in a ""403 Forbidden"" error","I used the CloudFormation template provided by Metaflow to deploy it on AWS, and I ran metaflow configure aws to create a configuration file with the deployment outputs, as outlined in the documentation. The deployment was successful and the configuration file is clearly being read, but when I run a simple flow involving a @batch decorator, I get the following error (this is after Metaflow reports the graph is good and Pylint is happy):
+Metadata request (/flows/MyFlow) failed (code 403): {&quot;message&quot;:&quot;Forbidden&quot;}
+
+Does anyone know the reason for this error?
+Digging into the code, it looks like this occurs when an API query to the METAFLOW_SERVICE_URL is made. Unfortunately, I don't know what the purpose of this query is or what authentication it expects.
+This has failed for two users, one of whom was the one to actually run the CloudFormation deployment successfully, so whatever permission is needed, it is not straightforwardly related to the permission needed to deploy.
+",-1,-1,-1.0
+75947125,Combination of Metaflow and MLflow within Databricks,"I need to use Databricks-Notebooks for writing a script which combines Metaflow and Mlflow.
+This is the script:
+import mlflow
+from metaflow import FlowSpec, step, Parameter
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_iris
+
+
+class TrainFlow(FlowSpec):
+
+    @step
+    def start(self):
+        iris = load_iris()
+        iris_df = pd.DataFrame(data= np.c_[iris['data'], iris['target']], columns= iris['feature_names'] + ['target'])
+
+        X_train, X_test, y_train, y_test = train_test_split(iris_df[['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']], iris_df['target'])
+
+        # Create a model
+        model = Ridge(alpha=0.1)
+
+        # Train the model on the training data
+        model.fit(X_train, y_train)
+
+        # Make predictions on the testing data
+        y_pred = model.predict(X_test)
+
+        # Evaluate the model on the testing data
+        accuracy = model.score(X_test, y_test)
+
+        self.next(self.end)
+
+    @step
+    def end(self):
+        print('End of flow')
+
+if __name__ == &quot;__main__&quot;:
+    TrainFlow()
+
+I execute this script using this command within a Databricks-Notebook cell:
+%env USERNAME='xyz'
+!python /dbfs/FileStore/xxx/metaflow_mlflow_workflow.py --no-pylint run
+
+This script is running fine.
+Now, I add MLflow to the script:
+import mlflow
+from metaflow import FlowSpec, step, Parameter
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_iris
+
+
+class TrainFlow(FlowSpec):
+
+    @step
+    def start(self):
+        iris = load_iris()
+        iris_df = pd.DataFrame(data= np.c_[iris['data'], iris['target']], columns= iris['feature_names'] + ['target'])
+
+        X_train, X_test, y_train, y_test = train_test_split(iris_df[['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']], iris_df['target'])
+
+        # Create a model
+        model = Ridge(alpha=0.1)
+
+        # Train the model on the training data
+        model.fit(X_train, y_train)
+
+        # Make predictions on the testing data
+        y_pred = model.predict(X_test)
+
+        # Evaluate the model on the testing data
+        accuracy = model.score(X_test, y_test)
+        
+        # Set the experiment name
+        experiment_name = &quot;Iris Classification&quot;
+
+        # Log the metrics and model using MLflow
+        with mlflow.start_run(run_name = experiment_name):
+        
+            mlflow.log_metric(&quot;accuracy_mean&quot;, 0.1)
+            mlflow.log_metric(&quot;accuracy_std&quot;, 0.2)
+
+            # Log the model's hyperparameters
+            mlflow.log_param(&quot;random_state&quot;, 0.3)
+            mlflow.log_param(&quot;n_estimators&quot;, 0.4)
+            mlflow.log_param(&quot;eval_metric&quot;, 0.5)
+            mlflow.log_param(&quot;k_fold&quot;, 0.6)
+
+        self.next(self.end)
+
+    @step
+    def end(self):
+        print('End of flow')
+
+if __name__ == &quot;__main__&quot;:
+    TrainFlow()
+
+As before, I execute this script using this command within a Databricks-Notebook cell:
+%env USERNAME='xyz'
+!python /dbfs/FileStore/xxx/metaflow_mlflow_workflow.py --no-pylint run
+
+Unfortunately, the script crashes and I get this error:
+env: USERNAME='xyz'
+Metaflow 2.8.0 executing TrainFlow for user:'xyz'
+Validating your flow...
+    The graph looks good!
+2023-04-06 07:50:51.288 Workflow starting (run-id 1680767451283182):
+2023-04-06 07:50:51.302 [1680767451283182/start/1 (pid 2012)] Task is starting.
+2023-04-06 07:50:53.940 [1680767451283182/start/1 (pid 2012)] &lt;flow TrainFlow step start&gt; failed:
+2023-04-06 07:50:53.945 [1680767451283182/start/1 (pid 2012)] Internal error
+2023-04-06 07:50:53.946 [1680767451283182/start/1 (pid 2012)] Traceback (most recent call last):
+2023-04-06 07:50:53.946 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/metaflow/cli.py&quot;, line 1172, in main
+2023-04-06 07:50:53.946 [1680767451283182/start/1 (pid 2012)] start(auto_envvar_prefix=&quot;METAFLOW&quot;, obj=state)
+2023-04-06 07:50:53.946 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/metaflow/_vendor/click/core.py&quot;, line 829, in __call__
+2023-04-06 07:50:53.946 [1680767451283182/start/1 (pid 2012)] return self.main(args, kwargs)
+2023-04-06 07:50:54.223 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/metaflow/_vendor/click/core.py&quot;, line 782, in main
+2023-04-06 07:50:54.224 [1680767451283182/start/1 (pid 2012)] rv = self.invoke(ctx)
+2023-04-06 07:50:54.224 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/metaflow/_vendor/click/core.py&quot;, line 1259, in invoke
+2023-04-06 07:50:54.224 [1680767451283182/start/1 (pid 2012)] return _process_result(sub_ctx.command.invoke(sub_ctx))
+2023-04-06 07:50:54.224 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/metaflow/_vendor/click/core.py&quot;, line 1066, in invoke
+2023-04-06 07:50:54.224 [1680767451283182/start/1 (pid 2012)] return ctx.invoke(self.callback, ctx.params)
+2023-04-06 07:50:54.224 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/metaflow/_vendor/click/core.py&quot;, line 610, in invoke
+2023-04-06 07:50:54.224 [1680767451283182/start/1 (pid 2012)] return callback(args, kwargs)
+2023-04-06 07:50:54.224 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/metaflow/_vendor/click/decorators.py&quot;, line 21, in new_func
+2023-04-06 07:50:54.224 [1680767451283182/start/1 (pid 2012)] return f(get_current_context(), args, kwargs)
+2023-04-06 07:50:54.224 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/metaflow/cli.py&quot;, line 581, in step
+2023-04-06 07:50:54.224 [1680767451283182/start/1 (pid 2012)] task.run_step(
+2023-04-06 07:50:54.224 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/metaflow/task.py&quot;, line 586, in run_step
+2023-04-06 07:50:54.225 [1680767451283182/start/1 (pid 2012)] self._exec_step_function(step_func)
+2023-04-06 07:50:54.225 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/metaflow/task.py&quot;, line 60, in _exec_step_function
+2023-04-06 07:50:54.225 [1680767451283182/start/1 (pid 2012)] step_function()
+2023-04-06 07:50:54.225 [1680767451283182/start/1 (pid 2012)] File &quot;/dbfs/FileStore/xxx/metaflow_mlflow_workflow.py&quot;, line 35, in start
+2023-04-06 07:50:54.225 [1680767451283182/start/1 (pid 2012)] with mlflow.start_run(run_name = experiment_name):
+2023-04-06 07:50:54.225 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/mlflow/tracking/fluent.py&quot;, line 350, in start_run
+2023-04-06 07:50:54.225 [1680767451283182/start/1 (pid 2012)] active_run_obj = client.create_run(
+2023-04-06 07:50:54.225 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/mlflow/tracking/client.py&quot;, line 275, in create_run
+2023-04-06 07:50:54.225 [1680767451283182/start/1 (pid 2012)] return self._tracking_client.create_run(experiment_id, start_time, tags, run_name)
+2023-04-06 07:50:54.225 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/mlflow/tracking/_tracking_service/client.py&quot;, line 131, in create_run
+2023-04-06 07:50:54.225 [1680767451283182/start/1 (pid 2012)] return self.store.create_run(
+2023-04-06 07:50:54.225 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/mlflow/store/tracking/rest_store.py&quot;, line 175, in create_run
+2023-04-06 07:50:54.225 [1680767451283182/start/1 (pid 2012)] response_proto = self._call_endpoint(CreateRun, req_body)
+2023-04-06 07:50:54.225 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/mlflow/store/tracking/rest_store.py&quot;, line 56, in _call_endpoint
+2023-04-06 07:50:54.226 [1680767451283182/start/1 (pid 2012)] return call_endpoint(self.get_host_creds(), endpoint, method, json_body, response_proto)
+2023-04-06 07:50:54.226 [1680767451283182/start/1 (pid 2012)] File &quot;/local_disk0/.ephemeral_nfs/cluster_libraries/python/lib/python3.9/site-packages/mlflow/utils/databricks_utils.py&quot;, line 413, in get_databricks_host_creds
+2023-04-06 07:50:54.226 [1680767451283182/start/1 (pid 2012)] config = provider.get_config()
+2023-04-06 07:50:54.226 [1680767451283182/start/1 (pid 2012)] File &quot;/databricks/python/lib/python3.9/site-packages/databricks_cli/configure/provider.py&quot;, line 134, in get_config
+2023-04-06 07:50:54.226 [1680767451283182/start/1 (pid 2012)] raise InvalidConfigurationError.for_profile(None)
+2023-04-06 07:50:54.226 [1680767451283182/start/1 (pid 2012)] databricks_cli.utils.InvalidConfigurationError: You haven't configured the CLI yet! Please configure by entering `/dbfs/FileStore/xxx/metaflow_mlflow_workflow.py configure`
+2023-04-06 07:50:54.226 [1680767451283182/start/1 (pid 2012)] 
+2023-04-06 07:50:54.226 [1680767451283182/start/1 (pid 2012)] Task failed.
+2023-04-06 07:50:54.227 Workflow failed.
+2023-04-06 07:50:54.227 Terminating 0 active tasks...
+2023-04-06 07:50:54.227 Flushing logs...
+    Step failure:
+    Step start (task-id 1) failed.
+
+Appartently, I am doing something wrong.
+How is it possible to combine Metaflow and MLflow so that it is running in a Databricks-Notebook cell?
+",-1,-1,-1.0
+75953279,ModuleNotFoundError: No module named 'pandas.core.indexes.numeric' using Metaflow,"I used Metaflow to load a Dataframe. It was successfully unpickled from the artifact store, but when I try to view its index using df.index, I get an error that says ModuleNotFoundError: No module named 'pandas.core.indexes.numeric'. Why?
+I've looked at other answers with similar error messages here and here, which say that this is caused by trying to unpickle a dataframe with older versions of Pandas. However, my error is slightly different, and it is not fixed by upgrading Pandas (pip install pandas -U).
+",-1,-1,-1.0
+76371734,Why does zarr.convenince.consolidate_metadata() not work within a LinearFlow (metaflow)?,"This is an issue about metaflow, zarr, python
+I am creating a LinearFlow using metaflow and zarr.
+All is going well except one key zarr function: when I try to consolidate all my metadata into a Metadata Store inside the flow, I get no error message but the metadata does not get consolidated (i.e. the Metadata Store does not get created)
+any insight from the metaflow community or the zarr community as to why that is? Thanks a bunch !
+This is the line of code that does nothing once put inside a LinearFlow:
+metadata_store = zarr.convenience.consolidate_metadata(path_for_store, metadata_key=&quot;.all_metadata&quot;)
+
+",-1,-1,-1.0
+76577612,How to use python package multiprocessing in metaflow?,"I am trying to run multiprocessing package in metaflow, in which fasttext model is running to predict some results. Here is my code:
+import pickle
+import os
+import boto3
+import multiprocessing
+from functools import partial
+from multiprocessing import Manager
+import time
+import pickle
+
+
+from metaflow import batch, conda, FlowSpec, step, conda_base, Flow, Step
+from util import pip_install_module
+ 
+
+@conda_base(libraries={'scikit-learn': '0.23.1', 'numpy': '1.22.4', 'pandas': '1.5.1', 'fasttext': '0.9.2'}) 
+class BatchInference(FlowSpec):
+    pip_install_module(&quot;python-dev-tools&quot;, &quot;2023.3.24&quot;)
+
+    @batch(cpu=10, memory=120000)
+    @step
+    def start(self):
+        import pandas as pd
+        import numpy as np
+
+        self.df_input = ['af', 'febrt' ,'fefv fd we' ,'fe hth dw hytht' ,' dfegrtg hg df reg']
+
+        self.next(self.predict)
+
+
+
+    @batch(cpu=10, memory=120000)
+    @step
+    def predict(self):
+        import fasttext
+        fasttext.FastText.eprint = lambda x: None
+
+        print('model reading started')
+        
+        #download the fasttext model from aws s3.
+
+        manager = Manager()
+        model_abn = manager.list([fasttext.load_model('fasttext_model.bin')])
+
+        
+        print('model reading finished')
+
+    
+        time_start = time.time()
+
+        pool = multiprocessing.Pool()
+        #results = pool.map(self.predict_abn, self.df_input)
+        results = pool.map(partial(self.predict_abn, model_abn=model_abn), self.df_input)
+
+        pool.close()
+        pool.join()
+
+        time_end = time.time()
+        print(f&quot;Time elapsed: {round(time_end - time_start, 2)}s&quot;)
+
+        self.next(self.end)
+
+
+    @step
+    def end(self):
+        print(&quot;Predictions evaluated successfully&quot;)
+
+
+    def predict_abn(self,text, model_abn):
+        model = model_abn[0]
+        return model.predict(text,k=1)
+
+
+if __name__ == '__main__':
+    BatchInference()
+
+The error message is:
+TypeError: cannot pickle 'fasttext_pybind.fasttext' object
+
+I was told this is because fasttext model cannot be serialised. And I also try other message, for example:
+self.model_bytes_abn = pickle.dumps(model_abn)
+
+to transfer the model to bytes type. But still does not work.
+Plz tell me what is wrong about the code and how to fix it?
+",-1,-1,-1.0

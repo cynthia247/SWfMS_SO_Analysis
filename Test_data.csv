@@ -1,0 +1,49 @@
+comments,ratings
+"Hello,
+Once I fix the errors on a specific tool after a workflow fails and execute the tool again, I do not see the option to replace the dataset and resume the workflow with the right dependencies (Resume dependencies from this job). I see the option available on the usegalaxy.eu 1 server but my local installation does not give me that option (I do not see a section for “Additional Options”.)
+I have checked the replies on posts like these
+Job fail in one element of the list stops the whole pipelin
+Is it because of the difference in Galaxy versions? (local installation is 22.05) or do I have to activate it in the config files?
+
+Thanks",-1
+"Hi all!
+
+I have two things, one, I can’t get Seurat to work despite inputting the correct files (or at least I think I’m putting it in correctly). Additionally, I have gene names that I would prefer to have in my ‘feature’ files but it just giving me the accession (further into the workflow) as it’s in the first column.
+
+Susan",0
+"Hello everyone,
+
+I’m currently in the process of performing DEGS idenitification with DESEQ2 in the galaxy pipeline.
+
+I performed all my steps with Galaxy.
+
+I performed whole RNA transcriptome sequencing. The obtained FASTq files I imported into galaxy and then I performed the following steps:
+
+FASTP
+FASTQC
+HISAT2
+STRINGTIE
+
+And I try DESeq2. But few minits later,I got error meassage.I checked “Tool Standard Error” and it says :
+estimating size factors
+estimating dispersions
+Error in checkForExperimentalReplicates(object, modelMatrix) :
+
+The design matrix has the same number of samples and coefficients to fit,
+so estimation of dispersion is not possible. Treating samples
+as replicates was deprecated in v1.20 and no longer supported since v1.22.
+
+Calls: DESeq … estimateDispersions → .local → checkForExperimentalReplicates
+
+Please give some advices,help me.",-1
+"Welcome, @Vijina_Chakkyarath
+
+There is much prior troubleshooting for errors with these tools at this forum.
+
+You can search with keywords like tool names and datatypes, or click on the tags I added.
+
+You’ll find links to tutorials with examples, plus common solutions that have worked for others.
+
+Please give that a review, compare your data to the data others have shared, and follow up here if you still have a specific question. We’ll need more information to help, and you’ll see that in the other topics, or can review here: Troubleshooting errors 4
+
+Let’s start there. Learning how to ask questions with context will be a useful skill, too :slight_smile:",1

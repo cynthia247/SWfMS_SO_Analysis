@@ -1,0 +1,3160 @@
+,Id,Title,Body,RatingsSentiCR,RatingsGPT35,RatingsGPTFineTuned,merged,topic
+0,6291325,R: Replacing rownames of data frame by a substring[2],"I have a question about the use of gsub. The rownames of my data, have the same partial names. See below: 
+
+&gt; rownames(test)
+[1] ""U2OS.EV.2.7.9""   ""U2OS.PIM.2.7.9""  ""U2OS.WDR.2.7.9""  ""U2OS.MYC.2.7.9""
+[5] ""U2OS.OBX.2.7.9""  ""U2OS.EV.18.6.9""  ""U2O2.PIM.18.6.9"" ""U2OS.WDR.18.6.9""
+[9] ""U2OS.MYC.18.6.9"" ""U2OS.OBX.18.6.9"" ""X1.U2OS...OBX""   ""X2.U2OS...MYC""
+[13] ""X3.U2OS...WDR82"" ""X4.U2OS...PIM""   ""X5.U2OS...EV""    ""exp1.U2OS.EV""
+[17] ""exp1.U2OS.MYC""   ""EXP1.U20S..PIM1"" ""EXP1.U2OS.WDR82"" ""EXP1.U20S.OBX""
+[21] ""EXP2.U2OS.EV""    ""EXP2.U2OS.MYC""   ""EXP2.U2OS.PIM1""  ""EXP2.U2OS.WDR82""
+[25] ""EXP2.U2OS.OBX""
+
+
+In my previous question, I asked if there is a way to get the same names for the same partial names. See this question: Replacing rownames of data frame by a sub-string 
+
+The answer is a very nice solution. The function gsub is used in this way:  
+
+ transfecties = gsub("".*(MYC|EV|PIM|WDR|OBX).*"", ""\\1"", rownames(test)
+
+
+Now, I have another problem, the program I run with R (Galaxy) doesn't recognize the | characters. My question is, is there another way to get to the same solution without using this |?
+
+Thanks!  
+",1,-1,-1.0,"I have a question about the use of gsub. The rownames of my data, have the same partial names. See below: 
+
+&gt; rownames(test)
+[1] ""U2OS.EV.2.7.9""   ""U2OS.PIM.2.7.9""  ""U2OS.WDR.2.7.9""  ""U2OS.MYC.2.7.9""
+[5] ""U2OS.OBX.2.7.9""  ""U2OS.EV.18.6.9""  ""U2O2.PIM.18.6.9"" ""U2OS.WDR.18.6.9""
+[9] ""U2OS.MYC.18.6.9"" ""U2OS.OBX.18.6.9"" ""X1.U2OS...OBX""   ""X2.U2OS...MYC""
+[13] ""X3.U2OS...WDR82"" ""X4.U2OS...PIM""   ""X5.U2OS...EV""    ""exp1.U2OS.EV""
+[17] ""exp1.U2OS.MYC""   ""EXP1.U20S..PIM1"" ""EXP1.U2OS.WDR82"" ""EXP1.U20S.OBX""
+[21] ""EXP2.U2OS.EV""    ""EXP2.U2OS.MYC""   ""EXP2.U2OS.PIM1""  ""EXP2.U2OS.WDR82""
+[25] ""EXP2.U2OS.OBX""
+
+
+In my previous question, I asked if there is a way to get the same names for the same partial names. See this question: Replacing rownames of data frame by a sub-string 
+
+The answer is a very nice solution. The function gsub is used in this way:  
+
+ transfecties = gsub("".*(MYC|EV|PIM|WDR|OBX).*"", ""\\1"", rownames(test)
+
+
+Now, I have another problem, the program I run with R (Galaxy) doesn't recognize the | characters. My question is, is there another way to get to the same solution without using this |?
+
+Thanks!  
+",4
+1,20966921,Ansible-galaxy throws ImportError: No module named yaml,"
+When I try to install ansible role, I see this exception.
+
+ $ ansible-galaxy install zzet.postgresql
+ Traceback (most recent call last):
+ File ""/Users/myHomeDir/.homebrew/Cellar/ansible/1.4.3/libexec/bin/ansible-galaxy"", line 34, in &lt;module&gt;
+ import yaml
+ ImportError: No module named yaml
+
+
+OS: Mac Os Maverick
+Ansible: 1.4.3
+
+Does anyone know how to fix it?
+",0,-1,-1.0,"
+When I try to install ansible role, I see this exception.
+
+ $ ansible-galaxy install zzet.postgresql
+ Traceback (most recent call last):
+ File ""/Users/myHomeDir/.homebrew/Cellar/ansible/1.4.3/libexec/bin/ansible-galaxy"", line 34, in &lt;module&gt;
+ import yaml
+ ImportError: No module named yaml
+
+
+OS: Mac Os Maverick
+Ansible: 1.4.3
+
+Does anyone know how to fix it?
+",4
+2,27132238,Galaxy Gear not recognized by adb and odin after last update,"Today I updated my galaxy gear to latest version and since then adb and odin are not recognizing it. I tried almost everything, changing cable, restarting, usb debugging on/off, i have no idea what could it be. 
+ADB always returns an emtpy list on ""adb devices"" and error:no device on adb:shell.
+Any idea?
+",-1,-1,-1.0,"Today I updated my galaxy gear to latest version and since then adb and odin are not recognizing it. I tried almost everything, changing cable, restarting, usb debugging on/off, i have no idea what could it be. 
+ADB always returns an emtpy list on ""adb devices"" and error:no device on adb:shell.
+Any idea?
+",1
+3,27681875,"ansible-galaxy role fails with ""do not have permission to modify /etc/ansible/roles/""","tl;dr = How do OS X users recommend working around this permissions error?
+
+I'm on OS X 10.10.1 and I recently installed Ansible running the following: 
+
+sudo pip install ansible --quiet
+sudo pip install ansible --upgrade
+
+
+I want to start off with a galaxy role to install homebrew and went to run this one with the following error: 
+
+$ ansible-galaxy install geerlingguy.homebrew
+- downloading role 'homebrew', owned by geerlingguy
+- downloading role from https://github.com/geerlingguy/ansible-role-homebrew/archive/1.0.1.tar.gz
+- extracting geerlingguy.homebrew to /etc/ansible/roles/geerlingguy.homebrew
+- error: you do not have permission to modify files in /etc/ansible/roles/geerlingguy.homebrew
+- geerlingguy.homebrew was NOT installed successfully.
+- you can use --ignore-errors to skip failed roles.
+
+
+While I see /etc is owned by root, I don't see any notes in documentation saying I should chmod anything. 
+
+For reference: 
+
+$ ansible --version
+ansible 1.8.2
+  configured module search path = None
+
+
+Is this expected or is my installation somehow wrong? 
+",-1,-1,-1.0,"tl;dr = How do OS X users recommend working around this permissions error?
+
+I'm on OS X 10.10.1 and I recently installed Ansible running the following: 
+
+sudo pip install ansible --quiet
+sudo pip install ansible --upgrade
+
+
+I want to start off with a galaxy role to install homebrew and went to run this one with the following error: 
+
+$ ansible-galaxy install geerlingguy.homebrew
+- downloading role 'homebrew', owned by geerlingguy
+- downloading role from https://github.com/geerlingguy/ansible-role-homebrew/archive/1.0.1.tar.gz
+- extracting geerlingguy.homebrew to /etc/ansible/roles/geerlingguy.homebrew
+- error: you do not have permission to modify files in /etc/ansible/roles/geerlingguy.homebrew
+- geerlingguy.homebrew was NOT installed successfully.
+- you can use --ignore-errors to skip failed roles.
+
+
+While I see /etc is owned by root, I don't see any notes in documentation saying I should chmod anything. 
+
+For reference: 
+
+$ ansible --version
+ansible 1.8.2
+  configured module search path = None
+
+
+Is this expected or is my installation somehow wrong? 
+",1
+4,30129095,Ansible galaxy: expected a role name in dictionary,"I have an ansible playbook with roles listed. One of the roles have a tag, and it is ansible galaxy role. I have it installed with ansible-galaxy install.
+
+Playbook part:
+
+roles: 
+  ... roles here
+  - {name: httplab.ffmpeg, tags: ffmpeg}
+
+
+On playbook run I get 
+
+ERROR: expected a role name in dictionary: {'name': 'httplab.ffmpeg', 'tags': 'ffmpeg'}
+
+
+That's quite confusing message actually. What I'm doing wrong here?
+",-1,-1,-1.0,"I have an ansible playbook with roles listed. One of the roles have a tag, and it is ansible galaxy role. I have it installed with ansible-galaxy install.
+
+Playbook part:
+
+roles: 
+  ... roles here
+  - {name: httplab.ffmpeg, tags: ffmpeg}
+
+
+On playbook run I get 
+
+ERROR: expected a role name in dictionary: {'name': 'httplab.ffmpeg', 'tags': 'ffmpeg'}
+
+
+That's quite confusing message actually. What I'm doing wrong here?
+",1
+5,31467156,How to control camera flash light with camera2 API,"I want to control flash light of smartphone (Galaxy s6) using camera2 API.
+
+I checked it is available by codes like this,
+
+try {
+    CameraManager mManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+    String [] cameraId = mManager.getCameraIdList();
+    CameraCharacteristics cameraCharacteristics = mManager.getCameraCharacteristics(cameraId[1]);
+    Toast.makeText(getApplicationContext(),cameraId[0]+cameraId[1],Toast.LENGTH_LONG).show();
+    boolean flashAvailable = cameraCharacteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+    if (flashAvailable) {
+        mManager.openCamera(cameraId[0], new MyStateCallback(), null);
+        Toast.makeText(getApplicationContext(),""Flash is available"",Toast.LENGTH_LONG).show();
+    } else {
+        //todo: throw Exception
+        Toast.makeText(getApplicationContext(),""Flash is not available"",Toast.LENGTH_LONG).show();
+    }
+} catch (Exception e) {
+    e.printStackTrace();
+}
+
+
+But, Toast message : Flash is not available.
+
+Of course, I declared permission and hardware features in manifest.
+
+Is it impossible to control flash light with this device or camera2 API?
+",-1,-1,-1.0,"I want to control flash light of smartphone (Galaxy s6) using camera2 API.
+
+I checked it is available by codes like this,
+
+try {
+    CameraManager mManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+    String [] cameraId = mManager.getCameraIdList();
+    CameraCharacteristics cameraCharacteristics = mManager.getCameraCharacteristics(cameraId[1]);
+    Toast.makeText(getApplicationContext(),cameraId[0]+cameraId[1],Toast.LENGTH_LONG).show();
+    boolean flashAvailable = cameraCharacteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
+    if (flashAvailable) {
+        mManager.openCamera(cameraId[0], new MyStateCallback(), null);
+        Toast.makeText(getApplicationContext(),""Flash is available"",Toast.LENGTH_LONG).show();
+    } else {
+        //todo: throw Exception
+        Toast.makeText(getApplicationContext(),""Flash is not available"",Toast.LENGTH_LONG).show();
+    }
+} catch (Exception e) {
+    e.printStackTrace();
+}
+
+
+But, Toast message : Flash is not available.
+
+Of course, I declared permission and hardware features in manifest.
+
+Is it impossible to control flash light with this device or camera2 API?
+",3
+6,34980330,ansible-galaxy login: Unexpected Exception: No JSON object could be decoded,"I have been search all over and can't seem to solve this issue. I am trying to setup the Travis integration for the ansible role. According to the docs I need to authenticate first. I then run ansible-galaxy login, provide my github details and then:
+Unexpected Exception: No JSON object could be decoded.
+
+The traceback:
+
+    File ""/usr/local/bin/ansible-galaxy"", line 85, in &lt;module&gt;
+    sys.exit(cli.run())
+  File ""/usr/local/lib/python2.7/site-packages/ansible/cli/galaxy.py"", line 152, in run
+    self.execute()
+  File ""/usr/local/lib/python2.7/site-packages/ansible/cli/__init__.py"", line 99, in execute
+    fn()
+  File ""/usr/local/lib/python2.7/site-packages/ansible/cli/galaxy.py"", line 553, in execute_login
+    galaxy_response = self.api.authenticate(github_token)
+  File ""/usr/local/lib/python2.7/site-packages/ansible/galaxy/api.py"", line 119, in authenticate
+    data = json.load(resp)
+  File ""/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/json/__init__.py"", line 290, in load
+    **kw)
+  File ""/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/json/__init__.py"", line 338, in loads
+    return _default_decoder.decode(s)
+  File ""/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/json/decoder.py"", line 366, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File ""/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/json/decoder.py"", line 384, in raw_decode
+    raise ValueError(""No JSON object could be decoded"")
+ValueError: No JSON object could be decoded
+
+
+I even tried to reinstall ansible but no luck. 
+Any ideas? 
+",-1,-1,-1.0,"I have been search all over and can't seem to solve this issue. I am trying to setup the Travis integration for the ansible role. According to the docs I need to authenticate first. I then run ansible-galaxy login, provide my github details and then:
+Unexpected Exception: No JSON object could be decoded.
+
+The traceback:
+
+    File ""/usr/local/bin/ansible-galaxy"", line 85, in &lt;module&gt;
+    sys.exit(cli.run())
+  File ""/usr/local/lib/python2.7/site-packages/ansible/cli/galaxy.py"", line 152, in run
+    self.execute()
+  File ""/usr/local/lib/python2.7/site-packages/ansible/cli/__init__.py"", line 99, in execute
+    fn()
+  File ""/usr/local/lib/python2.7/site-packages/ansible/cli/galaxy.py"", line 553, in execute_login
+    galaxy_response = self.api.authenticate(github_token)
+  File ""/usr/local/lib/python2.7/site-packages/ansible/galaxy/api.py"", line 119, in authenticate
+    data = json.load(resp)
+  File ""/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/json/__init__.py"", line 290, in load
+    **kw)
+  File ""/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/json/__init__.py"", line 338, in loads
+    return _default_decoder.decode(s)
+  File ""/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/json/decoder.py"", line 366, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File ""/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/json/decoder.py"", line 384, in raw_decode
+    raise ValueError(""No JSON object could be decoded"")
+ValueError: No JSON object could be decoded
+
+
+I even tried to reinstall ansible but no luck. 
+Any ideas? 
+",4
+7,35669740,How can to get a curated list of Ansible Galaxy roles?,"Ansible galaxy concept is great as it supposed to promote playbook reuse. 
+
+Still because it lacks any serious filtering or curating methods it became a victim of its own success: there are too many options to pick from and most of them (if not all) being incomplete, obsolete or without a community behind them.
+
+Ansible galaxy reminds me a little bit about Jenkins plugins, another place where too many options is worse than having less.
+
+Do you know a way to deal with this problem? How we should approach this issue. 
+
+I would love to contribute to incomplete roles, but with the current state of affairs it seems impossible to know which one to worth any attention.
+",-1,-1,-1.0,"Ansible galaxy concept is great as it supposed to promote playbook reuse. 
+
+Still because it lacks any serious filtering or curating methods it became a victim of its own success: there are too many options to pick from and most of them (if not all) being incomplete, obsolete or without a community behind them.
+
+Ansible galaxy reminds me a little bit about Jenkins plugins, another place where too many options is worse than having less.
+
+Do you know a way to deal with this problem? How we should approach this issue. 
+
+I would love to contribute to incomplete roles, but with the current state of affairs it seems impossible to know which one to worth any attention.
+",4
+8,36359647,Galaxy NGS not displaying installed tools,"I'm running an instance of Galaxy NGS in an Ubuntu server, with a basic configuration, postgresql database, and apache.
+
+When I log in as Admin in the Galaxy interface, and try to add a new tool through the tool shed, the tool is installed and I can use it without problems
+
+However, if Galaxy needs to be restarted, the tool does not appear anymore
+
+I followed the instructions here to configure a folder to keep the installed tools, like it explains there, adding a line in config.ini with the desired folder
+
+tool_dependency_dir = dependency_dir
+
+
+But that doesn't do the trick and the tools are not stored in the folder anyway
+
+Does somebody have a clue on what could I be missing?
+",-1,-1,-1.0,"I'm running an instance of Galaxy NGS in an Ubuntu server, with a basic configuration, postgresql database, and apache.
+
+When I log in as Admin in the Galaxy interface, and try to add a new tool through the tool shed, the tool is installed and I can use it without problems
+
+However, if Galaxy needs to be restarted, the tool does not appear anymore
+
+I followed the instructions here to configure a folder to keep the installed tools, like it explains there, adding a line in config.ini with the desired folder
+
+tool_dependency_dir = dependency_dir
+
+
+But that doesn't do the trick and the tools are not stored in the folder anyway
+
+Does somebody have a clue on what could I be missing?
+",3
+9,36393749,Always run ansible role before other role,"I'm trying to find my way out of a dependency thicket. I'm using Ansible 1.9.2.
+
+In a single playbook, I want to be able to install a Galaxy role (in the event, the Datadog.datadog role) and configure it. But Ansible always barfs; since the Datadog.datadog role doesn't exist until another role that I wrote installs the Galaxy role, it won't execute. This is how I'd really like it to be, cutting out the other roles that my playbook uses:
+
+- hosts: all
+  roles: 
+  - install_datadog
+  - (some other roles...)
+  - { role: Datadog.datadog, sudo: true }
+  vars:
+    datadog_api_key: ""somekey""
+
+
+I have tried all of the following, and none of them work for installing the Ansible Galaxy Datadog.datadog role first:
+
+
+Having an earlier block in the same playbook that runs my install_datadog role. 
+Using an 'include' statement earlier in the playbook that includes the install_datadog role's main.yml.
+Creating a pre_task statement in the above playbook.
+
+
+Defining a role dependency doesn't make sense, because Datadog.datadog doesn't exist yet, so I can't define any dependencies in it. There is always an error akin to this:
+
+ERROR: cannot find role in /etc/ansible/roles/Datadog.datadog
+
+
+The only thing I can get to work is executing the install_datadog role in a prior run. This is not a great solution, as previously one playbook that had many execution blocks and role invocations configured our whole environment; this would require the execution of two playbooks in a specific order, which is highly inelegant.
+
+So in a single run, how do I resolve a Galaxy role that won't exist until an earlier role has run to install it?
+",-1,-1,-1.0,"I'm trying to find my way out of a dependency thicket. I'm using Ansible 1.9.2.
+
+In a single playbook, I want to be able to install a Galaxy role (in the event, the Datadog.datadog role) and configure it. But Ansible always barfs; since the Datadog.datadog role doesn't exist until another role that I wrote installs the Galaxy role, it won't execute. This is how I'd really like it to be, cutting out the other roles that my playbook uses:
+
+- hosts: all
+  roles: 
+  - install_datadog
+  - (some other roles...)
+  - { role: Datadog.datadog, sudo: true }
+  vars:
+    datadog_api_key: ""somekey""
+
+
+I have tried all of the following, and none of them work for installing the Ansible Galaxy Datadog.datadog role first:
+
+
+Having an earlier block in the same playbook that runs my install_datadog role. 
+Using an 'include' statement earlier in the playbook that includes the install_datadog role's main.yml.
+Creating a pre_task statement in the above playbook.
+
+
+Defining a role dependency doesn't make sense, because Datadog.datadog doesn't exist yet, so I can't define any dependencies in it. There is always an error akin to this:
+
+ERROR: cannot find role in /etc/ansible/roles/Datadog.datadog
+
+
+The only thing I can get to work is executing the install_datadog role in a prior run. This is not a great solution, as previously one playbook that had many execution blocks and role invocations configured our whole environment; this would require the execution of two playbooks in a specific order, which is highly inelegant.
+
+So in a single run, how do I resolve a Galaxy role that won't exist until an earlier role has run to install it?
+",1
+10,36958125,Ansible roles/packages - Ansible Galaxy - error on installation MAC OSX,"Im trying to install ansible-galaxy roles on Mac OS X El Capitan via CLI
+
+$ ansible-galaxy install -r requirements.yml
+
+
+I am getting this error:
+
+ERROR! Unexpected Exception: (setuptools 1.1.6 (/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python), Requirement.parse('setuptools&gt;=11.3'))
+the full traceback was:
+
+Traceback (most recent call last):
+  File ""/usr/local/bin/ansible-galaxy"", line 73, in &lt;module&gt;
+    mycli = getattr(__import__(""ansible.cli.%s"" % sub, fromlist=[myclass]), myclass)
+  File ""/Library/Python/2.7/site-packages/ansible/cli/galaxy.py"", line 38, in &lt;module&gt;
+    from ansible.galaxy.role import GalaxyRole
+  File ""/Library/Python/2.7/site-packages/ansible/galaxy/role.py"", line 35, in &lt;module&gt;
+    from ansible.playbook.role.requirement import RoleRequirement
+  File ""/Library/Python/2.7/site-packages/ansible/playbook/__init__.py"", line 25, in &lt;module&gt;
+    from ansible.playbook.play import Play
+  File ""/Library/Python/2.7/site-packages/ansible/playbook/play.py"", line 27, in &lt;module&gt;
+    from ansible.playbook.base import Base
+  File ""/Library/Python/2.7/site-packages/ansible/playbook/base.py"", line 35, in &lt;module&gt;
+    from ansible.parsing.dataloader import DataLoader
+  File ""/Library/Python/2.7/site-packages/ansible/parsing/dataloader.py"", line 32, in &lt;module&gt;
+    from ansible.parsing.vault import VaultLib
+  File ""/Library/Python/2.7/site-packages/ansible/parsing/vault/__init__.py"", line 67, in &lt;module&gt;
+    from cryptography.hazmat.primitives.hashes import SHA256 as c_SHA256
+  File ""/Library/Python/2.7/site-packages/cryptography/hazmat/primitives/hashes.py"", line 15, in &lt;module&gt;
+    from cryptography.hazmat.backends.interfaces import HashBackend
+  File ""/Library/Python/2.7/site-packages/cryptography/hazmat/backends/__init__.py"", line 7, in &lt;module&gt;
+    import pkg_resources
+  File ""/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/pkg_resources.py"", line 2797, in &lt;module&gt;
+    parse_requirements(__requires__), Environment()
+  File ""/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/pkg_resources.py"", line 580, in resolve
+    raise VersionConflict(dist,req) # XXX put more info here
+VersionConflict: (setuptools 1.1.6 (/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python), Requirement.parse('setuptools&gt;=11.3'))
+
+",-1,-1,-1.0,"Im trying to install ansible-galaxy roles on Mac OS X El Capitan via CLI
+
+$ ansible-galaxy install -r requirements.yml
+
+
+I am getting this error:
+
+ERROR! Unexpected Exception: (setuptools 1.1.6 (/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python), Requirement.parse('setuptools&gt;=11.3'))
+the full traceback was:
+
+Traceback (most recent call last):
+  File ""/usr/local/bin/ansible-galaxy"", line 73, in &lt;module&gt;
+    mycli = getattr(__import__(""ansible.cli.%s"" % sub, fromlist=[myclass]), myclass)
+  File ""/Library/Python/2.7/site-packages/ansible/cli/galaxy.py"", line 38, in &lt;module&gt;
+    from ansible.galaxy.role import GalaxyRole
+  File ""/Library/Python/2.7/site-packages/ansible/galaxy/role.py"", line 35, in &lt;module&gt;
+    from ansible.playbook.role.requirement import RoleRequirement
+  File ""/Library/Python/2.7/site-packages/ansible/playbook/__init__.py"", line 25, in &lt;module&gt;
+    from ansible.playbook.play import Play
+  File ""/Library/Python/2.7/site-packages/ansible/playbook/play.py"", line 27, in &lt;module&gt;
+    from ansible.playbook.base import Base
+  File ""/Library/Python/2.7/site-packages/ansible/playbook/base.py"", line 35, in &lt;module&gt;
+    from ansible.parsing.dataloader import DataLoader
+  File ""/Library/Python/2.7/site-packages/ansible/parsing/dataloader.py"", line 32, in &lt;module&gt;
+    from ansible.parsing.vault import VaultLib
+  File ""/Library/Python/2.7/site-packages/ansible/parsing/vault/__init__.py"", line 67, in &lt;module&gt;
+    from cryptography.hazmat.primitives.hashes import SHA256 as c_SHA256
+  File ""/Library/Python/2.7/site-packages/cryptography/hazmat/primitives/hashes.py"", line 15, in &lt;module&gt;
+    from cryptography.hazmat.backends.interfaces import HashBackend
+  File ""/Library/Python/2.7/site-packages/cryptography/hazmat/backends/__init__.py"", line 7, in &lt;module&gt;
+    import pkg_resources
+  File ""/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/pkg_resources.py"", line 2797, in &lt;module&gt;
+    parse_requirements(__requires__), Environment()
+  File ""/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/pkg_resources.py"", line 580, in resolve
+    raise VersionConflict(dist,req) # XXX put more info here
+VersionConflict: (setuptools 1.1.6 (/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python), Requirement.parse('setuptools&gt;=11.3'))
+
+",4
+11,36701035,Best-practice for using an ansible role from galaxy in multiple roles?,"I am working on an ansible playbook for our infrastructure. I have the following recurring need for which I have yet to find a recommended pattern:
+
+I have a server that needs to run multiple vhosts (/databases/rbenv environment/etc). I can install nginx (postgres/rbenv/etc) with a dependency on a role from galaxy, i. e.
+
+dependencies:
+- role: ""geerlingguy.nginx""
+  nginx_ppa_use: true
+  nginx_ppa_version: development
+  ..
+
+
+Now I could add an array of vhost configurations to this dependency. However, I'd like to bundle these definitions not by technology (nginx/rbenv...) but by project.
+
+The best path I have found so far is to repeat the nginx dependency in each project role. But that results in the duplication of all the global nginx options and repeated execution of the nginx installation when provisioning a fresh server.
+",1,-1,-1.0,"I am working on an ansible playbook for our infrastructure. I have the following recurring need for which I have yet to find a recommended pattern:
+
+I have a server that needs to run multiple vhosts (/databases/rbenv environment/etc). I can install nginx (postgres/rbenv/etc) with a dependency on a role from galaxy, i. e.
+
+dependencies:
+- role: ""geerlingguy.nginx""
+  nginx_ppa_use: true
+  nginx_ppa_version: development
+  ..
+
+
+Now I could add an array of vhost configurations to this dependency. However, I'd like to bundle these definitions not by technology (nginx/rbenv...) but by project.
+
+The best path I have found so far is to repeat the nginx dependency in each project role. But that results in the duplication of all the global nginx options and repeated execution of the nginx installation when provisioning a fresh server.
+",1
+12,38580780,How to Download Javascript Server Logs on Meteor Galaxy,"Well, that pretty much sums it up: how is it possible to download the file for the complete server log for a Meteor Galaxy project (all containers).  Using the GUI provided by Galaxy isn't adequate for searching large amounts of server log.
+
+Thanks.
+",1,-1,-1.0,"Well, that pretty much sums it up: how is it possible to download the file for the complete server log for a Meteor Galaxy project (all containers).  Using the GUI provided by Galaxy isn't adequate for searching large amounts of server log.
+
+Thanks.
+",3
+13,40000665,How do I configure my DNS record? - MeteorJS,"How do i configure my DNS record to point to galaxy?
+
+I bought a domain with the following attributes:
+Type: CNAME Record
+Host: www
+
+I am kinda lost here, I don't know where I should actually configure my DNS. In my project, or the website I registered my domain in? and how?
+
+The following is my host records:
+
+",0,-1,-1.0,"How do i configure my DNS record to point to galaxy?
+
+I bought a domain with the following attributes:
+Type: CNAME Record
+Host: www
+
+I am kinda lost here, I don't know where I should actually configure my DNS. In my project, or the website I registered my domain in? and how?
+
+The following is my host records:
+
+",3
+14,40575924,Meteor - This domain has already been used on Galaxy,"I'm trying to deploy my meteor app to Galaxy to a new subdomain, let's call it xxx.mydomain.com. I'm getting the following console output:
+
+Talking to Galaxy servers at https://galaxy.meteor.com
+Error deploying application: This domain has already been used on Galaxy. [xxx.mydomain.com]
+
+
+I don't have an app with this domain, my guess is someone else is using it? How do I fix this? I tried looking up this error but nothing shows up on Google and Meteor docs don't seem to help either.
+",-1,-1,-1.0,"I'm trying to deploy my meteor app to Galaxy to a new subdomain, let's call it xxx.mydomain.com. I'm getting the following console output:
+
+Talking to Galaxy servers at https://galaxy.meteor.com
+Error deploying application: This domain has already been used on Galaxy. [xxx.mydomain.com]
+
+
+I don't have an app with this domain, my guess is someone else is using it? How do I fix this? I tried looking up this error but nothing shows up on Google and Meteor docs don't seem to help either.
+",3
+15,40921015,Meteor UglifyJS error when trying to compile in production,"Trying to upload to Galaxy causes the error so I am debugging with the following:
+
+meteor --settings settings-dev.json --production
+
+While minifying app code:
+  eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:1545:18: SyntaxError: Unexpected token: punc ())
+  at new JS_Parse_Error (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:1545:18)
+  at js_error (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:1553:11)
+  at croak (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:2089:9)
+  at token_error (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:2097:9)
+  at unexpected (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:2103:9)
+  at expr_atom (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:2618:13)
+  at maybe_unary (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:2792:19)
+  at expr_ops (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:2827:24)
+  at maybe_conditional (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:2832:20)
+
+
+  * Many more lines of same kind of stuff*
+
+
+=&gt; Your application has errors. Waiting for file change.
+
+
+Which really gives me no starting point as to what's causing the problem. There is a running issue on GitHub but no progress so far. 
+
+I tried to dig deeper and did the following in my Terminal 
+
+alias uglifyjs=~/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/bin/uglifyjs
+find lib client -type f -name \*.js|while read file;do uglifyjs -o /dev/null $file;done
+
+
+Which comes back with 
+
+  Parse error at client/main.js:1,7
+  SyntaxError: Unexpected token: string (/imports/startup/client)
+  Error
+   at new JS_Parse_Error (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:1545:18)
+   at js_error (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:1553:11)
+   at croak (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2089:9)
+   at token_error (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2097:9)
+   at unexpected (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2103:9)
+   at semicolon (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2123:56)
+   at simple_statement (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2314:73)
+   at eval (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2183:19)
+   at eval (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2136:24)
+   at eval (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2904:23)
+
+
+My main.js file looks like this:
+
+import '/imports/startup/client';
+
+Still can't figure out what the issue is since that is the syntax Meteor suggests in their docs. Removing the standard-minifier-js packages fixes the problem but that's not the best way to go around it so I was hoping there was a fix!
+",-1,-1,-1.0,"Trying to upload to Galaxy causes the error so I am debugging with the following:
+
+meteor --settings settings-dev.json --production
+
+While minifying app code:
+  eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:1545:18: SyntaxError: Unexpected token: punc ())
+  at new JS_Parse_Error (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:1545:18)
+  at js_error (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:1553:11)
+  at croak (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:2089:9)
+  at token_error (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:2097:9)
+  at unexpected (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:2103:9)
+  at expr_atom (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:2618:13)
+  at maybe_unary (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:2792:19)
+  at expr_ops (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:2827:24)
+  at maybe_conditional (eval at &lt;anonymous&gt;
+  (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1),
+  &lt;anonymous&gt;:2832:20)
+
+
+  * Many more lines of same kind of stuff*
+
+
+=&gt; Your application has errors. Waiting for file change.
+
+
+Which really gives me no starting point as to what's causing the problem. There is a running issue on GitHub but no progress so far. 
+
+I tried to dig deeper and did the following in my Terminal 
+
+alias uglifyjs=~/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/bin/uglifyjs
+find lib client -type f -name \*.js|while read file;do uglifyjs -o /dev/null $file;done
+
+
+Which comes back with 
+
+  Parse error at client/main.js:1,7
+  SyntaxError: Unexpected token: string (/imports/startup/client)
+  Error
+   at new JS_Parse_Error (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:1545:18)
+   at js_error (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:1553:11)
+   at croak (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2089:9)
+   at token_error (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2097:9)
+   at unexpected (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2103:9)
+   at semicolon (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2123:56)
+   at simple_statement (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2314:73)
+   at eval (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2183:19)
+   at eval (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2136:24)
+   at eval (eval at &lt;anonymous&gt; (/Users/sergiy/.meteor/packages/standard-minifier-js/.1.2.1.1ldi2wj++os+web.browser+web.cordova/plugin.minifyStdJS.os/npm/node_modules/meteor/minifier-js/node_modules/uglify-js/tools/node.js:28:1), &lt;anonymous&gt;:2904:23)
+
+
+My main.js file looks like this:
+
+import '/imports/startup/client';
+
+Still can't figure out what the issue is since that is the syntax Meteor suggests in their docs. Removing the standard-minifier-js packages fixes the problem but that's not the best way to go around it so I was hoping there was a fix!
+",5
+16,41755543,ansible-galaxy and git clone from Bitbucket.org,"I am using ansible-galaxy (v2.0.0.2) to install ansible roles that which has the source code on Bitbucket through the requirements.yml file. But I could not checkout the code from bitbucket.org with the private key. Here is the error message, and also my requirements.yml content.
+
+Does any one what's the correct requirements.yml file format for ansible-galaxy 2.0.0.2?
+
+  + ansible-galaxy -vvv install --force --role-file ansible/requirements.yml --roles-path ./ansible/roles
+
+    Using /etc/ansible/ansible.cfg as config file
+    Opened /tmp/.ansible_galaxy
+    found role {'scm': 'git', 'src': 'git@bitbucket.org:myrepo/nginx.git', 'version': 'latest', 'name': 'nginx'} in yaml file
+    Installing role nginx 
+
+     [WARNING]: - nginx was NOT installed successfully: - command git checkout
+    latest failed in directory /tmp/tmpQRZc8j (rc=1)
+    ERROR! - you can use --ignore-errors to skip failed roles and finish processing the list.
+
+
+[requirements.yml]
+
+- name: nginx
+  src: git@bitbucket.org:myrepo/nginx.git
+  scm: git
+  version: latest
+  accept_hostkey: yes
+  key_file: /tmp/.ssh/id_rsa
+
+",-1,-1,-1.0,"I am using ansible-galaxy (v2.0.0.2) to install ansible roles that which has the source code on Bitbucket through the requirements.yml file. But I could not checkout the code from bitbucket.org with the private key. Here is the error message, and also my requirements.yml content.
+
+Does any one what's the correct requirements.yml file format for ansible-galaxy 2.0.0.2?
+
+  + ansible-galaxy -vvv install --force --role-file ansible/requirements.yml --roles-path ./ansible/roles
+
+    Using /etc/ansible/ansible.cfg as config file
+    Opened /tmp/.ansible_galaxy
+    found role {'scm': 'git', 'src': 'git@bitbucket.org:myrepo/nginx.git', 'version': 'latest', 'name': 'nginx'} in yaml file
+    Installing role nginx 
+
+     [WARNING]: - nginx was NOT installed successfully: - command git checkout
+    latest failed in directory /tmp/tmpQRZc8j (rc=1)
+    ERROR! - you can use --ignore-errors to skip failed roles and finish processing the list.
+
+
+[requirements.yml]
+
+- name: nginx
+  src: git@bitbucket.org:myrepo/nginx.git
+  scm: git
+  version: latest
+  accept_hostkey: yes
+  key_file: /tmp/.ssh/id_rsa
+
+",1
+17,42216640,Installing python modules in production meteor app hosted with galaxy,"I have a meteor project that includes python scripts in our private folder of our project. We can easily run them from meteor using exec, we just don't know how to install python modules on our galaxy server that is hosting our app. It works fine running the scripts on our localhost since the modules are installed on our computers, but it appears galaxy doesn't offer a command line or anything to install these modules. We tried creating our own command line by calling exec commands on the meteor server, but it was unable to find any modules. For example when we tried to install pip, the server logged ""Unable to find pip"".
+
+Basically we can run the python scripts, but since they rely on modules, galaxy throws errors and we aren't sure how to install those modules. Any ideas?
+
+Thanks!
+",-1,-1,-1.0,"I have a meteor project that includes python scripts in our private folder of our project. We can easily run them from meteor using exec, we just don't know how to install python modules on our galaxy server that is hosting our app. It works fine running the scripts on our localhost since the modules are installed on our computers, but it appears galaxy doesn't offer a command line or anything to install these modules. We tried creating our own command line by calling exec commands on the meteor server, but it was unable to find any modules. For example when we tried to install pip, the server logged ""Unable to find pip"".
+
+Basically we can run the python scripts, but since they rely on modules, galaxy throws errors and we aren't sure how to install those modules. Any ideas?
+
+Thanks!
+",1
+18,42125915,Incoming POST requests fail on Meteor Galaxy,"I have been successfully receiving incoming email to a Meteor app with the use of Mailgun routes for some time, but it has now suddenly stopped working.
+
+My setup is that I forward all emails for the domain to Mailgun where I route them to my app endpoint (through a POST request) and parse them. Mailgun offers a testing tool where I input my app endpoint URL and it’s now giving me the following response:
+
+Post failed: [Errno 1] _ssl.c:510: error:14077438:SSL routines:SSL23_GET_SERVER_HELLO:tlsv1 alert internal error
+
+
+The app is hosted on Galaxy and below is what my ‘incoming’ route looks like if that’s of any help. 
+
+Any ideas?
+
+Picker.route('/incoming/', function(params, req, res, next) {
+  res.writeHead(200, {'content-type': 'text/plain'});
+  res.write('received successfully:\n\n');
+  res.end(""thanks"");
+
+  parseEmail(req.body);
+});
+
+
+Update: Switching to http didn't help..
+",1,-1,-1.0,"I have been successfully receiving incoming email to a Meteor app with the use of Mailgun routes for some time, but it has now suddenly stopped working.
+
+My setup is that I forward all emails for the domain to Mailgun where I route them to my app endpoint (through a POST request) and parse them. Mailgun offers a testing tool where I input my app endpoint URL and it’s now giving me the following response:
+
+Post failed: [Errno 1] _ssl.c:510: error:14077438:SSL routines:SSL23_GET_SERVER_HELLO:tlsv1 alert internal error
+
+
+The app is hosted on Galaxy and below is what my ‘incoming’ route looks like if that’s of any help. 
+
+Any ideas?
+
+Picker.route('/incoming/', function(params, req, res, next) {
+  res.writeHead(200, {'content-type': 'text/plain'});
+  res.write('received successfully:\n\n');
+  res.end(""thanks"");
+
+  parseEmail(req.body);
+});
+
+
+Update: Switching to http didn't help..
+",3
+19,41837789,"ansible-galaxy failing for init install - Failed to get data from the API server - a bytes-like object is required, not 'str'","ansible: ansible-galaxy 2.2.0.0
+
+python: Python 2.7.10
+
+I tried ansible-galaxy command to create a new role structure (init command) but it failed with the following message. So, I looked online and  tried --offline option and structure creation part worked. 
+
+So far, I have my Github repo: https://github.com/asangal/wavefront-ansible
+
+Role is also visible in Ansible Galaxy under Browse Roles.
+
+https://galaxy.ansible.com/list#/roles?page=1&amp;page_size=10&amp;autocomplete=wavefront or
+
+https://galaxy.ansible.com/asangal/wavefront-ansible/ 
+
+As per the instructions, I'm trying to run the install step by running 
+but it failed again with the same error message as shown below.
+
+$ ansible-galaxy install asangal.wavefront-ansible
+ [WARNING]: - asangal.wavefront-ansible was NOT installed successfully: Failed to get data from the API server (https://galaxy.ansible.com/api/): a bytes-like object is
+required, not 'str'
+
+ERROR! - you can use --ignore-errors to skip failed roles and finish processing the list.
+
+
+OR (used --ignore-errors and -p &lt;role_path&gt; options but it didn't help) 
+
+$ ansible-galaxy install asangal.wavefront-ansible --ignore-errors -p ~/aks/dummy
+ [WARNING]: - asangal.wavefront-ansible was NOT installed successfully: Failed to get data from the API server (https://galaxy.ansible.com/api/): a bytes-like object is
+required, not 'str'
+
+[arun@vagrant ~/aks/dummy] $ ls -l
+[arun@vagrant ~/aks/dummy] $
+
+
+curl -v https://galaxy.ansible.com/asangal/wavefront-ansible/ seems to work fine.
+
+Why am I getting this error: Failed to get data from the API server (https://galaxy.ansible.com/api/): a bytes-like object is
+    required, not 'str'?
+",-1,-1,-1.0,"ansible: ansible-galaxy 2.2.0.0
+
+python: Python 2.7.10
+
+I tried ansible-galaxy command to create a new role structure (init command) but it failed with the following message. So, I looked online and  tried --offline option and structure creation part worked. 
+
+So far, I have my Github repo: https://github.com/asangal/wavefront-ansible
+
+Role is also visible in Ansible Galaxy under Browse Roles.
+
+https://galaxy.ansible.com/list#/roles?page=1&amp;page_size=10&amp;autocomplete=wavefront or
+
+https://galaxy.ansible.com/asangal/wavefront-ansible/ 
+
+As per the instructions, I'm trying to run the install step by running 
+but it failed again with the same error message as shown below.
+
+$ ansible-galaxy install asangal.wavefront-ansible
+ [WARNING]: - asangal.wavefront-ansible was NOT installed successfully: Failed to get data from the API server (https://galaxy.ansible.com/api/): a bytes-like object is
+required, not 'str'
+
+ERROR! - you can use --ignore-errors to skip failed roles and finish processing the list.
+
+
+OR (used --ignore-errors and -p &lt;role_path&gt; options but it didn't help) 
+
+$ ansible-galaxy install asangal.wavefront-ansible --ignore-errors -p ~/aks/dummy
+ [WARNING]: - asangal.wavefront-ansible was NOT installed successfully: Failed to get data from the API server (https://galaxy.ansible.com/api/): a bytes-like object is
+required, not 'str'
+
+[arun@vagrant ~/aks/dummy] $ ls -l
+[arun@vagrant ~/aks/dummy] $
+
+
+curl -v https://galaxy.ansible.com/asangal/wavefront-ansible/ seems to work fine.
+
+Why am I getting this error: Failed to get data from the API server (https://galaxy.ansible.com/api/): a bytes-like object is
+    required, not 'str'?
+",1
+20,43417856,Receiving the titled error for a Meteor Galaxy deploy: MongoError: not authorized on admin to execute command,"I am trying to deploy a locally developed meteor app to Galaxy (provided by meteor). I've used one of their recommended mongodb providers, Atlas by MongoDB. I have overcome several connection issues, however I cannot figure out the cause of the below. The user associated with it has atlasAdmin, dbAdmin, dbAdminAnyDatabase,readWriteAnyDatabase on the admin db ""@admin"".
+
+/app/bundle/programs/server/node_modules/fibers/future.js:313
+    throw(ex);
+MongoError: not authorized on admin to execute command { listIndexes: ""users"", cursor: { } }
+Object.Future.wait (/app/bundle/programs/server/node_modules/fibers/future.js:449:15)
+[object Object].MongoConnection._ensureIndex (packages/mongo/mongo_driver.js:832:10)
+[object Object].Mongo.Collection._ensureIndex (packages/mongo/collection.js:677:20)
+setupUsersCollection (packages/accounts-base/accounts_server.js:1493:9)
+new AccountsServer (packages/accounts-base/accounts_server.js:51:5)
+meteorInstall.node_modules.meteor.accounts-base.server_main.js (packages/accounts-base/server_main.js:9:12)
+fileEvaluate (packages/modules-runtime.js:197:9)
+require (packages/modules-runtime.js:120:16)
+/app/bundle/programs/server/packages/accounts-base.js:2031:15
+/app/bundle/programs/server/packages/accounts-base.js:2042:3
+Function.MongoError.create (/app/bundle/programs/server/npm/node_modules/meteor/npm-mongo/node_modules/mongodb-core/lib/error.js:31:11)
+queryCallback (/app/bundle/programs/server/npm/node_modules/meteor/npm-mongo/node_modules/mongodb-core/lib/cursor.js:197:34)
+/app/bundle/programs/server/npm/node_modules/meteor/npm-mongo/node_modules/mongodb-core/lib/connection/pool.js:455:18
+nextTickCallbackWith0Args (node.js:489:9)
+process._tickCallback (node.js:418:13)
+
+",-1,-1,-1.0,"I am trying to deploy a locally developed meteor app to Galaxy (provided by meteor). I've used one of their recommended mongodb providers, Atlas by MongoDB. I have overcome several connection issues, however I cannot figure out the cause of the below. The user associated with it has atlasAdmin, dbAdmin, dbAdminAnyDatabase,readWriteAnyDatabase on the admin db ""@admin"".
+
+/app/bundle/programs/server/node_modules/fibers/future.js:313
+    throw(ex);
+MongoError: not authorized on admin to execute command { listIndexes: ""users"", cursor: { } }
+Object.Future.wait (/app/bundle/programs/server/node_modules/fibers/future.js:449:15)
+[object Object].MongoConnection._ensureIndex (packages/mongo/mongo_driver.js:832:10)
+[object Object].Mongo.Collection._ensureIndex (packages/mongo/collection.js:677:20)
+setupUsersCollection (packages/accounts-base/accounts_server.js:1493:9)
+new AccountsServer (packages/accounts-base/accounts_server.js:51:5)
+meteorInstall.node_modules.meteor.accounts-base.server_main.js (packages/accounts-base/server_main.js:9:12)
+fileEvaluate (packages/modules-runtime.js:197:9)
+require (packages/modules-runtime.js:120:16)
+/app/bundle/programs/server/packages/accounts-base.js:2031:15
+/app/bundle/programs/server/packages/accounts-base.js:2042:3
+Function.MongoError.create (/app/bundle/programs/server/npm/node_modules/meteor/npm-mongo/node_modules/mongodb-core/lib/error.js:31:11)
+queryCallback (/app/bundle/programs/server/npm/node_modules/meteor/npm-mongo/node_modules/mongodb-core/lib/cursor.js:197:34)
+/app/bundle/programs/server/npm/node_modules/meteor/npm-mongo/node_modules/mongodb-core/lib/connection/pool.js:455:18
+nextTickCallbackWith0Args (node.js:489:9)
+process._tickCallback (node.js:418:13)
+
+",3
+21,44882504,meteor galaxy update node version,"Does anyone know what version of node is used by meteor galaxy?
+
+I just tried to deploy and got the following error:
+
+SyntaxError: Block-scoped declarations (let, const, function, class) not yet supported outside strict mode
+
+
+Therefore I assume that an old version of node is used.
+
+The same code worked fine a couple of days ago.
+",-1,-1,-1.0,"Does anyone know what version of node is used by meteor galaxy?
+
+I just tried to deploy and got the following error:
+
+SyntaxError: Block-scoped declarations (let, const, function, class) not yet supported outside strict mode
+
+
+Therefore I assume that an old version of node is used.
+
+The same code worked fine a couple of days ago.
+",3
+22,43146189,Receiving messages using Twilio and Meteor,"I'm creating a web application that needs to be able to receive text messages using Twilio. I run ngrok to start a tunnel to my localHost: 3000. If I send a message to my Twilio number after I start my app on the localHost it works fine. The issue is that once I deploy the app to Galaxy, the app does not respond to incoming texts anymore. I have tried changing the app.listen('3000'); to many different ports i.e.(80,8080,443) and none of these work. What do I need to change or add to get this to work after it's deployed?
+
+var express = require('express');
+var bodyParser = require('body-parser');
+
+var app = express();
+
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.post('/message', function (req, res){
+    console.log(req.body);
+    var msgFrom = req.body.From;
+    var msgBody = req.body.Body;
+
+    res.send(`
+    &lt;Response&gt;
+        &lt;Message&gt;
+        Hello ${msgFrom}. You said: ${msgBody}
+        &lt;/Message&gt;
+      &lt;/Response&gt;`);
+});
+
+app.listen('3000');
+
+",-1,-1,-1.0,"I'm creating a web application that needs to be able to receive text messages using Twilio. I run ngrok to start a tunnel to my localHost: 3000. If I send a message to my Twilio number after I start my app on the localHost it works fine. The issue is that once I deploy the app to Galaxy, the app does not respond to incoming texts anymore. I have tried changing the app.listen('3000'); to many different ports i.e.(80,8080,443) and none of these work. What do I need to change or add to get this to work after it's deployed?
+
+var express = require('express');
+var bodyParser = require('body-parser');
+
+var app = express();
+
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.post('/message', function (req, res){
+    console.log(req.body);
+    var msgFrom = req.body.From;
+    var msgBody = req.body.Body;
+
+    res.send(`
+    &lt;Response&gt;
+        &lt;Message&gt;
+        Hello ${msgFrom}. You said: ${msgBody}
+        &lt;/Message&gt;
+      &lt;/Response&gt;`);
+});
+
+app.listen('3000');
+
+",0
+23,42925101,MongoError: not authorized on local to execute command while deploy on meteor galaxy,"I am trying to deploy my app using meteor galaxy using below command
+
+DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy icrm.meteorapp.com --settings scalingo.json
+
+
+but i am getting this error
+
+MongoError: not authorized on local to execute command { find: ""oplog.rs"", filter: {}, sort: { $natural: -1 }, projection: { ts: 1 }, limit: 1 } in logs
+
+in my scalingo.json, i have set as follow
+
+""galaxy.meteor.com"": {
+        ""env"": {
+            ""MONGO_URL"": ""mongodb://username:password@ds137100.mlab.com:37100/icrm"",
+            ""MONGO_OPLOG_URL"": ""mongodb://username:password@ds137100.mlab.com:37100/local?authSource=icrm"",
+            ""ROOT_URL"": ""http://icrm.meteorapp.com/""
+        }
+    }
+
+
+and when i am accessing http://icrm.meteorapp.com/  i am getting
+
+503 Service Unavailable: No healthy endpoints to handle the request.
+
+
+I know i am doing some mistake in setting MONGO_OPLOG_URL, i am writing same username and password in both MONGO_URL and MONGO_OPLOG_URL, i am using free sandbox version, please help me to sort out this problem, if possible suggest me solution with free sandbox version...
+
+Thanks a lot
+",-1,-1,-1.0,"I am trying to deploy my app using meteor galaxy using below command
+
+DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy icrm.meteorapp.com --settings scalingo.json
+
+
+but i am getting this error
+
+MongoError: not authorized on local to execute command { find: ""oplog.rs"", filter: {}, sort: { $natural: -1 }, projection: { ts: 1 }, limit: 1 } in logs
+
+in my scalingo.json, i have set as follow
+
+""galaxy.meteor.com"": {
+        ""env"": {
+            ""MONGO_URL"": ""mongodb://username:password@ds137100.mlab.com:37100/icrm"",
+            ""MONGO_OPLOG_URL"": ""mongodb://username:password@ds137100.mlab.com:37100/local?authSource=icrm"",
+            ""ROOT_URL"": ""http://icrm.meteorapp.com/""
+        }
+    }
+
+
+and when i am accessing http://icrm.meteorapp.com/  i am getting
+
+503 Service Unavailable: No healthy endpoints to handle the request.
+
+
+I know i am doing some mistake in setting MONGO_OPLOG_URL, i am writing same username and password in both MONGO_URL and MONGO_OPLOG_URL, i am using free sandbox version, please help me to sort out this problem, if possible suggest me solution with free sandbox version...
+
+Thanks a lot
+",3
+24,45432994,ansible-galaxy fails on dependency with empty meta/main.yml,"I have a requirements.yml file that lists dependencies for an Ansible Role:
+
+---
+
+- src: git@gitrepo:group/dependency1.git
+  scm: git
+  name: name1
+
+- src: git@gitrepo:group/dependency1.git
+  scm: git
+  name: name2
+
+
+These roles do not have any dependencies themselves, and as they are on a private SCM system (among other reasons), they do not need any metadata. However, loading in Ansible dependencies requires that this file exists. Therefore, the dependencies have a blank meta/main.yml to enable using ansible-galaxy.
+
+When installing dependencies using:
+
+ansible-galaxy install --role-file requirements.yml --roles-path foo
+
+
+after the first dependency was installed, it would error out with:
+
+ERROR! Unexpected Exception: 'NoneType' object has no attribute 'get'
+
+
+Using the very very verbose output, the error gets located:
+
+galaxy.py"", line 394
+
+
+After experimentation, running the command several more times would progress through the dependencies, one at a time. Nested dependencies would, therefore, fail; as either the parent would install then error out, or ansible-galaxy would think the parent is already installed and skip dependencies.
+
+The question is: how do I stop this error from occurring and get ansible-galaxy to correctly process my dependencies?
+",-1,-1,-1.0,"I have a requirements.yml file that lists dependencies for an Ansible Role:
+
+---
+
+- src: git@gitrepo:group/dependency1.git
+  scm: git
+  name: name1
+
+- src: git@gitrepo:group/dependency1.git
+  scm: git
+  name: name2
+
+
+These roles do not have any dependencies themselves, and as they are on a private SCM system (among other reasons), they do not need any metadata. However, loading in Ansible dependencies requires that this file exists. Therefore, the dependencies have a blank meta/main.yml to enable using ansible-galaxy.
+
+When installing dependencies using:
+
+ansible-galaxy install --role-file requirements.yml --roles-path foo
+
+
+after the first dependency was installed, it would error out with:
+
+ERROR! Unexpected Exception: 'NoneType' object has no attribute 'get'
+
+
+Using the very very verbose output, the error gets located:
+
+galaxy.py"", line 394
+
+
+After experimentation, running the command several more times would progress through the dependencies, one at a time. Nested dependencies would, therefore, fail; as either the parent would install then error out, or ansible-galaxy would think the parent is already installed and skip dependencies.
+
+The question is: how do I stop this error from occurring and get ansible-galaxy to correctly process my dependencies?
+",1
+25,46062855,How to use a role from a multi-file playbook,"I have a playbook organized as follows (simplified for the sake of this question):
+
+├── deploy.yml
+├── hosts
+├── requirements.yml
+├── roles
+│   └── web
+│       ├── meta
+│       │   └── main.yml
+│       └── tasks
+│           └── main.yml
+└── site.retry
+
+
+My simplified deploy.yml is:
+
+---
+- name: Everything I need
+  hosts: somewhere
+  roles:
+    - web
+
+
+And my simplified roles/web/tasks/main.yml is
+
+---
+- name: Various things that work
+  become: yes
+  [whatever]
+
+- name: the thing that I have a problem with
+  become: yes
+  davidedelvento.nbextension: name=foo state=present
+
+
+This fails with:
+
+ERROR! no action detected in task. This often indicates a misspelled module name, or incorrect module path.
+
+
+So I tried to change roles/web/tasks/main.yml to
+
+---
+- name: Various things that work
+  become: yes
+  [whatever]
+
+- name: the thing that I have a problem with
+  become: yes
+  roles:
+    - { role: davidedelvento.nbextension, name: foo, state: present}
+
+
+which fails in the same way. I understand the failure (since I cannot call a role from a task, which instead I'm doing -- but the error could be clearer....) 
+
+However I am not clear how can I accomplish what I'd like, namely doing whatever nbextension is doing at that point in time. I could move that role from roles/web/tasks/main.yml to roles/web/meta/main.yml and that works, but it is executed before the Various things that work and I need it to be executed after. How to accomplish that?
+
+Note that I wrote nbextension, however the same problem happen with similar other roles from the galaxy.
+
+EDIT: Note also that the extension is correctly installed and can be used from a standalone, single-file playbook such as
+
+---
+- name: Example
+  hosts: all
+  become: yes
+  roles:
+    - { role: davidedelvento.nbextension, name: foo, state: present}
+
+
+however I need it to ""integrate"" in the larger project described above for the ""web"" role (I have more roles that I'm not showing)
+
+EDIT2: note that the galaxy ansible role used for this question has been renamed to jupyterextension but as I said the issue (and solution) is the same for any role
+",-1,-1,-1.0,"I have a playbook organized as follows (simplified for the sake of this question):
+
+├── deploy.yml
+├── hosts
+├── requirements.yml
+├── roles
+│   └── web
+│       ├── meta
+│       │   └── main.yml
+│       └── tasks
+│           └── main.yml
+└── site.retry
+
+
+My simplified deploy.yml is:
+
+---
+- name: Everything I need
+  hosts: somewhere
+  roles:
+    - web
+
+
+And my simplified roles/web/tasks/main.yml is
+
+---
+- name: Various things that work
+  become: yes
+  [whatever]
+
+- name: the thing that I have a problem with
+  become: yes
+  davidedelvento.nbextension: name=foo state=present
+
+
+This fails with:
+
+ERROR! no action detected in task. This often indicates a misspelled module name, or incorrect module path.
+
+
+So I tried to change roles/web/tasks/main.yml to
+
+---
+- name: Various things that work
+  become: yes
+  [whatever]
+
+- name: the thing that I have a problem with
+  become: yes
+  roles:
+    - { role: davidedelvento.nbextension, name: foo, state: present}
+
+
+which fails in the same way. I understand the failure (since I cannot call a role from a task, which instead I'm doing -- but the error could be clearer....) 
+
+However I am not clear how can I accomplish what I'd like, namely doing whatever nbextension is doing at that point in time. I could move that role from roles/web/tasks/main.yml to roles/web/meta/main.yml and that works, but it is executed before the Various things that work and I need it to be executed after. How to accomplish that?
+
+Note that I wrote nbextension, however the same problem happen with similar other roles from the galaxy.
+
+EDIT: Note also that the extension is correctly installed and can be used from a standalone, single-file playbook such as
+
+---
+- name: Example
+  hosts: all
+  become: yes
+  roles:
+    - { role: davidedelvento.nbextension, name: foo, state: present}
+
+
+however I need it to ""integrate"" in the larger project described above for the ""web"" role (I have more roles that I'm not showing)
+
+EDIT2: note that the galaxy ansible role used for this question has been renamed to jupyterextension but as I said the issue (and solution) is the same for any role
+",1
+26,49556192,How to install Juniper.junos ansible-galaxy in mac?,"I tried to install the latest version of Juniper.junos on my Mac :
+
+sudo ansible-galaxy install Juniper.junos
+
+   -downloading role 'junos', owned by Juniper
+
+   -downloading role from https://github.com/Juniper/ansible-junos-stdlib/archive/2.0.2.tar.gz
+
+[ERROR]: failed to download the file: Failed to validate the SSL certificate for github.com:443. Make sure your managedsystems have a valid CA certificate installed. You can use validate_certs=False if you do not need to confirm the servers identity but this is unsafe and not recommended. Paths checked for this platform: /etc/ssl/certs, /etc/ansible, /usr/local/etc/openssl. The exception msg was: [SSL: TLSV1_ALERT_PROTOCOL_VERSION] tlsv1 alert protocol version (_ssl.c:590).
+
+[WARNING]: - Juniper.junos was NOT installed successfully.
+
+ERROR! - you can use --ignore-errors to skip failed roles and finish processing the list.
+
+
+ansible-galaxy --version
+ansible-galaxy 2.5.0
+
+I already tried with different ansible versions, but the error is still the same.
+",-1,-1,-1.0,"I tried to install the latest version of Juniper.junos on my Mac :
+
+sudo ansible-galaxy install Juniper.junos
+
+   -downloading role 'junos', owned by Juniper
+
+   -downloading role from https://github.com/Juniper/ansible-junos-stdlib/archive/2.0.2.tar.gz
+
+[ERROR]: failed to download the file: Failed to validate the SSL certificate for github.com:443. Make sure your managedsystems have a valid CA certificate installed. You can use validate_certs=False if you do not need to confirm the servers identity but this is unsafe and not recommended. Paths checked for this platform: /etc/ssl/certs, /etc/ansible, /usr/local/etc/openssl. The exception msg was: [SSL: TLSV1_ALERT_PROTOCOL_VERSION] tlsv1 alert protocol version (_ssl.c:590).
+
+[WARNING]: - Juniper.junos was NOT installed successfully.
+
+ERROR! - you can use --ignore-errors to skip failed roles and finish processing the list.
+
+
+ansible-galaxy --version
+ansible-galaxy 2.5.0
+
+I already tried with different ansible versions, but the error is still the same.
+",1
+27,50238357,Is it possible for ansible-galaxy install to initialise submodules?,"I have this requirements.yml snippet:
+
+- name: myrole
+  scm: git
+  src: git@gitlab.mygitlab.com:category/project.git
+  version: master
+
+
+When I install it using ansible-galaxy install -r requirements.yml, the repository is cloned properly, but the submodules are not initialised. This can possibly be resolved using some sort of local action task, but that means I have to keep track of what dependencies every role I want to include needs which is far from ideal. Is there a better solution?
+",1,-1,-1.0,"I have this requirements.yml snippet:
+
+- name: myrole
+  scm: git
+  src: git@gitlab.mygitlab.com:category/project.git
+  version: master
+
+
+When I install it using ansible-galaxy install -r requirements.yml, the repository is cloned properly, but the submodules are not initialised. This can possibly be resolved using some sort of local action task, but that means I have to keep track of what dependencies every role I want to include needs which is far from ideal. Is there a better solution?
+",4
+28,51690091,Meteor app deployed to galaxy with react server-render not attaching eventHandlers to dom,"I have a meteor app that follows this file structure, https://guide.meteor.com/structure.html#example-app-structure and uses React's server-render. While testing locally, meteor --port 3000, the client has eventHandlers attached via /start/client/index.js's  ReactDOM.hydrate(&lt;App /&gt;, document.getElementById('app'));. However, in production after deploying to galaxy, there are no eventHandlers attached to the DOM. I tried doing console.log on the client files and there were no logs. Any ideas on what i can try out to fix this issue?
+
+PS: I tried testing this via meteor --port 3000 --production and i managed to replicate this issue but seems like this is not a good way to ""replicate"" this issue.
+",-1,-1,-1.0,"I have a meteor app that follows this file structure, https://guide.meteor.com/structure.html#example-app-structure and uses React's server-render. While testing locally, meteor --port 3000, the client has eventHandlers attached via /start/client/index.js's  ReactDOM.hydrate(&lt;App /&gt;, document.getElementById('app'));. However, in production after deploying to galaxy, there are no eventHandlers attached to the DOM. I tried doing console.log on the client files and there were no logs. Any ideas on what i can try out to fix this issue?
+
+PS: I tried testing this via meteor --port 3000 --production and i managed to replicate this issue but seems like this is not a good way to ""replicate"" this issue.
+",0
+29,52945235,"Using mlab, with Meteor, and deploying to Galaxy: Receiving error ""not authorized on"" DB ""to execute command""","Using mlab, with Meteor, and deploying to Galaxy, I am receiving error ""not authorized on &lt;DB&gt; to execute command"".
+
+This error started when I accidentally deleted the database user I was using to log in. I re-created the user. I made sure my account user had the same username and password. The database user has the following credentials:
+
+{
+    ""_id"": ""db.username"",
+    ""user"": ""username"",
+    ""db"": ""password"",
+    ""roles"": [
+        {
+            ""role"": ""dbOwner"",
+            ""db"": ""db""
+        }
+    ]
+}
+
+
+My settings url has not changed:
+
+mongodb://username:password@ds115758.mlab.com:15758/db
+
+
+What am I doing wrong? This is driving me crazy :( 
+
+Error:
+
+Exception in setInterval callback: MongoError: not authorized on db to execute command { delete: ""meteor_oauth_pendingRequestTokens"", ordered: true, $db: ""db"" }
+
+",-1,-1,-1.0,"Using mlab, with Meteor, and deploying to Galaxy, I am receiving error ""not authorized on &lt;DB&gt; to execute command"".
+
+This error started when I accidentally deleted the database user I was using to log in. I re-created the user. I made sure my account user had the same username and password. The database user has the following credentials:
+
+{
+    ""_id"": ""db.username"",
+    ""user"": ""username"",
+    ""db"": ""password"",
+    ""roles"": [
+        {
+            ""role"": ""dbOwner"",
+            ""db"": ""db""
+        }
+    ]
+}
+
+
+My settings url has not changed:
+
+mongodb://username:password@ds115758.mlab.com:15758/db
+
+
+What am I doing wrong? This is driving me crazy :( 
+
+Error:
+
+Exception in setInterval callback: MongoError: not authorized on db to execute command { delete: ""meteor_oauth_pendingRequestTokens"", ordered: true, $db: ""db"" }
+
+",3
+30,54243298,Meteor long computation time on MongoDB insert/update,"I have a meteor app that's hosted on Galaxy with the database on mLab. 
+
+The meteor method to update documents works fine if the document is small, but if its larger than a certain size, the galaxy CPU usage goes up to 100% and the container becomes unhealthy.
+
+Meteor APM reports that the database update is taking &lt;400ms, while ""computation"" (directly prior to update) is taking 80 000+ ms. 
+
+Here's a simplified example of the code. 
+
+The collection is declared and assigned a schema in one file.
+
+trips.js
+
+const Trips = new Mongo.Collection('trips');
+//schema is declared and attached
+
+export {Trips}
+
+
+The methods are declared in another file.
+
+Methods.js
+
+import {Trips} from '../trips';
+
+Meteor.methods({
+
+    'updateTrip' (tripId, trip){
+        check(tripId, String);
+        check(trip, Object);
+
+        Trips.update({
+             _id: tripId
+        },{
+           $set: {
+             field1: trip.field1,
+             field2: trip.field2,
+             field3: trip.field3
+           }
+        });
+    }       
+});
+
+
+In some cases the fields are objects with large objects nested within.
+
+I'm new to Meteor and MongoDB, and was not the original developer for this project, so I'm wondering if there's a bug in this code that could be causing the 100% CPU usage and long delays. 
+",-1,-1,-1.0,"I have a meteor app that's hosted on Galaxy with the database on mLab. 
+
+The meteor method to update documents works fine if the document is small, but if its larger than a certain size, the galaxy CPU usage goes up to 100% and the container becomes unhealthy.
+
+Meteor APM reports that the database update is taking &lt;400ms, while ""computation"" (directly prior to update) is taking 80 000+ ms. 
+
+Here's a simplified example of the code. 
+
+The collection is declared and assigned a schema in one file.
+
+trips.js
+
+const Trips = new Mongo.Collection('trips');
+//schema is declared and attached
+
+export {Trips}
+
+
+The methods are declared in another file.
+
+Methods.js
+
+import {Trips} from '../trips';
+
+Meteor.methods({
+
+    'updateTrip' (tripId, trip){
+        check(tripId, String);
+        check(trip, Object);
+
+        Trips.update({
+             _id: tripId
+        },{
+           $set: {
+             field1: trip.field1,
+             field2: trip.field2,
+             field3: trip.field3
+           }
+        });
+    }       
+});
+
+
+In some cases the fields are objects with large objects nested within.
+
+I'm new to Meteor and MongoDB, and was not the original developer for this project, so I'm wondering if there's a bug in this code that could be causing the 100% CPU usage and long delays. 
+",2
+31,56652544,Install ansible galaxy using ansible,"How do I install an ansible role using ansible?
+
+The manual way is using the command line:
+
+ansible-galaxy install user.role
+
+
+But how do I do it in ansible itself, like a module? I would guess something like this in a playbook:
+
+- tasks:
+  galaxy:
+    user: username
+    role: rolename
+    state: installed
+
+
+This seems to be a very trivial and elementary task, but I can't find how to do it.
+
+There is a similar question here How to automatically install Ansible Galaxy roles? .But it doesn't answer it, as it just runs the manual command every time, and it is not idempotent (that is the main reason to use ansible to automate stuff).
+",-1,1,-1.0,"How do I install an ansible role using ansible?
+
+The manual way is using the command line:
+
+ansible-galaxy install user.role
+
+
+But how do I do it in ansible itself, like a module? I would guess something like this in a playbook:
+
+- tasks:
+  galaxy:
+    user: username
+    role: rolename
+    state: installed
+
+
+This seems to be a very trivial and elementary task, but I can't find how to do it.
+
+There is a similar question here How to automatically install Ansible Galaxy roles? .But it doesn't answer it, as it just runs the manual command every time, and it is not idempotent (that is the main reason to use ansible to automate stuff).
+",1
+32,58674597,Format for MONGO_URL when connecting MongoDB Atlas to Galaxy,"Revising this question following more attempts:
+
+I'm deploying a Meteor app on Galaxy for the first time and cannot connect to MongoDB Atlas.
+
+I can connect to MongoDb through Mongo Shell using:
+
+mongo ""mongodb://host1:27017,host2:27017,host3:27017/&lt;db_name&gt;?replicaSet=&lt;replica_set_name&gt;"" --ssl --authenticationDatabase admin  --username &lt;username&gt; --password &lt;password&gt;
+
+
+I tried an equivalent for the Mongo URL in my settings.json:
+
+mongodb://&lt;username&gt;:&lt;password&gt;@host1:27017,host2:27017,host3:27017/&lt;db_name&gt;?authSource=admin&amp;replicaSet=&lt;replace_set_name&gt;
+
+
+But when I deploy my app, I get:
+
+Error: Could not locate any valid servers in initial seed list.
+
+I've also tried using the connection string provided by Atlas:
+
+mongodb+srv://&lt;username&gt;:&lt;password&gt;@&lt;host&gt;/&lt;db_name&gt;?retryWrites=true&amp;w=majority
+
+
+But this just returns:
+
+Error: URL must be in the format mongodb://user:pass@host:port/dbname
+
+
+I've tried every combination I can come up with but no luck.
+
+RESOLVED, WITH HELP FROM MONGODB ATLAS SUPPORT:
+""MONGO_URL"": ""mongodb://:@host1:27017,host2:27017,host3:27017/?ssl=true&amp;replicaSet=&amp;authSource=admin&amp;retryWrites=true&amp;w=majority"",
+",1,-1,-1.0,"Revising this question following more attempts:
+
+I'm deploying a Meteor app on Galaxy for the first time and cannot connect to MongoDB Atlas.
+
+I can connect to MongoDb through Mongo Shell using:
+
+mongo ""mongodb://host1:27017,host2:27017,host3:27017/&lt;db_name&gt;?replicaSet=&lt;replica_set_name&gt;"" --ssl --authenticationDatabase admin  --username &lt;username&gt; --password &lt;password&gt;
+
+
+I tried an equivalent for the Mongo URL in my settings.json:
+
+mongodb://&lt;username&gt;:&lt;password&gt;@host1:27017,host2:27017,host3:27017/&lt;db_name&gt;?authSource=admin&amp;replicaSet=&lt;replace_set_name&gt;
+
+
+But when I deploy my app, I get:
+
+Error: Could not locate any valid servers in initial seed list.
+
+I've also tried using the connection string provided by Atlas:
+
+mongodb+srv://&lt;username&gt;:&lt;password&gt;@&lt;host&gt;/&lt;db_name&gt;?retryWrites=true&amp;w=majority
+
+
+But this just returns:
+
+Error: URL must be in the format mongodb://user:pass@host:port/dbname
+
+
+I've tried every combination I can come up with but no luck.
+
+RESOLVED, WITH HELP FROM MONGODB ATLAS SUPPORT:
+""MONGO_URL"": ""mongodb://:@host1:27017,host2:27017,host3:27017/?ssl=true&amp;replicaSet=&amp;authSource=admin&amp;retryWrites=true&amp;w=majority"",
+",3
+33,58544295,Automatic Ansible custom modules installation with Ansible Galaxy,"Is there any nice way to use Ansible Galaxy order to install and enable Ansible (2.7.9) custom modules?
+
+My requirement allows Ansible Galaxy to download the right Ansible role which embeds my custom module. Once ansible-galaxy install --roles-path ansible/roles/ -r roles/requirements.yml, I get the following structure (non-exhaustive):
+
+├── ansible
+│   ├── roles
+│   │   ├── mymodule (being imported by Galaxy)
+│   │   │   ├── library
+│   │   │   │   └── mymodule.py
+
+
+By looking this part of the documentation, it seems like my module is at the right place and does not require any further configuration: https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html?highlight=library#directory-layout
+
+But when I found this part of the documentation I got confused. Is ANSIBLE_LIBRARY related to the custom modules?
+
+
+  DEFAULT_MODULE_PATH
+  
+  Description:  Colon separated paths in which Ansible will search for Modules.
+  
+  Type: pathspec
+  
+  Default:  ~/.ansible/plugins/modules:/usr/share/ansible/plugins/modules
+  
+  Ini Section:  defaults
+  
+  Ini Key:  library
+  
+  Environment:  ANSIBLE_LIBRARY
+
+
+https://docs.ansible.com/ansible/latest/reference_appendices/config.html#default-module-path
+
+When calling my module,
+
+  - name: Test of my Module
+    mymodule:
+
+
+I get the following error:
+
+ERROR! no action detected in task. This often indicates a misspelled module name, or incorrect module path.
+
+
+I expected not to have to configure the ANSIBLE_LIBRARY and the module being automatically callable. Am I understanding correctly or should I also trick this var?
+",-1,-1,-1.0,"Is there any nice way to use Ansible Galaxy order to install and enable Ansible (2.7.9) custom modules?
+
+My requirement allows Ansible Galaxy to download the right Ansible role which embeds my custom module. Once ansible-galaxy install --roles-path ansible/roles/ -r roles/requirements.yml, I get the following structure (non-exhaustive):
+
+├── ansible
+│   ├── roles
+│   │   ├── mymodule (being imported by Galaxy)
+│   │   │   ├── library
+│   │   │   │   └── mymodule.py
+
+
+By looking this part of the documentation, it seems like my module is at the right place and does not require any further configuration: https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html?highlight=library#directory-layout
+
+But when I found this part of the documentation I got confused. Is ANSIBLE_LIBRARY related to the custom modules?
+
+
+  DEFAULT_MODULE_PATH
+  
+  Description:  Colon separated paths in which Ansible will search for Modules.
+  
+  Type: pathspec
+  
+  Default:  ~/.ansible/plugins/modules:/usr/share/ansible/plugins/modules
+  
+  Ini Section:  defaults
+  
+  Ini Key:  library
+  
+  Environment:  ANSIBLE_LIBRARY
+
+
+https://docs.ansible.com/ansible/latest/reference_appendices/config.html#default-module-path
+
+When calling my module,
+
+  - name: Test of my Module
+    mymodule:
+
+
+I get the following error:
+
+ERROR! no action detected in task. This often indicates a misspelled module name, or incorrect module path.
+
+
+I expected not to have to configure the ANSIBLE_LIBRARY and the module being automatically callable. Am I understanding correctly or should I also trick this var?
+",1
+34,60829595,How to install ansible galaxy a collection's role dependencies?,"I'm trying to use Ansible Galaxy collections and can't find a way how to install dependencies of roles inside a collection which I specified in a role's meta/main.yml dependencies list.
+As I understand a galaxy.yml of a collection can have only the other collections as dependencies, but not roles.
+What is the correct way to install a role's dependencies along with the installation of a collection?
+Of course, it is possible to specify all dependencies in the readme file of a collection and use them in the requirements.yml, but it is not very convenient.
+",-1,-1,-1.0,"I'm trying to use Ansible Galaxy collections and can't find a way how to install dependencies of roles inside a collection which I specified in a role's meta/main.yml dependencies list.
+As I understand a galaxy.yml of a collection can have only the other collections as dependencies, but not roles.
+What is the correct way to install a role's dependencies along with the installation of a collection?
+Of course, it is possible to specify all dependencies in the readme file of a collection and use them in the requirements.yml, but it is not very convenient.
+",1
+35,61759705,Ansible Galaxy roles incorrect path,"When i install anything via ansible-galaxy like
+
+ansible-galaxy install 1nfinitum.php
+
+
+it is saved in 
+
+/root/.ansible/roles/1nfinitum.php
+
+
+but the default path like mentioned in Galaxy is 
+
+ /etc/ansible/roles 
+
+
+My ansible.cfg 
+
+ #inventory      = /etc/ansible/hosts
+ #library        = /usr/share/my_modules/
+ #module_utils   = /usr/share/my_module_utils/
+ #remote_tmp     = ~/.ansible/tmp
+ #local_tmp      = ~/.ansible/tmp
+
+
+why roles are not getting stored in default path what am i doing wrong ?
+",-1,-1,-1.0,"When i install anything via ansible-galaxy like
+
+ansible-galaxy install 1nfinitum.php
+
+
+it is saved in 
+
+/root/.ansible/roles/1nfinitum.php
+
+
+but the default path like mentioned in Galaxy is 
+
+ /etc/ansible/roles 
+
+
+My ansible.cfg 
+
+ #inventory      = /etc/ansible/hosts
+ #library        = /usr/share/my_modules/
+ #module_utils   = /usr/share/my_module_utils/
+ #remote_tmp     = ~/.ansible/tmp
+ #local_tmp      = ~/.ansible/tmp
+
+
+why roles are not getting stored in default path what am i doing wrong ?
+",1
+36,62011098,"Rocketchat production grade, still a good choice for deployment with Meteor Galaxy?","Is it still advisable to deploy a production grade version of Rocket.Chat using Meteor Galaxy as the Host?  I am also using a MongoDb Atlas with a replica set as the host.
+I found this:  https://martinschoeler.github.io/docs/installation/paas-deployments/galaxy/  and have had success deploying it.  However, I'm concerned about going a direction that isn't advised anymore.
+
+I'm going to use the lastest stable release (3.2.2) and am getting a little nervous about doing this without seeing the branded Galaxy choice on the page of deployment choices under 'Server Install' here:
+
+https://rocket.chat/install
+",-1,-1,-1.0,"Is it still advisable to deploy a production grade version of Rocket.Chat using Meteor Galaxy as the Host?  I am also using a MongoDb Atlas with a replica set as the host.
+I found this:  https://martinschoeler.github.io/docs/installation/paas-deployments/galaxy/  and have had success deploying it.  However, I'm concerned about going a direction that isn't advised anymore.
+
+I'm going to use the lastest stable release (3.2.2) and am getting a little nervous about doing this without seeing the branded Galaxy choice on the page of deployment choices under 'Server Install' here:
+
+https://rocket.chat/install
+",4
+37,64479697,ansible-galaxy collection install timeout,"I've got a problem with installing ansible collection which is ending with timeout
+# ansible-galaxy collection install community.general -vvvv
+ansible-galaxy 2.9.9
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.6/site-packages/ansible
+  executable location = /usr/local/bin/ansible-galaxy
+  python version = 3.6.8 (default, Apr 16 2020, 01:36:27) [GCC 8.3.1 20191121 (Red Hat 8.3.1-5)]
+Using /etc/ansible/ansible.cfg as config file
+Process install dependency map
+Initial connection to galaxy_server: https://galaxy.ansible.com
+Created /root/.ansible/galaxy_token
+Calling Galaxy at https://galaxy.ansible.com/api/
+Processing requirement collection 'community.general'
+Collection requirement 'community.general' is the name of a collection
+Found API version 'v1, v2' with Galaxy server default (https://galaxy.ansible.com/api/)
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/community/general/versions/
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/community/general/versions/1.2.0/
+Collection 'community.general' obtained from server default https://galaxy.ansible.com/api/
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/google/cloud/versions/
+Processing requirement collection 'google.cloud' - as dependency of community.general
+Collection requirement 'google.cloud' is the name of a collection
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/google/cloud/versions/?page=2
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/ansible/posix/versions/
+Collection 'google.cloud' obtained from server default https://galaxy.ansible.com/api/
+Processing requirement collection 'ansible.posix' - as dependency of community.general
+Collection requirement 'ansible.posix' is the name of a collection
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/ansible/posix/versions/?page=2
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/ansible/posix/versions/?page=3
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/ansible/posix/versions/?page=4
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/ansible/posix/versions/?page=5
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/ansible/netcommon/versions/
+Collection 'ansible.posix' obtained from server default https://galaxy.ansible.com/api/
+Processing requirement collection 'ansible.netcommon' - as dependency of community.general
+Collection requirement 'ansible.netcommon' is the name of a collection
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/ansible/netcommon/versions/?page=2
+ERROR! Unknown error when attempting to call Galaxy at 'https://galaxy.ansible.com/api/v2/collections/ansible/netcommon/versions/?page=2': The read operation timed out
+
+$ time curl https://galaxy.ansible.com/api/
+{&quot;description&quot;:&quot;GALAXY REST API&quot;,&quot;current_version&quot;:&quot;v1&quot;,&quot;available_versions&quot;:{&quot;v1&quot;:&quot;v1/&quot;,&quot;v2&quot;:&quot;v2/&quot;},&quot;server_version&quot;:&quot;3.4.7&quot;,&quot;version_name&quot;:&quot;Doin' it Right&quot;,&quot;team_members&quot;:[&quot;chouseknecht&quot;,&quot;cutwater&quot;,&quot;alikins&quot;,&quot;newswangerd&quot;,&quot;awcrosby&quot;,&quot;tima&quot;,&quot;gregdek&quot;]}
+real    0m0.502s
+user    0m0.028s
+sys     0m0.015s
+
+Problem is quite obvious:
+# time curl https://galaxy.ansible.com/api/v2/collections/ansible/netcommon/versions/?page=2
+&lt;---- PAYLOAD ----&gt;
+real    0m0.979s
+user    0m0.037s
+sys     0m0.018s
+
+# time curl https://galaxy.ansible.com/api/v2/collections/ansible/netcommon/versions/?page=2
+&lt;---- PAYLOAD ----&gt;
+real    0m16.729s
+user    0m0.029s
+sys     0m0.014s
+
+# ping galaxy.ansible.com
+PING galaxy.ansible.com (104.26.0.250) 56(84) bytes of data.
+.....
+44 packets transmitted, 44 received, 0% packet loss, time 104ms
+rtt min/avg/max/mdev = 2.815/5.372/30.278/5.817 ms
+
+# ping 8.8.8.8
+.....
+24 packets transmitted, 24 received, 0% packet loss, time 59ms
+rtt min/avg/max/mdev = 2.866/4.895/25.451/4.608 ms
+
+So I decided to install collection from tarball and end-up in same problem but this time with downloading dependencies timeout
+# ansible-galaxy collection install community-general-1.2.0.tar.gz -p /home/ansible/.ansible/collections -vvvv
+.....
+Process install dependency map
+.....
+Starting collection install process
+Installing 'community.general:1.2.0' to '/home/ansible/.ansible/collections/ansible_collections/community/general'
+Installing 'ansible.netcommon:1.3.0' to '/home/ansible/.ansible/collections/ansible_collections/ansible/netcommon'
+Downloading https://galaxy.ansible.com/download/ansible-netcommon-1.3.0.tar.gz to /home/ansible/.ansible/tmp/ansible-local-1151707428cblg0/tmpbph_yq9r
+ERROR! Unexpected Exception, this is probably a bug: The read operation timed out
+
+OS is Centos8, Ansible config files are original from installation package...
+$ cat /etc/os-release
+NAME=&quot;CentOS Linux&quot;
+VERSION=&quot;8 (Core)&quot;
+PLATFORM_ID=&quot;platform:el8&quot;
+
+$ ansible --version
+ansible 2.9.9
+  config file = /home/ansible/ansible.cfg
+  configured module search path = ['/home/ansible/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.6/site-packages/ansible
+  executable location = /usr/local/bin/ansible
+  python version = 3.6.8 (default, Apr 16 2020, 01:36:27) [GCC 8.3.1 20191121 (Red Hat 8.3.1-5)]
+
+Any idea how to overcome this problem?
+Thanks!
+",-1,-1,-1.0,"I've got a problem with installing ansible collection which is ending with timeout
+# ansible-galaxy collection install community.general -vvvv
+ansible-galaxy 2.9.9
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.6/site-packages/ansible
+  executable location = /usr/local/bin/ansible-galaxy
+  python version = 3.6.8 (default, Apr 16 2020, 01:36:27) [GCC 8.3.1 20191121 (Red Hat 8.3.1-5)]
+Using /etc/ansible/ansible.cfg as config file
+Process install dependency map
+Initial connection to galaxy_server: https://galaxy.ansible.com
+Created /root/.ansible/galaxy_token
+Calling Galaxy at https://galaxy.ansible.com/api/
+Processing requirement collection 'community.general'
+Collection requirement 'community.general' is the name of a collection
+Found API version 'v1, v2' with Galaxy server default (https://galaxy.ansible.com/api/)
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/community/general/versions/
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/community/general/versions/1.2.0/
+Collection 'community.general' obtained from server default https://galaxy.ansible.com/api/
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/google/cloud/versions/
+Processing requirement collection 'google.cloud' - as dependency of community.general
+Collection requirement 'google.cloud' is the name of a collection
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/google/cloud/versions/?page=2
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/ansible/posix/versions/
+Collection 'google.cloud' obtained from server default https://galaxy.ansible.com/api/
+Processing requirement collection 'ansible.posix' - as dependency of community.general
+Collection requirement 'ansible.posix' is the name of a collection
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/ansible/posix/versions/?page=2
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/ansible/posix/versions/?page=3
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/ansible/posix/versions/?page=4
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/ansible/posix/versions/?page=5
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/ansible/netcommon/versions/
+Collection 'ansible.posix' obtained from server default https://galaxy.ansible.com/api/
+Processing requirement collection 'ansible.netcommon' - as dependency of community.general
+Collection requirement 'ansible.netcommon' is the name of a collection
+Calling Galaxy at https://galaxy.ansible.com/api/v2/collections/ansible/netcommon/versions/?page=2
+ERROR! Unknown error when attempting to call Galaxy at 'https://galaxy.ansible.com/api/v2/collections/ansible/netcommon/versions/?page=2': The read operation timed out
+
+$ time curl https://galaxy.ansible.com/api/
+{&quot;description&quot;:&quot;GALAXY REST API&quot;,&quot;current_version&quot;:&quot;v1&quot;,&quot;available_versions&quot;:{&quot;v1&quot;:&quot;v1/&quot;,&quot;v2&quot;:&quot;v2/&quot;},&quot;server_version&quot;:&quot;3.4.7&quot;,&quot;version_name&quot;:&quot;Doin' it Right&quot;,&quot;team_members&quot;:[&quot;chouseknecht&quot;,&quot;cutwater&quot;,&quot;alikins&quot;,&quot;newswangerd&quot;,&quot;awcrosby&quot;,&quot;tima&quot;,&quot;gregdek&quot;]}
+real    0m0.502s
+user    0m0.028s
+sys     0m0.015s
+
+Problem is quite obvious:
+# time curl https://galaxy.ansible.com/api/v2/collections/ansible/netcommon/versions/?page=2
+&lt;---- PAYLOAD ----&gt;
+real    0m0.979s
+user    0m0.037s
+sys     0m0.018s
+
+# time curl https://galaxy.ansible.com/api/v2/collections/ansible/netcommon/versions/?page=2
+&lt;---- PAYLOAD ----&gt;
+real    0m16.729s
+user    0m0.029s
+sys     0m0.014s
+
+# ping galaxy.ansible.com
+PING galaxy.ansible.com (104.26.0.250) 56(84) bytes of data.
+.....
+44 packets transmitted, 44 received, 0% packet loss, time 104ms
+rtt min/avg/max/mdev = 2.815/5.372/30.278/5.817 ms
+
+# ping 8.8.8.8
+.....
+24 packets transmitted, 24 received, 0% packet loss, time 59ms
+rtt min/avg/max/mdev = 2.866/4.895/25.451/4.608 ms
+
+So I decided to install collection from tarball and end-up in same problem but this time with downloading dependencies timeout
+# ansible-galaxy collection install community-general-1.2.0.tar.gz -p /home/ansible/.ansible/collections -vvvv
+.....
+Process install dependency map
+.....
+Starting collection install process
+Installing 'community.general:1.2.0' to '/home/ansible/.ansible/collections/ansible_collections/community/general'
+Installing 'ansible.netcommon:1.3.0' to '/home/ansible/.ansible/collections/ansible_collections/ansible/netcommon'
+Downloading https://galaxy.ansible.com/download/ansible-netcommon-1.3.0.tar.gz to /home/ansible/.ansible/tmp/ansible-local-1151707428cblg0/tmpbph_yq9r
+ERROR! Unexpected Exception, this is probably a bug: The read operation timed out
+
+OS is Centos8, Ansible config files are original from installation package...
+$ cat /etc/os-release
+NAME=&quot;CentOS Linux&quot;
+VERSION=&quot;8 (Core)&quot;
+PLATFORM_ID=&quot;platform:el8&quot;
+
+$ ansible --version
+ansible 2.9.9
+  config file = /home/ansible/ansible.cfg
+  configured module search path = ['/home/ansible/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.6/site-packages/ansible
+  executable location = /usr/local/bin/ansible
+  python version = 3.6.8 (default, Apr 16 2020, 01:36:27) [GCC 8.3.1 20191121 (Red Hat 8.3.1-5)]
+
+Any idea how to overcome this problem?
+Thanks!
+",1
+38,65944341,"""The specified collections path is not part of the configured Ansible collections paths"" but I'm installing into a relative directory","I'm installing the ansible.posix collection to use in my playbook like this:
+ansible-galaxy collection install -r ansible/requirements.yml -p ansible/collections
+
+However, I get this warning message that I want to get rid of:
+[WARNING]: The specified collections path '/home/myuser/path/to/my/repo/ansible/collections' is not part of the
+configured Ansible collections paths '/home/myuser/.ansible/collections:/usr/share/ansible/collections'. The installed collection won't be
+picked up in an Ansible run.
+
+My repo is laid out like this:
+├── ansible
+│   ├── playbook.yml
+│   ├── files
+│   │   ├── ...
+│   ├── tasks
+│   │   ├── ...
+│   ├── requirements.yml
+├── ansible.cfg
+...
+
+ansible.cfg looks like this:
+[defaults]
+timeout = 60
+callback_whitelist = profile_tasks
+
+Here's the output of ansible --version:
+ansible 2.9.17
+  config file = /home/myuser/path/to/my/repo/ansible.cfg
+  configured module search path = ['/home/myuser/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.7/dist-packages/ansible
+  executable location = /usr/local/bin/ansible
+  python version = 3.7.3 (default, Jul 25 2020, 13:03:44) [GCC 8.3.0]
+
+In the docs for installing collections with ansible-galaxy, they say the following:
+
+You can also keep a collection adjacent to the current playbook, under a collections/ansible_collections/ directory structure.
+play.yml
+├── collections/
+│   └── ansible_collections/
+│               └── my_namespace/
+│                   └── my_collection/&lt;collection structure lives here&gt;
+
+
+And, like the documentation suggests, I can still use the collection just fine in my play. But this warning message is quite annoying. How do I get rid of it?
+",-1,-1,-1.0,"I'm installing the ansible.posix collection to use in my playbook like this:
+ansible-galaxy collection install -r ansible/requirements.yml -p ansible/collections
+
+However, I get this warning message that I want to get rid of:
+[WARNING]: The specified collections path '/home/myuser/path/to/my/repo/ansible/collections' is not part of the
+configured Ansible collections paths '/home/myuser/.ansible/collections:/usr/share/ansible/collections'. The installed collection won't be
+picked up in an Ansible run.
+
+My repo is laid out like this:
+├── ansible
+│   ├── playbook.yml
+│   ├── files
+│   │   ├── ...
+│   ├── tasks
+│   │   ├── ...
+│   ├── requirements.yml
+├── ansible.cfg
+...
+
+ansible.cfg looks like this:
+[defaults]
+timeout = 60
+callback_whitelist = profile_tasks
+
+Here's the output of ansible --version:
+ansible 2.9.17
+  config file = /home/myuser/path/to/my/repo/ansible.cfg
+  configured module search path = ['/home/myuser/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.7/dist-packages/ansible
+  executable location = /usr/local/bin/ansible
+  python version = 3.7.3 (default, Jul 25 2020, 13:03:44) [GCC 8.3.0]
+
+In the docs for installing collections with ansible-galaxy, they say the following:
+
+You can also keep a collection adjacent to the current playbook, under a collections/ansible_collections/ directory structure.
+play.yml
+├── collections/
+│   └── ansible_collections/
+│               └── my_namespace/
+│                   └── my_collection/&lt;collection structure lives here&gt;
+
+
+And, like the documentation suggests, I can still use the collection just fine in my play. But this warning message is quite annoying. How do I get rid of it?
+",1
+39,66105240,ansible-local in packer wont pickup collections,"I am using an ansible-local provisioner in Packer, and trying to use the community.general collection, however I cannot get my playbook to see it at all.
+The Packer code is:
+{
+  &quot;type&quot;: &quot;ansible-local&quot;,
+  &quot;staging_directory&quot;: &quot;/tmp/packer-provisioner-ansible-local&quot;,
+  &quot;command&quot;: &quot;ANSIBLE_COLLECTIONS_PATHS=/tmp/packer-provisioner-ansible-local/collections/roles ansible-playbook&quot;,
+  &quot;playbook_file&quot;: &quot;{{ user `jenkins_workspace` }}/packer/ansible/playbook.yml&quot;,
+  &quot;playbook_dir&quot;: &quot;{{ user `jenkins_workspace` }}/packer/ansible&quot;,
+  &quot;galaxy_command&quot;: &quot;ANSIBLE_COLLECTIONS_PATHS=/tmp/packer-provisioner-ansible-local/collections/roles ansible-galaxy collection&quot;,
+  &quot;galaxy_file&quot;: &quot;{{ user `jenkins_workspace` }}/packer/ansible/collections/requirements.yml&quot;,
+  &quot;inventory_groups&quot;: &quot;{{user `inventory_groups`}}&quot;
+}
+
+The collections seems to install no problem in the correct DIR
+amazon-ebs: Executing Ansible Galaxy: cd /tmp/packer-provisioner-ansible-local &amp;&amp; ANSIBLE_COLLECTIONS_PATHS=/tmp/packer-provisioner-ansible-local/roles ansible-galaxy collection install -r /tmp/packer-provisioner-ansible-local/requirements.yml -p /tmp/packer-provisioner-ansible-local/roles
+amazon-ebs: |Installing 'community.general:2.0.0' to '/tmp/packer-provisioner-ansible-local/roles/ansible_collections/community/general'
+
+However then Ansible is unable to use it
+amazon-ebs: Executing Ansible: cd /tmp/packer-provisioner-ansible-local &amp;&amp; ANSIBLE_COLLECTIONS_PATHS=/tmp/packer-provisioner-ansible-local/roles ansible-playbook /tmp/packer-provisioner-ansible-local/playbook.yml --extra-vars &quot;packer_build_name=amazon-ebs packer_builder_type=amazon-ebs packer_http_addr=ERR_HTTP_ADDR_NOT_IMPLEMENTED_BY_BUILDER -o IdentitiesOnly=yes&quot;  -c local -i /tmp/packer-provisioner-ansible-local/packer-provisioner-ansible-local801906075
+amazon-ebs: ERROR! couldn't resolve module/action 'community.general.docker_compose'. This often indicates a misspelling, missing collection, or incorrect module path.
+
+The Anisble play in question is
+    - name: Docker compose build the containers
+      community.general.docker_compose:
+        recreate: never
+        pull: yes
+        build: yes
+        state: present
+        stopped: yes
+        project_src: &quot;{{ home }}&quot;
+
+Any advice on where I am going wrong with this would be great....
+",-1,-1,-1.0,"I am using an ansible-local provisioner in Packer, and trying to use the community.general collection, however I cannot get my playbook to see it at all.
+The Packer code is:
+{
+  &quot;type&quot;: &quot;ansible-local&quot;,
+  &quot;staging_directory&quot;: &quot;/tmp/packer-provisioner-ansible-local&quot;,
+  &quot;command&quot;: &quot;ANSIBLE_COLLECTIONS_PATHS=/tmp/packer-provisioner-ansible-local/collections/roles ansible-playbook&quot;,
+  &quot;playbook_file&quot;: &quot;{{ user `jenkins_workspace` }}/packer/ansible/playbook.yml&quot;,
+  &quot;playbook_dir&quot;: &quot;{{ user `jenkins_workspace` }}/packer/ansible&quot;,
+  &quot;galaxy_command&quot;: &quot;ANSIBLE_COLLECTIONS_PATHS=/tmp/packer-provisioner-ansible-local/collections/roles ansible-galaxy collection&quot;,
+  &quot;galaxy_file&quot;: &quot;{{ user `jenkins_workspace` }}/packer/ansible/collections/requirements.yml&quot;,
+  &quot;inventory_groups&quot;: &quot;{{user `inventory_groups`}}&quot;
+}
+
+The collections seems to install no problem in the correct DIR
+amazon-ebs: Executing Ansible Galaxy: cd /tmp/packer-provisioner-ansible-local &amp;&amp; ANSIBLE_COLLECTIONS_PATHS=/tmp/packer-provisioner-ansible-local/roles ansible-galaxy collection install -r /tmp/packer-provisioner-ansible-local/requirements.yml -p /tmp/packer-provisioner-ansible-local/roles
+amazon-ebs: |Installing 'community.general:2.0.0' to '/tmp/packer-provisioner-ansible-local/roles/ansible_collections/community/general'
+
+However then Ansible is unable to use it
+amazon-ebs: Executing Ansible: cd /tmp/packer-provisioner-ansible-local &amp;&amp; ANSIBLE_COLLECTIONS_PATHS=/tmp/packer-provisioner-ansible-local/roles ansible-playbook /tmp/packer-provisioner-ansible-local/playbook.yml --extra-vars &quot;packer_build_name=amazon-ebs packer_builder_type=amazon-ebs packer_http_addr=ERR_HTTP_ADDR_NOT_IMPLEMENTED_BY_BUILDER -o IdentitiesOnly=yes&quot;  -c local -i /tmp/packer-provisioner-ansible-local/packer-provisioner-ansible-local801906075
+amazon-ebs: ERROR! couldn't resolve module/action 'community.general.docker_compose'. This often indicates a misspelling, missing collection, or incorrect module path.
+
+The Anisble play in question is
+    - name: Docker compose build the containers
+      community.general.docker_compose:
+        recreate: never
+        pull: yes
+        build: yes
+        state: present
+        stopped: yes
+        project_src: &quot;{{ home }}&quot;
+
+Any advice on where I am going wrong with this would be great....
+",1
+40,66149455,What is the purpose of GitHub organization namespaces in Ansible Galaxy for collections,"I noticed in Ansible Galaxy that when I navigate to https://galaxy.ansible.com/my-content/namespaces I see two namespaces:
+
+One corresponds with my GitHub username let's say user.
+One corresponds with a GitHub organization I created let's say mycompany.
+
+I can build a collection let's say mycollection under namespace user and mycompany but publish only works under user. With other words I can only publish user.mycollection. If I try to publish mycompany.mycollection there is an error message
+user:~/git/ … /ansible-collection-apps] master* ± ansible-galaxy collection publish *.tar.gz --token=2daf0378704a85722dc8a358359f8967b0681917
+Publishing collection artifact '/home/user/git/github/mycompany/mycollection/mycollection-1.0.0.tar.gz' to default https://galaxy.ansible.com/api/
+ERROR! Error when publishing collection to default (https://galaxy.ansible.com/api/) (HTTP Code: 400, Message: Namespace &quot;mycompany&quot; does not exist. Code: invalid)  
+
+Clearly I am using Galaxy namespaces created from GitHub organizations such as mycompany in an unintended way.
+How are these namespaces intended to be used? Can they be used? I tried for example namespace user.mycompany but this is not a valid collection namespace.
+",-1,-1,-1.0,"I noticed in Ansible Galaxy that when I navigate to https://galaxy.ansible.com/my-content/namespaces I see two namespaces:
+
+One corresponds with my GitHub username let's say user.
+One corresponds with a GitHub organization I created let's say mycompany.
+
+I can build a collection let's say mycollection under namespace user and mycompany but publish only works under user. With other words I can only publish user.mycollection. If I try to publish mycompany.mycollection there is an error message
+user:~/git/ … /ansible-collection-apps] master* ± ansible-galaxy collection publish *.tar.gz --token=2daf0378704a85722dc8a358359f8967b0681917
+Publishing collection artifact '/home/user/git/github/mycompany/mycollection/mycollection-1.0.0.tar.gz' to default https://galaxy.ansible.com/api/
+ERROR! Error when publishing collection to default (https://galaxy.ansible.com/api/) (HTTP Code: 400, Message: Namespace &quot;mycompany&quot; does not exist. Code: invalid)  
+
+Clearly I am using Galaxy namespaces created from GitHub organizations such as mycompany in an unintended way.
+How are these namespaces intended to be used? Can they be used? I tried for example namespace user.mycompany but this is not a valid collection namespace.
+",3
+41,66152842,AWX fails to retrieve collections from Ansible Galaxy,"I have a project with roles/requirements.yml and collections/requirements.yml. This - I think - per AWX / Tower guidelines.
+On project update the roles/requirements.yml is picked up successfully but the collections/requirements.yml fails with a typical Ansible error message unfortunately that doesn't help me understand what is going wrong.
+PLAY [Update source tree if necessary] *****************************************
+TASK [delete project directory before update] **********************************
+changed: [localhost]
+TASK [update project using git] ************************************************
+changed: [localhost]
+TASK [Set the git repository version] ******************************************
+ok: [localhost]
+TASK [Repository Version] ******************************************************
+ok: [localhost] =&gt; {
+    &quot;msg&quot;: &quot;Repository Version 812a488b0a09f7fda6a784a8247abaf6892e1f13&quot;
+}
+PLAY [Install content with ansible-galaxy command if necessary] ****************
+TASK [detect roles/requirements.(yml/yaml)] ************************************
+ok: [localhost] =&gt; (item={'ext': '.yml'})
+ok: [localhost] =&gt; (item={'ext': '.yaml'})
+TASK [fetch galaxy roles from requirements.(yml/yaml)] *************************
+changed: [localhost] =&gt; (item={'changed': False, 'stat': {'exists': True, 'path': '/var/lib/awx/projects/_6__c2/roles/requirements.yml', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 390, 'inode': 131356, 'dev': 64771, 'nlink': 1, 'atime': 1613038457.4215767, 'mtime': 1613038456.678576, 'ctime': 1613038456.678576, 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False, 'blocks': 8, 'block_size': 4096, 'device_type': 0, 'readable': True, 'writeable': True, 'executable': False, 'pw_name': 'root', 'gr_name': 'root', 'checksum': '29ae537db56b12b54f2eecb8668f4185b7b1e91d', 'mimetype': 'text/plain', 'charset': 'us-ascii', 'version': None, 'attributes': [], 'attr_flags': ''}, 'invocation': {'module_args': {'path': '/var/lib/awx/projects/_6__c2/roles/requirements.yml', 'follow': False, 'get_md5'…
+skipping: [localhost] =&gt; (item={'changed': False, 'stat': {'exists': False}, 'invocation': {'module_args': {'path': '/var/lib/awx/projects/_6__c2/roles/requirements.yaml', 'follow': False, 'get_md5': False, 'get_checksum': True, 'get_mime': True, 'get_attributes': True, 'checksum_algorithm': 'sha1'}}, 'failed': False, 'item': {'ext': '.yaml'}, 'ansible_loop_var': 'item'}) 
+TASK [detect collections/requirements.(yml/yaml)] ******************************
+ok: [localhost] =&gt; (item={'ext': '.yml'})
+ok: [localhost] =&gt; (item={'ext': '.yaml'})
+TASK [fetch galaxy collections from collections/requirements.(yml/yaml)] *******
+failed: [localhost] (item={'changed': False, 'stat': {'exists': True, 'path': '/var/lib/awx/projects/_6__c2/collections/requirements.yml', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 183, 'inode': 131286, 'dev': 64771, 'nlink': 1, 'atime': 1613038457.4195766, 'mtime': 1613038456.673576, 'ctime': 1613038456.673576, 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False, 'blocks': 8, 'block_size': 4096, 'device_type': 0, 'readable': True, 'writeable': True, 'executable': False, 'pw_name': 'root', 'gr_name': 'root', 'checksum': '7b8e2a2b64c7d5e64917b548dc40347158f8bb1b', 'mimetype': 'text/plain', 'charset': 'us-ascii', 'version': None, 'attributes': [], 'attr_flags': ''}, 'invocation': {'module_args': {'path': '/var/lib/awx/projects/_6__c2/collections/requirements.yml', 'follow': False, '…
+skipping: [localhost] =&gt; (item={'changed': False, 'stat': {'exists': False}, 'invocation': {'module_args': {'path': '/var/lib/awx/projects/_6__c2/collections/requirements.yaml', 'follow': False, 'get_md5': False, 'get_checksum': True, 'get_mime': True, 'get_attributes': True, 'checksum_algorithm': 'sha1'}}, 'failed': False, 'item': {'ext': '.yaml'}, 'ansible_loop_var': 'item'}) 
+
+Of course I tested the requirements locally. It works. Just not in AWX.
+With the exception of one task having status failed I really don't see any difference between the error message on failure and the success logging when fetches roles.
+What is wrong here?
+",-1,-1,-1.0,"I have a project with roles/requirements.yml and collections/requirements.yml. This - I think - per AWX / Tower guidelines.
+On project update the roles/requirements.yml is picked up successfully but the collections/requirements.yml fails with a typical Ansible error message unfortunately that doesn't help me understand what is going wrong.
+PLAY [Update source tree if necessary] *****************************************
+TASK [delete project directory before update] **********************************
+changed: [localhost]
+TASK [update project using git] ************************************************
+changed: [localhost]
+TASK [Set the git repository version] ******************************************
+ok: [localhost]
+TASK [Repository Version] ******************************************************
+ok: [localhost] =&gt; {
+    &quot;msg&quot;: &quot;Repository Version 812a488b0a09f7fda6a784a8247abaf6892e1f13&quot;
+}
+PLAY [Install content with ansible-galaxy command if necessary] ****************
+TASK [detect roles/requirements.(yml/yaml)] ************************************
+ok: [localhost] =&gt; (item={'ext': '.yml'})
+ok: [localhost] =&gt; (item={'ext': '.yaml'})
+TASK [fetch galaxy roles from requirements.(yml/yaml)] *************************
+changed: [localhost] =&gt; (item={'changed': False, 'stat': {'exists': True, 'path': '/var/lib/awx/projects/_6__c2/roles/requirements.yml', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 390, 'inode': 131356, 'dev': 64771, 'nlink': 1, 'atime': 1613038457.4215767, 'mtime': 1613038456.678576, 'ctime': 1613038456.678576, 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False, 'blocks': 8, 'block_size': 4096, 'device_type': 0, 'readable': True, 'writeable': True, 'executable': False, 'pw_name': 'root', 'gr_name': 'root', 'checksum': '29ae537db56b12b54f2eecb8668f4185b7b1e91d', 'mimetype': 'text/plain', 'charset': 'us-ascii', 'version': None, 'attributes': [], 'attr_flags': ''}, 'invocation': {'module_args': {'path': '/var/lib/awx/projects/_6__c2/roles/requirements.yml', 'follow': False, 'get_md5'…
+skipping: [localhost] =&gt; (item={'changed': False, 'stat': {'exists': False}, 'invocation': {'module_args': {'path': '/var/lib/awx/projects/_6__c2/roles/requirements.yaml', 'follow': False, 'get_md5': False, 'get_checksum': True, 'get_mime': True, 'get_attributes': True, 'checksum_algorithm': 'sha1'}}, 'failed': False, 'item': {'ext': '.yaml'}, 'ansible_loop_var': 'item'}) 
+TASK [detect collections/requirements.(yml/yaml)] ******************************
+ok: [localhost] =&gt; (item={'ext': '.yml'})
+ok: [localhost] =&gt; (item={'ext': '.yaml'})
+TASK [fetch galaxy collections from collections/requirements.(yml/yaml)] *******
+failed: [localhost] (item={'changed': False, 'stat': {'exists': True, 'path': '/var/lib/awx/projects/_6__c2/collections/requirements.yml', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 183, 'inode': 131286, 'dev': 64771, 'nlink': 1, 'atime': 1613038457.4195766, 'mtime': 1613038456.673576, 'ctime': 1613038456.673576, 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False, 'blocks': 8, 'block_size': 4096, 'device_type': 0, 'readable': True, 'writeable': True, 'executable': False, 'pw_name': 'root', 'gr_name': 'root', 'checksum': '7b8e2a2b64c7d5e64917b548dc40347158f8bb1b', 'mimetype': 'text/plain', 'charset': 'us-ascii', 'version': None, 'attributes': [], 'attr_flags': ''}, 'invocation': {'module_args': {'path': '/var/lib/awx/projects/_6__c2/collections/requirements.yml', 'follow': False, '…
+skipping: [localhost] =&gt; (item={'changed': False, 'stat': {'exists': False}, 'invocation': {'module_args': {'path': '/var/lib/awx/projects/_6__c2/collections/requirements.yaml', 'follow': False, 'get_md5': False, 'get_checksum': True, 'get_mime': True, 'get_attributes': True, 'checksum_algorithm': 'sha1'}}, 'failed': False, 'item': {'ext': '.yaml'}, 'ansible_loop_var': 'item'}) 
+
+Of course I tested the requirements locally. It works. Just not in AWX.
+With the exception of one task having status failed I really don't see any difference between the error message on failure and the success logging when fetches roles.
+What is wrong here?
+",5
+42,66283860,A method for listing Ansible modules used by playbooks,"I'm creating a requirements.yml in an Ansible project, and I want to identify all of the modules that need to be installed from ansible-galaxy that are used by project playbooks. ansible-doc --list --playbook-dir foo seems like the right tool for the job, but it lists all locally available modules, not just the ones which are actually used in the foo directory. ansible-galaxy list doesn't account for any which are needed but not installed.
+Is there a way to do this where I don't end up writing a shell script to sed|awk|grep the info I want?
+
+The best approach I've been able to come up with so far is to ansible-playbook --syntax-check each of the playbooks. This will throw errors such as
+ERROR! the role 'foo' was not found ...
+ERROR! couldn't resolve module/action 'bar'. This often indicates a misspelling, missing collection, or incorrect module path.
+
+but this is not ideal because it exits as soon as any error occurs. I have to fix each one and run the syntax check again.
+",-1,-1,-1.0,"I'm creating a requirements.yml in an Ansible project, and I want to identify all of the modules that need to be installed from ansible-galaxy that are used by project playbooks. ansible-doc --list --playbook-dir foo seems like the right tool for the job, but it lists all locally available modules, not just the ones which are actually used in the foo directory. ansible-galaxy list doesn't account for any which are needed but not installed.
+Is there a way to do this where I don't end up writing a shell script to sed|awk|grep the info I want?
+
+The best approach I've been able to come up with so far is to ansible-playbook --syntax-check each of the playbooks. This will throw errors such as
+ERROR! the role 'foo' was not found ...
+ERROR! couldn't resolve module/action 'bar'. This often indicates a misspelling, missing collection, or incorrect module path.
+
+but this is not ideal because it exits as soon as any error occurs. I have to fix each one and run the syntax check again.
+",4
+43,67069392,Provide NextFlow workflow inputs (not parameters) via the CLI,"I have the following (simplified) nextflow module. It has one process, which runs a multiple sequence alignment on a fasta file, and a workflow that runs this process (eventually it will run other processes too):
+process clustal_omega_msa {
+    input:
+      path fastas
+    output:
+      path 'clustal.sto'
+    script:
+      &quot;&quot;&quot;
+      cat ${fastas} &gt; merged.fa
+      clustalo -infile merged.fa --outfmt=stockholm
+      &quot;&quot;&quot;
+    container &quot;https://depot.galaxyproject.org/singularity/clustalo:1.2.4--h1b792b2_4&quot;
+}
+
+workflow msa {
+  take:
+    path fastas
+  main:
+    clustal_omega_msa(fastas)
+}
+
+I want this workflow to be both importable as a sub-workflow, and also executable directly. For this reason I have specified no parameters, and only used inputs (because I believe parameters can't be specified when calling a subworkflow).
+However, I can see no way to run this subworkflow directly on the command line.
+If I run nextflow run msa.nf -entry msa I get the following error:
+No such variable: fastas
+
+ -- Check script 'msa.nf' at line: 1 or see '.nextflow.log' file for more details
+
+This makes sense - I haven't specified where these files come from. But how can I? If I follow the config part of the docs and create a nextflow.config with the following contents:
+fastas = &quot;/some/path/to/*.fasta&quot;
+
+I still get this error. I am also aware there is a -params-file option, but I believe that only works for parameters, not inputs.
+",-1,-1,-1.0,"I have the following (simplified) nextflow module. It has one process, which runs a multiple sequence alignment on a fasta file, and a workflow that runs this process (eventually it will run other processes too):
+process clustal_omega_msa {
+    input:
+      path fastas
+    output:
+      path 'clustal.sto'
+    script:
+      &quot;&quot;&quot;
+      cat ${fastas} &gt; merged.fa
+      clustalo -infile merged.fa --outfmt=stockholm
+      &quot;&quot;&quot;
+    container &quot;https://depot.galaxyproject.org/singularity/clustalo:1.2.4--h1b792b2_4&quot;
+}
+
+workflow msa {
+  take:
+    path fastas
+  main:
+    clustal_omega_msa(fastas)
+}
+
+I want this workflow to be both importable as a sub-workflow, and also executable directly. For this reason I have specified no parameters, and only used inputs (because I believe parameters can't be specified when calling a subworkflow).
+However, I can see no way to run this subworkflow directly on the command line.
+If I run nextflow run msa.nf -entry msa I get the following error:
+No such variable: fastas
+
+ -- Check script 'msa.nf' at line: 1 or see '.nextflow.log' file for more details
+
+This makes sense - I haven't specified where these files come from. But how can I? If I follow the config part of the docs and create a nextflow.config with the following contents:
+fastas = &quot;/some/path/to/*.fasta&quot;
+
+I still get this error. I am also aware there is a -params-file option, but I believe that only works for parameters, not inputs.
+",5
+44,67333570,ansible-galaxy fails to pull roles in gitlab-ci pipeline,"ansible-lint step in gitlab-ci pipeline is failing because of authentication error while running the ansible-galaxy install -r requirements.yml that pulls the roles dependency defined in the requirements.yml and clone the roles from git.
+I tried passing the authentication token via CICD variables but it doesn’t like that.
+requirements.yml
+- src: git+https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/../ansible/roles/ansible-role-s3-yumrepo.git
+  version: master
+  scm: git
+
+But it fails with below error
+Starting galaxy role install process
+
+[WARNING]: - ansible-role-s3-yumrepo was NOT installed successfully: -
+command /usr/bin/git clone https://gitlab-ci-
+token:${CI_JOB_TOKEN}@gitlab.com/../ansible/roles/ansible-role-s3-yumrepo.git
+ansible-role-s3-yumrepo failed in directory /root/.ansible/tmp/ansible-local-526mx2pctt4/tmp2n3_tp7_
+(rc=128) - Cloning into 'ansible-role-s3-yumrepo'... remote: HTTP Basic:
+Access denied fatal: Authentication failed for 'https://gitlab-ci-
+token:${CI_JOB_TOKEN}@gitlab.com/../ansible/roles/ansible-role-s3-yumrepo.git/'
+
+Anyone faced this issue before or know a better way to handle this (edited)
+",-1,-1,-1.0,"ansible-lint step in gitlab-ci pipeline is failing because of authentication error while running the ansible-galaxy install -r requirements.yml that pulls the roles dependency defined in the requirements.yml and clone the roles from git.
+I tried passing the authentication token via CICD variables but it doesn’t like that.
+requirements.yml
+- src: git+https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/../ansible/roles/ansible-role-s3-yumrepo.git
+  version: master
+  scm: git
+
+But it fails with below error
+Starting galaxy role install process
+
+[WARNING]: - ansible-role-s3-yumrepo was NOT installed successfully: -
+command /usr/bin/git clone https://gitlab-ci-
+token:${CI_JOB_TOKEN}@gitlab.com/../ansible/roles/ansible-role-s3-yumrepo.git
+ansible-role-s3-yumrepo failed in directory /root/.ansible/tmp/ansible-local-526mx2pctt4/tmp2n3_tp7_
+(rc=128) - Cloning into 'ansible-role-s3-yumrepo'... remote: HTTP Basic:
+Access denied fatal: Authentication failed for 'https://gitlab-ci-
+token:${CI_JOB_TOKEN}@gitlab.com/../ansible/roles/ansible-role-s3-yumrepo.git/'
+
+Anyone faced this issue before or know a better way to handle this (edited)
+",1
+45,67561961,Ansible Galaxy collection dependency SSH error with private GitHub repo,"Being new to Ansible collections I’m hoping I’ve missed something obvious here in my attempt to refactor some old Ansible roles into collections using private GitHub repositories.
+I have GitHub setup with 2 linked accounts. I’ll call the main personal account GITHUB_AC_P. The personal account is linked to a child organizational account I’ll call GITHUB_AC_O. I can switch between these accounts in the GitHub web UI and use the following single entry in ~/.ssh/config  to access both accounts with git clients:
+Host GITHUB_AC_P.github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_rsa_github_REDACTED_GITHUB_A
+
+I first added Ansible Galaxy collection files to a new GitHub repository named ansible.common in account GITHUB_AC_O. I plan to reuse this collection in other Ansible Galaxy collections. It currently has a single role and the following galaxy.yml file:
+namespace: REDACTED_NS
+name: common
+version: 0.0.1
+description: &quot;Common Ansible collection&quot;
+readme: README.md
+authors:
+  - REDACTED_AUTHOR
+
+The following command reports  “installed successfully” and I see the collection in ~/.ansible/collections/ansible_collections/REDACTED_NS/common:
+ansible-galaxy collection install git@GITHUB_AC_P.github.com:GITHUB_AC_O/ansible.common.git,main
+
+I then created a second Ansible Galaxy collection in a new GitHub repository named ansible.harden_host. This is also in account GITHUB_AC_O. This currently has no roles and uses the following galaxy.yml file to reference the above common collection (the value of REDACTED_NS is the same in both galaxy.yml files):
+namespace: REDACTED_NS
+name: harden_host
+version: 0.0.1
+description: &quot;Ansible collection to harden hosts&quot;
+readme: README.md
+authors:
+  - REDACTED_AUTHOR
+dependencies: {
+  REDACTED_NS.common: git@GITHUB_AC_P.github.com:GITHUB_AC_O/ansible.common.git,main
+}
+
+But when I run the following:
+ansible-galaxy collection install --verbose git@GITHUB_AC_P.github.com:GITHUB_AC_O/ansible.harden_host.git,main
+
+It fails with message:
+Starting galaxy collection install process
+Process install dependency map
+ERROR! Unknown error when attempting to call Galaxy at 'https://galaxy.ansible.com/api/': &lt;urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1123)&gt;
+
+Why is this trying to hit galaxy.ansible.com instead of my GitHub account?
+When I add --ignore-certs and run the following:
+ansible-galaxy collection install --ignore-certs git@GUTHUB_AC_P.github.com:GITHUB_AC_O/ansible.harden_host.git,main
+
+It fails with this different message:
+ERROR! Failed to find collection REDACTED_NS.common:git@GITHUB_AC_P.github.com:GITHUB_AC_O/ansible.common.git
+
+I pasted the URI from this error (right of the colon) into a ansible-galaxy collection install command to verify there’s no typo in the URI. This worked fine.
+The string REDACTED_NS does not equal the value of GITHUB_AC_P or GITHUB_AC_O.
+If someone could please explain what’s wrong here and how the issue can be fixed that would be much appreciated.
+",-1,-1,-1.0,"Being new to Ansible collections I’m hoping I’ve missed something obvious here in my attempt to refactor some old Ansible roles into collections using private GitHub repositories.
+I have GitHub setup with 2 linked accounts. I’ll call the main personal account GITHUB_AC_P. The personal account is linked to a child organizational account I’ll call GITHUB_AC_O. I can switch between these accounts in the GitHub web UI and use the following single entry in ~/.ssh/config  to access both accounts with git clients:
+Host GITHUB_AC_P.github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_rsa_github_REDACTED_GITHUB_A
+
+I first added Ansible Galaxy collection files to a new GitHub repository named ansible.common in account GITHUB_AC_O. I plan to reuse this collection in other Ansible Galaxy collections. It currently has a single role and the following galaxy.yml file:
+namespace: REDACTED_NS
+name: common
+version: 0.0.1
+description: &quot;Common Ansible collection&quot;
+readme: README.md
+authors:
+  - REDACTED_AUTHOR
+
+The following command reports  “installed successfully” and I see the collection in ~/.ansible/collections/ansible_collections/REDACTED_NS/common:
+ansible-galaxy collection install git@GITHUB_AC_P.github.com:GITHUB_AC_O/ansible.common.git,main
+
+I then created a second Ansible Galaxy collection in a new GitHub repository named ansible.harden_host. This is also in account GITHUB_AC_O. This currently has no roles and uses the following galaxy.yml file to reference the above common collection (the value of REDACTED_NS is the same in both galaxy.yml files):
+namespace: REDACTED_NS
+name: harden_host
+version: 0.0.1
+description: &quot;Ansible collection to harden hosts&quot;
+readme: README.md
+authors:
+  - REDACTED_AUTHOR
+dependencies: {
+  REDACTED_NS.common: git@GITHUB_AC_P.github.com:GITHUB_AC_O/ansible.common.git,main
+}
+
+But when I run the following:
+ansible-galaxy collection install --verbose git@GITHUB_AC_P.github.com:GITHUB_AC_O/ansible.harden_host.git,main
+
+It fails with message:
+Starting galaxy collection install process
+Process install dependency map
+ERROR! Unknown error when attempting to call Galaxy at 'https://galaxy.ansible.com/api/': &lt;urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1123)&gt;
+
+Why is this trying to hit galaxy.ansible.com instead of my GitHub account?
+When I add --ignore-certs and run the following:
+ansible-galaxy collection install --ignore-certs git@GUTHUB_AC_P.github.com:GITHUB_AC_O/ansible.harden_host.git,main
+
+It fails with this different message:
+ERROR! Failed to find collection REDACTED_NS.common:git@GITHUB_AC_P.github.com:GITHUB_AC_O/ansible.common.git
+
+I pasted the URI from this error (right of the colon) into a ansible-galaxy collection install command to verify there’s no typo in the URI. This worked fine.
+The string REDACTED_NS does not equal the value of GITHUB_AC_P or GITHUB_AC_O.
+If someone could please explain what’s wrong here and how the issue can be fixed that would be much appreciated.
+",1
+46,67726923,"""sudo: no password was provided"" when running an Ansible module with `local_action`","I'm trying to use this github_key community module to add an SSH publickey to a Github account.
+(I installed the community module with ansible-galaxy collection install community.general)
+In my task list, I -
+
+Read the publickey
+Call github_key (with local_action) to add that key to the Github account
+
+
+- name: Read SSH key for jeeves@github.com
+  shell: 'cat /home/jeeves/.ssh/jeeves@github.com.pub'
+  register: ssh_pub_key
+
+- name: Upload SSH key for jeeves@github.com
+  local_action:
+    module: github_key
+    name: 'Key for jeeves@my-server.dev'
+    token: '{{ github_token }}'
+    pubkey: '{{ ssh_pub_key.stdout }}'
+    force: yes
+
+When I run it get this error (in module_stderr output):
+[sudo via ansible, key=&lt;REDACTED&gt;] password:
+sudo: no password was provided
+sudo: 1 incorrect password attempt
+
+I guess it can't find my sudo password for the user.
+But I am providing a sudo password, and there are 30+ other tasks before this (not shown here) where it was able to successfully execute commands. In fact in my playbook definition I use become:
+- hosts: all
+  become: yes
+  become_method: sudo
+  become_user: root
+  gather_facts: yes
+  #...
+
+I think the issue is caused by local_action since it's having trouble even executing the module itself.
+Thanks!
+",-1,-1,-1.0,"I'm trying to use this github_key community module to add an SSH publickey to a Github account.
+(I installed the community module with ansible-galaxy collection install community.general)
+In my task list, I -
+
+Read the publickey
+Call github_key (with local_action) to add that key to the Github account
+
+
+- name: Read SSH key for jeeves@github.com
+  shell: 'cat /home/jeeves/.ssh/jeeves@github.com.pub'
+  register: ssh_pub_key
+
+- name: Upload SSH key for jeeves@github.com
+  local_action:
+    module: github_key
+    name: 'Key for jeeves@my-server.dev'
+    token: '{{ github_token }}'
+    pubkey: '{{ ssh_pub_key.stdout }}'
+    force: yes
+
+When I run it get this error (in module_stderr output):
+[sudo via ansible, key=&lt;REDACTED&gt;] password:
+sudo: no password was provided
+sudo: 1 incorrect password attempt
+
+I guess it can't find my sudo password for the user.
+But I am providing a sudo password, and there are 30+ other tasks before this (not shown here) where it was able to successfully execute commands. In fact in my playbook definition I use become:
+- hosts: all
+  become: yes
+  become_method: sudo
+  become_user: root
+  gather_facts: yes
+  #...
+
+I think the issue is caused by local_action since it's having trouble even executing the module itself.
+Thanks!
+",4
+47,68562708,Ansible-Galaxy for private gitlab repo referencing only one role's files for all roles,"I am just diving into hosting custom made roles in a private gitlab git repository.
+The answer to this may just be &quot;you must have only 1 repo for 1 role,&quot; which I have not done. I have tried to put two roles in a repo and have just used folders to differentiate them at the top level.
+I seem to have gotten the &quot;requirements.yml&quot; written correctly, as it pulled my roles. However it is putting all the files from 'nexus' into my skeleton role of 'chocolatey_factory'. The 'nexus' imported role comes across fine.
+My requirements file is the following:
+---
+- src: git+ssh://git@[local_ip_address]/gitlab-instance-937dde58/my_first_project.git
+  scm: git
+  version: main
+  name: nexus
+
+- src: git+ssh://git@[local_ip_address]/gitlab-instance-937dde58/my_first_project.git
+  scm: git
+  version: main
+  name: chocolatey_factory
+
+Here is my repo layout. The idea is I would have each folder at the top level of the repo be a role. So in this case, I have two roles.
+Top Level of Repo
+nexus folder/role files
+chocolatey_factory galaxy init folder
+What am I doing wrong here?
+One is 'nexus,' the other is 'chocolatey_factory'. Nexus is the public role available for configuring Sontaype nexus that I grabbed. Chocolatey_factory is one I am making, but it is just a ansible-galaxy init skeleton at this time:
+I then run my ansible-galaxy command
+ansible-galaxy install -r roles/requirements.yml -p roles/
+
+It imports the roles. But the files from 'nexus' role appear in the 'chocolatey_factory' role.
+The 'nexus' role has files like pom.xml, where the 'chocolatey_factory' does not have anything other than what ansible-galaxy init creates (ie it does not have a pom.xml file).
+You can see here both folders have all the same files.
+ls roles
+chocolatey_factory  nexus  requirements.yml
+
+ls roles/chocolatey_factory
+chocolatey_factory  filter_plugins  molecule          tasks
+CODE_OF_CONDUCT.md  handlers        pom.xml           templates
+defaults            LICENSE.md      README.md         tests
+files               meta            requirements.txt  vars
+
+ls roles/nexus
+chocolatey_factory  filter_plugins  molecule          tasks
+CODE_OF_CONDUCT.md  handlers        pom.xml           templates
+defaults            LICENSE.md      README.md         tests
+files               meta            requirements.txt  vars
+
+Why are my files from one role being inserted into the other? Can you not have two roles in the same git repository?
+",-1,-1,-1.0,"I am just diving into hosting custom made roles in a private gitlab git repository.
+The answer to this may just be &quot;you must have only 1 repo for 1 role,&quot; which I have not done. I have tried to put two roles in a repo and have just used folders to differentiate them at the top level.
+I seem to have gotten the &quot;requirements.yml&quot; written correctly, as it pulled my roles. However it is putting all the files from 'nexus' into my skeleton role of 'chocolatey_factory'. The 'nexus' imported role comes across fine.
+My requirements file is the following:
+---
+- src: git+ssh://git@[local_ip_address]/gitlab-instance-937dde58/my_first_project.git
+  scm: git
+  version: main
+  name: nexus
+
+- src: git+ssh://git@[local_ip_address]/gitlab-instance-937dde58/my_first_project.git
+  scm: git
+  version: main
+  name: chocolatey_factory
+
+Here is my repo layout. The idea is I would have each folder at the top level of the repo be a role. So in this case, I have two roles.
+Top Level of Repo
+nexus folder/role files
+chocolatey_factory galaxy init folder
+What am I doing wrong here?
+One is 'nexus,' the other is 'chocolatey_factory'. Nexus is the public role available for configuring Sontaype nexus that I grabbed. Chocolatey_factory is one I am making, but it is just a ansible-galaxy init skeleton at this time:
+I then run my ansible-galaxy command
+ansible-galaxy install -r roles/requirements.yml -p roles/
+
+It imports the roles. But the files from 'nexus' role appear in the 'chocolatey_factory' role.
+The 'nexus' role has files like pom.xml, where the 'chocolatey_factory' does not have anything other than what ansible-galaxy init creates (ie it does not have a pom.xml file).
+You can see here both folders have all the same files.
+ls roles
+chocolatey_factory  nexus  requirements.yml
+
+ls roles/chocolatey_factory
+chocolatey_factory  filter_plugins  molecule          tasks
+CODE_OF_CONDUCT.md  handlers        pom.xml           templates
+defaults            LICENSE.md      README.md         tests
+files               meta            requirements.txt  vars
+
+ls roles/nexus
+chocolatey_factory  filter_plugins  molecule          tasks
+CODE_OF_CONDUCT.md  handlers        pom.xml           templates
+defaults            LICENSE.md      README.md         tests
+files               meta            requirements.txt  vars
+
+Why are my files from one role being inserted into the other? Can you not have two roles in the same git repository?
+",1
+48,69634538,"ERROR! couldn't resolve module/action 'community.aws.ec2_instance_info'.This often indicates a misspelling,missing collection,or incorrect module path","I have a few Ubuntu 18.04 machines with ansible installed. When running ansible --version on all of them, I get the following output:
+ansible 2.9.27
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/home/ubuntu/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/dist-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 2.7.17 (default, Feb 27 2021, 15:10:58) [GCC 7.5.0]
+
+By the way, the paths defined at configured module search path don't exist.
+I installed community.aws collection on all machines:
+ansible-galaxy collection install community.aws
+I ran a simple playbook to collect data from some AWS EC2 instance:
+- name: test playbook
+  hosts: localhost
+  tasks:
+
+  - name: &quot;Set vars&quot;
+    set_fact:
+      ec2_instance_name: &quot;SomeName&quot;
+
+  - name: &quot;Gather EC2 instance info: {{ ec2_instance_name }}.&quot;
+    community.aws.ec2_instance_info:
+      aws_access_key: &quot;{{ lookup('env', 'AWS_ACCESS_KEY') }}&quot;
+      aws_secret_key: &quot;{{ lookup('env', 'AWS_SECRET_KEY') }}&quot;
+      region: &quot;{{ lookup('env', 'AWS_REGION') }}&quot;
+      filters:
+        &quot;tag:Name&quot;: &quot;{{ ec2_instance_name }}&quot;
+    register: ec2_instance_info_ret
+
+  - name: &quot;Show data&quot;
+    debug:
+      msg: &quot;{{ec2_instance_info_ret}}&quot;
+
+Everything works fine on all the machines except one, where I get the following error:
+ERROR! couldn't resolve module/action 'community.aws.ec2_instance_info'. This often indicates a misspelling, missing collection, or incorrect module path.
+
+I ran a sudo find / -name &quot;ec2_instance_info.py&quot; to see where that file might be installed. On all the machines I got exactly the same output:
+/usr/lib/python2.7/dist-packages/ansible/modules/cloud/amazon/ec2_instance_info.py
+/root/.ansible/collections/ansible_collections/amazon/aws/plugins/modules/ec2_instance_info.py
+/home/ubuntu/.ansible/collections/ansible_collections/community/aws/plugins/modules/ec2_instance_info.py
+
+I even forced a reinstall on that machine running this:
+ansible-galaxy collection install community.aws --force-with-deps
+
+I got this output:
+Installing 'community.aws:2.0.0' to '/home/ubuntu/.ansible/collections/ansible_collections/community/aws'
+Installing 'amazon.aws:2.0.0' to '/home/ubuntu/.ansible/collections/ansible_collections/amazon/aws'
+
+But this did not change anything.
+I also ran the force reinstall on a machine where previously everything worked fine. And I managed to break it too. Now I have two machines where the issue is reproducing.
+One solution is to call directly ec2_instance_info in my playbook instead of community.aws.ec2_instance_info. This works but I don't know why. Anyway, I don't like this solution because some ansible aws plugins work without the community.aws prefix and others don't. Besides that VS Code gives me a lot of warnings when I call such a plugin without the prefix.
+Do you have any idea how to fix this? I would like to call community.aws.ec2_instance_info in my playbook without getting any issues on any machine.
+",-1,-1,-1.0,"I have a few Ubuntu 18.04 machines with ansible installed. When running ansible --version on all of them, I get the following output:
+ansible 2.9.27
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/home/ubuntu/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/dist-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 2.7.17 (default, Feb 27 2021, 15:10:58) [GCC 7.5.0]
+
+By the way, the paths defined at configured module search path don't exist.
+I installed community.aws collection on all machines:
+ansible-galaxy collection install community.aws
+I ran a simple playbook to collect data from some AWS EC2 instance:
+- name: test playbook
+  hosts: localhost
+  tasks:
+
+  - name: &quot;Set vars&quot;
+    set_fact:
+      ec2_instance_name: &quot;SomeName&quot;
+
+  - name: &quot;Gather EC2 instance info: {{ ec2_instance_name }}.&quot;
+    community.aws.ec2_instance_info:
+      aws_access_key: &quot;{{ lookup('env', 'AWS_ACCESS_KEY') }}&quot;
+      aws_secret_key: &quot;{{ lookup('env', 'AWS_SECRET_KEY') }}&quot;
+      region: &quot;{{ lookup('env', 'AWS_REGION') }}&quot;
+      filters:
+        &quot;tag:Name&quot;: &quot;{{ ec2_instance_name }}&quot;
+    register: ec2_instance_info_ret
+
+  - name: &quot;Show data&quot;
+    debug:
+      msg: &quot;{{ec2_instance_info_ret}}&quot;
+
+Everything works fine on all the machines except one, where I get the following error:
+ERROR! couldn't resolve module/action 'community.aws.ec2_instance_info'. This often indicates a misspelling, missing collection, or incorrect module path.
+
+I ran a sudo find / -name &quot;ec2_instance_info.py&quot; to see where that file might be installed. On all the machines I got exactly the same output:
+/usr/lib/python2.7/dist-packages/ansible/modules/cloud/amazon/ec2_instance_info.py
+/root/.ansible/collections/ansible_collections/amazon/aws/plugins/modules/ec2_instance_info.py
+/home/ubuntu/.ansible/collections/ansible_collections/community/aws/plugins/modules/ec2_instance_info.py
+
+I even forced a reinstall on that machine running this:
+ansible-galaxy collection install community.aws --force-with-deps
+
+I got this output:
+Installing 'community.aws:2.0.0' to '/home/ubuntu/.ansible/collections/ansible_collections/community/aws'
+Installing 'amazon.aws:2.0.0' to '/home/ubuntu/.ansible/collections/ansible_collections/amazon/aws'
+
+But this did not change anything.
+I also ran the force reinstall on a machine where previously everything worked fine. And I managed to break it too. Now I have two machines where the issue is reproducing.
+One solution is to call directly ec2_instance_info in my playbook instead of community.aws.ec2_instance_info. This works but I don't know why. Anyway, I don't like this solution because some ansible aws plugins work without the community.aws prefix and others don't. Besides that VS Code gives me a lot of warnings when I call such a plugin without the prefix.
+Do you have any idea how to fix this? I would like to call community.aws.ec2_instance_info in my playbook without getting any issues on any machine.
+",1
+49,70117898,Use different Ansible collection versions in one Molecule scenario,"I have an Ansible collection to install some software. Each software version is attached to a separate collection version. To test an upgrade I need to apply an old collection version first and then run the new version. To achieve that, I slightly changed the converge/test sequence in molecule.yml:
+---
+driver:
+  name: docker
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_COLLECTIONS_PATH: ${MOLECULE_EPHEMERAL_DIRECTORY}/collections
+dependency:
+  name: galaxy
+  options:
+    requirements-file: ${MOLECULE_SCENARIO_DIRECTORY}/collections.yml
+scenario:
+  converge_sequence:
+    - create
+    - prepare    # installs previous collection and software version
+    - dependency # installs new collection version
+    - converge   # upgrades software
+  test_sequence:
+    - lint
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - dependency
+    - converge
+    - idempotence
+    - verify
+    - destroy
+
+So dependency step installs the new version of collection before upgrade activities in converge, and prepare playbook contains tasks to install an old collection version and previous software version:
+---
+- name: Prepare
+  hosts: all
+  become: true
+  become_method: sudo
+  gather_facts: true
+  tasks:
+    - name: Install previous collection version
+      command: &gt;-
+        ansible-galaxy collection install -r ../collections-upgrade.yml -p {{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/collections
+      run_once: true
+      delegate_to: localhost
+      changed_when: false
+
+    - name: Include installation role
+      include_role:
+        name: namespace.collection.role
+
+But it works only when converge runs twice or more, so collection is found in ANSIBLE_COLLECTIONS_PATH. But why it's not so for the first run? The error is
+TASK [Include installation role] *******************************************
+ERROR! the role 'namespace.collection.role' was not found in /workspaces/software/roles/software_upgrade/molecule/_shared/playbooks/roles:/workspaces/software/.cache/molecule/software_upgrade/scenario/roles:/workspaces/software/roles:/home/vscode/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles:/workspaces/software/roles/software_upgrade:/workspaces/software/roles/software_upgrade/molecule/_shared/playbooks
+
+The error appears to be in '/workspaces/software/roles/software_upgrade/molecule/_shared/playbooks/prepare.yml': line 35, column 15, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+      include_role:
+        name: namespace.collection.role
+              ^ here
+
+Is there a way to avoid that or use another approach? I tried to use an environment variable for dependency.options.requirements-file and execute dependency step twice when it's necessary to install different collection versions, but had also no success with that.
+",-1,-1,-1.0,"I have an Ansible collection to install some software. Each software version is attached to a separate collection version. To test an upgrade I need to apply an old collection version first and then run the new version. To achieve that, I slightly changed the converge/test sequence in molecule.yml:
+---
+driver:
+  name: docker
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_COLLECTIONS_PATH: ${MOLECULE_EPHEMERAL_DIRECTORY}/collections
+dependency:
+  name: galaxy
+  options:
+    requirements-file: ${MOLECULE_SCENARIO_DIRECTORY}/collections.yml
+scenario:
+  converge_sequence:
+    - create
+    - prepare    # installs previous collection and software version
+    - dependency # installs new collection version
+    - converge   # upgrades software
+  test_sequence:
+    - lint
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - dependency
+    - converge
+    - idempotence
+    - verify
+    - destroy
+
+So dependency step installs the new version of collection before upgrade activities in converge, and prepare playbook contains tasks to install an old collection version and previous software version:
+---
+- name: Prepare
+  hosts: all
+  become: true
+  become_method: sudo
+  gather_facts: true
+  tasks:
+    - name: Install previous collection version
+      command: &gt;-
+        ansible-galaxy collection install -r ../collections-upgrade.yml -p {{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/collections
+      run_once: true
+      delegate_to: localhost
+      changed_when: false
+
+    - name: Include installation role
+      include_role:
+        name: namespace.collection.role
+
+But it works only when converge runs twice or more, so collection is found in ANSIBLE_COLLECTIONS_PATH. But why it's not so for the first run? The error is
+TASK [Include installation role] *******************************************
+ERROR! the role 'namespace.collection.role' was not found in /workspaces/software/roles/software_upgrade/molecule/_shared/playbooks/roles:/workspaces/software/.cache/molecule/software_upgrade/scenario/roles:/workspaces/software/roles:/home/vscode/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles:/workspaces/software/roles/software_upgrade:/workspaces/software/roles/software_upgrade/molecule/_shared/playbooks
+
+The error appears to be in '/workspaces/software/roles/software_upgrade/molecule/_shared/playbooks/prepare.yml': line 35, column 15, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+      include_role:
+        name: namespace.collection.role
+              ^ here
+
+Is there a way to avoid that or use another approach? I tried to use an environment variable for dependency.options.requirements-file and execute dependency step twice when it's necessary to install different collection versions, but had also no success with that.
+",1
+50,70778615,How to publish android app to galaxy store my binary i always recieve this binary cannot be registered,"My Binary file cannot be registered on galaxy store. After i uploaded the apk i get this error(This binary cannot be registered. please try again later).
+",-1,-1,-1.0,"My Binary file cannot be registered on galaxy store. After i uploaded the apk i get this error(This binary cannot be registered. please try again later).
+",4
+51,71243842,Issue with installing ansible-galaxy azure.azcollection,"[root@jenkins-dev playbooks]# ansible-galaxy collection install azure.azcollection 
+ERROR! Unexpected Exception, this is probably a bug: cannot import name 'CollectionRequirement' from 'ansible.galaxy.collection' (/usr/local/lib/python3.7/site-packages/ansible/galaxy/collection/__init__.py)
+the full traceback was:
+
+Traceback (most recent call last):
+  File &quot;/usr/local/bin/ansible-galaxy&quot;, line 92, in &lt;module&gt;
+    mycli = getattr(__import__(&quot;ansible.cli.%s&quot; % sub, fromlist=[myclass]), myclass)
+  File &quot;/usr/local/lib/python3.7/site-packages/ansible/cli/galaxy.py&quot;, line 24, in &lt;module&gt;
+    from ansible.galaxy.collection import (
+ImportError: cannot import name 'CollectionRequirement' from 'ansible.galaxy.collection' (/usr/local/lib/python3.7/site-packages/ansible/galaxy/collection/__init__.py)
+
+",-1,-1,-1.0,"[root@jenkins-dev playbooks]# ansible-galaxy collection install azure.azcollection 
+ERROR! Unexpected Exception, this is probably a bug: cannot import name 'CollectionRequirement' from 'ansible.galaxy.collection' (/usr/local/lib/python3.7/site-packages/ansible/galaxy/collection/__init__.py)
+the full traceback was:
+
+Traceback (most recent call last):
+  File &quot;/usr/local/bin/ansible-galaxy&quot;, line 92, in &lt;module&gt;
+    mycli = getattr(__import__(&quot;ansible.cli.%s&quot; % sub, fromlist=[myclass]), myclass)
+  File &quot;/usr/local/lib/python3.7/site-packages/ansible/cli/galaxy.py&quot;, line 24, in &lt;module&gt;
+    from ansible.galaxy.collection import (
+ImportError: cannot import name 'CollectionRequirement' from 'ansible.galaxy.collection' (/usr/local/lib/python3.7/site-packages/ansible/galaxy/collection/__init__.py)
+
+",4
+52,72882080,ansible mssql issue ( ansible-galaxy module),"I am trying to query the sql server from ansible controller. Using the ansible-galaxy in built collections. The server is accessible and WINRM is working. But still I am getting the below error message. Can anyone suggest what is the issue ? TIA
+https://docs.ansible.com/ansible/devel//collections/community/general/mssql_script_module.html
+YML file.
+
+hosts: win
+gather_facts: no
+collections:
+
+community.general
+tasks:
+name: Check DB connection
+community.general.mssql_script:
+login_user: &quot;testadmin&quot;
+login_password: &quot;test@12345&quot;
+login_host: &quot;xxxxxxxx\SQLEXPRESS&quot;
+login_port: &quot;1433&quot;
+db: master
+script: &quot;SELECT 1&quot;
+
+
+
+Error message
+fatal: [x.x.x.x]: FAILED! =&gt; {
+&quot;changed&quot;: false,
+&quot;module_stderr&quot;: &quot;Exception calling &quot;Create&quot; with &quot;1&quot; argument(s): &quot;At line:4 char:21\r\n+ def _ansiballz_main():\r\n+                     ~\r\nAn expression was expected after '('.\r\nAt line:13 char:27\r\n+     except (AttributeError, OSError):\r\n+                           ~\r\nMissing argument in parameter list.\r\nAt line:15 char:29\r\n+     excludes = set(('', '.', scriptdir))\r\n+                             ~\r\nMissing expression after ','.\r\nAt line:15 char:30\r\n+     excludes = set(('', '.', scriptdir))\r\n+                              ~~~~~~~~~\r\nUnexpected token 'scriptdir' in expression or statement.\r\nAt line:15 char:29\r\n+     excludes = set(('', '.', scriptdir))\r\n+                             ~\r\nMissing closing ')' in expression.\r\nAt line:15 char:39\r\n+     excludes = set(('', '.', scriptdir))\r\n+                                       ~\r\nUnexpected token ')' in expression or statement.\r\nAt line:15 char:40\r\n+     excludes = set(('', '.', scriptdir))\r\n+                                        ~\r\nUnexpected token ')' in expression or statement.\r\nAt line:22 char:7\r\n+     if sys.version_info &lt; (3,):\r\n+       ~\r\nMissing '(' after 'if' in if statement.\r\nAt line:22 char:30\r\n+     if sys.version_info &lt; (3,):\r\n+                              ~\r\nMissing expression after ','.\r\nAt line:22 char:25\r\n+     if sys.version_info &lt; (3,):\r\n+                         ~\r\nThe '&lt;' operator is reserved for future use.\r\nNot all parse errors were reported.  Correct the reported errors and try again.&quot;\r\nAt line:10 char:1\r\n+ $exec_wrapper = [ScriptBlock]::Create($split_parts[0])\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException\r\n    + FullyQualifiedErrorId : ParseException\r\n \r\nThe expression after '&amp;' in a pipeline element produced an object that was not valid. It must result in a command \r\nname, a script block, or a CommandInfo object.\r\nAt line:11 char:2\r\n+ &amp;$exec_wrapper\r\n+  ~~~~~~~~~~~~~\r\n    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException\r\n    + FullyQualifiedErrorId : BadExpression\r\n &quot;,
+&quot;module_stdout&quot;: &quot;&quot;,
+&quot;msg&quot;: &quot;MODULE FAILURE\nSee stdout/stderr for the exact error&quot;,
+&quot;rc&quot;: 1
+}
+",-1,-1,-1.0,"I am trying to query the sql server from ansible controller. Using the ansible-galaxy in built collections. The server is accessible and WINRM is working. But still I am getting the below error message. Can anyone suggest what is the issue ? TIA
+https://docs.ansible.com/ansible/devel//collections/community/general/mssql_script_module.html
+YML file.
+
+hosts: win
+gather_facts: no
+collections:
+
+community.general
+tasks:
+name: Check DB connection
+community.general.mssql_script:
+login_user: &quot;testadmin&quot;
+login_password: &quot;test@12345&quot;
+login_host: &quot;xxxxxxxx\SQLEXPRESS&quot;
+login_port: &quot;1433&quot;
+db: master
+script: &quot;SELECT 1&quot;
+
+
+
+Error message
+fatal: [x.x.x.x]: FAILED! =&gt; {
+&quot;changed&quot;: false,
+&quot;module_stderr&quot;: &quot;Exception calling &quot;Create&quot; with &quot;1&quot; argument(s): &quot;At line:4 char:21\r\n+ def _ansiballz_main():\r\n+                     ~\r\nAn expression was expected after '('.\r\nAt line:13 char:27\r\n+     except (AttributeError, OSError):\r\n+                           ~\r\nMissing argument in parameter list.\r\nAt line:15 char:29\r\n+     excludes = set(('', '.', scriptdir))\r\n+                             ~\r\nMissing expression after ','.\r\nAt line:15 char:30\r\n+     excludes = set(('', '.', scriptdir))\r\n+                              ~~~~~~~~~\r\nUnexpected token 'scriptdir' in expression or statement.\r\nAt line:15 char:29\r\n+     excludes = set(('', '.', scriptdir))\r\n+                             ~\r\nMissing closing ')' in expression.\r\nAt line:15 char:39\r\n+     excludes = set(('', '.', scriptdir))\r\n+                                       ~\r\nUnexpected token ')' in expression or statement.\r\nAt line:15 char:40\r\n+     excludes = set(('', '.', scriptdir))\r\n+                                        ~\r\nUnexpected token ')' in expression or statement.\r\nAt line:22 char:7\r\n+     if sys.version_info &lt; (3,):\r\n+       ~\r\nMissing '(' after 'if' in if statement.\r\nAt line:22 char:30\r\n+     if sys.version_info &lt; (3,):\r\n+                              ~\r\nMissing expression after ','.\r\nAt line:22 char:25\r\n+     if sys.version_info &lt; (3,):\r\n+                         ~\r\nThe '&lt;' operator is reserved for future use.\r\nNot all parse errors were reported.  Correct the reported errors and try again.&quot;\r\nAt line:10 char:1\r\n+ $exec_wrapper = [ScriptBlock]::Create($split_parts[0])\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException\r\n    + FullyQualifiedErrorId : ParseException\r\n \r\nThe expression after '&amp;' in a pipeline element produced an object that was not valid. It must result in a command \r\nname, a script block, or a CommandInfo object.\r\nAt line:11 char:2\r\n+ &amp;$exec_wrapper\r\n+  ~~~~~~~~~~~~~\r\n    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException\r\n    + FullyQualifiedErrorId : BadExpression\r\n &quot;,
+&quot;module_stdout&quot;: &quot;&quot;,
+&quot;msg&quot;: &quot;MODULE FAILURE\nSee stdout/stderr for the exact error&quot;,
+&quot;rc&quot;: 1
+}
+",1
+53,73247065,Install a specific version of a role with Ansible Galaxy,"I'm installing an ansible role with:
+ansible-galaxy install geerlingguy.java
+
+But this command install the latest version.
+I need to install an old version like:
+ansible-galaxy install geerlingguy.java:1.10.0
+
+But this command launches this error:
+ansible-galaxy install geerlingguy.java:1.10.0
+- downloading role '0', owned by geerlingguy.java%3A1.10
+[WARNING]: - geerlingguy.java:1.10.0 was NOT installed successfully: - sorry, geerlingguy.java:1.10.0 was not found on https://galaxy.ansible.com/api/.
+ERROR! - you can use --ignore-errors to skip failed roles and finish processing the list.
+
+",-1,-1,-1.0,"I'm installing an ansible role with:
+ansible-galaxy install geerlingguy.java
+
+But this command install the latest version.
+I need to install an old version like:
+ansible-galaxy install geerlingguy.java:1.10.0
+
+But this command launches this error:
+ansible-galaxy install geerlingguy.java:1.10.0
+- downloading role '0', owned by geerlingguy.java%3A1.10
+[WARNING]: - geerlingguy.java:1.10.0 was NOT installed successfully: - sorry, geerlingguy.java:1.10.0 was not found on https://galaxy.ansible.com/api/.
+ERROR! - you can use --ignore-errors to skip failed roles and finish processing the list.
+
+",1
+54,74530241,Ansible AWX returns error: template error while templating string: unable to locate collection community.general,"I am working on a project using ansible AWX. In this project I have a check to see if all my microk8s pods are in the state running. Before I installed AWX I was testing all my plays on my linux vm. The following play worked fine on my linux vm but does not seem to work in ansible awx.
+- name: Wait for pods to become running
+  hosts: host_company_01
+  tasks:
+    - name: wait for pod status
+      shell: kubectl get pods -o json
+      register: kubectl_get_pods
+      until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == [&quot;Running&quot;]
+      timeout: 600
+
+AWX gives me the following respons
+[WARNING]: an unexpected error occurred during Jinja2 environment setup: unable
+to locate collection community.general
+fatal: [host_company_01]: FAILED! =&gt; {&quot;msg&quot;: &quot;The conditional check 'kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == [\&quot;Running\&quot;]' failed. The error was: template error while templating string: unable to locate collection community.general. String: {% if kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == [\&quot;Running\&quot;] %} True {% else %} False {% endif %}&quot;}
+
+I have looked at the error message and tried different possible solutions but without any effect.
+First thing I tried was looking for the community.general collections in the ansible galaxy collection list. After I saw that it was found I tried downloading it once again, but this time with sudo. The collection was installed. After running my workflow template, the error message popped up again.
+Second thing was trying to use different Execution environments, I thought that this was not going to make any difference but tried it anyways since someone online fixed a similar issue by changed EE.
+Last thing I tried was trying to find a way around this play by building a new play with different commands. Sadly I was not able to build an other play that did what the original one did.
+Since I can not build a play that fits my needs I came back at the error message to try and fix it.
+",-1,-1,-1.0,"I am working on a project using ansible AWX. In this project I have a check to see if all my microk8s pods are in the state running. Before I installed AWX I was testing all my plays on my linux vm. The following play worked fine on my linux vm but does not seem to work in ansible awx.
+- name: Wait for pods to become running
+  hosts: host_company_01
+  tasks:
+    - name: wait for pod status
+      shell: kubectl get pods -o json
+      register: kubectl_get_pods
+      until: kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == [&quot;Running&quot;]
+      timeout: 600
+
+AWX gives me the following respons
+[WARNING]: an unexpected error occurred during Jinja2 environment setup: unable
+to locate collection community.general
+fatal: [host_company_01]: FAILED! =&gt; {&quot;msg&quot;: &quot;The conditional check 'kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == [\&quot;Running\&quot;]' failed. The error was: template error while templating string: unable to locate collection community.general. String: {% if kubectl_get_pods.stdout|from_json|json_query('items[*].status.phase')|unique == [\&quot;Running\&quot;] %} True {% else %} False {% endif %}&quot;}
+
+I have looked at the error message and tried different possible solutions but without any effect.
+First thing I tried was looking for the community.general collections in the ansible galaxy collection list. After I saw that it was found I tried downloading it once again, but this time with sudo. The collection was installed. After running my workflow template, the error message popped up again.
+Second thing was trying to use different Execution environments, I thought that this was not going to make any difference but tried it anyways since someone online fixed a similar issue by changed EE.
+Last thing I tried was trying to find a way around this play by building a new play with different commands. Sadly I was not able to build an other play that did what the original one did.
+Since I can not build a play that fits my needs I came back at the error message to try and fix it.
+",4
+55,74071601,"""MongoError: no primary found in replicaset"" when trying to connect to mongodb database locally or through our galaxy server","I know this question has been asked before, but none of those solutions seem to have worked for me so far.
+We've migrated our database over to and IBM cloud hosted mongoDB. I've got the connection working successfully for our .NET applications that use the Mongo.Driver library, but i can't get it work for our meteor app... Here's the connection string I have currently:
+mongodb://admin:[PASSWORD]@url1.databases.appdomain.cloud:31928,url2.databases.appdomain.cloud:31928,url3.databases.appdomain.cloud:31928/dyo?authSource=admin;tls=true;tlsInsecure=true;connect=replicaSet;replicaSet=replset
+
+I then run the connection string in this command:
+SET MONGO_URL=[connection string shown above] &amp;&amp; meteor --settings settings.json
+
+And then we just get the error you see in the title over and over again. This happens on our galaxy server and locally. I feel like i should get this working locally first before deploying to our Galaxy server. Does anyone have any tips as to what could be happening here? I'm new to working with mongodb's and am at a loss
+More info:
+
+MongoDB version: 4.4
+Meteor version: 1.4.4.1
+
+",-1,-1,-1.0,"I know this question has been asked before, but none of those solutions seem to have worked for me so far.
+We've migrated our database over to and IBM cloud hosted mongoDB. I've got the connection working successfully for our .NET applications that use the Mongo.Driver library, but i can't get it work for our meteor app... Here's the connection string I have currently:
+mongodb://admin:[PASSWORD]@url1.databases.appdomain.cloud:31928,url2.databases.appdomain.cloud:31928,url3.databases.appdomain.cloud:31928/dyo?authSource=admin;tls=true;tlsInsecure=true;connect=replicaSet;replicaSet=replset
+
+I then run the connection string in this command:
+SET MONGO_URL=[connection string shown above] &amp;&amp; meteor --settings settings.json
+
+And then we just get the error you see in the title over and over again. This happens on our galaxy server and locally. I feel like i should get this working locally first before deploying to our Galaxy server. Does anyone have any tips as to what could be happening here? I'm new to working with mongodb's and am at a loss
+More info:
+
+MongoDB version: 4.4
+Meteor version: 1.4.4.1
+
+",3
+56,74853083,How do I use a Ansible Galaxy role in a task that requires root privileges?,"I wrote a playbook that uses a set of roles according the suggested structure https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html#role-directory-structure
+Now I want to use a Ansible Galaxy dependency for the first time and defined it in requirements.yml and install it in the playbook itself.
+I want to call the role in my subrole task subrole/tasks/main.yml. As stated in the documentation (https://galaxy.ansible.com/geerlingguy/postgresql) the role needs root access. In a play this is easy and only an added become: true is working. However in my task I need to use the include_role module that had this feature once, but it was removed. Now there is another option called apply that's documentation (https://docs.ansible.com/ansible/latest/collections/ansible/builtin/include_role_module.html#parameter-apply) states the same feature: Accepts a hash of task keywords (e.g. tags, become) that will be applied to all tasks within the included role.
+But this is not working. The error message clearly states the the root privilege is missing.
+- name: use postgresql role
+  ansible.builtin.include_role:
+    name: geerlingguy.postgresql
+    apply:
+      become: true
+
+What am I doing wrong? Why was the direct way of using become like in a play removed at all? Should tasks be avoided? Questions over questions...
+",-1,-1,-1.0,"I wrote a playbook that uses a set of roles according the suggested structure https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html#role-directory-structure
+Now I want to use a Ansible Galaxy dependency for the first time and defined it in requirements.yml and install it in the playbook itself.
+I want to call the role in my subrole task subrole/tasks/main.yml. As stated in the documentation (https://galaxy.ansible.com/geerlingguy/postgresql) the role needs root access. In a play this is easy and only an added become: true is working. However in my task I need to use the include_role module that had this feature once, but it was removed. Now there is another option called apply that's documentation (https://docs.ansible.com/ansible/latest/collections/ansible/builtin/include_role_module.html#parameter-apply) states the same feature: Accepts a hash of task keywords (e.g. tags, become) that will be applied to all tasks within the included role.
+But this is not working. The error message clearly states the the root privilege is missing.
+- name: use postgresql role
+  ansible.builtin.include_role:
+    name: geerlingguy.postgresql
+    apply:
+      become: true
+
+What am I doing wrong? Why was the direct way of using become like in a play removed at all? Should tasks be avoided? Questions over questions...
+",1
+57,74902588,Error installing Ansible Collection from Requirements file,"I'm trying to install the cyberark.pas collection using a requirements file in my project.  Today I install the collection from AWX via ansible Galaxy, but the job fails a couple of times a day with the following error:
+&quot;stderr&quot;: &quot;ERROR! Unexpected Exception, this is probably a bug: The read operation timed out&quot;,
+
+Here is my requirements file:
+---
+collections:
+  - name: cyberark.pas
+    source: https://galaxy.ansible.com
+
+After reading this ansible-galaxy timeout issue  https://github.com/ansible/galaxy/issues/2302 I thought I would change getting the collection from Github.  I found the collection here: https://github.com/cyberark/ansible-security-automation-collection and changed my requirements file to look like this:
+---
+collections:
+  - name: https://github.com/cyberark/ansible-security-automation-collection.git
+    type: git
+
+When I run this from AWX I get the error that it is expecting a .tar file and this is not a .tar file.
+I was hoping someone might be able to help me with what I'm doing wrong.
+",-1,-1,-1.0,"I'm trying to install the cyberark.pas collection using a requirements file in my project.  Today I install the collection from AWX via ansible Galaxy, but the job fails a couple of times a day with the following error:
+&quot;stderr&quot;: &quot;ERROR! Unexpected Exception, this is probably a bug: The read operation timed out&quot;,
+
+Here is my requirements file:
+---
+collections:
+  - name: cyberark.pas
+    source: https://galaxy.ansible.com
+
+After reading this ansible-galaxy timeout issue  https://github.com/ansible/galaxy/issues/2302 I thought I would change getting the collection from Github.  I found the collection here: https://github.com/cyberark/ansible-security-automation-collection and changed my requirements file to look like this:
+---
+collections:
+  - name: https://github.com/cyberark/ansible-security-automation-collection.git
+    type: git
+
+When I run this from AWX I get the error that it is expecting a .tar file and this is not a .tar file.
+I was hoping someone might be able to help me with what I'm doing wrong.
+",1
+58,75765614,Ansible Molecule ignores collection requirements,"I like to use a git based Ansible Collection with my role and try to test that role with molecule. But when I run molecule, there isno output showing me, it is adding that collection nor it find the module/filter during runtime.
+molecule 4.0.4 using python 3.9 
+ansible:2.14.1
+delegated:4.0.4 from molecule
+docker:2.1.0 from molecule_docker requiring collections: community.docker&gt;=3.0.2 ansible.posix&gt;=1.4.0
+
+The molecule.yml contains
+---
+dependency:
+  name: galaxy
+  options:
+    requirements-file: collections.yml
+...
+
+And the collections.yml contains:
+---
+collections:
+  - name: https://github.com/acoby/ansible-collection.git
+    type: git 
+    version: main
+
+During the converge tests, I'm using a filter, that is available in that collection, but it only says:
+$ molecule test
+INFO     default scenario test matrix: dependency, lint, cleanup, destroy, syntax, create, prepare, converge, idempotence, side_effect, verify, cleanup, destroy
+INFO     Performing prerun with role_name_check=0...
+INFO     Set ANSIBLE_LIBRARY=/homedir/.cache/ansible-compat/0ad1ad/modules:/homedir/.ansible/plugins/modules:/usr/share/ansible/plugins/modules
+INFO     Set ANSIBLE_COLLECTIONS_PATH=/homedir/.cache/ansible-compat/0ad1ad/collections:/homedir/.ansible/collections:/usr/share/ansible/collections
+INFO     Set ANSIBLE_ROLES_PATH=/homedir/.cache/ansible-compat/0ad1ad/roles:/homedir/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
+INFO     Using /homedir/.cache/ansible-compat/0ad1ad/roles/acoby.common symlink to current repository in order to enable Ansible to find the role using its expected full name.
+INFO     Running default &gt; dependency
+WARNING  Skipping, missing the requirements file.
+WARNING  Skipping, missing the requirements file.
+INFO     Running default &gt; lint
+INFO     Lint is disabled.
+INFO     Running default &gt; cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Running default &gt; destroy
+INFO     Sanity checks: 'docker'
+
+PLAY [Destroy] *****************************************************************
+
+...
+
+INFO     Running default &gt; syntax
+
+playbook: /homedir/git/github/ansible-common/molecule/default/converge.yml
+INFO     Running default &gt; create
+
+PLAY [Create] ******************************************************************
+
+...
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=6    changed=2    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0
+
+INFO     Running default &gt; prepare
+WARNING  Skipping, prepare playbook not configured.
+INFO     Running default &gt; converge
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [instance]
+
+....
+An exception occurred during task execution. 
+To see the full traceback, use -vvv. The error was: #eof. 
+Could not load &quot;acoby.collection.my_urlencode&quot;: 
+'Invalid plugin FQCN (acoby.collection.my_urlencode): 
+unable to locate collection acoby.collection'
+failed: [instance] (item={'src': 'mail.rc.j2', 'dest': '/root/.mailrc', 'mode': '0440'}) 
+...
+
+Has somebody an idea, what is wrong? Why is the molecule run ignoring my collectiony.yml and is not installing it. There was in issue before molecule 3.0.3, but that seems to be fixed.
+",-1,-1,-1.0,"I like to use a git based Ansible Collection with my role and try to test that role with molecule. But when I run molecule, there isno output showing me, it is adding that collection nor it find the module/filter during runtime.
+molecule 4.0.4 using python 3.9 
+ansible:2.14.1
+delegated:4.0.4 from molecule
+docker:2.1.0 from molecule_docker requiring collections: community.docker&gt;=3.0.2 ansible.posix&gt;=1.4.0
+
+The molecule.yml contains
+---
+dependency:
+  name: galaxy
+  options:
+    requirements-file: collections.yml
+...
+
+And the collections.yml contains:
+---
+collections:
+  - name: https://github.com/acoby/ansible-collection.git
+    type: git 
+    version: main
+
+During the converge tests, I'm using a filter, that is available in that collection, but it only says:
+$ molecule test
+INFO     default scenario test matrix: dependency, lint, cleanup, destroy, syntax, create, prepare, converge, idempotence, side_effect, verify, cleanup, destroy
+INFO     Performing prerun with role_name_check=0...
+INFO     Set ANSIBLE_LIBRARY=/homedir/.cache/ansible-compat/0ad1ad/modules:/homedir/.ansible/plugins/modules:/usr/share/ansible/plugins/modules
+INFO     Set ANSIBLE_COLLECTIONS_PATH=/homedir/.cache/ansible-compat/0ad1ad/collections:/homedir/.ansible/collections:/usr/share/ansible/collections
+INFO     Set ANSIBLE_ROLES_PATH=/homedir/.cache/ansible-compat/0ad1ad/roles:/homedir/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
+INFO     Using /homedir/.cache/ansible-compat/0ad1ad/roles/acoby.common symlink to current repository in order to enable Ansible to find the role using its expected full name.
+INFO     Running default &gt; dependency
+WARNING  Skipping, missing the requirements file.
+WARNING  Skipping, missing the requirements file.
+INFO     Running default &gt; lint
+INFO     Lint is disabled.
+INFO     Running default &gt; cleanup
+WARNING  Skipping, cleanup playbook not configured.
+INFO     Running default &gt; destroy
+INFO     Sanity checks: 'docker'
+
+PLAY [Destroy] *****************************************************************
+
+...
+
+INFO     Running default &gt; syntax
+
+playbook: /homedir/git/github/ansible-common/molecule/default/converge.yml
+INFO     Running default &gt; create
+
+PLAY [Create] ******************************************************************
+
+...
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=6    changed=2    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0
+
+INFO     Running default &gt; prepare
+WARNING  Skipping, prepare playbook not configured.
+INFO     Running default &gt; converge
+
+PLAY [Converge] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [instance]
+
+....
+An exception occurred during task execution. 
+To see the full traceback, use -vvv. The error was: #eof. 
+Could not load &quot;acoby.collection.my_urlencode&quot;: 
+'Invalid plugin FQCN (acoby.collection.my_urlencode): 
+unable to locate collection acoby.collection'
+failed: [instance] (item={'src': 'mail.rc.j2', 'dest': '/root/.mailrc', 'mode': '0440'}) 
+...
+
+Has somebody an idea, what is wrong? Why is the molecule run ignoring my collectiony.yml and is not installing it. There was in issue before molecule 3.0.3, but that seems to be fixed.
+",1
