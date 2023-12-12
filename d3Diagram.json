@@ -1,0 +1,61 @@
+{
+ "name": "SWfMS Common Topics",
+ "children": [
+  {
+     "name": "Error Handling and Resolution",
+     "children": [
+      {"name": "Galaxy", "value": 91.66},
+      {"name": "Knime", "value": 8.33},
+      {"name": "Nextflow", "value": 91.66},
+      {"name": "Kepler", "value": 91.66},
+      {"name": "Teradata", "value": 91.66},
+      {"name": "Airflow", "value": 91.66},
+      {"name": "Argo", "value": 91.66},
+      {"name": "Luigi", "value": 91.66},
+      {"name": "MonetDB", "value": 91.66},
+      {"name": "RapidMiner", "value": 91.66},
+      {"name": "Swarm", "value": 91.66},
+      {"name": "Workbench", "value": 91.66}
+     ]
+    },
+    {
+      "name": "File Handling and Management",
+      "children": [
+       {"name": "Galaxy", "value": 91.66},
+       {"name": "Knime", "value": 8.33},
+       {"name": "Nextflow", "value": 91.66},
+       {"name": "Kepler", "value": 91.66},
+       {"name": "Airflow", "value": 91.66},
+       {"name": "Argo", "value": 91.66},
+       {"name": "Luigi", "value": 91.66},
+       {"name": "MonetDB", "value": 91.66},
+       {"name": "Swarm", "value": 91.66}
+      ]
+     },
+     {
+      "name": "Workflow Execution and Management",
+      "children": [
+       {"name": "Galaxy", "value": 91.66},
+       {"name": "SnakeMake", "value": 8.33},
+       {"name": "Nextflow", "value": 91.66},
+       {"name": "Argo", "value": 91.66},
+       {"name": "Luigi", "value": 91.66}
+      ]
+     },
+     {
+      "name": "Database Operation and Management",
+      "children": [
+       {"name": "Galaxy", "value": 91.66},
+       {"name": "Knime", "value": 8.33},
+       {"name": "Teradata", "value": 91.66}
+      ]
+     },
+     {
+      "name": "Data Manipulation and Analysis",
+      "children": [
+       {"name": "Kepler", "value": 91.66},
+       {"name": "RapidMiner", "value": 91.66}
+      ]
+     }
+  ]
+}
